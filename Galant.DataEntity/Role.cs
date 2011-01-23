@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 namespace Galant.DataEntity
 {
+    [DataContract]
     public enum RoleType
-    {   }
+    { }
+    [DataContract]
     public class Role:BaseData
     {
         private int roleId;

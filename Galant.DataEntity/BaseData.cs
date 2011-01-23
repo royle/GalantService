@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
+using System.Runtime.Serialization;
 
 namespace Galant.DataEntity
 {
-    public abstract class BaseData: INotifyPropertyChanged, IDataErrorInfo,ICloneable
-    {
+    [DataContract]
+    [KnownType(typeof(Entity))]
+    [KnownType(typeof(Package))]
+    public class BaseData: INotifyPropertyChanged, IDataErrorInfo,ICloneable
+    {        
         public BaseData()
         { 
             
@@ -39,9 +43,11 @@ namespace Galant.DataEntity
 
         #region IErrorInfo
         private Dictionary<String, String> errorStrings = new Dictionary<string, string>();
+        
         public string Error
         {
             get { throw new NotImplementedException(); }
+            set { }
         }
 
         public string this[string columnName]
@@ -55,13 +61,16 @@ namespace Galant.DataEntity
                 }
                 return String.Empty;
             }
+            set { }
         }
-
+        
         public String[] Errors
         {
             get { 
                 return errorStrings.Values.ToArray<String>();
             }
+            set
+            { }
         }
         #endregion // IErrorInfo
 

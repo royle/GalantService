@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 namespace Galant.DataEntity
 {
+    [DataContract]
     public enum EntityType
     {
         /// <summary>
@@ -29,15 +31,17 @@ namespace Galant.DataEntity
         Individual = 0x04,
     }
 
+    [DataContract]
     public enum PayType
     {
         AtTime = 0, Before = 1,  After = 2
     }
 
+    [DataContract]
     public class Entity:BaseData
     {
         private int entityId;
-
+        [DataMember]
         public int EntityId
         {
             get { return entityId; }
@@ -45,6 +49,7 @@ namespace Galant.DataEntity
         }
         private String alias;
 
+        [DataMember]
         public String Alias
         {
             get { return alias; }
@@ -52,6 +57,7 @@ namespace Galant.DataEntity
         }
         private String password;
 
+        [DataMember]
         public String Password
         {
             get { return password; }

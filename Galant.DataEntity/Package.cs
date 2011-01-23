@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 namespace Galant.DataEntity
 {
+    [DataContract]
     public enum PackageState
     {
         
     }
 
+    [DataContract]
     public class Package:BaseData
     {
         private int packageId;

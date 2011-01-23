@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 namespace Galant.DataEntity
 {
+    [DataContract]
     public enum ProductEnum
     { }
+    [DataContract]
     public class Product:BaseData
     {
         private int productId;

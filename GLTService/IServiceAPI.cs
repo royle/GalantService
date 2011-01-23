@@ -4,11 +4,14 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using Galant.DataEntity;
+using System.Reflection;
 
 namespace GLTService
 {
     // NOTE: If you change the interface name "IServiceAPI" here, you must also update the reference to "IService1" in Web.config.
     [ServiceContract]
+    [ServiceKnownType("GetKnownTypes", typeof(KnownTypesProvider))] 
     public interface IServiceAPI
     {
 
@@ -21,6 +24,23 @@ namespace GLTService
         // TODO: Add your service operations here
     }
 
+    static class KnownTypesProvider
+    {
+        static Type[] GetKnownTypes(ICustomAttributeProvider knownTypeAttributeTarget)
+        {
+
+
+
+
+            Type contractType = (Type)knownTypeAttributeTarget;
+
+
+            return contractType.GetGenericArguments();
+
+
+        }
+
+    }
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations.
     [DataContract]
@@ -38,10 +58,10 @@ namespace GLTService
         }
         string userName="";
         string passWord = "";
-        List<Object> data;
+        List<BaseData> data;
 
         [DataMember]
-        public List<Object> Data
+        public List<BaseData> Data
         {
             get { return data; }
             set { data = value; }

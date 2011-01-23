@@ -2,20 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 namespace Galant.DataEntity
 {
+    [DataContract]
     public enum PaperStatus
     { }
+    [DataContract]
     public enum PaperSubState
     { }
+    [DataContract]
     public enum PaperBound
     { }
+    [DataContract]
     public enum PaperType
     { }
+    [DataContract]
     public enum PaperMobileStatus
     { }
-
+    [DataContract]
     public class Paper:BaseData
     {
         private String paperId;
