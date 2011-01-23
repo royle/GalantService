@@ -80,6 +80,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Galant.DataEntity\Galant.DataEntity.csproj">
+      <Project>{BEA01CB6-2CDB-4841-A912-34344D1F7DAF}</Project>
+      <Name>Galant.DataEntity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
