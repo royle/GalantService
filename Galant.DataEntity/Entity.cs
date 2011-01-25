@@ -12,29 +12,39 @@ namespace Galant.DataEntity
         /// <summary>
         /// 总部
         /// </summary>
+        [EnumMember]
         Headquarter = 0x00,
         /// <summary>
         /// 站点
         /// </summary>
+        [EnumMember]
         Station = 0x01,
         /// <summary>
         /// 员工
         /// </summary>
+        [EnumMember]
         Staff = 0x02,
         /// <summary>
         /// 收件人
         /// </summary>
+        [EnumMember]
         Client = 0x03,
         /// <summary>
         /// 供应商
         /// </summary>
+        [EnumMember]
         Individual = 0x04,
     }
 
     [DataContract]
     public enum PayType
     {
-        AtTime = 0, Before = 1,  After = 2
+        [EnumMember]
+        AtTime = 0,
+        [EnumMember]
+        Before = 1,
+        [EnumMember]
+        After = 2
     }
 
     [DataContract]
@@ -64,95 +74,99 @@ namespace Galant.DataEntity
             set { password = value; }
         }
         private String fullName;
-
+        [DataMember]
         public String FullName
         {
             get { return fullName; }
             set { fullName = value; }
         }
         private String homePhone;
-
+        [DataMember]
         public String HomePhone
         {
             get { return homePhone; }
             set { homePhone = value; }
         }
         private String cellPhoneOne;
-
+        [DataMember]
         public String CellPhoneOne
         {
             get { return cellPhoneOne; }
             set { cellPhoneOne = value; }
         }
         private String cellPhoneTwo;
-
+        [DataMember]
         public String CellPhoneTwo
         {
             get { return cellPhoneTwo; }
             set { cellPhoneTwo = value; }
         }
         private EntityType entityType;
-
+        [DataMember]
         public EntityType EntityType
         {
             get { return entityType; }
             set { entityType = value; }
         }
         private String addressFamily;
-
+        [DataMember]
         public String AddressFamily
         {
             get { return addressFamily; }
             set { addressFamily = value; }
         }
         private String addressChild;
-
+        [DataMember]
         public String AddressChild
         {
             get { return addressChild; }
             set { addressChild = value; }
         }
         private String comment;
-
+        [DataMember]
         public String Comment
         {
             get { return comment; }
             set { comment = value; }
         }
         private int storeLog;
-
+        [DataMember]
         public int StoreLog
         {
             get { return storeLog; }
             set { storeLog = value; }
         }
         private decimal deposit;
-
+        [DataMember]
         public decimal Deposit
         {
             get { return deposit; }
             set { deposit = value; }
         }
         private PayType payType;
+        [DataMember]
         public PayType PayType
         {
             get { return payType; }
             set { payType = value; }
         }
         private int rountStation;
+        [DataMember]
         public int RountStation
         {
             get { return rountStation; }
             set { rountStation = value; }
         }
         private bool ableFlag;
+        [DataMember]
         public bool AbleFlag
         {
             get { return ableFlag; }
             set { ableFlag = value; }
         }
-
+        
         private List<Role> roles;
+        [DataMember]
         public List<Role> Roles
         {
             get { return roles; }

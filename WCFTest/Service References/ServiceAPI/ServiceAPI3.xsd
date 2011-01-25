@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Galant.DataEntity" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Galant.DataEntity" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfBaseData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BaseData" nillable="true" type="tns:BaseData" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBaseData" nillable="true" type="tns:ArrayOfBaseData" />
+  <xs:complexType name="BaseData">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="BaseData" nillable="true" type="tns:BaseData" />
+  <xs:complexType name="Entity">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseData">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Alias" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EntityId" type="xs:int" />
+          <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Roles" nillable="true" type="tns:ArrayOfRole" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Entity" nillable="true" type="tns:Entity" />
+  <xs:complexType name="ArrayOfRole">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Role" nillable="true" type="tns:Role" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRole" nillable="true" type="tns:ArrayOfRole" />
+  <xs:complexType name="Role">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseData">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Role" nillable="true" type="tns:Role" />
+  <xs:complexType name="Package">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseData">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Package" nillable="true" type="tns:Package" />
+</xs:schema>

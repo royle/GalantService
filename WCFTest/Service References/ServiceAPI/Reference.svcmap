@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="351603c1-b43a-48af-ae98-e660b26c7693" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:1926/ServiceAPI.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Service1.wsdl" MetadataType="Wsdl" ID="170e4776-8f2a-4802-beb4-756a633b4cec" SourceId="1" SourceUrl="http://localhost:1926/ServiceAPI.svc?wsdl" />
+    <MetadataFile FileName="ServiceAPI.xsd" MetadataType="Schema" ID="ee9fc8b1-a8f1-4f95-b73a-02a846b5e1ae" SourceId="1" SourceUrl="http://localhost:1926/ServiceAPI.svc?xsd=xsd0" />
+    <MetadataFile FileName="ServiceAPI1.xsd" MetadataType="Schema" ID="bf7ea25a-9a3b-4bd2-b372-75f402328309" SourceId="1" SourceUrl="http://localhost:1926/ServiceAPI.svc?xsd=xsd1" />
+    <MetadataFile FileName="ServiceAPI2.xsd" MetadataType="Schema" ID="cdd94517-1407-4fc0-9f97-939e4ad69c49" SourceId="1" SourceUrl="http://localhost:1926/ServiceAPI.svc?xsd=xsd2" />
+    <MetadataFile FileName="ServiceAPI3.xsd" MetadataType="Schema" ID="8982ce46-fe11-47de-8383-9786e66ce23f" SourceId="1" SourceUrl="http://localhost:1926/ServiceAPI.svc?xsd=xsd3" />
+    <MetadataFile FileName="ServiceAPI.disco" MetadataType="Disco" ID="8de7e57e-c9f5-410e-9319-3700c902a7f7" SourceId="1" SourceUrl="http://localhost:1926/ServiceAPI.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
