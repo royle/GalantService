@@ -9,6 +9,8 @@ namespace Galant.DataEntity
     [DataContract]
     public class Route:BaseData
     {
+        public Route() : base() { }
+
         private int routeId;
 
         public int RouteId
@@ -16,12 +18,12 @@ namespace Galant.DataEntity
             get { return routeId; }
             set { routeId = value; }
         }
-        private string RountName;
+        private string rountName;
 
-        public string RountName1
+        public string RountName
         {
-            get { return RountName; }
-            set { RountName = value; }
+            get { return rountName; }
+            set { rountName = value; }
         }
         private Entity fromEntity;
 
@@ -30,6 +32,10 @@ namespace Galant.DataEntity
             get { return fromEntity; }
             set { fromEntity = value; }
         }
+        public int FromEntityId
+        {
+            get { return FromEntity.EntityId; }
+        }
         private Entity toEntity;
 
         public Entity ToEntity
@@ -37,8 +43,12 @@ namespace Galant.DataEntity
             get { return toEntity; }
             set { toEntity = value; }
         }
-        private bool isFinally;
+        public int ToEntityId
+        {
+            get { return ToEntity.EntityId; }
+        }
 
+        private bool isFinally;
         public bool IsFinally
         {
             get { return isFinally; }

@@ -50,6 +50,8 @@ namespace Galant.DataEntity
     [DataContract]
     public class Entity:BaseData
     {
+        public Entity() : base() { }
+
         private int entityId;
         [DataMember]
         public int EntityId

@@ -11,11 +11,7 @@ namespace Galant.DataEntity
     [KnownType(typeof(Entity))]
     [KnownType(typeof(Package))]
     public class BaseData: INotifyPropertyChanged, IDataErrorInfo,ICloneable
-    {        
-        public BaseData()
-        { 
-            
-        }
+    {
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

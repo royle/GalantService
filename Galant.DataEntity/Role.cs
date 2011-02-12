@@ -12,6 +12,11 @@ namespace Galant.DataEntity
     [DataContract]
     public class Role:BaseData
     {
+        public Role(Entity entity) : base() 
+        {
+            this.StaffEntity = entity;
+        }
+
         private int roleId;
         public int RoleId
         {
@@ -19,11 +24,22 @@ namespace Galant.DataEntity
             set { roleId = value; }
         }
 
+        private Entity StaffEntity;
+        public int EntityId
+        {
+            get { return StaffEntity.EntityId; }
+        }
+
         private Entity station;
         public Entity Station
         {
             get { return station; }
             set { station = value; }
+        }
+
+        public int StationId
+        {
+            get { return Station.EntityId; }
         }
 
         private RoleType roleType;

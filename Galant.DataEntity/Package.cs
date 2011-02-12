@@ -15,6 +15,17 @@ namespace Galant.DataEntity
     [DataContract]
     public class Package:BaseData
     {
+        public Package(string paperid):base()
+        {
+            this.paperId = paperid;
+        }
+
+        private string paperId;
+        public string PaperId
+        {
+            get { return paperId; }
+        }
+
         private int packageId;
 
         public int PackageId
@@ -29,6 +40,12 @@ namespace Galant.DataEntity
             get { return product; }
             set { product = value; }
         }
+
+        public int ProductId
+        {
+            get { return Product.ProductId; }
+        }
+
         private int count;
 
         public int Count
@@ -36,19 +53,19 @@ namespace Galant.DataEntity
             get { return count; }
             set { count = value; }
         }
-        private decimal Amount;
+        private decimal amount;
 
-        public decimal Amount1
+        public decimal Amount
         {
-            get { return Amount; }
-            set { Amount = value; }
+            get { return amount; }
+            set { amount = value; }
         }
-        private decimal OriginAmount;
+        private decimal originAmount;
 
-        public decimal OriginAmount1
+        public decimal OriginAmount
         {
-            get { return OriginAmount; }
-            set { OriginAmount = value; }
+            get { return originAmount; }
+            set { originAmount = value; }
         }
         private PackageState packageType;
 

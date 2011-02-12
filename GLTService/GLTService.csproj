@@ -77,6 +77,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBConnector\MySqlconnector.cs" />
+    <Compile Include="DBConnector\SqlHelper.cs" />
+    <Compile Include="Operation\BaseEntity\BaseOperator.cs" />
+    <Compile Include="Operation\BaseEntity\DataOperator.cs" />
+    <Compile Include="Operation\BaseEntity\Entity.cs" />
+    <Compile Include="Operation\BaseEntity\EventLog.cs" />
+    <Compile Include="Operation\BaseEntity\Paper.cs" />
     <Compile Include="Operation\UserPermission.cs" />
     <Compile Include="ProcessSwitch.cs" />
     <Compile Include="ServiceAPI.svc.cs">

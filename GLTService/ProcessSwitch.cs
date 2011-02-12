@@ -34,7 +34,6 @@ namespace GLTService
                         DetailObj.ErrorCode = "1001";
                         return DetailObj;
                     }
-                    break;
                 default:
                     break;
             }
