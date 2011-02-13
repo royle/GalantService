@@ -82,7 +82,12 @@
     <Compile Include="Operation\BaseEntity\DataOperator.cs" />
     <Compile Include="Operation\BaseEntity\Entity.cs" />
     <Compile Include="Operation\BaseEntity\EventLog.cs" />
+    <Compile Include="Operation\BaseEntity\Package.cs" />
     <Compile Include="Operation\BaseEntity\Paper.cs" />
+    <Compile Include="Operation\BaseEntity\Product.cs" />
+    <Compile Include="Operation\BaseEntity\Role.cs" />
+    <Compile Include="Operation\BaseEntity\Route.cs" />
+    <Compile Include="Operation\Login.cs" />
     <Compile Include="Operation\UserPermission.cs" />
     <Compile Include="ProcessSwitch.cs" />
     <Compile Include="ServiceAPI.svc.cs">

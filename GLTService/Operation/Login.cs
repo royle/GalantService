@@ -9,8 +9,12 @@ namespace GLTService.Operation
 {
     public class Login:DataOperator
     {
+        public Login():this(new DataOperator())
+        { }
+
         public Login(DataOperator data):base(data)
-        {}
+        {
+        }
 
         public Galant.DataEntity.Entity LoginTest(string id)
         {

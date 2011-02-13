@@ -25,6 +25,14 @@ namespace GLTService.Operation.BaseEntity
             }
         }
 
+        public override string KeyId
+        {
+            get
+            {
+                return "Entity_id";
+            }
+        }
+
         protected override void MappingDataName()
         {
             DicDataMapping.Add("EntityId", "Entity_id");

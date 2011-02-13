@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using Galant.DataEntity;
 
 namespace GLTService
 {
@@ -15,10 +16,10 @@ namespace GLTService
         {
             return string.Format("You entered: {0}", value);
         }
-       
-        public DetailBase DoRequest(DetailBase composite,string OperationType)
+
+        public BaseData DoRequest(BaseData composite, Entity staff, string OperationType)
         {
-            return ProcessSwitch.ProcessRequest(composite,OperationType);
+            return ProcessSwitch.ProcessRequest(composite,staff,OperationType);
         }
 
     }

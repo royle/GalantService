@@ -19,7 +19,7 @@ namespace GLTService
         string GetData(int value);
 
         [OperationContract]
-        DetailBase DoRequest(DetailBase composite, string OperationType);
+        BaseData DoRequest(BaseData composite, Entity staff, string OperationType);
 
         // TODO: Add your service operations here
     }

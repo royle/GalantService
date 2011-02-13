@@ -6,8 +6,11 @@ using MySql.Data.MySqlClient;
 
 namespace GLTService.Operation.BaseEntity
 {
-    public abstract class DataOperator
+    public class DataOperator
     {
+        public DataOperator()
+        { }
+
         public DataOperator(DataOperator data)
         {
             this.Operator = data;
@@ -24,7 +27,7 @@ namespace GLTService.Operation.BaseEntity
         internal MySqlTransaction mytransaction;
         internal MySqlConnection myConnection;
 
-        internal const string ConnectionString = @"";
+        internal const string ConnectionString = @"Server=localhost;Database=glt; User=root;Password=;Use Procedure Bodies=false;Charset=utf8;Allow Zero Datetime=True; Pooling=false; Max Pool Size=50;";
 
         internal void CreateConnection()
         {
@@ -42,7 +45,11 @@ namespace GLTService.Operation.BaseEntity
         {
             CreateConnection();
             if (CanDoTransaction)
+            {
+                if (myConnection.State != System.Data.ConnectionState.Open)
+                    myConnection.Open();
                 mytransaction = myConnection.BeginTransaction();
+            }
         }
 
         internal void Close()
