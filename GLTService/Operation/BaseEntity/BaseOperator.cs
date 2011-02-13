@@ -5,103 +5,34 @@ using System.Web;
 using Galant.DataEntity;
 using MySql.Data.MySqlClient;
 using GLTService.DBConnector;
+using System.Text;
+using System.Data;
 
 namespace GLTService.Operation.BaseEntity
 {
     public abstract class BaseOperator : IDisposable
     {
-        public BaseOperator()
+        public BaseOperator(DataOperator data):this()
+        {
+            Operator = data;
+        }
+
+        private BaseOperator()
         {
             DicDataMapping = new Dictionary<string, string>();
             MappingDataName();
             SetTableName();
         }
-        #region Base Operator For DB
-        private MySqlTransaction mytransaction;
-        private MySqlConnection myConnection;
-
-        protected const string ConnectionString = @"";
-
-        private void CreateConnection()
-        {
-            if (myConnection == null)
-            {
-                myConnection = new MySqlConnection(ConnectionString);
-            }
-            else if (myConnection.State == System.Data.ConnectionState.Closed || myConnection.State == System.Data.ConnectionState.Broken)
-            {
-                myConnection.Close();
-            }
-        }
-
-        private void CreateTransaction()
-        {
-            CreateConnection();
-            if (CanDoTransaction)
-                mytransaction = myConnection.BeginTransaction();
-        }
-
-        private void Close()
-        {
-            if (CanDoTransaction)
-                throw new Exception("Transaction Hasn't Commit or RollBack Plase Do it Frist");
-            myConnection.Close();
-        }
-
-        private void CommitAndClose()
-        {
-            if (CanDoTransaction)
-                mytransaction.Commit();
-            Close();
-        }
-
-        private void RollBackAndClose()
-        {
-            if (CanDoTransaction)
-                mytransaction.Rollback();
-            Close();
-        }
-
-        private void RollBackAndClear()
-        {
-            RollBackAndClose();
-            Clear();
-        }
-
-        private void Clear()
-        {
-            mytransaction = null;
-            myConnection = null;
-        }
-
-        private void CommitAndClear()
-        {
-            CommitAndClose();
-        }
-
-        public virtual void CreateConnectionAndTransaction()
-        {
-            CreateConnection();
-            CreateTransaction();
-        }
-
-        private bool CanDoTransaction
-        {
-            get { return IsNeedTransaction && (mytransaction == null); }
-        }
-
-        public virtual bool IsNeedTransaction
-        {
-            get { return true; }
-        }
-
-        #endregion //Base Operator For DB
 
         #region IDisposable Members
 
+        private DataOperator Operator
+        { get; set; }
+
+
         public void Dispose()
         {
-            Clear();
+            Operator.Clear();
         }
 
         #endregion
@@ -122,12 +53,12 @@ namespace GLTService.Operation.BaseEntity
 
         public virtual bool AddNewData(BaseData data)
         {
-            CreateConnectionAndTransaction();
+            Operator.CreateConnectionAndTransaction();
 
-            if (CanDoTransaction)
-                SqlHelper.ExecuteNonQuery(mytransaction, System.Data.CommandType.Text, SqlAddNewSql, BuildParameteres(data));
+            if (Operator.CanDoTransaction)
+                SqlHelper.ExecuteNonQuery(Operator.mytransaction, System.Data.CommandType.Text, SqlAddNewSql, BuildParameteres(data));
             else
-                MySqlHelper.ExecuteNonQuery(myConnection, SqlAddNewSql, BuildParameteres(data));
+                MySqlHelper.ExecuteNonQuery(Operator.myConnection, SqlAddNewSql, BuildParameteres(data));
 
             return true;
         }
@@ -162,6 +93,76 @@ namespace GLTService.Operation.BaseEntity
         public virtual bool UpdateData(string dataId)
         {
             return true;
+        }
+
+        public virtual List<BaseData> SearchByKeyId(string id)
+        {
+            String SqlSearch = BuildSearchSQLByKey(id);
+            DataTable dt = SqlHelper.ExecuteDataset(Operator.myConnection, CommandType.Text, SqlSearch).Tables[0];
+            return MappingTable(dt);
+        }
+
+        public List<BaseData> MappingTable(DataTable table)
+        {
+            if (table == null)
+                return null;
+            List<BaseData> datas = new List<BaseData>();
+            foreach (DataRow row in table.Rows)
+            {
+                datas.Add(MappingRow(row));
+            }
+            return datas;
+        }
+
+        public BaseData MappingRow(DataRow row)
+        {
+            BaseData data = BuildNewBaseData(this.GetType().Name);
+            foreach (System.Reflection.PropertyInfo info in data.GetType().GetProperties())
+            {
+                string key = string.Empty;
+                if (DicDataMapping.TryGetValue(info.Name, out key))
+                {
+                    info.SetValue(info, row[key], null);
+                }
+            }
+            return data;
+        }
+
+        private BaseData BuildNewBaseData(string propertyName)
+        {
+            switch (propertyName)
+            { 
+                case "Entity":
+                    return new Galant.DataEntity.Entity();
+                default:
+                    throw new NotImplementedException("Add PropertyName Before This Exception.");
+            }
+        }
+
+
+        public virtual String BuildSearchSQLByKey(string idValue)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.Append("SELECT ");
+            sql.Append(string.Join(", ", DicDataMapping.Values.ToArray()));
+            sql.AppendLine(" FROM ");
+            sql.Append(TableName);
+            sql.AppendLine(" WHERE ");
+            sql.Append(KeyId);
+            sql.Append(" = '");
+            sql.Append(idValue);
+            sql.Append("'");
+            return sql.ToString();
+        }
+
+        public String BuildSearchSQL()
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.Append("SELECT ");
+            sql.Append(string.Join(", ", DicDataMapping.Values.ToArray()));
+            sql.AppendLine(" FROM ");
+            sql.Append(TableName);
+            return sql.ToString();
         }
     }
 }

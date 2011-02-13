@@ -7,7 +7,8 @@ namespace GLTService.Operation.BaseEntity
 {
     public class EventLog:BaseOperator
     {
-        public EventLog() : base() { }
+        public EventLog(DataOperator data)
+            : base(data) { }
 
         public override string SqlAddNewSql
         {

@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
 
 namespace GLTService.Operation.BaseEntity
 {
     public class Entity:BaseOperator
     {
-        public Entity()
-            : base()
+        public Entity(DataOperator data)
+            : base(data)
         { }
 
         public override string SqlAddNewSql
@@ -48,6 +49,7 @@ namespace GLTService.Operation.BaseEntity
         {
             TableName = "entities";
         }
+
 
     }
 }

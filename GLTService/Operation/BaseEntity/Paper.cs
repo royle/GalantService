@@ -7,7 +7,8 @@ namespace GLTService.Operation.BaseEntity
 {
     public class Paper:BaseOperator
     {
-        public Paper() : base() { }
+        public Paper(DataOperator data)
+            : base(data) { }
 
         public override string SqlAddNewSql
         {

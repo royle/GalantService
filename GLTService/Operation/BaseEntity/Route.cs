@@ -7,7 +7,8 @@ namespace GLTService.Operation.BaseEntity
 {
     public class Route:BaseOperator
     {
-        public Route() : base() { }
+        public Route(DataOperator data)
+            : base(data) { }
 
         public override string SqlAddNewSql
         {
