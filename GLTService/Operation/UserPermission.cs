@@ -33,10 +33,6 @@ namespace GLTService.Operation
             return false;
         }
 
-        public DetailBase GetInitUserLogin(DetailBase DetailObj)
-        {
-            //构造需要返回的初始用户信息
-            return DetailObj;
-        }
+       
     }
 }

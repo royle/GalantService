@@ -33,13 +33,13 @@ namespace GLTService
                     }
                     else
                     {
-                        DetailObj.Error = "1001";
+                        //DetailObj.Error = "1001";
                         return DetailObj;
                     }
                 default:
                     break;
             }
-            DetailObj.Error = "9999";
+            //DetailObj.Error = "9999";
             return DetailObj;
         }
     }

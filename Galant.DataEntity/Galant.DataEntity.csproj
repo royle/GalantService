@@ -63,6 +63,7 @@
     <Compile Include="BaseData.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EventLog.cs" />
+    <Compile Include="IIdentifiable.cs" />
     <Compile Include="Package.cs" />
     <Compile Include="Paper.cs" />
     <Compile Include="Product.cs" />
