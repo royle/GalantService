@@ -25,7 +25,7 @@ namespace Galant.DataEntity
         }
 
         private Entity StaffEntity;
-        public int EntityId
+        public int? EntityId
         {
             get { return StaffEntity.EntityId; }
         }
@@ -37,7 +37,7 @@ namespace Galant.DataEntity
             set { station = value; }
         }
 
-        public int StationId
+        public int? StationId
         {
             get { return Station.EntityId; }
         }

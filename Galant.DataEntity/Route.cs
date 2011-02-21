@@ -32,7 +32,7 @@ namespace Galant.DataEntity
             get { return fromEntity; }
             set { fromEntity = value; }
         }
-        public int FromEntityId
+        public int? FromEntityId
         {
             get { return FromEntity.EntityId; }
         }
@@ -43,7 +43,7 @@ namespace Galant.DataEntity
             get { return toEntity; }
             set { toEntity = value; }
         }
-        public int ToEntityId
+        public int? ToEntityId
         {
             get { return ToEntity.EntityId; }
         }

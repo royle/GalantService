@@ -52,9 +52,14 @@ namespace Galant.DataEntity
     {
         public Entity() : base() { }
 
-        private int entityId;
+        public Entity(string Operation)
+            : base()
+        {
+            this.Operation = Operation;
+        }
+        private int? entityId;
         [DataMember]
-        public int EntityId
+        public int? EntityId
         {
             get { return entityId; }
             set { entityId = value; }
@@ -65,7 +70,7 @@ namespace Galant.DataEntity
         public String Alias
         {
             get { return alias; }
-            set { alias = value; }
+            set { alias = value; OnPropertyChanged("Alias"); }
         }
         private String password;
 
@@ -73,21 +78,30 @@ namespace Galant.DataEntity
         public String Password
         {
             get { return password; }
-            set { password = value; }
+            set { password = value; OnPropertyChanged("Password"); OnPropertyChanged("PasswordConfirm"); }
         }
+
+        private string passwordConfirm;
+        [DataMember]
+        public string PasswordConfirm
+        {
+            get { return passwordConfirm; }
+            set { passwordConfirm = value; OnPropertyChanged("Password"); OnPropertyChanged("PasswordConfirm"); }
+        }
+
         private String fullName;
         [DataMember]
         public String FullName
         {
             get { return fullName; }
-            set { fullName = value; }
+            set { fullName = value; OnPropertyChanged("FullName"); }
         }
         private String homePhone;
         [DataMember]
         public String HomePhone
         {
             get { return homePhone; }
-            set { homePhone = value; }
+            set { homePhone = value; OnPropertyChanged("HomePhone"); }
         }
         private String cellPhoneOne;
         [DataMember]
@@ -129,7 +143,7 @@ namespace Galant.DataEntity
         public String Comment
         {
             get { return comment; }
-            set { comment = value; }
+            set { comment = value; OnPropertyChanged("Comment"); }
         }
         private int storeLog;
         [DataMember]

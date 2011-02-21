@@ -52,6 +52,12 @@ namespace Galant.DataEntity
             }
         }
 
+        virtual public string Operation
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// Return true if this entity does not have the version spcified, i.e. latest version.
         /// </summary>
@@ -134,7 +140,7 @@ namespace Galant.DataEntity
         }
 
         public virtual bool OnCheckValid(Enum stage)
-        {//Tips::Roy 查看是否有 错误(error) 保存在Dic::errorStrings中。
+        {
             errorStrings.Clear();
             foreach (PropertyInfo pi in this.GetType().GetProperties())
             {
@@ -221,6 +227,10 @@ namespace Galant.DataEntity
         {
             if (!IsLoading)
             {
+                if (dirtyProperties == null)
+                {
+                    dirtyProperties = new HashSet<string>();
+                }
                 dirtyProperties.Add(name);
                 OnPropertyChangedInternal("IsDirty");
                 OnPropertyChangedInternal("DirtiedColumns");
