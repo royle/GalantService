@@ -19,7 +19,14 @@ namespace GLTService.Operation
         public Galant.DataEntity.Entity LoginTest(string id)
         {
             Entity entity = new Entity(this.Operator);
-            return (Galant.DataEntity.Entity)entity.SearchByKeyId(id)[0];
+            List<Galant.DataEntity.BaseData> datas = entity.SearchByKeyId(id);
+            if (datas != null && datas.Count > 0)
+            {
+                return (Galant.DataEntity.Entity)datas[0]; 
+            }
+            Galant.DataEntity.Entity enReturn = new Galant.DataEntity.Entity();
+            
+            return enReturn;
 
         }
     }

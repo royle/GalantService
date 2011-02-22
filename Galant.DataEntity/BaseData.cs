@@ -15,6 +15,16 @@ namespace Galant.DataEntity
     {
 
         Dictionary<string, string> errorStrings = new Dictionary<string, string>();
+        public Dictionary<string, string> ErrorStrings
+        {
+            get 
+            {
+                if (errorStrings == null)
+                    errorStrings = new Dictionary<string, string>();
+                return errorStrings; 
+            }
+            set { errorStrings = value; }
+        }
         HashSet<string> dirtyProperties = new HashSet<string>();
 
         bool isLoading = true;
@@ -123,7 +133,7 @@ namespace Galant.DataEntity
 
         public void ClearInvalid()
         {
-            errorStrings.Clear();
+            ErrorStrings.Clear();
             foreach (PropertyInfo pi in this.GetType().GetProperties())
             {
                 if (pi.CanWrite)
@@ -141,7 +151,7 @@ namespace Galant.DataEntity
 
         public virtual bool OnCheckValid(Enum stage)
         {
-            errorStrings.Clear();
+            ErrorStrings.Clear();
             foreach (PropertyInfo pi in this.GetType().GetProperties())
             {
                 if (pi.CanWrite)
@@ -151,16 +161,16 @@ namespace Galant.DataEntity
                     {
                         if (error.Length == 0)
                         {
-                            errorStrings.Remove(pi.Name);
+                            ErrorStrings.Remove(pi.Name);
                         }
                         else
                         {
-                            errorStrings[pi.Name] = error;
+                            ErrorStrings[pi.Name] = error;
                         }
                     }
                     if (!string.IsNullOrEmpty(error))
                     {
-                        errorStrings[pi.Name] = error;
+                        ErrorStrings[pi.Name] = error;
                     }
                     OnPropertyChangedInternal(pi.Name);
                 }
@@ -172,20 +182,20 @@ namespace Galant.DataEntity
             {
                 if (gerror.Length == 0)
                 {
-                    errorStrings.Remove(string.Empty);
+                    ErrorStrings.Remove(string.Empty);
                 }
                 else
                 {
-                    errorStrings[string.Empty] = gerror;
+                    ErrorStrings[string.Empty] = gerror;
                 }
             }
             if (!string.IsNullOrEmpty(gerror))
             {
-                errorStrings[string.Empty] = gerror;
+                ErrorStrings[string.Empty] = gerror;
             }
 
             OnPropertyChangedInternal("Errors");
-            return errorStrings.Count == 0;
+            return ErrorStrings.Count == 0;
         }
 
         public string InjectError(string faultString, string text)
@@ -204,7 +214,7 @@ namespace Galant.DataEntity
                     //{
                     //    if (attr.Member == column)
                     //    {
-                    //        errorStrings[mi.Name] = text;
+                    //        ErrorStrings[mi.Name] = text;
                     //        OnPropertyChangedInternal(mi.Name);
                     //        OnPropertyChangedInternal("Errors");
                     //        return null;
@@ -239,11 +249,11 @@ namespace Galant.DataEntity
                 {
                     if (error.Length == 0)
                     {
-                        errorStrings.Remove(name);
+                        ErrorStrings.Remove(name);
                     }
                     else
                     {
-                        errorStrings[name] = error;
+                        ErrorStrings[name] = error;
                     }
                 }
             }
@@ -277,7 +287,7 @@ namespace Galant.DataEntity
             get
             {
                 string error;
-                if (errorStrings.TryGetValue(columnName, out error))
+                if (ErrorStrings.TryGetValue(columnName, out error))
                 {
                     return error;
                 }
@@ -289,13 +299,13 @@ namespace Galant.DataEntity
         {
             get
             {
-                return errorStrings.Values.ToArray<string>();
+                return ErrorStrings.Values.ToArray<string>();
             }
         }
 
         public void MigrateFrom(BaseData old)
         {
-            this.errorStrings = old.errorStrings;
+            this.ErrorStrings = old.ErrorStrings;
             this.dirtyProperties = old.dirtyProperties;
         }
 

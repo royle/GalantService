@@ -188,6 +188,20 @@ namespace Galant.DataEntity
             get { return roles; }
             set { roles = value; }
         }
+
+        protected override string ValidateProperty(string columnName, Enum stage)
+        {
+            switch (columnName)
+            {
+                case "Alias":
+                    if (String.IsNullOrEmpty(Alias)) return "用户名不能为空！";
+                    return string.Empty;
+                case "Password":
+                    if (String.IsNullOrEmpty(Password)) return "密码不能为空！";
+                    return string.Empty;
+            }
+            return null;
+        }
     }
 
 

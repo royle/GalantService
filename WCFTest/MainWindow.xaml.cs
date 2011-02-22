@@ -26,20 +26,20 @@ namespace WCFTest
 
         private void Window_Loaded(object sender, RoutedEventArgs ev)
         {
-            ServiceAPI.ServiceAPIClient client = new ServiceAPI.ServiceAPIClient();
-            ServiceAPI.DetailBase de = new ServiceAPI.DetailBase();
-            de.UserName = "";
-            de.PassWord = "";
-            Galant.DataEntity.Entity e = new Galant.DataEntity.Entity();
-            Galant.DataEntity.Role r = new Galant.DataEntity.Role();
-            r.RoleId = 2;
-            e.Roles = new List<Galant.DataEntity.Role>();
-            e.Roles.Add(r);
-            de.Data = new Galant.DataEntity.BaseData[1];
-            de.Data[0] = e;
+           // ServiceAPI.ServiceAPIClient client = new ServiceAPI.ServiceAPIClient();
+           // ServiceAPI.DetailBase de = new ServiceAPI.DetailBase();
+           // de.UserName = "";
+           // de.PassWord = "";
+           // Galant.DataEntity.Entity e = new Galant.DataEntity.Entity();
+           // Galant.DataEntity.Role r = new Galant.DataEntity.Role();
+           // r.RoleId = 2;
+           // e.Roles = new List<Galant.DataEntity.Role>();
+           // e.Roles.Add(r);
+           // de.Data = new Galant.DataEntity.BaseData[1];
+           // de.Data[0] = e;
 
-           ServiceAPI.DetailBase d1= client.DoRequest(de, "Login");
-           string ss = "";
+           //ServiceAPI.DetailBase d1= client.DoRequest(de, "Login");
+           //string ss = "";
         }
     }
 }
