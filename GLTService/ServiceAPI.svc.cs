@@ -19,7 +19,21 @@ namespace GLTService
 
         public BaseData DoRequest(BaseData composite, Entity staff, string OperationType)
         {
-            return ProcessSwitch.ProcessRequest(composite,staff,OperationType);
+            try
+            {
+                return ProcessSwitch.ProcessRequest(composite, staff, OperationType);
+            }
+            catch (Galant.DataEntity.WCFFaultException exWCF)
+            {
+                staff.WCFFaultCode = exWCF.FaultCode;
+                staff.WCFFaultString = exWCF.FaultString;
+                staff.WCFErrorString = exWCF.ErrorString;
+                return staff;
+            }
+            catch (Exception ex)
+            {
+                return staff;
+            }
         }
 
     }

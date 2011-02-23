@@ -11,6 +11,11 @@ namespace Galant.DataEntity
     [DataContract]
     [KnownType(typeof(Entity))]
     [KnownType(typeof(Package))]
+    [KnownType(typeof(EventLog))]
+    [KnownType(typeof(Paper))]
+    [KnownType(typeof(Product))]
+    [KnownType(typeof(Role))]
+    [KnownType(typeof(Route))]
     public abstract class BaseData : IIdentifiable, INotifyPropertyChanged, IDataErrorInfo, ICloneable, IComparable
     {
 
@@ -364,6 +369,21 @@ namespace Galant.DataEntity
             return (this.QueryId != null) ? this.QueryId.GetHashCode() : 0;
         }
 
+        #endregion
+
+        #region WCF Errors
+        [DataMember]
+        public int WCFFaultCode
+        { get; set; }
+        [DataMember]
+        public string WCFFaultString
+        { get; set; }
+        /// <summary>
+        /// 提示信息
+        /// </summary>
+        [DataMember]
+        public string WCFErrorString
+        { get; set; }
         #endregion
 
     }

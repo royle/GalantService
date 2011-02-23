@@ -24,6 +24,7 @@ namespace GLTService.Operation
             {
                 return (Galant.DataEntity.Entity)datas[0]; 
             }
+            throw new Galant.DataEntity.WCFFaultException(124, "Error Permission", "用户名或密码错误");
             Galant.DataEntity.Entity enReturn = new Galant.DataEntity.Entity();
             
             return enReturn;
