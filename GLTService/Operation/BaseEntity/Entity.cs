@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data;
+using GLTService.DBConnector;
 
 namespace GLTService.Operation.BaseEntity
 {
@@ -11,6 +12,9 @@ namespace GLTService.Operation.BaseEntity
         public Entity(DataOperator data)
             : base(data)
         { }
+
+        public Entity()
+        {}
 
         public override string SqlAddNewSql
         {
@@ -58,6 +62,31 @@ namespace GLTService.Operation.BaseEntity
             TableName = "entities";
         }
 
+        public Galant.DataEntity.Entity Authorize(DataOperator data, string Alias,string Password, bool IsDetail)
+        {
+            string SqlSearch = this.BuildSearchSQL() + "WHERE Alias = '" + Alias + "' AND Password = '" + Password + "'";
+            DataTable dt = SqlHelper.ExecuteDataset(data.myConnection, CommandType.Text, SqlSearch).Tables[0];
+            if (dt.Rows.Count > 0)
+            {
+                Galant.DataEntity.Entity entity = this.MappingRow(dt.Rows[0]) as Galant.DataEntity.Entity;
+                return this.GetEntityByID(data, entity.EntityId.ToString(), IsDetail);
+            }
+            throw new Galant.DataEntity.WCFFaultException(999, "Authorize Fail", "用户名或密码错误");
+        }
 
+        public Galant.DataEntity.Entity GetEntityByID(DataOperator data, string EntityId, bool IsDetail)
+        {
+            string SqlSearch = this.BuildSearchSQLByKey(EntityId);
+            DataTable dt = SqlHelper.ExecuteDataset(data.myConnection, CommandType.Text, SqlSearch).Tables[0];
+            if (dt.Rows.Count > 0)
+            {
+                Galant.DataEntity.Entity entity = this.MappingRow(dt.Rows[0]) as Galant.DataEntity.Entity;
+                if (!IsDetail)
+                    return entity;
+                entity.Roles = null;
+
+            }
+            return null;
+        }
     }
 }

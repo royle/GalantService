@@ -17,7 +17,7 @@ namespace GLTService.Operation.BaseEntity
             Operator = data;
         }
 
-        private BaseOperator()
+        public BaseOperator()
         {
             DicDataMapping = new Dictionary<string, string>();
             MappingDataName();

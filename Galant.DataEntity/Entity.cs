@@ -53,9 +53,8 @@ namespace Galant.DataEntity
         public Entity() : base() { }
 
         public Entity(string Operation)
-            : base()
+            : base(Operation)
         {
-            this.Operation = Operation;
         }
         private int? entityId;
         [DataMember]

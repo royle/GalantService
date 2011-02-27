@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppStatusCach.cs" />
     <Compile Include="BaseData.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EventLog.cs" />

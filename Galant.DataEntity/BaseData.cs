@@ -18,6 +18,13 @@ namespace Galant.DataEntity
     [KnownType(typeof(Route))]
     public abstract class BaseData : IIdentifiable, INotifyPropertyChanged, IDataErrorInfo, ICloneable, IComparable
     {
+        public BaseData(string operation)
+        {
+            this.Operation = operation;
+        }
+
+        public BaseData()
+        { }
 
         Dictionary<string, string> errorStrings = new Dictionary<string, string>();
         public Dictionary<string, string> ErrorStrings

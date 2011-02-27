@@ -8,7 +8,48 @@ namespace Galant.DataEntity
 {
     [DataContract]
     public enum RoleType
-    { }
+    {
+        /// <summary>
+        /// 总经理
+        /// </summary>
+        [EnumMember]
+        GeneralManager = 0x00,
+        /// <summary>
+        /// 营运经理
+        /// </summary>
+        [EnumMember]
+        OperationManager = 0x01,
+        /// <summary>
+        /// 财务主管
+        /// </summary>
+        [EnumMember]
+        FinanceManager = 0x02,
+        /// <summary>
+        /// 财务出纳
+        /// </summary>
+        [EnumMember]
+        Finance = 0x03,
+        /// <summary>
+        /// 分拣主管
+        /// </summary>
+        [EnumMember]
+        SortingManager = 0x04,
+        /// <summary>
+        /// 站长
+        /// </summary>
+        [EnumMember]
+        StationManager = 0x05,
+        /// <summary>
+        /// 客服主管
+        /// </summary>
+        [EnumMember]
+        CustomerSupportManager = 0x06,
+        /// <summary>
+        /// 客服
+        /// </summary>
+        [EnumMember]
+        CustomerSupport = 0x07,
+    }
     [DataContract]
     public class Role:BaseData
     {
@@ -16,6 +57,10 @@ namespace Galant.DataEntity
         {
             this.StaffEntity = entity;
         }
+
+        public Role()
+            : base()
+        { }
 
         private int roleId;
         public int RoleId
@@ -25,9 +70,11 @@ namespace Galant.DataEntity
         }
 
         private Entity StaffEntity;
+        private int? entityId;
         public int? EntityId
         {
-            get { return StaffEntity.EntityId; }
+            get { return entityId; }
+            set { entityId = value; }
         }
 
         private Entity station;
