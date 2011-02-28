@@ -60,6 +60,7 @@ namespace Galant.DataEntity
         {
             get { return Entities == null ? null : Entities.Where(e => e.EntityType == EntityType.Client).ToList(); }
         }
+
         /// <summary>
         /// 员工集合
         /// </summary>
@@ -69,6 +70,9 @@ namespace Galant.DataEntity
         }
 
         private List<Route> routes;
+        /// <summary>
+        /// 路线集合
+        /// </summary>
         public List<Route> Routes
         {
             get { return routes; }

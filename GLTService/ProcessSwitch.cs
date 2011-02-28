@@ -12,30 +12,23 @@ using System.Xml.Linq;
 using GLTService.DBConnector;
 using MySql.Data.MySqlClient;
 using GLTService.Operation;
-using Galant.DataEntity;
+using GLTService.Operation.BaseEntity;
 
 namespace GLTService
 {
     public class ProcessSwitch
     {
-        public static BaseData ProcessRequest(BaseData DetailObj, Entity staff, string OperationType)
+        public static Galant.DataEntity.BaseData ProcessRequest(Galant.DataEntity.BaseData DetailObj, Galant.DataEntity.Entity staff, string OperationType)
         {
-            MySqlconnector connector = new MySqlconnector();
-            GLTService.Operation.Login log = new Operation.Login();
-            log.Operator.CreateConnectionAndTransaction();
+            Operation.BaseEntity.DataOperator dataOper = new Operation.BaseEntity.DataOperator();
+            dataOper.CreateConnectionAndTransaction();
+            Entity entity =new Entity();
+            Galant.DataEntity.Entity AuthorizedStaff = entity.Authorize(dataOper, staff.Alias, staff.Password, false);
             switch (OperationType)
             {
                 case "Login":
-                  
-                    if (log.LoginTest(staff.Alias)!=null)
-                    {
-                        return DetailObj;
-                    }
-                    else
-                    {
-                        //DetailObj.Error = "1001";
-                        return DetailObj;
-                    }
+                    GLTService.Operation.Login log = new Operation.Login();
+                    return log.InitAppCach(dataOper, AuthorizedStaff);
                 default:
                     break;
             }

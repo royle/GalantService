@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
+using GLTService.DBConnector;
 
 namespace GLTService.Operation.BaseEntity
 {
@@ -9,6 +11,10 @@ namespace GLTService.Operation.BaseEntity
     {
         public Route(DataOperator data)
             : base(data) { }
+
+        public Route()
+            : base()
+        { }
 
         public override string SqlAddNewSql
         {
@@ -41,6 +47,41 @@ VALUES (
             DicDataMapping.Add("FromEntityId", "from_entity");
             DicDataMapping.Add("ToEntityId", "to_entity");
             DicDataMapping.Add("IsFinally", "Is_finally");
+        }
+
+        /// <summary>
+        /// 获取所有路线
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public List<Galant.DataEntity.Route> GetAllRoutes(DataOperator data)
+        {
+            string SqlSearch = this.BuildSearchSQL();
+            DataTable dt = SqlHelper.ExecuteDataset(data.myConnection, CommandType.Text, SqlSearch).Tables[0];
+            if (dt.Rows.Count > 0)
+            {
+                Entity entity = new Entity();
+                List<Galant.DataEntity.Entity> routeEntitys = entity.GetRoutedEntitys(data);
+                List<Galant.DataEntity.Route> routes = new List<Galant.DataEntity.Route>();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    Galant.DataEntity.Route route = new Galant.DataEntity.Route();
+                    route.RouteId = Convert.ToInt32(dr["Route_ID"]);
+                    route.RountName = dr["Route_Name"].ToString();
+                    if (dr["to_entity"] != null)
+                    {
+                        route.ToEntity = routeEntitys.Where(e => e.EntityId == Convert.ToInt32(dr["to_entity"])).FirstOrDefault();
+                    }
+                    if (dr["from_entity"] != null)
+                    {
+                        route.FromEntity = routeEntitys.Where(e => e.EntityId == Convert.ToInt32(dr["from_entity"])).FirstOrDefault();
+                    }
+                    route.IsFinally = Convert.ToBoolean(dr["Is_finally"]);
+                    routes.Add(route);
+                }
+                return routes;
+            }
+            return null;
         }
     }
 }

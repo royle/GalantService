@@ -62,6 +62,14 @@ namespace GLTService.Operation.BaseEntity
             TableName = "entities";
         }
 
+        /// <summary>
+        /// 用户密码检查授权
+        /// </summary>
+        /// <param name="data">数据库操作对象</param>
+        /// <param name="Alias">用户名</param>
+        /// <param name="Password">密码</param>
+        /// <param name="IsDetail">是否返回用户的权限,及库存等信息</param>
+        /// <returns></returns>
         public Galant.DataEntity.Entity Authorize(DataOperator data, string Alias,string Password, bool IsDetail)
         {
             string SqlSearch = this.BuildSearchSQL() + "WHERE Alias = '" + Alias + "' AND Password = '" + Password + "'";
@@ -69,22 +77,75 @@ namespace GLTService.Operation.BaseEntity
             if (dt.Rows.Count > 0)
             {
                 Galant.DataEntity.Entity entity = this.MappingRow(dt.Rows[0]) as Galant.DataEntity.Entity;
+                if(!entity.AbleFlag)
+                    throw new Galant.DataEntity.WCFFaultException(998, "User Overdue", "用户已经停用");
                 return this.GetEntityByID(data, entity.EntityId.ToString(), IsDetail);
             }
-            throw new Galant.DataEntity.WCFFaultException(999, "Authorize Fail", "用户名或密码错误");
+            throw new Galant.DataEntity.WCFFaultException(999, "Authorize Fail", "用户名不存在或密码错误");
         }
-
+        
+        /// <summary>
+        /// 获取单个用户对象
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="EntityId"></param>
+        /// <param name="IsDetail"></param>
+        /// <returns></returns>
         public Galant.DataEntity.Entity GetEntityByID(DataOperator data, string EntityId, bool IsDetail)
         {
-            string SqlSearch = this.BuildSearchSQLByKey(EntityId);
+            string SqlSearch = this.BuildSearchSQL() + "WHERE Entity_id = " + EntityId;
             DataTable dt = SqlHelper.ExecuteDataset(data.myConnection, CommandType.Text, SqlSearch).Tables[0];
             if (dt.Rows.Count > 0)
             {
                 Galant.DataEntity.Entity entity = this.MappingRow(dt.Rows[0]) as Galant.DataEntity.Entity;
                 if (!IsDetail)
                     return entity;
-                entity.Roles = null;
+                Role role = new Role();
+                entity.Roles = role.GetRolesByEntityID(data,EntityId);
 
+            }
+            return null;
+        }
+        /// <summary>
+        /// 获取所有实体
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public List<Galant.DataEntity.Entity> GetAllAvailableEntitys(DataOperator data)
+        {
+            string SqlSearch = this.BuildSearchSQL() + "WHERE Able_flag = 0";
+            DataTable dt = SqlHelper.ExecuteDataset(data.myConnection, CommandType.Text, SqlSearch).Tables[0];            
+            if (dt.Rows.Count > 0)
+            {
+                List<Galant.DataEntity.Entity> entitys = new List<Galant.DataEntity.Entity>();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    Galant.DataEntity.Entity entity = this.MappingRow(dr) as Galant.DataEntity.Entity;
+                    entitys.Add(entity);
+                }
+                return entitys;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 获取所有路线关联的实体
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public List<Galant.DataEntity.Entity> GetRoutedEntitys(DataOperator data)
+        {
+            string SqlSearch = @"select e.* from routes as r ,entities as e where e.entity_id = r.from_entity or e.entity_id = r.to_entity";
+            DataTable dt = SqlHelper.ExecuteDataset(data.myConnection, CommandType.Text, SqlSearch).Tables[0];
+            if (dt.Rows.Count > 0)
+            {
+                List<Galant.DataEntity.Entity> entitys = new List<Galant.DataEntity.Entity>();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    Galant.DataEntity.Entity entity = this.MappingRow(dr) as Galant.DataEntity.Entity;
+                    entitys.Add(entity);
+                }
+                return entitys;
             }
             return null;
         }

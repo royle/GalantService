@@ -12,6 +12,9 @@ namespace GLTService.Operation.BaseEntity
         public Role(DataOperator data)
             : base(data) { }
 
+        public Role():base()
+        { }
+
         public override string SqlAddNewSql
         {
             get
@@ -46,7 +49,7 @@ VALUES (
             DicDataMapping.Add("RoleType", "Role_Type");
         }
 
-        public List<Galant.DataEntity.Role> GetRoleByEntityID(DataOperator data, string EntityId)
+        public List<Galant.DataEntity.Role> GetRolesByEntityID(DataOperator data, string EntityId)
         {
             string SqlSearch = this.BuildSearchSQL() + "WHERE entity_id = '" + EntityId + "'";
             DataTable dt = SqlHelper.ExecuteDataset(data.myConnection, CommandType.Text, SqlSearch).Tables[0];

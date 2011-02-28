@@ -16,19 +16,16 @@ namespace GLTService.Operation
         {
         }
 
-        public Galant.DataEntity.Entity LoginTest(string id)
+        public Galant.DataEntity.AppStatusCach InitAppCach(DataOperator data, Galant.DataEntity.Entity staff)
         {
-            Entity entity = new Entity(this.Operator);
-            List<Galant.DataEntity.BaseData> datas = entity.SearchByKeyId(id);
-            if (datas != null && datas.Count > 0)
-            {
-                return (Galant.DataEntity.Entity)datas[0]; 
-            }
-            throw new Galant.DataEntity.WCFFaultException(124, "Error Permission", "用户名或密码错误");
-            Galant.DataEntity.Entity enReturn = new Galant.DataEntity.Entity();
-            
-            return enReturn;
-
+            Entity entity = new Entity();
+            Route route = new Route();
+            Galant.DataEntity.AppStatusCach cach = new Galant.DataEntity.AppStatusCach();
+            cach.Staff = entity.Authorize(data, staff.Alias, staff.Password, true);
+            cach.Entities = entity.GetAllAvailableEntitys(data);
+            cach.Routes = route.GetAllRoutes(data);
+            return cach;
         }
+
     }
 }
