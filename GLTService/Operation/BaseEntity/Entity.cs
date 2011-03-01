@@ -37,6 +37,55 @@ namespace GLTService.Operation.BaseEntity
             }
         }
 
+        public Galant.DataEntity.Entity MappingRow(DataRow dr)
+        {
+            if (dr == null)
+                return null;
+            Galant.DataEntity.Entity entity = new Galant.DataEntity.Entity();
+            if (string.IsNullOrEmpty(dr["Entity_id"].ToString()))
+                entity.EntityId = null;
+            else
+                entity.EntityId =  Convert.ToInt32(dr["Entity_id"]);
+            entity.Alias = dr["Alias"].ToString();
+            entity.Password = dr["Password"].ToString();
+            entity.FullName = dr["Full_Name"].ToString();
+            entity.HomePhone = dr["Home_phone"].ToString();
+            entity.CellPhoneOne = dr["Cell_phone1"].ToString();
+            entity.CellPhoneTwo = dr["Cell_phone2"].ToString();
+            if (string.IsNullOrEmpty(dr["Type"].ToString()))
+                entity.EntityType = Galant.DataEntity.EntityType.Station;
+            else
+                entity.EntityType = (Galant.DataEntity.EntityType)dr["Type"];
+            entity.AddressFamily = dr["Address_Family"].ToString();
+            entity.AddressChild = dr["Address_Child"].ToString();
+            entity.Comment = dr["Comment"].ToString();
+            if (string.IsNullOrEmpty(dr["Store_log"].ToString()))
+                entity.StoreLog = null;
+            else
+                entity.StoreLog = Convert.ToInt32(dr["Store_log"]);
+
+            if (string.IsNullOrEmpty(dr["Deposit"].ToString()))
+                entity.Deposit = null;
+            else
+                entity.Deposit = Convert.ToDecimal(dr["Deposit"]);
+
+            if (string.IsNullOrEmpty(dr["Pay_type"].ToString()))
+                entity.PayType = null;
+            else
+                entity.PayType = (Galant.DataEntity.PayType)dr["Pay_type"];
+
+            if (string.IsNullOrEmpty(dr["Route_Station"].ToString()))
+                entity.RountStation = null;
+            else
+                entity.RountStation = Convert.ToInt32(dr["Route_Station"]);
+
+            if (string.IsNullOrEmpty(dr["Able_flag"].ToString()))
+                entity.AbleFlag = false;
+            else
+                entity.AbleFlag = Convert.ToBoolean(dr["Able_flag"]);
+            return entity;
+        }
+
         protected override void MappingDataName()
         {
             DicDataMapping.Add("EntityId", "Entity_id");
@@ -72,17 +121,19 @@ namespace GLTService.Operation.BaseEntity
         /// <returns></returns>
         public Galant.DataEntity.Entity Authorize(DataOperator data, string Alias,string Password, bool IsDetail)
         {
-            string SqlSearch = this.BuildSearchSQL() + "WHERE Alias = '" + Alias + "' AND Password = '" + Password + "'";
+            string SqlSearch = this.BuildSearchSQL() + " WHERE Alias = '" + Alias + "' AND Password = '" + Password + "'";
             DataTable dt = SqlHelper.ExecuteDataset(data.myConnection, CommandType.Text, SqlSearch).Tables[0];
             if (dt.Rows.Count > 0)
             {
-                Galant.DataEntity.Entity entity = this.MappingRow(dt.Rows[0]) as Galant.DataEntity.Entity;
+                Galant.DataEntity.Entity entity = this.MappingRow(dt.Rows[0]);
                 if(!entity.AbleFlag)
                     throw new Galant.DataEntity.WCFFaultException(998, "User Overdue", "用户已经停用");
                 return this.GetEntityByID(data, entity.EntityId.ToString(), IsDetail);
             }
             throw new Galant.DataEntity.WCFFaultException(999, "Authorize Fail", "用户名不存在或密码错误");
         }
+
+       
         
         /// <summary>
         /// 获取单个用户对象
@@ -93,16 +144,16 @@ namespace GLTService.Operation.BaseEntity
         /// <returns></returns>
         public Galant.DataEntity.Entity GetEntityByID(DataOperator data, string EntityId, bool IsDetail)
         {
-            string SqlSearch = this.BuildSearchSQL() + "WHERE Entity_id = " + EntityId;
+            string SqlSearch = this.BuildSearchSQL() + " WHERE Entity_id = " + EntityId;
             DataTable dt = SqlHelper.ExecuteDataset(data.myConnection, CommandType.Text, SqlSearch).Tables[0];
             if (dt.Rows.Count > 0)
             {
-                Galant.DataEntity.Entity entity = this.MappingRow(dt.Rows[0]) as Galant.DataEntity.Entity;
+                Galant.DataEntity.Entity entity = this.MappingRow(dt.Rows[0]);
                 if (!IsDetail)
                     return entity;
                 Role role = new Role();
                 entity.Roles = role.GetRolesByEntityID(data,EntityId);
-
+                return entity;
             }
             return null;
         }
@@ -113,7 +164,7 @@ namespace GLTService.Operation.BaseEntity
         /// <returns></returns>
         public List<Galant.DataEntity.Entity> GetAllAvailableEntitys(DataOperator data)
         {
-            string SqlSearch = this.BuildSearchSQL() + "WHERE Able_flag = 0";
+            string SqlSearch = this.BuildSearchSQL() + " WHERE Able_flag = 0";
             DataTable dt = SqlHelper.ExecuteDataset(data.myConnection, CommandType.Text, SqlSearch).Tables[0];            
             if (dt.Rows.Count > 0)
             {

@@ -17,7 +17,7 @@ namespace GLTService
             return string.Format("You entered: {0}", value);
         }
 
-        public BaseData DoRequest(BaseData composite, Entity staff, string OperationType)
+        public BaseData DoRequest(Galant.DataEntity.BaseData composite, Galant.DataEntity.Entity staff, string OperationType)
         {
             try
             {

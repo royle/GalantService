@@ -21,7 +21,7 @@ namespace GLTService.Operation
             Entity entity = new Entity();
             Route route = new Route();
             Galant.DataEntity.AppStatusCach cach = new Galant.DataEntity.AppStatusCach();
-            cach.Staff = entity.Authorize(data, staff.Alias, staff.Password, true);
+            cach.StaffCurrent = entity.Authorize(data, staff.Alias, staff.Password, true);
             cach.Entities = entity.GetAllAvailableEntitys(data);
             cach.Routes = route.GetAllRoutes(data);
             return cach;

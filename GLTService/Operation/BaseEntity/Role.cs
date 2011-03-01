@@ -49,9 +49,17 @@ VALUES (
             DicDataMapping.Add("RoleType", "Role_Type");
         }
 
+        public Galant.DataEntity.Role MappingRow(DataRow dr)
+        {
+            if (dr == null)
+                return null;
+            Galant.DataEntity.Role role = new Galant.DataEntity.Role();
+            return role;
+        }
+
         public List<Galant.DataEntity.Role> GetRolesByEntityID(DataOperator data, string EntityId)
         {
-            string SqlSearch = this.BuildSearchSQL() + "WHERE entity_id = '" + EntityId + "'";
+            string SqlSearch = this.BuildSearchSQL() + " WHERE entity_id = '" + EntityId + "'";
             DataTable dt = SqlHelper.ExecuteDataset(data.myConnection, CommandType.Text, SqlSearch).Tables[0];
             if (dt.Rows.Count > 0)
             {

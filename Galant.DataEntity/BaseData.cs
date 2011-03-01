@@ -16,6 +16,7 @@ namespace Galant.DataEntity
     [KnownType(typeof(Product))]
     [KnownType(typeof(Role))]
     [KnownType(typeof(Route))]
+    [KnownType(typeof(AppStatusCach))]
     public abstract class BaseData : IIdentifiable, INotifyPropertyChanged, IDataErrorInfo, ICloneable, IComparable
     {
         public BaseData(string operation)
@@ -380,7 +381,7 @@ namespace Galant.DataEntity
 
         #region WCF Errors
         [DataMember]
-        public int WCFFaultCode
+        public int? WCFFaultCode
         { get; set; }
         [DataMember]
         public string WCFFaultString

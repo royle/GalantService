@@ -6,6 +6,9 @@ using System.Runtime.Serialization;
 
 namespace Galant.DataEntity
 {
+    /// <summary>
+    /// 应用程序对象  缓存
+    /// </summary>
     [DataContract]
     public class AppStatusCach : BaseData
     {
@@ -16,16 +19,16 @@ namespace Galant.DataEntity
         {
         }
 
-        private Entity staff;
+        private Entity staffCurrent;
 
         /// <summary>
         /// 当前登陆用户
         /// </summary>
         [DataMember]
-        public Entity Staff
+        public Entity StaffCurrent
         {
-            get { return staff; }
-            set { staff = value; OnPropertyChanged("Staff"); }
+            get { return staffCurrent; }
+            set { staffCurrent = value; OnPropertyChanged("StaffCurrent"); }
         }
 
         private List<Entity> entities;

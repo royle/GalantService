@@ -144,30 +144,30 @@ namespace Galant.DataEntity
             get { return comment; }
             set { comment = value; OnPropertyChanged("Comment"); }
         }
-        private int storeLog;
+        private int? storeLog;
         [DataMember]
-        public int StoreLog
+        public int? StoreLog
         {
             get { return storeLog; }
             set { storeLog = value; }
         }
-        private decimal deposit;
+        private decimal? deposit;
         [DataMember]
-        public decimal Deposit
+        public decimal? Deposit
         {
             get { return deposit; }
             set { deposit = value; }
         }
-        private PayType payType;
+        private PayType? payType;
         [DataMember]
-        public PayType PayType
+        public PayType? PayType
         {
             get { return payType; }
             set { payType = value; }
         }
-        private int rountStation;
+        private int? rountStation;
         [DataMember]
-        public int RountStation
+        public int? RountStation
         {
             get { return rountStation; }
             set { rountStation = value; }
