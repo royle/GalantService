@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<doc>
+    <assembly>
+        <name>Xceed.Wpf.DataGrid.ThemePack.2</name>
+    </assembly>
+    <members>
+        <member name="N:Xceed.Wpf.DataGrid.ThemePack">
+            <summary>The Xceed.Wpf.DataGrid.ThemePack namespace contains a variety of non-system themes, including Glass.</summary>
+        </member>
+        <member name="T:Xceed.Wpf.DataGrid.ThemePack.GlassTheme">
+            <summary>Represents the Glass theme.</summary>
+            <remarks>         Figure 1: Card view in Glass     theme</remarks>
+        </member>
+        <member name="M:Xceed.Wpf.DataGrid.ThemePack.GlassTheme.#ctor">
+            <summary>Initializes a new instance of the GlassTheme class.</summary>
+        </member>
+    </members>
+</doc>

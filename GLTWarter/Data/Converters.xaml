@@ -1,0 +1,104 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:src="clr-namespace:GLTWarter"
+    xmlns:data="clr-namespace:GLTWarter.Data"
+    xmlns:ctrl="clr-namespace:GLTWarter.Controls">
+
+    
+
+    <data:ValueTypeBindingConverter x:Key="ValueTypeBindingConverter"/>
+    <data:ArrayCountVisibilityConverter x:Key="ArrayCountVisibilityConverter"/>
+    <data:ArrayNotCountVisibilityConverter x:Key="ArrayNotCountVisibilityConverter"/>
+    <data:IsNullVisibilityConverter x:Key="IsNullVisibilityConverter"/>
+    <data:IsNotNullVisibilityConverter x:Key="IsNotNullVisibilityConverter"/>
+    <data:IsStringEmptyVisibilityConverter x:Key="IsStringEmptyVisibilityConverter"/>
+    <data:IsNotStringEmptyVisibilityConverter x:Key="IsNotStringEmptyVisibilityConverter"/>
+    <data:StringBooleanConverter x:Key="StringBooleanConverter"/>
+    <data:StringRadioBoxConverter x:Key="StringRadioBoxConverter"/>
+    <data:BooleanNotConverter x:Key="BooleanNotConverter"/>
+    <data:BooleanVisibilityConverter x:Key="BooleanVisibilityConverter"/>
+    <data:BooleanNotVisibilityConverter x:Key="BooleanNotVisibilityConverter"/>
+    <data:BooleanNotAllVisibilityConverter x:Key="BooleanNotAllVisibilityConverter"/>
+    <data:IsZeroVisibilityConverter x:Key="IsZeroVisibilityConverter"/>
+    <data:IsZeroNotVisibilityConverter x:Key="IsZeroNotVisibilityConverter"/>
+    <data:IsNotZeroConverter x:Key="IsNotZeroConverter"/>
+    <data:IsDateTimeMinVisibilityConverter x:Key="IsDateTimeMinVisibilityConverter"/>
+    <data:IsDateTimeNotMinVisibilityConverter x:Key="IsDateTimeNotMinVisibilityConverter"/>
+    <data:IsNullBooleanConverter x:Key="IsNullBooleanConverter"/>
+    <data:IsNotNullBooleanConverter x:Key="IsNotNullBooleanConverter"/>
+    <data:SelectFirstConverter x:Key="SelectFirstConverter"/>
+    <data:SelectFirstAsArrayConverter x:Key="SelectFirstAsArrayConverter"/>
+    <data:ArrayStringConverter x:Key="ArrayStringConverter"/>
+    <data:ArrayFirstStringConverter x:Key="ArrayFirstStringConverter"/>
+    <data:ExampleConverter x:Key="ExampleConverter"/>
+    <data:NullStringConverter x:Key="NullStringConverter"/>
+    <data:IntDisplayConverter x:Key="IntDisplayConverter"/>
+    <data:IntGreaterVisibilityConverter x:Key="IntGreaterVisibilityConverter"/>
+    <data:IntLesserVisibilityConverter x:Key="IntLesserVisibilityConverter"/>
+    <data:EntityNameConverter x:Key="EntityNameConverter"/>
+    <data:IsSameBaseDataBooleanConverter x:Key="IsSameBaseDataBooleanConverter"/>
+    <data:IsSameBaseDataNotBooleanConverter x:Key="IsSameBaseDataNotBooleanConverter"/>
+    <data:IsSameBaseDataVisibilityConverter x:Key="IsSameBaseDataVisibilityConverter"/>
+    <data:IsSameBaseDataNotVisibilityConverter x:Key="IsSameBaseDataNotVisibilityConverter"/>
+    <data:AmountConverter x:Key="AmountConverter"/>
+    <data:EntityAliasInputConverter x:Key="EntityAliasInputConverter" />
+    <data:EntityLastMileInputConverter x:Key="EntityLastMileInputConverter" />
+    <data:StringDateTimeInputConverter x:Key="StringDateTimeInputConverter" />
+    <data:StringUniverseDateTimeInputConverter x:Key="StringUniverseDateTimeInputConverter" />
+    <data:DateTimeInputConverter x:Key="DateTimeInputConverter" />
+    <data:IntInputConverter x:Key="IntInputConverter"/>
+    <data:DoubleDigitsIntInputConverter x:Key="DoubleDigitsIntInputConverter"/>
+    <data:SubstringStartConverter x:Key="SubstringStartConverter"/>
+ 
+
+    <DataTemplate x:Key="IsMarkTemplate">
+        <Image Visibility="{Binding Converter={StaticResource BooleanVisibilityConverter}}" Source="pack://application:,,,/GLTWarter;component/Resources/tick.png" Height="16" Width="16" />
+    </DataTemplate>
+    <DataTemplate x:Key="MarkNoneTemplate">
+    </DataTemplate>
+    <DataTemplate x:Key="MarkStandbyTemplate">
+        <Image Source="pack://application:,,,/GLTWarter;component/Resources/bullet_yellow.png" Height="16" Width="16" />
+    </DataTemplate>
+    <DataTemplate x:Key="MarkConfirmTemplate">
+        <Image Source="pack://application:,,,/GLTWarter;component/Resources/tick.png" Height="16" Width="16" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="ArrayStringTemplate">
+        <ItemsControl ItemsSource="{Binding}" Focusable="False">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </DataTemplate>
+    <DataTemplate x:Key="BillOrigAmountTemplate">
+        <TextBlock Text="{Binding Converter={StaticResource BillOrigAmountConverter}}" />
+    </DataTemplate>
+    <DataTemplate x:Key="BillAmountTemplate">
+        <TextBlock Text="{Binding Converter={StaticResource BillAmountConverter}}" />
+    </DataTemplate>
+    <DataTemplate x:Key="EventDateTemplate">
+        <TextBlock Text="{Binding Converter={StaticResource EventDateConverter}}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="BillSumAmountTemplate">
+        <StackPanel>
+            <TextBlock Text="没有数据" Visibility="{Binding NoDataFlag, Converter={StaticResource BooleanVisibilityConverter}}"/>
+            <ItemsControl ItemsSource="{Binding Sum}" Visibility="{Binding NoDataFlag, Converter={StaticResource BooleanNotVisibilityConverter}}" Focusable="False" ItemTemplate="{StaticResource BillAmountTemplate}" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="BillSumAmountGroupTemplate">
+        <StackPanel>
+            <TextBlock Visibility="{Binding NoDataCount, Converter={StaticResource IsZeroNotVisibilityConverter}}">没有数据 <TextBlock Text="{Binding NoDataCount}" />单</TextBlock>
+            <ItemsControl ItemsSource="{Binding Sum}" Visibility="{Binding NoDataFlag, Converter={StaticResource BooleanNotVisibilityConverter}}" Focusable="False" ItemTemplate="{StaticResource BillAmountTemplate}" />
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="GroupHasValueTemplate">
+        <TextBlock><TextBlock Visibility="{Binding Converter={StaticResource BooleanVisibilityConverter}}">有</TextBlock><TextBlock Visibility="{Binding Converter={StaticResource BooleanNotVisibilityConverter}}">无</TextBlock></TextBlock>
+    </DataTemplate>
+    <DataTemplate x:Key="GroupBooleanValueTemplate">
+        <TextBlock><TextBlock Visibility="{Binding Converter={StaticResource BooleanVisibilityConverter}}">是</TextBlock><TextBlock Visibility="{Binding Converter={StaticResource BooleanNotVisibilityConverter}}">否</TextBlock></TextBlock>
+    </DataTemplate>
+
+</ResourceDictionary>

@@ -1,0 +1,44 @@
+﻿<pages:DetailsBase
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:my="clr-namespace:GLTWarter.Controls"
+    xmlns:pages="clr-namespace:GLTWarter.Pages"
+    xmlns:src="clr-namespace:GLTWarter"
+    xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+    x:Class="GLTWarter.Pages.Login"
+    Title="{Binding DialogTitle}">
+    <pages:DetailsBase.Resources>
+        <ResourceDictionary>
+            <Style TargetType="my:PropertyRow" BasedOn="{StaticResource PropertyRowStretch}">
+                <Setter Property="HeaderColumnWidth" Value="80"/>
+            </Style>
+        </ResourceDictionary>
+    </pages:DetailsBase.Resources>
+    <my:DetailsPagePresenter ShowTopLoadingBar="False">
+        <my:DetailsPagePresenter.LatestVersionButtonsPanel>
+            <Button IsDefault="true" IsEnabled="{Binding Path=IsDirty, FallbackValue=false}" Click="buttonNext_Click" >确定</Button>
+            <Button IsCancel="true" Click="buttonCancelPrivate_Click">取消</Button>
+        </my:DetailsPagePresenter.LatestVersionButtonsPanel>
+        <DockPanel>
+            <DockPanel Margin="15,10">
+                <Border DockPanel.Dock="Top" BorderBrush="{x:Static SystemColors.ControlBrush}" BorderThickness="0,0,0,1">
+                    <StackPanel Margin="0,0,0,9">
+                        <TextBlock Name="textMainInstruction" FontSize="16" Foreground="{x:Static SystemColors.HotTrackBrush}" TextWrapping="Wrap" Text="登陆配送系统"/>
+                        <TextBlock Name="textText" TextWrapping="Wrap" Text="请输入您的用户名密码！"/>
+                    </StackPanel>
+                </Border>
+
+                <StackPanel Margin="80,10,13,10">
+                    <my:PropertyRow HeaderText="账号名(_A):">
+                        <TextBox Name="textAlias" Style="{StaticResource vInput}" VerticalAlignment="Center"
+                                 Text="{Binding Alias, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" MaxLength="50" />
+                    </my:PropertyRow>
+                    <my:PropertyRow HeaderText="密码(_P):">
+                        <PasswordBox Name="passwordPassword" Style="{StaticResource vInput}" PasswordChanged="passwordPassword_PasswordChanged" VerticalAlignment="Center"
+                                     Tag="{Binding Password, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" MaxLength="50" />
+                    </my:PropertyRow>
+                </StackPanel>
+            </DockPanel>
+        </DockPanel>
+    </my:DetailsPagePresenter>
+</pages:DetailsBase>

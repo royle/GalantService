@@ -1,0 +1,10 @@
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\GLTWarter\GLTWarter\Cryptography\bin\Debug\Cryptography.exe.config
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\GLTWarter\GLTWarter\Cryptography\bin\Debug\Cryptography.exe
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\GLTWarter\GLTWarter\Cryptography\bin\Debug\Cryptography.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\GLTWarter\GLTWarter\Cryptography\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\GLTWarter\GLTWarter\Cryptography\obj\Debug\Cryptography.frmMain.resources
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\GLTWarter\GLTWarter\Cryptography\obj\Debug\Cryptography.Properties.Resources.resources
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\GLTWarter\GLTWarter\Cryptography\obj\Debug\GenerateResource.read.1.tlog
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\GLTWarter\GLTWarter\Cryptography\obj\Debug\GenerateResource.write.1.tlog
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\GLTWarter\GLTWarter\Cryptography\obj\Debug\Cryptography.exe
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\GLTWarter\GLTWarter\Cryptography\obj\Debug\Cryptography.pdb

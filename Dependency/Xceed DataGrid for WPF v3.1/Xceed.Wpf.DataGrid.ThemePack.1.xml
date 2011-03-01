@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<doc>
+    <assembly>
+        <name>Xceed.Wpf.DataGrid.ThemePack.1</name>
+    </assembly>
+    <members>
+        <member name="N:Xceed.Wpf.DataGrid.ThemePack">
+            <summary>The Xceed.Wpf.DataGrid.ThemePack namespace contains a variety of non-system themes, including Office 2007 and Windows Media Player 11.</summary>
+        </member>
+        <member name="T:Xceed.Wpf.DataGrid.ThemePack.Office2007BlackTheme">
+            <summary>Represents the black Office 2007 theme, which blends perfectly into any Office 2007-like application (see also  ElementalBlackTheme).</summary>
+            <remarks>         Figure 1: Card view in Office 2007 Black     theme</remarks>
+        </member>
+        <member name="M:Xceed.Wpf.DataGrid.ThemePack.Office2007BlackTheme.#ctor">
+            <summary>Initializes a new instance of the Office2007BlackTheme class.</summary>
+        </member>
+        <member name="T:Xceed.Wpf.DataGrid.ThemePack.Office2007BlueTheme">
+            <summary>Represents the blue Office 2007 theme, which blends perfectly into any Office 2007-like application (see also  ElementalBlueTheme).</summary>
+            <remarks>         Figure 1: Table view in Office 2007 Blue     theme</remarks>
+        </member>
+        <member name="M:Xceed.Wpf.DataGrid.ThemePack.Office2007BlueTheme.#ctor">
+            <summary>Initializes a new instance of the Office2007BlueTheme class.</summary>
+        </member>
+        <member name="T:Xceed.Wpf.DataGrid.ThemePack.Office2007SilverTheme">
+            <summary>Represents the silver Office 2007 theme, which blends perfectly into any Office 2007-like application (see also  ElementalSilverTheme).</summary>
+            <remarks>         Figure 1: Compact-card view in Office 2007     Silver theme</remarks>
+        </member>
+        <member name="M:Xceed.Wpf.DataGrid.ThemePack.Office2007SilverTheme.#ctor">
+            <summary>Initializes a new instance of the Office2007SilverTheme class.</summary>
+        </member>
+        <member name="T:Xceed.Wpf.DataGrid.ThemePack.WMP11Theme">
+            <summary>Represents the Windows Media Player 11 theme.</summary>
+            <remarks>         Figure 1: Table view in Windows Media     Player 11 theme</remarks>
+        </member>
+        <member name="M:Xceed.Wpf.DataGrid.ThemePack.WMP11Theme.#ctor">
+            <summary>Initializes a new instance of the WMP11Theme class.</summary>
+        </member>
+    </members>
+</doc>

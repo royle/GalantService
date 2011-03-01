@@ -1,0 +1,12 @@
+﻿<Window x:Class="GLTWarter.LoginScreen"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:my="clr-namespace:GLTWarter.Controls"
+    Name="LoginWindow"
+        Title="登录"
+    Width="425" Visibility="Collapsed" ResizeMode="NoResize" SizeToContent="Height"
+        Icon="App.ico">
+    <Frame Name="frameContent" JournalOwnership="OwnsJournal" NavigationUIVisibility="Hidden" Focusable="False" />
+</Window>
+
+

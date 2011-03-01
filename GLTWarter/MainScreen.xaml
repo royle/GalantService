@@ -1,0 +1,79 @@
+﻿<Window x:Class="GLTWarter.MainScreen"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:src="clr-namespace:GLTWarter"
+    xmlns:my="clr-namespace:GLTWarter.Controls"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    Height="700" Width="900"
+        Icon="App.ico"
+    >
+    <Window.Resources>
+        <src:MainWindowEffectiveRoleCheckConverter x:Key="MainWindowEffectiveRoleCheckConverter"/>
+        <src:MainWindowEntityRolesMapHeaderConverter x:Key="MainWindowEntityRolesMapHeaderConverter"/>
+        <src:MainWindowWeighScaleSelectionConverter x:Key="MainWindowWeighScaleSelectionConverter"/>
+        <src:MainWindowWeighScaleCheckConverter x:Key="MainWindowWeighScaleCheckConverter"/>
+        <Style x:Key="EffectiveRoleStyle" TargetType="{x:Type MenuItem}">
+            <Style.Setters>                             
+                <Setter Property="Header" Value="{Binding Converter={StaticResource MainWindowEntityRolesMapHeaderConverter}}"/>
+            </Style.Setters>
+        </Style>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="src:MainScreen.BrowseHomepage" Executed="BrowseHomepage_Executed"/>
+        <CommandBinding Command="src:MainScreen.NewTab" Executed="NewTab_Executed"/>
+        <CommandBinding Command="src:MainScreen.CloseTab" Executed="CloseTab_Executed" CanExecute="CloseTab_CanExecute" />
+        <CommandBinding Command="src:MainScreen.FocusQuickSearchBox"  Executed="FocusQuickSearchBox_Executed" />
+        <CommandBinding Command="src:MainScreen.QuickSearch" Executed="QuickSearch_Executed"/>
+        <CommandBinding Command="src:MainScreen.Help" Executed="Help_Executed"/>
+        <CommandBinding Command="src:MainScreen.Tab1" Executed="SwitchTab_Executed"/>
+        <CommandBinding Command="src:MainScreen.Tab2" Executed="SwitchTab_Executed"/>
+        <CommandBinding Command="src:MainScreen.Tab3" Executed="SwitchTab_Executed"/>
+        <CommandBinding Command="src:MainScreen.Tab4" Executed="SwitchTab_Executed"/>
+        <CommandBinding Command="src:MainScreen.Tab5" Executed="SwitchTab_Executed"/>
+        <CommandBinding Command="src:MainScreen.Tab6" Executed="SwitchTab_Executed"/>
+        <CommandBinding Command="src:MainScreen.Tab7" Executed="SwitchTab_Executed"/>
+        <CommandBinding Command="src:MainScreen.Tab8" Executed="SwitchTab_Executed"/>
+        <CommandBinding Command="src:MainScreen.LastTab" Executed="SwitchTab_Executed"/>
+        <CommandBinding Command="src:MainScreen.PreviousTab" Executed="SwitchTab_Executed"/>
+        <CommandBinding Command="src:MainScreen.NextTab" Executed="SwitchTab_Executed"/>
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Command="src:MainScreen.BrowseHomepage" Gesture="F12"/>
+        <KeyBinding Command="src:MainScreen.NewTab" Gesture="Ctrl+T"/>
+        <KeyBinding Command="src:MainScreen.CloseTab" Gesture="Ctrl+W"/>
+        <KeyBinding Command="src:MainScreen.CloseTab" Gesture="Ctrl+F4"/>
+        <KeyBinding Command="src:MainScreen.FocusQuickSearchBox" Gesture="F3"/>
+        <KeyBinding Command="src:MainScreen.FocusQuickSearchBox" Gesture="Ctrl+E"/>
+        <KeyBinding Command="src:MainScreen.Help" Gesture="F1"/>
+
+        <KeyBinding Command="src:MainScreen.Tab1" Gesture="Ctrl+1"/>
+        <KeyBinding Command="src:MainScreen.Tab2" Gesture="Ctrl+2"/>
+        <KeyBinding Command="src:MainScreen.Tab3" Gesture="Ctrl+3"/>
+        <KeyBinding Command="src:MainScreen.Tab4" Gesture="Ctrl+4"/>
+        <KeyBinding Command="src:MainScreen.Tab5" Gesture="Ctrl+5"/>
+        <KeyBinding Command="src:MainScreen.Tab6" Gesture="Ctrl+6"/>
+        <KeyBinding Command="src:MainScreen.Tab7" Gesture="Ctrl+7"/>
+        <KeyBinding Command="src:MainScreen.Tab8" Gesture="Ctrl+8"/>
+        <KeyBinding Command="src:MainScreen.LastTab" Gesture="Ctrl+9"/>
+        <KeyBinding Command="src:MainScreen.PreviousTab" Gesture="Ctrl+PgUp"/>
+        <KeyBinding Command="src:MainScreen.NextTab" Gesture="Ctrl+PgDn"/>
+    </Window.InputBindings>
+    <DockPanel>
+        <Menu Name="menu1" IsMainMenu="True" VerticalAlignment="Top" DockPanel.Dock="Top" KeyboardNavigation.TabNavigation="None">
+           
+        </Menu>
+        <ItemsControl DockPanel.Dock="Top" Style="{StaticResource NotificationBar}" Padding="3" Focusable="False">
+            <TextBlock  TextWrapping="Wrap" Margin="2">
+                <InlineUIContainer BaselineAlignment="Center"></InlineUIContainer>
+               </TextBlock>
+        </ItemsControl>
+        
+        <my:BrowserTabControl Margin="0,2,0,0" x:Name="tabPageControl" Focusable="False">
+            <my:BrowserTabControl.ContentTemplate>
+                <DataTemplate>
+                    <ContentPresenter Content="{Binding Path=Page}" />
+                </DataTemplate>
+            </my:BrowserTabControl.ContentTemplate>
+        </my:BrowserTabControl>
+    </DockPanel>
+</Window>

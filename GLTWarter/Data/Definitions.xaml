@@ -1,0 +1,80 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:src="clr-namespace:GLTWarter"
+    xmlns:data="clr-namespace:GLTWarter.Data">
+
+    <XmlDataProvider x:Key="EntityType" IsAsynchronous="False">
+        <x:XData>
+            <EntityType xmlns="">
+                <Entity searchable="1">
+                    <Value></Value>
+                    <Text>所有</Text>
+                </Entity>
+                <Entity searchable="1">
+                    <Value>Headquarter</Value>
+                    <Text>总部</Text>
+                </Entity>
+                <Entity searchable="1">
+                    <Value>Station</Value>
+                    <Text>站点</Text>
+                </Entity>
+                <Entity searchable="1">
+                    <Value>Staff</Value>
+                    <Text>员工</Text>
+                </Entity>
+                <Entity searchable="1">
+                    <Value>Client</Value>
+                    <Text>收件人</Text>
+                </Entity>
+                <Entity searchable="1">
+                    <Value>Individual</Value>
+                    <Text>供应商</Text>
+                </Entity>
+            </EntityType>
+        </x:XData>
+    </XmlDataProvider>
+    
+    <XmlDataProvider x:Key="RolePower" IsAsynchronous="False">
+        <x:XData>
+            <Powers xmlns="">
+                <Power>
+                    <Value>GeneralManager</Value>
+                    <Text>总经理</Text>
+                </Power>
+                <Power>
+                    <Value>OperationManager</Value>
+                    <Text>营运经理</Text>
+                </Power>
+                <Power>
+                    <Value>FinanceManager</Value>
+                    <Text>财务主管</Text>
+                </Power>
+                <Power>
+                    <Value>Finance</Value>
+                    <Text>财务出纳</Text>
+                </Power>
+                <Power>
+                    <Value>SortingManager</Value>
+                    <Text>分拣主管</Text>
+                </Power>
+                <Power>
+                    <Value>StationManager</Value>
+                    <Text>站长</Text>
+                </Power>
+                <Power>
+                    <Value>CustomerSupportManager</Value>
+                    <Text>客服主管</Text>
+                </Power>
+                <Power>
+                    <Value>CustomerSupport</Value>
+                    <Text>客服</Text>
+                </Power>
+                <Power>
+                    <Value>Supplier</Value>
+                    <Text>客户</Text>
+                </Power>
+            </Powers>
+        </x:XData>
+    </XmlDataProvider>
+
+</ResourceDictionary>
