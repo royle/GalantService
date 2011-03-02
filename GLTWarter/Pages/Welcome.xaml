@@ -95,6 +95,21 @@
                     </StackPanel>
                 </Grid>
             </TabItem>
+            <TabItem Header="系统" >
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <StackPanel Grid.Column="0">
+                        <TextBlock >
+                            <Hyperlink Name="ManageStation" Click="ManageStation_Click">管理站点</Hyperlink>
+                        </TextBlock>
+                    </StackPanel>
+                    
+                </Grid>
+            </TabItem>
         </TabControl>
         <GridSplitter Grid.Row="1" ShowsPreview="True" 
                       ResizeBehavior="PreviousAndNext" ResizeDirection="Rows"

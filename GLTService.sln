@@ -6,6 +6,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Galant.DataEntity", "Galant.DataEntity\Galant.DataEntity.csproj", "{BEA01CB6-2CDB-4841-A912-34344D1F7DAF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GLTWarter", "GLTWarter\GLTWarter.csproj", "{7CBF653E-59BF-4860-AD4C-565428F403BF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FE592D43-4643-49B7-8C4E-BAC1DE41B861} = {FE592D43-4643-49B7-8C4E-BAC1DE41B861}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

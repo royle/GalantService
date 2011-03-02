@@ -127,5 +127,11 @@ namespace GLTWarter.Pages
         {
 
         }
+
+        private void ManageStation_Click(object sender, RoutedEventArgs e)
+        {
+            //站点管理
+
+        }
     }
 }

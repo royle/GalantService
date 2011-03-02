@@ -24,13 +24,14 @@ namespace GLTWarter.GLTService {
         string EndGetData(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceAPI/DoRequest", ReplyAction="http://tempuri.org/IServiceAPI/DoRequestResponse")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Galant.DataEntity.EventLog))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Galant.DataEntity.Package))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Galant.DataEntity.Product))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Galant.DataEntity.Role))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Galant.DataEntity.Route))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Galant.DataEntity.Entity))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Galant.DataEntity.Paper))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Galant.DataEntity.Route))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Galant.DataEntity.AppStatusCach))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Galant.DataEntity.Entity))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Galant.DataEntity.Role))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Galant.DataEntity.Package))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Galant.DataEntity.EventLog))]
         Galant.DataEntity.BaseData DoRequest(Galant.DataEntity.BaseData composite, Galant.DataEntity.Entity staff, string OperationType);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IServiceAPI/DoRequest", ReplyAction="http://tempuri.org/IServiceAPI/DoRequestResponse")]

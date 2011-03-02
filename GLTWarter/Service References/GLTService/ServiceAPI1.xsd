@@ -3,35 +3,11 @@
   <xs:complexType name="BaseData">
     <xs:sequence>
       <xs:element minOccurs="0" name="WCFErrorString" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="WCFFaultCode" type="xs:int" />
+      <xs:element minOccurs="0" name="WCFFaultCode" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="WCFFaultString" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BaseData" nillable="true" type="tns:BaseData" />
-  <xs:complexType name="EventLog">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:BaseData">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="AtStation" nillable="true" type="xs:int" />
-          <xs:element minOccurs="0" name="EventData" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="EventId" type="xs:int" />
-          <xs:element minOccurs="0" name="EventType" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="InsertTime" type="xs:dateTime" />
-          <xs:element minOccurs="0" name="PaperId" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="RelationEntity" type="xs:int" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="EventLog" nillable="true" type="tns:EventLog" />
-  <xs:complexType name="Package">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:BaseData">
-        <xs:sequence />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="Package" nillable="true" type="tns:Package" />
   <xs:complexType name="Product">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:BaseData">
@@ -40,14 +16,14 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="Product" nillable="true" type="tns:Product" />
-  <xs:complexType name="Role">
+  <xs:complexType name="Paper">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:BaseData">
         <xs:sequence />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="Role" nillable="true" type="tns:Role" />
+  <xs:element name="Paper" nillable="true" type="tns:Paper" />
   <xs:complexType name="Route">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:BaseData">
@@ -56,6 +32,23 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="Route" nillable="true" type="tns:Route" />
+  <xs:complexType name="AppStatusCach">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseData">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Entities" nillable="true" type="tns:ArrayOfEntity" />
+          <xs:element minOccurs="0" name="StaffCurrent" nillable="true" type="tns:Entity" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="AppStatusCach" nillable="true" type="tns:AppStatusCach" />
+  <xs:complexType name="ArrayOfEntity">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Entity" nillable="true" type="tns:Entity" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEntity" nillable="true" type="tns:ArrayOfEntity" />
   <xs:complexType name="Entity">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:BaseData">
@@ -67,17 +60,17 @@
           <xs:element minOccurs="0" name="CellPhoneOne" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CellPhoneTwo" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Comment" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="Deposit" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Deposit" nillable="true" type="xs:decimal" />
           <xs:element minOccurs="0" name="EntityId" nillable="true" type="xs:int" />
           <xs:element minOccurs="0" name="EntityType" type="tns:EntityType" />
           <xs:element minOccurs="0" name="FullName" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="HomePhone" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="PasswordConfirm" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="PayType" type="tns:PayType" />
+          <xs:element minOccurs="0" name="PayType" nillable="true" type="tns:PayType" />
           <xs:element minOccurs="0" name="Roles" nillable="true" type="tns:ArrayOfRole" />
-          <xs:element minOccurs="0" name="RountStation" type="xs:int" />
-          <xs:element minOccurs="0" name="StoreLog" type="xs:int" />
+          <xs:element minOccurs="0" name="RountStation" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="StoreLog" nillable="true" type="xs:int" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -107,12 +100,36 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfRole" nillable="true" type="tns:ArrayOfRole" />
-  <xs:complexType name="Paper">
+  <xs:complexType name="Role">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:BaseData">
         <xs:sequence />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="Paper" nillable="true" type="tns:Paper" />
+  <xs:element name="Role" nillable="true" type="tns:Role" />
+  <xs:complexType name="Package">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseData">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Package" nillable="true" type="tns:Package" />
+  <xs:complexType name="EventLog">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseData">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AtStation" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="EventData" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EventId" type="xs:int" />
+          <xs:element minOccurs="0" name="EventType" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="InsertTime" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="PaperId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="RelationEntity" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="EventLog" nillable="true" type="tns:EventLog" />
 </xs:schema>
