@@ -29,6 +29,8 @@ namespace GLTService
                 case "Login":
                     GLTService.Operation.Login log = new Operation.Login();
                     return log.InitAppCach(dataOper, AuthorizedStaff);
+                case "SearchEntity":
+
                 default:
                     break;
             }

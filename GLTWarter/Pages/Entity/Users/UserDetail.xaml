@@ -1,4 +1,4 @@
-﻿<pages:DetailsBase x:Class="GLTWarter.Pages.Users.UserDetail"
+﻿<pages:DetailsBase x:Class="GLTWarter.Pages.Entity.Users.UserDetail"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:my="clr-namespace:GLTWarter.Controls"

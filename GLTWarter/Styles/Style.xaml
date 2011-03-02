@@ -27,6 +27,12 @@
         <Setter Property="MinWidth" Value="72" />
         <Setter Property="MinHeight" Value="23" />
     </Style>
+    <Style x:Key="SearchButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource StandardButton}">
+        <Setter Property="Margin" Value="0,0,33,10" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="VerticalAlignment" Value="Bottom" />
+        <Setter Property="Content" Value="搜索 »" />
+    </Style>
     <Style x:Key="NotificationBar" TargetType="{x:Type Control}">
         <Setter Property="BorderThickness" Value="0,0,0,1"/>
         <Setter Property="Background" Value="LightGoldenrodYellow" />

@@ -57,6 +57,9 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>App.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -151,11 +154,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Pages\Entity\SearchEntity.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\Users\UserDetail.xaml">
+    <Page Include="Pages\Entity\Users\UserDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -212,10 +219,13 @@
     <Compile Include="Controls\HintedTextbox.cs" />
     <Compile Include="Controls\SqueezeTabPanel.cs" />
     <Compile Include="Pages\DetailsBase.cs" />
+    <Compile Include="Pages\Entity\SearchEntity.xaml.cs">
+      <DependentUpon>SearchEntity.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Users\UserDetail.xaml.cs">
+    <Compile Include="Pages\Entity\Users\UserDetail.xaml.cs">
       <DependentUpon>UserDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Welcome.xaml.cs">
@@ -244,6 +254,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Styles\ExportHint.cs" />
     <Compile Include="Styles\ItemsControlBehavior.cs" />
     <Compile Include="Styles\ValidationErrorsConverter.cs" />
     <Compile Include="TabPage.cs" />
@@ -344,8 +355,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Pages\Entity\Station\" />
     <Folder Include="Pages\Product\" />
-    <Folder Include="Pages\Station\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\GLTService\ServiceAPI.disco" />

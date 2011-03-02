@@ -200,5 +200,39 @@ namespace GLTService.Operation.BaseEntity
             }
             return null;
         }
+
+        /// <summary>
+        /// 按条件查询符合条件的实体
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="conditions"></param>
+        /// <returns></returns>
+        public List<Galant.DataEntity.Entity> GetEntitysByConditions(DataOperator data, Galant.DataEntity.Search.SearchEntityCondition conditions)
+        {
+            string SqlSearch = @"SELECT e.* FROM entities AS e WHERE 1=1 ";
+            if (conditions.Type.HasValue)
+                SqlSearch += " AND type = " + Convert.ToInt32(conditions.Type.Value);
+            if (!string.IsNullOrEmpty(conditions.Alias))
+                SqlSearch += " AND UPPER(alias) like '%" + conditions.Alias.ToUpper().Trim() + "%' ";
+            if(!string.IsNullOrEmpty(conditions.Name))
+                SqlSearch += " AND UPPER(full_name) like '%" + conditions.Name.ToUpper().Trim() + "%' ";
+            if (!string.IsNullOrEmpty(conditions.Phone))
+                SqlSearch += " AND (home_phone like '%" + conditions.Phone.Trim() + "%' OR cell_phone1 like '%" + conditions.Phone.Trim() + "%' OR cell_phone2 like '%" + conditions.Phone.Trim() + "%' )";
+            if (!conditions.IsStop)
+                SqlSearch += " AND able_flag = 1";
+
+            DataTable dt = SqlHelper.ExecuteDataset(data.myConnection, CommandType.Text, SqlSearch).Tables[0];
+            if (dt.Rows.Count > 0)
+            {
+                List<Galant.DataEntity.Entity> entitys = new List<Galant.DataEntity.Entity>();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    Galant.DataEntity.Entity entity = this.MappingRow(dr) as Galant.DataEntity.Entity;
+                    entitys.Add(entity);
+                }
+                return entitys;
+            }
+            return null;
+        }
     }
 }

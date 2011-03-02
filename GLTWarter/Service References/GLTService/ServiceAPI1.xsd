@@ -8,6 +8,14 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BaseData" nillable="true" type="tns:BaseData" />
+  <xs:complexType name="Package">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseData">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Package" nillable="true" type="tns:Package" />
   <xs:complexType name="Product">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:BaseData">
@@ -108,14 +116,6 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="Role" nillable="true" type="tns:Role" />
-  <xs:complexType name="Package">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:BaseData">
-        <xs:sequence />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="Package" nillable="true" type="tns:Package" />
   <xs:complexType name="EventLog">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:BaseData">

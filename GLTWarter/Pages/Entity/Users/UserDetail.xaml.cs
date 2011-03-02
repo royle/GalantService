@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GLTWarter.Pages.Users
+namespace GLTWarter.Pages.Entity.Users
 {
     /// <summary>
     /// Interaction logic for UserDetail.xaml

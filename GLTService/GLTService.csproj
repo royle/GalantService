@@ -93,7 +93,7 @@
     <Compile Include="Operation\BaseEntity\Role.cs" />
     <Compile Include="Operation\BaseEntity\Route.cs" />
     <Compile Include="Operation\Login.cs" />
-    <Compile Include="Operation\UserPermission.cs" />
+    <Compile Include="Operation\Search.cs" />
     <Compile Include="ProcessSwitch.cs" />
     <Compile Include="ServiceAPI.svc.cs">
       <DependentUpon>ServiceAPI.svc</DependentUpon>
