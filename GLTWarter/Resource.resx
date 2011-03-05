@@ -123,4 +123,7 @@
   <data name="dateEventLongConvention" xml:space="preserve">
     <value>yyyy年M月d日 (ddd) HH:mm</value>
   </data>
+  <data name="msgStationCreated" xml:space="preserve">
+    <value>建立站点成功。</value>
+  </data>
 </root>

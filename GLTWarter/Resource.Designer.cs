@@ -77,5 +77,14 @@ namespace GLTWarter {
                 return ResourceManager.GetString("dateEventLongConvention", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 建立站点成功。.
+        /// </summary>
+        internal static string msgStationCreated {
+            get {
+                return ResourceManager.GetString("msgStationCreated", resourceCulture);
+            }
+        }
     }
 }

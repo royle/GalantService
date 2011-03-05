@@ -95,7 +95,7 @@
                     </StackPanel>
                 </Grid>
             </TabItem>
-            <TabItem Header="系统" >
+            <TabItem Header="系统"  IsSelected="True" Background="{x:Null}">
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />

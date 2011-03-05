@@ -51,7 +51,7 @@ namespace GLTWarter.Pages
         }
 
         void FocusSelectedTabItem()
-        {
+        { 
             //if (this.tabControlMain.SelectedItem == null)
             //{
             //    FocusFirstUsableTab();
@@ -131,7 +131,8 @@ namespace GLTWarter.Pages
         private void ManageStation_Click(object sender, RoutedEventArgs e)
         {
             //站点管理
-
+            //Station.StationManagement page = new Station.StationManagement
+            this.NavigationService.Navigate(new Station.StationManagement(null));
         }
 
         private void ManageUser_Click(object sender, RoutedEventArgs e)

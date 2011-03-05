@@ -45,7 +45,7 @@ namespace GLTWarter.Pages
 
             if (data == null)
             {
-                data = this.CreateNewEntity();                
+                data = this.CreateNewEntity();
             }
             this.DataContext = data;
             this.dataCurrent = data;

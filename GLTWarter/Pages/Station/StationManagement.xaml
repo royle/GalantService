@@ -11,8 +11,38 @@
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="StationManagement">
-
-    <Grid>
-        
-    </Grid>
+    <my:DetailsPagePresenter TitleBrush="AliceBlue" TitleForEdit="修改站点" TitleForNew="建立站点">
+        <my:DetailsPagePresenter.LatestVersionButtonsPanel>
+            <Button IsDefault="True" Name="btnNext" Click="buttonNext_Click">确定</Button>
+            <Button IsCancel="True">取消</Button>
+        </my:DetailsPagePresenter.LatestVersionButtonsPanel>
+        <TabControl Margin="5">
+            <TabItem Header="一般">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="10,10">
+                        <my:PropertyRow HeaderText="账号代码(_N):">
+                            <TextBox Name="txtAlias" Text="{Binding Path=Alias,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}" Style="{StaticResource vInput}"
+                                     Width="100" Margin="0,5,0,0" MaxWidth="50" />
+                        </my:PropertyRow>
+                        <my:PropertyRow HeaderText="账号全称(_F):">
+                            <TextBox Name="txtFullName" Text="{Binding Path=FullName,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"  Style="{StaticResource vInput}"
+                                     Width="150" Margin="0,5,0,0" MaxWidth="50" />
+                        </my:PropertyRow>
+                        <my:PropertyRow HeaderText="电话号码(_T):">
+                            <TextBox Name="txtPhone" Text="{Binding Path=HomePhone,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"  Style="{StaticResource vInput}" 
+                                     Width="150" Margin="0,5,0,0" MaxWidth="50" />
+                        </my:PropertyRow>
+                        <my:PropertyRow HeaderText="联系地址(_A):">
+                            <TextBox Name="txtAdd" Text="{Binding Path=AddressChild, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}" Style="{StaticResource vInput}" 
+                                     Width="150" Margin="0,5,0,0" MaxWidth="50" />
+                        </my:PropertyRow>
+                        <my:PropertyRow HeaderText="备注(_C):">
+                            <TextBox Name="txtComment" Text="{Binding Path=Comment,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"  Style="{StaticResource vInput}" 
+                                     Width="150" MinHeight="50" Margin="0,5,0,0"/>
+                        </my:PropertyRow>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+    </my:DetailsPagePresenter>
 </pages:DetailsBase>
