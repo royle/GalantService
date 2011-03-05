@@ -19,9 +19,46 @@ namespace GLTWarter.Pages.Station
     /// </summary>
     public partial class StationManagement : DetailsBase
     {
-        public StationManagement()
+        public StationManagement(Galant.DataEntity.BaseData data)
+            : base(data)
         {
             InitializeComponent();
+        }
+
+        protected override Button ButtonNext
+        {
+            get
+            {
+                return this.btnNext;
+            }
+        }
+
+        protected override bool BackAllowed
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        protected override Galant.DataEntity.BaseData CreateNewEntity()
+        {
+            Galant.DataEntity.BaseData data = new Galant.DataEntity.Entity() { EntityType = Galant.DataEntity.EntityType.Station };
+            return data;
+        }
+
+        protected override bool OnSavedNewItem()
+        {
+            MessageBox.Show(App.Current.MainWindow, Resource.msgStationCreated, this.Title, MessageBoxButton.OK, MessageBoxImage.Information);
+
+            this.dataCurrent = new Galant.DataEntity.Entity();
+            this.DataContext = this.dataCurrent;
+            Galant.DataEntity.Entity data = (Galant.DataEntity.Entity)this.dataCurrent;
+
+            data.EntityType = ((Galant.DataEntity.Entity)this.dataBackup).EntityType;
+            this.dataBackup = (Galant.DataEntity.BaseData)data.Clone();
+
+            return false;
         }
     }
 }
