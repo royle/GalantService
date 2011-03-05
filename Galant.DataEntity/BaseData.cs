@@ -17,6 +17,8 @@ namespace Galant.DataEntity
     [KnownType(typeof(Role))]
     [KnownType(typeof(Route))]
     [KnownType(typeof(AppStatusCach))]
+    [KnownType(typeof(Galant.DataEntity.Search.SearchEntityCondition))]
+    [KnownType(typeof(Galant.DataEntity.Result.SearchEntityResult))]
     public abstract class BaseData : IIdentifiable, INotifyPropertyChanged, IDataErrorInfo, ICloneable, IComparable
     {
         public BaseData(string operation)
