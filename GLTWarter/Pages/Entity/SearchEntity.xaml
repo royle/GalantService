@@ -13,10 +13,10 @@
     <Page.Resources>
         <xcdg:DataGridCollectionViewSource x:Key="ResultData" Source="{Binding ResultData, FallbackValue={x:Null}}" AutoCreateItemProperties="False">
             <xcdg:DataGridCollectionViewSource.ItemProperties>
-                <xcdg:DataGridItemProperty IsReadOnly="True" Name="Type" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource EntityType}" DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="EntityType" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource EntityType}" DataType="{x:Type sys:String}" />
                 <xcdg:DataGridItemProperty IsReadOnly="True" Name="Alias" DataType="{x:Type sys:String}" />
                 <xcdg:DataGridItemProperty IsReadOnly="True" Name="FullName" DataType="{x:Type sys:String}" />
-                <xcdg:DataGridItemProperty IsReadOnly="True" Name="IsInvalid" DataType="{x:Type sys:Boolean}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="AbleFlag" Converter="{StaticResource BooleanNotConverter}" DataType="{x:Type sys:Boolean}" />
             </xcdg:DataGridCollectionViewSource.ItemProperties>
             <xcdg:DataGridCollectionViewSource.SortDescriptions>
                 <scm:SortDescription PropertyName="Alias" Direction="Ascending" />
@@ -25,12 +25,13 @@
     </Page.Resources>
     <my:DetailsPagePresenter TitleBrush="Blue" TitleForNew="用户/客户/站点查询">
         <my:DetailsPagePresenter.LatestVersionButtonsPanel>
+            <Button HorizontalAlignment="Right" Content="新建" Click="buttonNew_Click"  Name="buttonNew" />
             <Button IsDefault="true" >修改</Button>
             <Button IsCancel="true" >取消</Button>
         </my:DetailsPagePresenter.LatestVersionButtonsPanel>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <ScrollViewer Name="SearchView" Grid.Row="0" VerticalScrollBarVisibility="Auto" Margin="5,10">
@@ -58,10 +59,10 @@
                         <TextBox Margin="100,0,0,0" Name="textName" VerticalAlignment="Center" HorizontalAlignment="Left" Width="150" 
                      Text="{Binding Path=SearchCondition.Name, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
-                    <Button Style="{StaticResource SearchButtonStyle}" Name="buttonSearch" />
+                    <Button Style="{StaticResource SearchButtonStyle}" Click="buttonNext_Click" Name="buttonSearch" />
                 </StackPanel>
             </ScrollViewer>
-            <StackPanel Grid.Row="1" Name="ResultView">
+            <StackPanel Grid.Row="1" Name="ResultView" Margin="5,10">
                 <xcdg:DataGridControl ItemsSource="{Binding Source={StaticResource ResultData}}" Name="listResult" styles:ExportHint.IsExportable="true">
                     
                     <xcdg:DataGridControl.ItemContainerStyle>
@@ -71,9 +72,9 @@
                         </Style>
                     </xcdg:DataGridControl.ItemContainerStyle>
                     <xcdg:DataGridControl.Columns>
-                        <xcdg:Column Title="类型" Width="120" FieldName="Type" />
+                        <xcdg:Column Title="类型" Width="120" FieldName="EntityType" />
                         <xcdg:Column Title="账号名" Width="120" FieldName="Alias" />
-                        <xcdg:Column Title="已停用" Width="50" FieldName="IsInvalid" GroupValueTemplate="{StaticResource GroupBooleanValueTemplate}"/>
+                        <xcdg:Column Title="已停用" Width="50" FieldName="AbleFlag" GroupValueTemplate="{StaticResource GroupBooleanValueTemplate}"/>
                         <xcdg:Column Title="名字" Width="120" FieldName="FullName" />
                     </xcdg:DataGridControl.Columns>
                 </xcdg:DataGridControl>

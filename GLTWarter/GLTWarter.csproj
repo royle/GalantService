@@ -256,6 +256,7 @@
     </Compile>
     <Compile Include="Styles\ExportHint.cs" />
     <Compile Include="Styles\ItemsControlBehavior.cs" />
+    <Compile Include="Styles\Style.cs" />
     <Compile Include="Styles\ValidationErrorsConverter.cs" />
     <Compile Include="TabPage.cs" />
     <Compile Include="Utils.cs" />
@@ -289,6 +290,12 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\GLTService\ServiceAPI2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\GLTService\ServiceAPI3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\GLTService\ServiceAPI31.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

@@ -62,8 +62,9 @@ namespace Galant.DataEntity
             : base()
         { }
 
-        private int roleId;
-        public int RoleId
+        private int? roleId;
+        [DataMember]
+        public int? RoleId
         {
             get { return roleId; }
             set { roleId = value; }
@@ -71,6 +72,7 @@ namespace Galant.DataEntity
 
         private Entity StaffEntity;
         private int? entityId;
+        [DataMember]
         public int? EntityId
         {
             get { return entityId; }
@@ -78,6 +80,7 @@ namespace Galant.DataEntity
         }
 
         private Entity station;
+        [DataMember]
         public Entity Station
         {
             get { return station; }
@@ -90,6 +93,7 @@ namespace Galant.DataEntity
         }
 
         private RoleType roleType;
+        [DataMember]
         public RoleType RoleType
         {
             get { return roleType; }

@@ -20,12 +20,26 @@ namespace GLTService.Operation.BaseEntity
         {
             get
             {
-                return @"insert into entities(
+                return @"INSERT INTO entities(
                 Alias,Password,Full_Name,Home_phone,Cell_phone1,Cell_phone2,Type,
                 Address_Family,Address_Child,Comment,Store_log,Deposit,Pay_type,Route_Station,Able_flag)
-                values (
+                VALUES (
                 @Alias,@Password,@Full_Name,@Home_phone,@Cell_phone1,@Cell_phone2,@Type,
                 @Address_Family,@Address_Child,@Comment,@Store_log,@Deposit,@Pay_type,@Route_Station,@Able_flag)";
+                
+            }
+        }
+
+        public override string SqlUpdateSql
+        {
+            get
+            {
+                return @"UPDATE entities SET 
+                Alias = @Alias,Password = @Password,Full_Name = @Full_Name,Home_phone = @Home_phone,Cell_phone1 = @Cell_phone1,Cell_phone2 = @Cell_phone2,Type = @Type ,
+                Address_Family =@Address_Family ,Address_Child =@Address_Child  ,Comment =@Comment,Store_log = @Store_log ,Deposit =@Deposit  ,Pay_type =@Pay_type  ,Route_Station = @Route_Station ,Able_flag =@Able_flag  
+                WHERE entity_id = @entity_id 
+                ";
+
             }
         }
 
@@ -106,6 +120,45 @@ namespace GLTService.Operation.BaseEntity
             DicDataMapping.Add("AbleFlag", "Able_flag");
         }
 
+        protected override void MappingInsertName()
+        {
+            DicInsertMapping.Add("Alias", "Alias");
+            DicInsertMapping.Add("Password", "Password");
+            DicInsertMapping.Add("FullName", "Full_Name");
+            DicInsertMapping.Add("HomePhone", "Home_phone");
+            DicInsertMapping.Add("CellPhoneOne", "Cell_phone1");
+            DicInsertMapping.Add("CellPhoneTwo", "Cell_phone2");
+            DicInsertMapping.Add("EntityType", "Type");
+            DicInsertMapping.Add("AddressFamily", "Address_Family");
+            DicInsertMapping.Add("AddressChild", "Address_Child");
+            DicInsertMapping.Add("Comment", "Comment");
+            DicInsertMapping.Add("StoreLog", "Store_log");
+            DicInsertMapping.Add("Deposit", "Deposit");
+            DicInsertMapping.Add("PayType", "Pay_type");
+            DicInsertMapping.Add("RountStation", "Route_Station");
+            DicInsertMapping.Add("AbleFlag", "Able_flag");
+        }
+
+        protected override void MappingUpdateName()
+        {
+            DicUpdateMapping.Add("EntityId", "Entity_id");
+            DicUpdateMapping.Add("Alias", "Alias");
+            DicUpdateMapping.Add("Password", "Password");
+            DicUpdateMapping.Add("FullName", "Full_Name");
+            DicUpdateMapping.Add("HomePhone", "Home_phone");
+            DicUpdateMapping.Add("CellPhoneOne", "Cell_phone1");
+            DicUpdateMapping.Add("CellPhoneTwo", "Cell_phone2");
+            DicUpdateMapping.Add("EntityType", "Type");
+            DicUpdateMapping.Add("AddressFamily", "Address_Family");
+            DicUpdateMapping.Add("AddressChild", "Address_Child");
+            DicUpdateMapping.Add("Comment", "Comment");
+            DicUpdateMapping.Add("StoreLog", "Store_log");
+            DicUpdateMapping.Add("Deposit", "Deposit");
+            DicUpdateMapping.Add("PayType", "Pay_type");
+            DicUpdateMapping.Add("RountStation", "Route_Station");
+            DicUpdateMapping.Add("AbleFlag", "Able_flag");
+        }
+
         protected override void SetTableName()
         {
             TableName = "entities";
@@ -121,7 +174,7 @@ namespace GLTService.Operation.BaseEntity
         /// <returns></returns>
         public Galant.DataEntity.Entity Authorize(DataOperator data, string Alias,string Password, bool IsDetail)
         {
-            string SqlSearch = this.BuildSearchSQL() + " WHERE Alias = '" + Alias + "' AND Password = '" + Password + "'";
+            string SqlSearch = this.BuildSearchSQL() + " WHERE Alias = '" + Alias + "' AND Password = '" + Password + "' AND type = 2";
             DataTable dt = SqlHelper.ExecuteDataset(data.myConnection, CommandType.Text, SqlSearch).Tables[0];
             if (dt.Rows.Count > 0)
             {
@@ -151,12 +204,54 @@ namespace GLTService.Operation.BaseEntity
                 Galant.DataEntity.Entity entity = this.MappingRow(dt.Rows[0]);
                 if (!IsDetail)
                     return entity;
-                Role role = new Role();
-                entity.Roles = role.GetRolesByEntityID(data,EntityId);
+                if (entity.EntityType == Galant.DataEntity.EntityType.Staff)
+                {
+                    Role role = new Role();
+                    entity.Roles = role.GetRolesByEntityID(data, EntityId);
+                }
                 return entity;
             }
             return null;
         }
+
+        /// <summary>
+        /// 根据用户名获取实体,不区分大小写
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="alias"></param>
+        /// <param name="IsDetail"></param>
+        /// <returns></returns>
+        public Galant.DataEntity.Entity GetEntityByAlias(DataOperator data,string alias,bool IsDetail)
+        {
+            string SqlSearch = "SELECT * FROM ENTITIES WHERE UPPER(ALIAS) = '"+alias.ToUpper().Trim()+"'";
+             DataTable dt = SqlHelper.ExecuteDataset(data.myConnection, CommandType.Text, SqlSearch).Tables[0];
+             if (dt.Rows.Count > 0)
+             {
+                 Galant.DataEntity.Entity entity = this.MappingRow(dt.Rows[0]);
+                 if (!IsDetail)
+                     return entity;
+                 if (entity.EntityType == Galant.DataEntity.EntityType.Staff)
+                 {
+                     Role role = new Role();
+                     entity.Roles = role.GetRolesByEntityID(data, entity.EntityId.Value.ToString());
+                 }
+                 return entity;
+             }
+             return null;
+        }
+
+        /// <summary>
+        /// 某用户名是否存在,不区分大小写
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="alias"></param>
+        /// <returns></returns>
+        public bool CheckAliasExist(DataOperator data, string alias)
+        {
+            return this.GetEntityByAlias(data, alias, false) != null ;
+        }
+        
+
         /// <summary>
         /// 获取所有实体
         /// </summary>
@@ -234,5 +329,50 @@ namespace GLTService.Operation.BaseEntity
             }
             return null;
         }
+
+        public Galant.DataEntity.Entity SaveEntity(DataOperator data, Galant.DataEntity.Entity entity)
+        {
+            if (entity.EntityType == Galant.DataEntity.EntityType.Staff && entity.Roles != null)//权限检查
+            {
+                foreach (Galant.DataEntity.Role r in entity.Roles)
+                {
+                    if (r.Station == null)
+                    {
+                        throw new Galant.DataEntity.WCFFaultException(1235, "Station Alias Not Exist", "站点为空，请输入正确的站名");
+                    }
+                    else
+                    {
+                        Galant.DataEntity.Entity station = this.GetEntityByAlias(data, r.Station.Alias, false);
+                        if (station == null || station.EntityType != Galant.DataEntity.EntityType.Station)
+                            throw new Galant.DataEntity.WCFFaultException(1235, "Station Alias Not Exist", "站点(" + station.Alias + ")不存在，请输入正确的站名");
+                        else
+                            r.Station = station;
+                    }
+
+                }
+            }
+
+            if (!entity.EntityId.HasValue)
+            {
+                if (this.CheckAliasExist(data, entity.Alias))
+                    throw new Galant.DataEntity.WCFFaultException(1234, "User Name Exist", "用户名(" + entity.Alias + ")已存在，请输入其它用户名");
+
+                SqlHelper.ExecuteNonQuery(data.mytransaction, CommandType.Text, this.SqlAddNewSql, this.BuildInsertParameteres(entity));
+                DataTable dt = SqlHelper.ExecuteDataset(data.mytransaction, CommandType.Text, "SELECT * FROM entities WHERE entity_id = (SELECT LAST_INSERT_ID() AS entity_id)", this.BuildParameteres(entity)).Tables[0];
+                if (dt.Rows.Count > 0)
+                {
+                    entity.EntityId = this.MappingRow(dt.Rows[0]).EntityId;
+                }
+            }
+            else
+            {
+                SqlHelper.ExecuteNonQuery(data.mytransaction, CommandType.Text, this.SqlUpdateSql, this.BuildUpdateParameteres(entity));
+            }
+
+            Role role = new Role();
+            role.AddRolesForEntity(data, entity);
+            return entity;
+        }
+        
     }
 }

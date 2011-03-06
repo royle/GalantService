@@ -158,8 +158,10 @@ namespace GLTWarter.Pages
                         this.DataReadyRefresh();
                     }
                     if (!oldIsLoading)
-                    {
-                        //dataCurrent.BeginPopulate(PopulateCallback, null);
+                    {   
+                        GLTService.ServiceAPIClient client = new GLTService.ServiceAPIClient();
+                        client.DoRequestCompleted += new EventHandler<GLTService.DoRequestCompletedEventArgs>(PopulateCallback);
+                        client.DoRequestAsync(dataCurrent, AppCurrent.Active.StaffCurrent, "Refresh");         
                     }
                 }
             }
@@ -261,8 +263,7 @@ namespace GLTWarter.Pages
             {
                 if (!dataCurrent.IsNew && !this.DataRefreshSuppressed)
                 {
-                    dataCurrent.IsLoading = true;
-                    //dataCurrent.BeginPopulate(PopulateCallback, null);
+                    this.DoRefresh();
                 }
                 else
                 {
@@ -278,7 +279,7 @@ namespace GLTWarter.Pages
         {            
         }
 
-        void PopulateCallback(IAsyncResult asr)
+        void PopulateCallback(object sender, GLTService.DoRequestCompletedEventArgs e)
         {
             this.Dispatcher.Invoke(
                 System.Windows.Threading.DispatcherPriority.Normal,
@@ -286,7 +287,7 @@ namespace GLTWarter.Pages
                 {
                     try
                     {
-                        Galant.DataEntity.BaseData newData = null;//dataCurrent.EndPopulate(asr) as Galant.DataEntity.BaseData;
+                        Galant.DataEntity.BaseData newData = e.Result;//dataCurrent.EndPopulate(asr) as Galant.DataEntity.BaseData;
                         if (newData != null)
                         {
                             if (dataCurrent != null)

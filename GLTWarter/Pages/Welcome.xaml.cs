@@ -133,5 +133,13 @@ namespace GLTWarter.Pages
             //站点管理
 
         }
+
+        private void ManageUser_Click(object sender, RoutedEventArgs e)
+        {
+            Galant.DataEntity.Result.SearchEntityResult data=new Galant.DataEntity.Result.SearchEntityResult();
+            data.SearchCondition.Type = Galant.DataEntity.EntityType.Staff;
+            data.Operation = "SearchEntity";
+            this.NavigationService.Navigate(new GLTWarter.Pages.Entity.SearchEntity(data));
+        }
     }
 }

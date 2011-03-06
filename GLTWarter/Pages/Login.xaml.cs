@@ -68,7 +68,13 @@ namespace GLTWarter.Pages
             }
         }
 
-
+        protected override bool DataRefreshSuppressed
+        {
+            get
+            {
+                    return true;
+            }
+        }
 
         protected override void OnNext(Galant.DataEntity.BaseData incomingData)
         {

@@ -6,29 +6,31 @@
     xmlns:src="clr-namespace:GLTWarter"
     xmlns:styles="clr-namespace:GLTWarter.Styles"
     xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
-	Title="用户明细">
+	Title="用户明细" >
 
     <my:DetailsPagePresenter TitleBrush="Blue" TitleForEdit="修改用户" TitleForNew="建立用户">
         <my:DetailsPagePresenter.LatestVersionButtonsPanel>
             <Button IsDefault="true"  Click="buttonNext_Click" >确定</Button>
-            <Button IsCancel="true" >取消</Button>
+            <Button IsCancel="true" Click="buttonCancel_Click" >取消</Button>
         </my:DetailsPagePresenter.LatestVersionButtonsPanel>
-        <TabControl Margin="5">
-            <TabItem Header="一般">
+        <TabControl Margin="5" Background="Transparent" >
+            <TabItem Header="一般" Background="Transparent">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="10,10">
                         <my:PropertyRow HeaderText="账号名(_A):" Visibility="{Binding Path=IsAliasAllowed, Converter={StaticResource BooleanVisibilityConverter}, FallbackValue=Visible}">
-                            <TextBox Name="textAlias" Width="100"
+                            <TextBox Name="textAlias" Width="100" IsEnabled="{Binding Path=IsAliasEnable}"
                                  Text="{Binding Path=Alias, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" MaxLength="15" />
                         </my:PropertyRow>
                         <my:PropertyRow HeaderText="新密码(_P):" Visibility="{Binding Path=IsPasswordAllowed, Converter={StaticResource BooleanVisibilityConverter}, FallbackValue=Collapsed}">
                             <StackPanel Orientation="Vertical">
                                 <PasswordBox Name="passwordPassword" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" 
                                                      Tag="{Binding Path=Password, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}"
+                                              PasswordChanged="passwordPassword_PasswordChanged"
                                                      Style="{StaticResource vInput}" MaxLength="30"/>
                                 <StackPanel Orientation="Horizontal">
                                     <PasswordBox Name="passwordConfirm" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" Margin="0,5,0,0"
                                                          Tag="{Binding Path=PasswordConfirm, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}"
+                                                        PasswordChanged="passwordPassword_PasswordChanged"
                                                          Style="{StaticResource vInput}" MaxLength="30"/>
                                     <TextBlock VerticalAlignment="Bottom" Margin="5,0,0,0">(再确认)</TextBlock>
                                 </StackPanel>
@@ -38,13 +40,13 @@
                             <TextBox Name="textName" Width="150" 
                                  Text="{Binding Path=FullName, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" MaxLength="50" />
                         </my:PropertyRow>
-                        <my:PropertyRow HeaderText="电话号码(_O):" Visibility="{Binding IsShowPhone, Converter={StaticResource BooleanVisibilityConverter}}">
+                        <my:PropertyRow HeaderText="电话号码(_O):">
                             <TextBox Name="HomePhone" MinLines="2" Width="150" 
-                                 Text="{Binding Path=Phone, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" TextWrapping="Wrap" AcceptsReturn="True" Style="{StaticResource vInput}" MaxLength="50"/>
+                                 Text="{Binding Path=HomePhone, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" TextWrapping="Wrap" AcceptsReturn="True" Style="{StaticResource vInput}" MaxLength="50"/>
                         </my:PropertyRow>
-                        <my:PropertyRow HeaderText="地址(_A):" Visibility="{Binding IsShowAddress, Converter={StaticResource BooleanVisibilityConverter}}">
+                        <my:PropertyRow HeaderText="地址(_A):">
                             <TextBox Name="textAddress" Width="300" 
-                                 Text="{Binding Path=Address, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" MaxLength="200"/>
+                                 Text="{Binding Path=AddressFamily, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" MaxLength="200"/>
                         </my:PropertyRow>
                         <my:PropertyRow HeaderText="设定:">
                             <StackPanel>
@@ -56,7 +58,7 @@
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
-            <TabItem Header="角色与权限" Visibility="{Binding IsRoleAllowed, Converter={StaticResource BooleanVisibilityConverter}}">
+            <TabItem Header="角色与权限" Visibility="{Binding IsRoleAllowed, Converter={StaticResource BooleanVisibilityConverter}}" Background="Transparent">
                 <Grid Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -73,27 +75,18 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <StackPanel Orientation="Vertical" Margin="2,2" Visibility="{Binding IsEditable, Converter={StaticResource BooleanNotVisibilityConverter}}">
-                                        <my:PropertyRow HeaderText="权限:">
-                                            <TextBlock TextWrapping="Wrap" Text="{Binding Power, Converter={StaticResource ValueTypeBindingConverter}, ConverterParameter={StaticResource RolePower}}" />
-                                        </my:PropertyRow>
-                                        <my:PropertyRow HeaderText="对应角色账号名:" Visibility="{Binding Effective, Converter={StaticResource IsNotNullVisibilityConverter}}">
-                                            <TextBlock TextWrapping="Wrap" Text="{Binding Effective, Converter={StaticResource EntityNameConverter}}" />
-                                        </my:PropertyRow>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Vertical" Margin="2,2" Visibility="{Binding IsEditable, Converter={StaticResource BooleanVisibilityConverter}}">
+                                    <StackPanel Orientation="Vertical" Margin="2,2" >
                                         <my:PropertyRow HeaderText="权限:">
                                             <ComboBox MinWidth="100"
                                                       ItemsSource="{Binding Source={StaticResource RolePower}, XPath=//Power}" DisplayMemberPath="Text" SelectedValuePath="Value" 
-                                                      SelectedValue="{Binding Power, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" 
+                                                      SelectedValue="{Binding RoleType, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" 
                                                       Style="{StaticResource vInput}" />
                                         </my:PropertyRow>
-                                        <my:PropertyRow HeaderText="对应角色账号名:" Visibility="{Binding IsEffectiveNeeded, Converter={StaticResource BooleanVisibilityConverter}}">
-                                            <TextBox TextWrapping="Wrap" Text="{Binding Effective, Converter={StaticResource EntityAliasInputConverter}, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" Width="100" />
+                                        <my:PropertyRow HeaderText="对应站点名:" Visibility="{Binding IsEffectiveNeeded, Converter={StaticResource BooleanVisibilityConverter}}">
+                                            <TextBox TextWrapping="Wrap" Text="{Binding Station, Converter={StaticResource EntityAliasInputConverter}, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" Width="100" />
                                         </my:PropertyRow>
                                     </StackPanel>
                                     <Button Grid.Column="1" 
-                                            
                                             Style="{StaticResource DetailsPanelButton}" Click="ButtonRemoveRole_Click">移除</Button>
                                 </Grid>
                             </DataTemplate>

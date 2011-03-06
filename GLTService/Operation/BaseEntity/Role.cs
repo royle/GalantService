@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using GLTService.DBConnector;
 using System.Data;
+using System.Collections.ObjectModel;
 
 namespace GLTService.Operation.BaseEntity
 {
@@ -26,7 +27,17 @@ VALUES (
             }
         }
 
+        public override string SqlUpdateSql
+        {
+            get
+            {
+                return @"UPDATE roles SET 
+                entity_id = @entity_id,Station_id = @Station_id,Role_Type = @Role_Type 
+                WHERE Role_ID = @Role_ID 
+                ";
 
+            }
+        }
 
         public override string KeyId
         {
@@ -49,21 +60,42 @@ VALUES (
             DicDataMapping.Add("RoleType", "Role_Type");
         }
 
-        public Galant.DataEntity.Role MappingRow(DataRow dr)
+        protected override void MappingInsertName()
+        {
+
+            DicInsertMapping.Add("EntityId", "entity_id");
+            DicInsertMapping.Add("StationId", "Station_id");
+            DicInsertMapping.Add("RoleType", "Role_Type");
+        }
+
+        protected override void MappingUpdateName()
+        {
+            DicUpdateMapping.Add("RoleId", "Role_ID");
+            DicUpdateMapping.Add("EntityId", "entity_id");
+            DicUpdateMapping.Add("StationId", "Station_id");
+            DicUpdateMapping.Add("RoleType", "Role_Type");
+        }
+
+        public Galant.DataEntity.Role MappingRow(DataOperator data ,DataRow dr)
         {
             if (dr == null)
                 return null;
+            Entity entity=new Entity();
             Galant.DataEntity.Role role = new Galant.DataEntity.Role();
+            role.RoleId = Convert.ToInt32(dr["Role_ID"]);
+            role.RoleType = (Galant.DataEntity.RoleType)dr["Role_Type"];
+            role.Station = entity.GetEntityByID(data, dr["Station_id"].ToString(), false);
+            role.EntityId = Convert.ToInt32(dr["entity_id"]);
             return role;
         }
 
-        public List<Galant.DataEntity.Role> GetRolesByEntityID(DataOperator data, string EntityId)
+        public ObservableCollection<Galant.DataEntity.Role> GetRolesByEntityID(DataOperator data, string EntityId)
         {
             string SqlSearch = this.BuildSearchSQL() + " WHERE entity_id = '" + EntityId + "'";
             DataTable dt = SqlHelper.ExecuteDataset(data.myConnection, CommandType.Text, SqlSearch).Tables[0];
             if (dt.Rows.Count > 0)
             {
-                List<Galant.DataEntity.Role> roles = new List<Galant.DataEntity.Role>();
+                ObservableCollection<Galant.DataEntity.Role> roles = new ObservableCollection<Galant.DataEntity.Role>();
                 Entity entity=new Entity();
                 foreach (DataRow dr in dt.Rows)
                 {
@@ -80,5 +112,21 @@ VALUES (
             }
             return null;
         }
+
+        public void AddRolesForEntity(DataOperator data,Galant.DataEntity.Entity entity)
+        {
+            string SqlDelete = "delete from roles where entity_id = " + entity.EntityId.ToString();
+            SqlHelper.ExecuteNonQuery(data.mytransaction, CommandType.Text, SqlDelete);
+            if (entity.Roles != null)
+            {
+                foreach (Galant.DataEntity.Role r in entity.Roles)
+                {
+                    r.EntityId = entity.EntityId;
+                    SqlHelper.ExecuteNonQuery(data.mytransaction, CommandType.Text, this.SqlAddNewSql, this.BuildInsertParameteres(r));
+                }
+            }
+        }
+
+        
     }
 }

@@ -19,7 +19,7 @@ namespace GLTWarter.Pages.Entity
     /// </summary>
     public partial class SearchEntity : DetailsBase
     {
-        public SearchEntity():base(new Galant.DataEntity.Result.SearchEntityResult())
+        public SearchEntity(Galant.DataEntity.Result.SearchEntityResult data):base(data)
         {
             InitializeComponent();
         }
@@ -37,9 +37,64 @@ namespace GLTWarter.Pages.Entity
             Galant.DataEntity.Entity data = listResult.GetItemFromContainer((System.Windows.DependencyObject)source) as Galant.DataEntity.Entity;
             if (data != null)
             {
-                //App.Active.MainScreen.NavigateEntityDetails(data);
+                switch (data.EntityType)
+                {
+                    case Galant.DataEntity.EntityType.Headquarter:
+                        
+                        break;
+                    case Galant.DataEntity.EntityType.Station:
+                        break;
+                    case Galant.DataEntity.EntityType.Staff:
+                        data.Operation = "Save";
+                        this.NavigationService.Navigate(new GLTWarter.Pages.Entity.Users.UserDetail(data));
+                        break;
+                    case Galant.DataEntity.EntityType.Client:
+                        break;
+                    case Galant.DataEntity.EntityType.Individual:
+                        break;
+                    default:
+                        break;
+                }
             }
         }
+
+        protected override bool DataRefreshSuppressed
+        {
+            get { return true; }
+        }
+
+        protected override void OnNext(Galant.DataEntity.BaseData incomingData)
+        {
+            this.DataContext = incomingData;
+
+        }
+
+        private void buttonNew_Click(object sender, RoutedEventArgs e)
+        {
+            Galant.DataEntity.EntityType? type = (this.DataContext as Galant.DataEntity.Result.SearchEntityResult).SearchCondition.Type;
+            switch (type)
+            {
+                case Galant.DataEntity.EntityType.Headquarter:
+
+                    break;
+                case Galant.DataEntity.EntityType.Station:
+                    break;
+                case Galant.DataEntity.EntityType.Staff:
+                    Galant.DataEntity.Entity data = new Galant.DataEntity.Entity();
+                    data.EntityType = Galant.DataEntity.EntityType.Staff;
+                    data.Operation = "Save";
+                    data.AbleFlag = true;
+                    this.NavigationService.Navigate(new GLTWarter.Pages.Entity.Users.UserDetail(data));
+                    break;
+                case Galant.DataEntity.EntityType.Client:
+                    break;
+                case Galant.DataEntity.EntityType.Individual:
+                    break;
+                default:
+                    break;
+            }
+        }
+       
     }
 
   

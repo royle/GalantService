@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
+using System.Collections.ObjectModel;
 
 namespace Galant.DataEntity
 {
@@ -48,7 +49,7 @@ namespace Galant.DataEntity
     }
 
     [DataContract]
-    public class Entity:BaseData
+    public class Entity : BaseData
     {
         public Entity() : base() { }
 
@@ -61,7 +62,7 @@ namespace Galant.DataEntity
         public int? EntityId
         {
             get { return entityId; }
-            set { entityId = value; }
+            set { entityId = value; OnPropertyChanged("IsPasswordAllowed"); }
         }
         private String alias;
 
@@ -107,35 +108,35 @@ namespace Galant.DataEntity
         public String CellPhoneOne
         {
             get { return cellPhoneOne; }
-            set { cellPhoneOne = value; }
+            set { cellPhoneOne = value; OnPropertyChanged("CellPhoneOne"); }
         }
         private String cellPhoneTwo;
         [DataMember]
         public String CellPhoneTwo
         {
             get { return cellPhoneTwo; }
-            set { cellPhoneTwo = value; }
+            set { cellPhoneTwo = value; OnPropertyChanged("CellPhoneTwo"); }
         }
         private EntityType entityType;
         [DataMember]
         public EntityType EntityType
         {
             get { return entityType; }
-            set { entityType = value; }
+            set { entityType = value; OnPropertyChanged("EntityType"); OnPropertyChanged("IsPasswordAllowed"); }
         }
         private String addressFamily;
         [DataMember]
         public String AddressFamily
         {
             get { return addressFamily; }
-            set { addressFamily = value; }
+            set { addressFamily = value; OnPropertyChanged("AddressFamily"); }
         }
         private String addressChild;
         [DataMember]
         public String AddressChild
         {
             get { return addressChild; }
-            set { addressChild = value; }
+            set { addressChild = value; OnPropertyChanged("AddressChild"); }
         }
         private String comment;
         [DataMember]
@@ -149,43 +150,88 @@ namespace Galant.DataEntity
         public int? StoreLog
         {
             get { return storeLog; }
-            set { storeLog = value; }
+            set { storeLog = value; OnPropertyChanged("StoreLog"); }
         }
         private decimal? deposit;
         [DataMember]
         public decimal? Deposit
         {
             get { return deposit; }
-            set { deposit = value; }
+            set { deposit = value; OnPropertyChanged("Deposit"); }
         }
         private PayType? payType;
         [DataMember]
         public PayType? PayType
         {
             get { return payType; }
-            set { payType = value; }
+            set { payType = value; OnPropertyChanged("PayType"); }
         }
         private int? rountStation;
         [DataMember]
         public int? RountStation
         {
             get { return rountStation; }
-            set { rountStation = value; }
+            set { rountStation = value; OnPropertyChanged("RountStation"); }
         }
         private bool ableFlag;
         [DataMember]
         public bool AbleFlag
         {
             get { return ableFlag; }
-            set { ableFlag = value; }
+            set { ableFlag = value; OnPropertyChanged("AbleFlag"); }
         }
-        
-        private List<Role> roles;
+
+        private ObservableCollection<Role> roles = new ObservableCollection<Role>();
         [DataMember]
-        public List<Role> Roles
+        public ObservableCollection<Role> Roles
         {
-            get { return roles; }
-            set { roles = value; }
+            get {
+                if (roles == null)
+                    roles = new ObservableCollection<Role>();
+                return roles;
+                }
+            set { roles = value; OnPropertyChanged("Roles"); }
+        }
+
+        public bool IsHavePhoneNo
+        { get { return !(string.IsNullOrEmpty(this.HomePhone) && string.IsNullOrEmpty(this.CellPhoneOne) && string.IsNullOrEmpty(this.CellPhoneTwo)); } }
+
+        public bool IsPasswordAllowed
+        {
+            get { return !this.EntityId.HasValue && this.EntityType == DataEntity.EntityType.Staff; }
+        }
+
+        public bool IsAliasEnable
+        { get { return this.IsAliasAllowed && !this.EntityId.HasValue; } }
+
+        public bool IsAliasAllowed
+        {
+            get
+            {
+                return (this.EntityType != DataEntity.EntityType.Client);
+            }
+        }
+
+
+        
+        public override string QueryId
+        {
+            get
+            {
+                return this.EntityId.HasValue ? this.EntityId.ToString() : null;
+            }
+            set
+            {
+                this.EntityId = value == null ? (int?)null : (int?)Int32.Parse(value);
+            }
+        }
+
+        public  string IsValidPassword(string password, string passwordConfirm)
+        {
+            if (string.IsNullOrEmpty(password)) return "必须输入密码";
+            if (password.Length < 4) return "密码最短为4个字符";
+            if (password != passwordConfirm && passwordConfirm != null) return "两次输入的密码不同。";
+            return string.Empty;
         }
 
         protected override string ValidateProperty(string columnName, Enum stage)
@@ -195,8 +241,9 @@ namespace Galant.DataEntity
                 case "Alias":
                     if (String.IsNullOrEmpty(Alias)) return "用户名不能为空！";
                     return string.Empty;
+                case "PasswordConfirm":
                 case "Password":
-                    if (String.IsNullOrEmpty(Password)) return "密码不能为空！";
+                    if (String.IsNullOrEmpty(Password) && (this.Operation != "Login" || this.EntityType == DataEntity.EntityType.Staff)) return "密码不能为空！";
                     return string.Empty;
             }
             return null;

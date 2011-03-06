@@ -106,6 +106,9 @@
                         <TextBlock >
                             <Hyperlink Name="ManageStation" Click="ManageStation_Click">管理站点</Hyperlink>
                         </TextBlock>
+                        <TextBlock >
+                            <Hyperlink Name="ManageUser" Click="ManageUser_Click">管理用户</Hyperlink>
+                        </TextBlock>
                     </StackPanel>
                     
                 </Grid>

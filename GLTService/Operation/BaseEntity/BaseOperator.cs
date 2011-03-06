@@ -20,7 +20,11 @@ namespace GLTService.Operation.BaseEntity
         public BaseOperator()
         {
             DicDataMapping = new Dictionary<string, string>();
+            DicInsertMapping = new Dictionary<string, string>();
+            DicUpdateMapping = new Dictionary<string, string>();
             MappingDataName();
+            MappingInsertName();
+            MappingUpdateName();
             SetTableName();
         }
 
@@ -39,14 +43,27 @@ namespace GLTService.Operation.BaseEntity
 
         public string TableName;
         public Dictionary<string, string> DicDataMapping;
+        public Dictionary<string, string> DicInsertMapping;
+        public Dictionary<string, string> DicUpdateMapping;
 
         protected virtual void MappingDataName()
+        { }
+
+        protected virtual void MappingInsertName()
+        { }
+
+        protected virtual void MappingUpdateName()
         { }
 
         protected virtual void SetTableName()
         { }
 
         public virtual string SqlAddNewSql
+        {
+            get { return string.Empty; }
+        }
+
+        public virtual string SqlUpdateSql
         {
             get { return string.Empty; }
         }
@@ -73,14 +90,30 @@ namespace GLTService.Operation.BaseEntity
 
         public virtual MySqlParameter[] BuildParameteres(BaseData data)
         {
+            return BuildParameteres(data, DicDataMapping);
+        }
+
+        public virtual MySqlParameter[] BuildInsertParameteres(BaseData data)
+        {
+            return BuildParameteres(data, this.DicInsertMapping);
+        }
+
+        public virtual MySqlParameter[] BuildUpdateParameteres(BaseData data)
+        {
+            return BuildParameteres(data, this.DicUpdateMapping);
+        }
+
+        public virtual MySqlParameter[] BuildParameteres(BaseData data,Dictionary<string,string> DicData)
+        {
             List<MySqlParameter> param = new List<MySqlParameter>();
             foreach (System.Reflection.PropertyInfo info in data.GetType().GetProperties())
             {
-                object obj = info.GetValue(data, null);
-                if (!obj.Equals(DBNull.Value))
-                    param.Add(new MySqlParameter(MarkParameter(info.Name), obj));
-                else if (obj.GetType() == typeof(List<>).MakeGenericType(typeof(BaseData)))
-                    continue;
+                string key = string.Empty;
+                if (DicData.TryGetValue(info.Name, out key))
+                {
+                    object obj = info.GetValue(data, null);
+                    param.Add(new MySqlParameter(ParameteraStartWith + key, obj));
+                }
             }
             return param.ToArray();
         }

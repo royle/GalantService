@@ -2,9 +2,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     xmlns:style="clr-namespace:GLTWarter.Styles"
     xmlns:src="clr-namespace:GLTWarter"
-    xmlns:my="clr-namespace:GLTWarter.Controls">
+    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+    xmlns:my="clr-namespace:GLTWarter.Controls"
+    x:Class="GLTWarter.Styles.Style">
 
     <style:ValidationErrorsConverter x:Key="ValidationErrorsConverter"/>
+    <style:AlternateRowIndexConverter x:Key="AlternateRowIndexConverter"/>
     
     <Style x:Key="vInput" TargetType="{x:Type Control}">
         <Setter Property="Validation.ErrorTemplate">
@@ -22,7 +25,21 @@
                 <Setter Property="Background" Value="Pink"/>
             </Trigger>
         </Style.Triggers>
-    </Style>    
+    </Style>
+    <Style TargetType="{x:Type xcdg:DataRow}" x:Key="DataRowStyle">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},
+                                       Path=(xcdg:DataGridVirtualizingPanel.ItemIndex),
+                                       Converter={StaticResource AlternateRowIndexConverter}}"
+                               Value="True">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="#fff4fdc8" />
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
     <Style x:Key="StandardButton" TargetType="{x:Type FrameworkElement}">
         <Setter Property="MinWidth" Value="72" />
         <Setter Property="MinHeight" Value="23" />

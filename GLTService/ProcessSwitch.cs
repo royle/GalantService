@@ -22,20 +22,58 @@ namespace GLTService
         {
             Operation.BaseEntity.DataOperator dataOper = new Operation.BaseEntity.DataOperator();
             dataOper.CreateConnectionAndTransaction();
-            Entity entity =new Entity();
-            Galant.DataEntity.Entity AuthorizedStaff = entity.Authorize(dataOper, staff.Alias, staff.Password, false);
-            switch (OperationType)
+            Galant.DataEntity.BaseData returnData = null;
+            try
             {
-                case "Login":
-                    GLTService.Operation.Login log = new Operation.Login();
-                    return log.InitAppCach(dataOper, AuthorizedStaff);
-                case "SearchEntity":
-
-                default:
-                    break;
+                Entity entity = new Entity();
+                Galant.DataEntity.Entity AuthorizedStaff = entity.Authorize(dataOper, staff.Alias, staff.Password, false);
+                switch (OperationType)
+                {
+                    case "Login":
+                        GLTService.Operation.Login log = new Operation.Login();
+                        returnData = log.InitAppCach(dataOper, AuthorizedStaff);
+                        break;
+                    case "SearchEntity":
+                        GLTService.Operation.Search search = new Search();
+                        returnData = search.SearchEntitys(dataOper, DetailObj as Galant.DataEntity.Result.SearchEntityResult);
+                        break;
+                    case "Refresh":
+                        returnData = ProcessRefresh(dataOper, DetailObj);
+                        break;
+                    case "Save":
+                        returnData = ProcessSave(dataOper, DetailObj);
+                        break;
+                    default:
+                        break;
+                }
+                dataOper.CommitAndClose();
             }
-            //DetailObj.Error = "9999";
-            return DetailObj;
+            catch (Exception ex)
+            {
+                dataOper.RollBackAndClose();
+                throw ex;
+            }
+            return returnData == null ? DetailObj : returnData;
+        }
+
+        private static Galant.DataEntity.BaseData ProcessRefresh(DataOperator dataOper,Galant.DataEntity.BaseData detailObj)
+        {
+            if (detailObj is Galant.DataEntity.Entity)
+            {
+                Entity entity = new Entity();
+                detailObj = entity.GetEntityByID(dataOper, detailObj.QueryId, true);
+            }
+            return detailObj;
+        }
+
+        private static Galant.DataEntity.BaseData ProcessSave(DataOperator dataOper, Galant.DataEntity.BaseData detailObj)
+        {
+            if (detailObj is Galant.DataEntity.Entity)
+            {
+                Entity entity = new Entity();
+                detailObj = entity.SaveEntity(dataOper,detailObj as Galant.DataEntity.Entity);
+            }
+            return detailObj;
         }
     }
 }

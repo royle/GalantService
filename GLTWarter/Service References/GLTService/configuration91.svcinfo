@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="YNDrWRv5j8wTJts6v12vVz63LZQ=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="0VUGz//mBSkblmeUbmIOB+oE3rc=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="wsHttpBinding" name="WSHttpBinding_IServiceAPI">
       <properties>
@@ -67,7 +67,7 @@
           <serializedValue>00:10:00</serializedValue>
         </property>
         <property path="/reliableSession/enabled" isComplexType="false" isExplicitlyDefined="true" clrType="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>False</serializedValue>
+          <serializedValue>True</serializedValue>
         </property>
         <property path="/textEncoding" isComplexType="false" isExplicitlyDefined="true" clrType="System.Text.Encoding, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.Text.UTF8Encoding</serializedValue>

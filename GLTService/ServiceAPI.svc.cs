@@ -9,7 +9,7 @@ using Galant.DataEntity;
 namespace GLTService
 {
     // NOTE: If you change the class name "Service1" here, you must also update the reference to "Service1" in Web.config and in the associated .svc file.
-    
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
     public class Service1 : IServiceAPI
     {
         public string GetData(int value)
@@ -32,7 +32,9 @@ namespace GLTService
             }
             catch (Exception ex)
             {
-                return staff;
+                composite.WCFErrorString = ex.Message;
+                composite.WCFFaultString = "未处理异常";
+                return composite;
             }
         }
 
