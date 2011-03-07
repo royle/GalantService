@@ -19,7 +19,6 @@ namespace GLTWarter.Pages.Entity.Station
     /// </summary>
     public partial class StationManagement : DetailsBase
     {
-        public StationManagement() : this(null) { }
         public StationManagement(Galant.DataEntity.Entity data)
             : base(data)
         {
@@ -44,7 +43,7 @@ namespace GLTWarter.Pages.Entity.Station
 
         protected override Galant.DataEntity.BaseData CreateNewEntity()
         {
-            Galant.DataEntity.BaseData data = new Galant.DataEntity.Entity() { EntityType = Galant.DataEntity.EntityType.Station , Password="0"};
+            Galant.DataEntity.BaseData data = new Galant.DataEntity.Entity() { EntityType = Galant.DataEntity.EntityType.Station , Password=BaseOperatorName.NullPassword};
             data.Operation = BaseOperatorName.DataSave;
             return data;
         }

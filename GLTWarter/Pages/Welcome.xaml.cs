@@ -132,7 +132,7 @@ namespace GLTWarter.Pages
         {
             //站点管理
             //Station.StationManagement page = new Station.StationManagement
-            this.NavigationService.Navigate(new Entity.Station.StationManagement());
+            this.NavigationService.Navigate(new Entity.Station.StationManagement(null));
         }
 
         private void ManageUser_Click(object sender, RoutedEventArgs e)

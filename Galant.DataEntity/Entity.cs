@@ -51,12 +51,14 @@ namespace Galant.DataEntity
     [DataContract]
     public class Entity : BaseData
     {
-        public Entity() : base() { }
+        public Entity() : base() {
+            this.Deposit = decimal.Zero;
+            this.PayType = Galant.DataEntity.PayType.AtTime;
+            this.AbleFlag = true;
+        }
 
         public Entity(string Operation)
-            : base(Operation)
-        {
-        }
+            : base(Operation)        {        }
         private int? entityId;
         [DataMember]
         public int? EntityId

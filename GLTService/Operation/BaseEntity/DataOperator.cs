@@ -45,7 +45,7 @@ namespace GLTService.Operation.BaseEntity
         internal void CreateTransaction()
         {
             CreateConnection();
-            if (CanDoTransaction)
+            if (!CanDoTransaction)
             {
                 if (myConnection.State != System.Data.ConnectionState.Open)
                     myConnection.Open();
@@ -55,7 +55,7 @@ namespace GLTService.Operation.BaseEntity
 
         internal void Close()
         {
-            if (CanDoTransaction)
+            if (!CanDoTransaction)
                 throw new Exception("Transaction Hasn't Commit or RollBack Plase Do it Frist");
             myConnection.Close();
         }
@@ -99,7 +99,7 @@ namespace GLTService.Operation.BaseEntity
 
         internal bool CanDoTransaction
         {
-            get { return IsNeedTransaction && (mytransaction == null); }
+            get { return IsNeedTransaction && (mytransaction != null); }
         }
 
         public virtual bool IsNeedTransaction
