@@ -22,10 +22,10 @@ namespace GLTService.Operation.BaseEntity
             {
                 return @"INSERT INTO entities(
                 Alias,Password,Full_Name,Home_phone,Cell_phone1,Cell_phone2,Type,
-                Address_Family,Address_Child,Comment,Store_log,Deposit,Pay_type,Route_Station,Able_flag)
+                Address_Family,Address_Child,Comment,Deposit,Pay_type,Route_Station,Able_flag)
                 VALUES (
                 @Alias,@Password,@Full_Name,@Home_phone,@Cell_phone1,@Cell_phone2,@Type,
-                @Address_Family,@Address_Child,@Comment,@Store_log,@Deposit,@Pay_type,@Route_Station,@Able_flag)";
+                @Address_Family,@Address_Child,@Comment,@Deposit,@Pay_type,@Route_Station,@Able_flag)";
                 
             }
         }
@@ -36,7 +36,7 @@ namespace GLTService.Operation.BaseEntity
             {
                 return @"UPDATE entities SET 
                 Alias = @Alias,Password = @Password,Full_Name = @Full_Name,Home_phone = @Home_phone,Cell_phone1 = @Cell_phone1,Cell_phone2 = @Cell_phone2,Type = @Type ,
-                Address_Family =@Address_Family ,Address_Child =@Address_Child  ,Comment =@Comment,Store_log = @Store_log ,Deposit =@Deposit  ,Pay_type =@Pay_type  ,Route_Station = @Route_Station ,Able_flag =@Able_flag  
+                Address_Family =@Address_Family ,Address_Child =@Address_Child  ,Comment =@Comment,Deposit =@Deposit  ,Pay_type =@Pay_type  ,Route_Station = @Route_Station ,Able_flag =@Able_flag  
                 WHERE entity_id = @entity_id 
                 ";
 
@@ -73,11 +73,6 @@ namespace GLTService.Operation.BaseEntity
             entity.AddressFamily = dr["Address_Family"].ToString();
             entity.AddressChild = dr["Address_Child"].ToString();
             entity.Comment = dr["Comment"].ToString();
-            if (string.IsNullOrEmpty(dr["Store_log"].ToString()))
-                entity.StoreLog = null;
-            else
-                entity.StoreLog = Convert.ToInt32(dr["Store_log"]);
-
             if (string.IsNullOrEmpty(dr["Deposit"].ToString()))
                 entity.Deposit = null;
             else
@@ -113,7 +108,6 @@ namespace GLTService.Operation.BaseEntity
             DicDataMapping.Add("AddressFamily", "Address_Family");
             DicDataMapping.Add("AddressChild", "Address_Child");
             DicDataMapping.Add("Comment", "Comment");
-            DicDataMapping.Add("StoreLog", "Store_log");
             DicDataMapping.Add("Deposit", "Deposit");
             DicDataMapping.Add("PayType", "Pay_type");
             DicDataMapping.Add("RountStation", "Route_Station");
@@ -132,7 +126,6 @@ namespace GLTService.Operation.BaseEntity
             DicInsertMapping.Add("AddressFamily", "Address_Family");
             DicInsertMapping.Add("AddressChild", "Address_Child");
             DicInsertMapping.Add("Comment", "Comment");
-            DicInsertMapping.Add("StoreLog", "Store_log");
             DicInsertMapping.Add("Deposit", "Deposit");
             DicInsertMapping.Add("PayType", "Pay_type");
             DicInsertMapping.Add("RountStation", "Route_Station");
@@ -152,7 +145,6 @@ namespace GLTService.Operation.BaseEntity
             DicUpdateMapping.Add("AddressFamily", "Address_Family");
             DicUpdateMapping.Add("AddressChild", "Address_Child");
             DicUpdateMapping.Add("Comment", "Comment");
-            DicUpdateMapping.Add("StoreLog", "Store_log");
             DicUpdateMapping.Add("Deposit", "Deposit");
             DicUpdateMapping.Add("PayType", "Pay_type");
             DicUpdateMapping.Add("RountStation", "Route_Station");
