@@ -1,4 +1,4 @@
-﻿<pages:DetailsBase x:Class="GLTWarter.Pages.Station.StationManagement"
+﻿<pages:DetailsBase x:Class="GLTWarter.Pages.Entity.Station.StationManagement"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -39,6 +39,9 @@
                         <my:PropertyRow HeaderText="备注(_C):">
                             <TextBox Name="txtComment" Text="{Binding Path=Comment,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"  Style="{StaticResource vInput}" 
                                      Width="150" MinHeight="50" Margin="0,5,0,0"/>
+                        </my:PropertyRow>
+                        <my:PropertyRow >
+                            <CheckBox Name="chkAble" Content="停用" IsChecked="{Binding AbleFlag,Converter={StaticResource BooleanNotConverter},UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}" />
                         </my:PropertyRow>
                     </StackPanel>
                 </ScrollViewer>

@@ -12,14 +12,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GLTWarter.Pages.Station
+namespace GLTWarter.Pages.Entity.Station
 {
     /// <summary>
     /// Interaction logic for StationManagement.xaml
     /// </summary>
     public partial class StationManagement : DetailsBase
     {
-        public StationManagement(Galant.DataEntity.BaseData data)
+        public StationManagement() : this(null) { }
+        public StationManagement(Galant.DataEntity.Entity data)
             : base(data)
         {
             InitializeComponent();
@@ -43,7 +44,8 @@ namespace GLTWarter.Pages.Station
 
         protected override Galant.DataEntity.BaseData CreateNewEntity()
         {
-            Galant.DataEntity.BaseData data = new Galant.DataEntity.Entity() { EntityType = Galant.DataEntity.EntityType.Station };
+            Galant.DataEntity.BaseData data = new Galant.DataEntity.Entity() { EntityType = Galant.DataEntity.EntityType.Station , Password="0"};
+            data.Operation = BaseOperatorName.DataSave;
             return data;
         }
 
