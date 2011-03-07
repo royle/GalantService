@@ -26,7 +26,7 @@ namespace Galant.DataEntity
             this.Operation = operation;
         }
 
-        public BaseData()
+        public BaseData():this("NULL")
         { }
 
         Dictionary<string, string> errorStrings = new Dictionary<string, string>();

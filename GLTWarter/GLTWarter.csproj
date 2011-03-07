@@ -166,6 +166,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Entity\Station\StationManagement.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Product\ProductionManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Product\ProductionSearch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Welcome.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -189,6 +201,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AppCurrent.cs" />
+    <Compile Include="BaseOperatorName.cs" />
     <Compile Include="Controls\ControlStyle.xaml.cs">
       <DependentUpon>ControlStyle.xaml</DependentUpon>
     </Compile>
@@ -227,6 +240,15 @@
     </Compile>
     <Compile Include="Pages\Entity\Users\UserDetail.xaml.cs">
       <DependentUpon>UserDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Entity\Station\StationManagement.xaml.cs">
+      <DependentUpon>StationManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Product\ProductionManagement.xaml.cs">
+      <DependentUpon>ProductionManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Product\ProductionSearch.xaml.cs">
+      <DependentUpon>ProductionSearch.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Welcome.xaml.cs">
       <DependentUpon>Welcome.xaml</DependentUpon>
@@ -361,10 +383,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\Entity\Station\" />
-    <Folder Include="Pages\Product\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Service References\GLTService\ServiceAPI.disco" />
   </ItemGroup>

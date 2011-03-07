@@ -37,15 +37,15 @@ namespace GLTWarter.Pages.Entity
             Galant.DataEntity.Entity data = listResult.GetItemFromContainer((System.Windows.DependencyObject)source) as Galant.DataEntity.Entity;
             if (data != null)
             {
+                data.Operation = "Save";
                 switch (data.EntityType)
                 {
                     case Galant.DataEntity.EntityType.Headquarter:
-                        
                         break;
                     case Galant.DataEntity.EntityType.Station:
+                        this.NavigationService.Navigate(new GLTWarter.Pages.Entity.Station.StationManagement(data));
                         break;
                     case Galant.DataEntity.EntityType.Staff:
-                        data.Operation = "Save";
                         this.NavigationService.Navigate(new GLTWarter.Pages.Entity.Users.UserDetail(data));
                         break;
                     case Galant.DataEntity.EntityType.Client:
