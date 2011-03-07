@@ -32,7 +32,15 @@ namespace GLTWarter.Pages.Entity.Users
             }
         }
 
-        protected  void buttonNext_Click(object sender, RoutedEventArgs e)
+        protected override void FocusFirstControl()
+        {
+            if (this.textAlias.Visibility == System.Windows.Visibility.Visible && this.textAlias.IsEnabled)
+                this.textAlias.Focus();
+            else
+                this.textName.Focus();
+        }
+
+        protected  void buttonSubmit_Click(object sender, RoutedEventArgs e)
         {
             this.dataCurrent.Operation = "Save";
             base.buttonNext_Click(sender, e);

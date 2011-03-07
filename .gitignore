@@ -121,3 +121,10 @@
 /WCFTest/obj/x86/Debug/WCFTest.pdb
 /WCFTest/obj/x86/Debug/WCFTest_MarkupCompile.cache
 /GLTService/bin/log4net.dll
+/GLTService/GLTService.Publish.xml
+/GLTWarter/Thumbs.db
+/GLTWarter/obj/Debug/Pages/Entity/Customer/CustomerDetail.baml
+/GLTWarter/obj/Debug/Pages/Entity/Customer/CustomerDetail.g.cs
+/GLTWarter/obj/Debug/Pages/Entity/Customer/CustomerDetail.g.i.cs
+/GLTWarter/obj/Debug/Pages/Entity/Users/CustomerDetail.g.i.cs
+/GLTWarter/obj/Debug/Pages/Station/StationManagement.g.i.cs

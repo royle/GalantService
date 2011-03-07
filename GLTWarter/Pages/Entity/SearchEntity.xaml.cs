@@ -49,6 +49,8 @@ namespace GLTWarter.Pages.Entity
                         this.NavigationService.Navigate(new GLTWarter.Pages.Entity.Users.UserDetail(data));
                         break;
                     case Galant.DataEntity.EntityType.Client:
+                        data.Operation = "Save";
+                        this.NavigationService.Navigate(new GLTWarter.Pages.Entity.Customer.CustomerDetail(data));
                         break;
                     case Galant.DataEntity.EntityType.Individual:
                         break;
@@ -66,7 +68,7 @@ namespace GLTWarter.Pages.Entity
         protected override void OnNext(Galant.DataEntity.BaseData incomingData)
         {
             this.DataContext = incomingData;
-
+            this.dataCurrent = incomingData;
         }
 
         private void buttonNew_Click(object sender, RoutedEventArgs e)
@@ -87,6 +89,11 @@ namespace GLTWarter.Pages.Entity
                     this.NavigationService.Navigate(new GLTWarter.Pages.Entity.Users.UserDetail(data));
                     break;
                 case Galant.DataEntity.EntityType.Client:
+                    Galant.DataEntity.Entity client = new Galant.DataEntity.Entity();
+                    client.EntityType = Galant.DataEntity.EntityType.Client;
+                    client.Operation = "Save";
+                    client.AbleFlag = true;
+                    this.NavigationService.Navigate(new GLTWarter.Pages.Entity.Customer.CustomerDetail(client));
                     break;
                 case Galant.DataEntity.EntityType.Individual:
                     break;

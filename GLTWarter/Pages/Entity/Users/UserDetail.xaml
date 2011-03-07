@@ -10,7 +10,7 @@
 
     <my:DetailsPagePresenter TitleBrush="Blue" TitleForEdit="修改用户" TitleForNew="建立用户">
         <my:DetailsPagePresenter.LatestVersionButtonsPanel>
-            <Button IsDefault="true"  Click="buttonNext_Click" >确定</Button>
+            <Button IsDefault="true"  Click="buttonSubmit_Click" >确定</Button>
             <Button IsCancel="true" Click="buttonCancel_Click" >取消</Button>
         </my:DetailsPagePresenter.LatestVersionButtonsPanel>
         <TabControl Margin="5" Background="Transparent" >

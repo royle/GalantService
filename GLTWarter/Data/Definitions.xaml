@@ -33,7 +33,24 @@
             </EntityType>
         </x:XData>
     </XmlDataProvider>
-    
+    <XmlDataProvider x:Key="PayType" IsAsynchronous="False">
+        <x:XData>
+            <EntityType xmlns="">
+                <Entity searchable="1">
+                    <Value>AtTime</Value>
+                    <Text>现付</Text>
+                </Entity>
+                <Entity searchable="1">
+                    <Value>Before</Value>
+                    <Text>预付</Text>
+                </Entity>
+                <Entity searchable="1">
+                    <Value>After</Value>
+                    <Text>后付</Text>
+                </Entity>
+            </EntityType>
+        </x:XData>
+    </XmlDataProvider>
     <XmlDataProvider x:Key="RolePower" IsAsynchronous="False">
         <x:XData>
             <Powers xmlns="">
