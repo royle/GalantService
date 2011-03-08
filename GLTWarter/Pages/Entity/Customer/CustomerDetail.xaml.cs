@@ -33,10 +33,16 @@ namespace GLTWarter.Pages.Entity.Customer
             }
         }
 
+        protected override void OnNext(Galant.DataEntity.BaseData incomingData)
+        {
+            this.DataContext = incomingData;
+            this.dataCurrent = incomingData;
+        }
+
         protected override void FocusFirstControl()
         {
             if (this.textAlias.Visibility == System.Windows.Visibility.Visible && this.textAlias.IsEnabled)
-                this.textAlias.Focus();
+                this.comboPayType.Focus();
             else
                 this.textName.Focus();
         }

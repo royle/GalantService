@@ -239,11 +239,15 @@ namespace Galant.DataEntity
             switch (columnName)
             {
                 case "Alias":
-                    if (String.IsNullOrEmpty(Alias)) return "用户名不能为空！";
+                    if (String.IsNullOrEmpty(Alias) && this.IsNew && this.EntityType != DataEntity.EntityType.Client) return "用户名不能为空！";
                     return string.Empty;
                 case "PasswordConfirm":
                 case "Password":
-                    if (String.IsNullOrEmpty(Password) && (this.Operation != "Login" || this.EntityType == DataEntity.EntityType.Staff)) return "密码不能为空！";
+                    if (String.IsNullOrEmpty(Password) && (this.Operation == "Login" || this.EntityType == DataEntity.EntityType.Staff)) return "密码不能为空！";
+                    return string.Empty;
+                case "PayType":
+                    if (this.IsNew && this.EntityType == DataEntity.EntityType.Client && !this.PayType.HasValue)
+                        return "客户付款类型不能为空！";
                     return string.Empty;
             }
             return null;

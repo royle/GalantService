@@ -67,6 +67,7 @@ namespace GLTWarter.Pages.Entity
 
         protected override void OnNext(Galant.DataEntity.BaseData incomingData)
         {
+            incomingData.Operation = "SearchEntity";
             this.DataContext = incomingData;
             this.dataCurrent = incomingData;
         }

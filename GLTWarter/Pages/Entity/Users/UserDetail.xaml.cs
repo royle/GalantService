@@ -109,6 +109,12 @@ namespace GLTWarter.Pages.Entity.Users
             }
         }
 
+        protected override void OnNext(Galant.DataEntity.BaseData incomingData)
+        {
+            this.DataContext = incomingData;
+            this.dataCurrent = incomingData;
+        }
+
         private void DetailsBase_Loaded(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrEmpty(this.dataCurrent.QueryId))

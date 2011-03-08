@@ -63,6 +63,7 @@ CREATE TABLE `event_logs` (
   `paper_id` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL,
   `insert_time` datetime NOT NULL,
   `relation_entity` int(11) NOT NULL,
+  `entity_id` int(11) DEFAULT NULL,
   `at_station` int(11) DEFAULT NULL,
   `event_type` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `event_data` text COLLATE utf8_unicode_ci,

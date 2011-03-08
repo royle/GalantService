@@ -6,11 +6,11 @@
     xmlns:src="clr-namespace:GLTWarter"
     xmlns:styles="clr-namespace:GLTWarter.Styles"
     xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
-	Title="CustomerDetail">
+	Title="客户管理">
 
-    <my:DetailsPagePresenter TitleBrush="Blue" TitleForEdit="修改用户" TitleForNew="建立用户">
+    <my:DetailsPagePresenter TitleBrush="Blue" TitleForEdit="修改客户" TitleForNew="建立客户">
         <my:DetailsPagePresenter.LatestVersionButtonsPanel>
-            <Button IsDefault="true"  Click="buttonNext_Click" >确定</Button>
+            <Button IsDefault="true"  Click="buttonSubmit_Click" >确定</Button>
             <Button IsCancel="true" Click="buttonCancel_Click" >取消</Button>
         </my:DetailsPagePresenter.LatestVersionButtonsPanel>
         <TabControl Margin="5" Background="Transparent" >

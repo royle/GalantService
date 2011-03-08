@@ -346,7 +346,7 @@ namespace GLTService.Operation.BaseEntity
 
             if (!entity.EntityId.HasValue)
             {
-                if (this.CheckAliasExist(data, entity.Alias))
+                if (entity.IsAliasAllowed && this.CheckAliasExist(data, entity.Alias))
                     throw new Galant.DataEntity.WCFFaultException(1234, "User Name Exist", "用户名(" + entity.Alias + ")已存在，请输入其它用户名");
 
                 SqlHelper.ExecuteNonQuery(data.mytransaction, CommandType.Text, this.SqlAddNewSql, this.BuildInsertParameteres(entity));
@@ -354,6 +354,10 @@ namespace GLTService.Operation.BaseEntity
                 if (dt.Rows.Count > 0)
                 {
                     entity.EntityId = this.MappingRow(dt.Rows[0]).EntityId;
+                    if (entity.EntityType == Galant.DataEntity.EntityType.Client && string.IsNullOrEmpty(entity.Alias))
+                    {
+                        this.AutoGenerateAlias(data, entity);
+                    }
                 }
             }
             else
@@ -364,6 +368,21 @@ namespace GLTService.Operation.BaseEntity
             Role role = new Role();
             role.AddRolesForEntity(data, entity);
             return entity;
+        }
+        /// <summary>
+        /// 自动生成客户代码,(Entity_id 左填充0),长度11
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        private string AutoGenerateAlias(DataOperator data, Galant.DataEntity.Entity entity)
+        {
+            string sqlUpdate = @"UPDATE entities SET ALIAS =  CONCAT('C',entity_id) WHERE entity_id = @entity_id";
+            Dictionary<string, string> dictGenerateAlias = new Dictionary<string, string>();
+            dictGenerateAlias.Add("EntityId", "Entity_id");
+            SqlHelper.ExecuteNonQuery(data.mytransaction, CommandType.Text, sqlUpdate, this.BuildParameteres(entity, dictGenerateAlias));
+            entity.Alias = "C"+entity.EntityId.ToString();
+            return "C" + entity.EntityId.ToString();
         }
         
     }
