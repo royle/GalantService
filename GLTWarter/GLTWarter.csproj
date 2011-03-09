@@ -375,6 +375,12 @@
   <ItemGroup>
     <None Include="Service References\GLTService\ServiceAPI.disco" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Ding.wav" />
+    <Content Include="Resources\Mismatch.wav" />
+    <Content Include="Resources\Selected.wav" />
+    <Content Include="Resources\Weight.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

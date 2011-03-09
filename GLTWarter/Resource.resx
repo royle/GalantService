@@ -126,4 +126,32 @@
   <data name="msgStationCreated" xml:space="preserve">
     <value>建立站点成功。</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="soundDing" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Ding.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="soundMismatch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Mismatch.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="soundSelected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Selected.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="soundWeight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Weight.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="validationBarcodeForSearchInvalid" xml:space="preserve">
+    <value>编码最少长一个字、最长三十个字、且不能含有特殊符号或空格</value>
+  </data>
+  <data name="validationEmptyPassword" xml:space="preserve">
+    <value>密码不能为空</value>
+  </data>
+  <data name="validationPasswordConfirmMismatch" xml:space="preserve">
+    <value>两次输入密码不一致</value>
+  </data>
+  <data name="validationPasswordTooShort" xml:space="preserve">
+    <value>密码不能少于四位</value>
+  </data>
+  <data name="validationShipmentAlias" xml:space="preserve">
+    <value>别名不能包含特殊符号或空格</value>
+  </data>
 </root>

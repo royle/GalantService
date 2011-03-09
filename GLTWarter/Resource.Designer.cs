@@ -86,5 +86,74 @@ namespace GLTWarter {
                 return ResourceManager.GetString("msgStationCreated", resourceCulture);
             }
         }
+        
+        internal static System.IO.UnmanagedMemoryStream soundDing {
+            get {
+                return ResourceManager.GetStream("soundDing", resourceCulture);
+            }
+        }
+        
+        internal static System.IO.UnmanagedMemoryStream soundMismatch {
+            get {
+                return ResourceManager.GetStream("soundMismatch", resourceCulture);
+            }
+        }
+        
+        internal static System.IO.UnmanagedMemoryStream soundSelected {
+            get {
+                return ResourceManager.GetStream("soundSelected", resourceCulture);
+            }
+        }
+        
+        internal static System.IO.UnmanagedMemoryStream soundWeight {
+            get {
+                return ResourceManager.GetStream("soundWeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 编码最少长一个字、最长三十个字、且不能含有特殊符号或空格.
+        /// </summary>
+        internal static string validationBarcodeForSearchInvalid {
+            get {
+                return ResourceManager.GetString("validationBarcodeForSearchInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 密码不能为空.
+        /// </summary>
+        internal static string validationEmptyPassword {
+            get {
+                return ResourceManager.GetString("validationEmptyPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 两次输入密码不一致.
+        /// </summary>
+        internal static string validationPasswordConfirmMismatch {
+            get {
+                return ResourceManager.GetString("validationPasswordConfirmMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 密码不能少于四位.
+        /// </summary>
+        internal static string validationPasswordTooShort {
+            get {
+                return ResourceManager.GetString("validationPasswordTooShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 别名不能包含特殊符号或空格.
+        /// </summary>
+        internal static string validationShipmentAlias {
+            get {
+                return ResourceManager.GetString("validationShipmentAlias", resourceCulture);
+            }
+        }
     }
 }

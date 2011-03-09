@@ -124,6 +124,24 @@ namespace Galant.DataEntity
             get { return entityType; }
             set { entityType = value; OnPropertyChanged("EntityType"); OnPropertyChanged("IsPasswordAllowed"); }
         }
+
+        private List<string> phones;
+        public List<string> Phones
+        {
+            get
+            {
+                phones = new List<string>();
+                if (!string.IsNullOrEmpty(this.HomePhone))
+                    phones.Add(this.HomePhone);
+                if (!string.IsNullOrEmpty(this.CellPhoneOne))
+                    phones.Add(this.CellPhoneOne);
+                if (!string.IsNullOrEmpty(this.CellPhoneTwo))
+                    phones.Add(this.CellPhoneTwo);
+                return phones;
+            }
+            set { phones = value; }
+        }
+
         private String addressFamily;
         [DataMember]
         public String AddressFamily
