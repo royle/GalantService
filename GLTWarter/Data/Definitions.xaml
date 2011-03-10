@@ -51,6 +51,24 @@
             </PayType>
         </x:XData>
     </XmlDataProvider>
+    <XmlDataProvider x:Key="ProductType" IsAsynchronous="False">
+        <x:XData>
+            <ProductType xmlns="">
+                <Product searchable="1">
+                    <Value></Value>
+                    <Text>所有</Text>
+                </Product>
+                <Product searchable="1">
+                    <Value>Ticket</Value>
+                    <Text>兑换券</Text>
+                </Product>
+                <Product searchable="1">
+                    <Value>Autonomy</Value>
+                    <Text>产品</Text>
+                </Product>
+            </ProductType>
+        </x:XData>
+    </XmlDataProvider>
     <XmlDataProvider x:Key="RolePower" IsAsynchronous="False">
         <x:XData>
             <Powers xmlns="">

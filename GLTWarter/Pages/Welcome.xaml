@@ -107,7 +107,10 @@
                             <Hyperlink Name="ManageStation" Click="ManageStation_Click">管理站点</Hyperlink>
                         </TextBlock>
                         <TextBlock >
-                            <Hyperlink Name="ManageUser" Click="ManageUser_Click">管理用户</Hyperlink>
+                            <Hyperlink Name="ManageUser" Click="ManageUser_Click">用户管理</Hyperlink>
+                        </TextBlock>
+                        <TextBlock>
+                            <Hyperlink Name="ManageProduct" Click="ManageProduct_Click">产品管理</Hyperlink>
                         </TextBlock>
                     </StackPanel>
                     

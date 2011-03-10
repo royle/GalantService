@@ -9,11 +9,73 @@
     xmlns:src="clr-namespace:GLTWarter"
     xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     xmlns:styles="clr-namespace:GLTWarter.Styles"
-      mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
 	Title="ProductionSearch">
+    <Page.Resources>
+        <xcdg:DataGridCollectionViewSource x:Key="ResultData" Source="{Binding ResultData, FallbackValue={x:Null}}" AutoCreateItemProperties="False">
+            <xcdg:DataGridCollectionViewSource.ItemProperties>
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="ProductName" DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="Alias" DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="ProductType" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource ProductType}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="Amount" DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="AbleFlag" Converter="{StaticResource BooleanNotConverter}" DataType="{x:Type sys:Boolean}" />
+            </xcdg:DataGridCollectionViewSource.ItemProperties>
+            <xcdg:DataGridCollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="ProductType" Direction="Ascending" />
+            </xcdg:DataGridCollectionViewSource.SortDescriptions>
+        </xcdg:DataGridCollectionViewSource>
+    </Page.Resources>
+    <my:DetailsPagePresenter TitleBrush="Blue" TitleForNew="产品查询">
+        <my:DetailsPagePresenter.LatestVersionButtonsPanel>
+            <Button Content="新建(_N)" Click="buttonNew_Click"  Name="buttonNew" />
+            <Button IsDefault="true" >修改</Button>
+            <Button IsCancel="true" >取消</Button>
+        </my:DetailsPagePresenter.LatestVersionButtonsPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ScrollViewer Name="SearchView" Grid.Row="0" VerticalScrollBarVisibility="Auto" Margin="5,10">
+                <StackPanel>
+                    <Grid Height="30">
+                        <Label VerticalAlignment="Center" Target="{Binding ElementName=comboEntity}">类型(_T):</Label>
+                        <ComboBox Margin="100,0,0,0" Name="comboEntity" MinWidth="100" VerticalAlignment="Center" HorizontalAlignment="Left" SelectedIndex="0"
+                      ItemsSource="{Binding Source={StaticResource ProductType}, XPath=//Product[@searchable\=1]}" DisplayMemberPath="Text" SelectedValuePath="Value" 
+                      SelectedValue="{Binding Path=SearchCondition.Type, UpdateSourceTrigger=PropertyChanged}">
+                        </ComboBox>
+                    </Grid>
+                    <Grid Height="30">
+                        <Label VerticalAlignment="Center" Target="{Binding ElementName=textAlias}">账号名(_A):</Label>
+                        <TextBox Margin="100,0,0,0" Name="textAlias" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100"
+                     Text="{Binding Path=SearchCondition.Alias, UpdateSourceTrigger=PropertyChanged}" />
+                        <CheckBox Content="包含已停用" Height="16" HorizontalAlignment="Left" Margin="203,0,0,0" Name="chkIsStop" IsChecked="{Binding SearchCondition.IsStop,  UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
+                    <Grid Height="30">
+                        <Label VerticalAlignment="Center" Target="{Binding ElementName=textName}">名字(_N):</Label>
+                        <TextBox Margin="100,0,0,0" Name="textName" VerticalAlignment="Center" HorizontalAlignment="Left" Width="200" 
+                     Text="{Binding Path=SearchCondition.ProductName, UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
+                    <Button Style="{StaticResource SearchButtonStyle}" Click="buttonNext_Click" Name="buttonSearch" />
+                </StackPanel>
+            </ScrollViewer>
+            <StackPanel Grid.Row="1" Name="ResultView">
+                <xcdg:DataGridControl ItemsSource="{Binding Source={StaticResource ResultData}}" Name="listResult" styles:ExportHint.IsExportable="true">
 
-    <Grid>
-
-    </Grid>
+                    <xcdg:DataGridControl.ItemContainerStyle>
+                        <Style TargetType="{x:Type xcdg:DataRow}" BasedOn="{StaticResource DataRowStyle}">
+                            <EventSetter Event="MouseDoubleClick" Handler="HandleItemActivate"/>
+                            <EventSetter Event="PreviewKeyDown" Handler="HandleItemActivate"/>
+                        </Style>
+                    </xcdg:DataGridControl.ItemContainerStyle>
+                    <xcdg:DataGridControl.Columns>
+                        <xcdg:Column Title="类型" Width="120" FieldName="ProductType" />
+                        <xcdg:Column Title="账号名" Width="120" FieldName="Alias" />
+                        <xcdg:Column Title="已停用" Width="50" FieldName="AbleFlag" GroupValueTemplate="{StaticResource GroupBooleanValueTemplate}"/>
+                        <xcdg:Column Title="名字" Width="120" FieldName="ProductName" />
+                    </xcdg:DataGridControl.Columns>
+                </xcdg:DataGridControl>
+            </StackPanel>
+        </Grid>
+    </my:DetailsPagePresenter>
 </pages:DetailsBase>

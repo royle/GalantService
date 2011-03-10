@@ -62,7 +62,7 @@
                     <Button Style="{StaticResource SearchButtonStyle}" Click="buttonNext_Click" Name="buttonSearch" />
                 </StackPanel>
             </ScrollViewer>
-            <StackPanel Grid.Row="1" Name="ResultView" Margin="5,10">
+            <StackPanel Grid.Row="1" Name="ResultView">
                 <xcdg:DataGridControl ItemsSource="{Binding Source={StaticResource ResultData}}" Name="listResult" styles:ExportHint.IsExportable="true">
                     
                     <xcdg:DataGridControl.ItemContainerStyle>

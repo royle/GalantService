@@ -22,6 +22,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
     <PublishUrl>http://localhost/GLTWarter/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -36,7 +37,6 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -367,7 +367,7 @@
     <Resource Include="App.ico" />
   </ItemGroup>
   <ItemGroup>
-    <SplashScreen Include="splash.jpg" />
+    <None Include="splash.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Galant.DataEntity\Galant.DataEntity.csproj">

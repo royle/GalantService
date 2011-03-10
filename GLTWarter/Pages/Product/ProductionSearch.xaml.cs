@@ -19,11 +19,50 @@ namespace GLTWarter.Pages.Product
     /// </summary>
     public partial class ProductionSearch : DetailsBase
     {
-        public ProductionSearch(Galant.DataEntity.BaseData data):base(data)
+        public ProductionSearch(Galant.DataEntity.Production.Result data):base(data)
         {
-            if (data != null)
-                data.Operation = "";
             InitializeComponent();
+        }
+
+        protected override Galant.DataEntity.BaseData CreateNewEntity()
+        {
+            return new Galant.DataEntity.Production.Result();
+        }
+
+        protected override bool DataRefreshSuppressed
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        protected override void OnNext(Galant.DataEntity.BaseData incomingData)
+        {
+            incomingData.Operation = BaseOperatorName.ProductSearch;
+            this.DataContext = this.dataCurrent = incomingData;
+        }
+
+        void HandleItemActivate(object source, RoutedEventArgs e)
+        {
+            if (e is KeyEventArgs)
+            {
+                KeyEventArgs ke = (KeyEventArgs)e;
+                if (!(ke.Key == Key.Enter && ke.KeyboardDevice.Modifiers == ModifierKeys.None))
+                {
+                    return;
+                }
+            }
+            Galant.DataEntity.Product data = listResult.GetItemFromContainer((System.Windows.DependencyObject)source) as Galant.DataEntity.Product;
+            if (data != null)
+            {
+                data.Operation = "Save";
+            }
+        }
+
+        private void buttonNew_Click(object sender, RoutedEventArgs e)
+        { 
+            
         }
     }
 }

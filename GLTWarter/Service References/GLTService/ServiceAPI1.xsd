@@ -13,6 +13,7 @@
       <xs:extension base="tns:BaseData">
         <xs:sequence>
           <xs:element minOccurs="0" name="AtStation" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="EntityID" nillable="true" type="xs:int" />
           <xs:element minOccurs="0" name="EventData" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="EventId" type="xs:int" />
           <xs:element minOccurs="0" name="EventType" nillable="true" type="xs:string" />
@@ -43,36 +44,29 @@
   <xs:complexType name="Role">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:BaseData">
-        <xs:sequence />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="Role" nillable="true" type="tns:Role" />
-  <xs:complexType name="Route">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:BaseData">
-        <xs:sequence />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="Route" nillable="true" type="tns:Route" />
-  <xs:complexType name="AppStatusCach">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:BaseData">
         <xs:sequence>
-          <xs:element minOccurs="0" name="Entities" nillable="true" type="tns:ArrayOfEntity" />
-          <xs:element minOccurs="0" name="StaffCurrent" nillable="true" type="tns:Entity" />
+          <xs:element minOccurs="0" name="EntityId" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="RoleId" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="RoleType" type="tns:RoleType" />
+          <xs:element minOccurs="0" name="Station" nillable="true" type="tns:Entity" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="AppStatusCach" nillable="true" type="tns:AppStatusCach" />
-  <xs:complexType name="ArrayOfEntity">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="Entity" nillable="true" type="tns:Entity" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfEntity" nillable="true" type="tns:ArrayOfEntity" />
+  <xs:element name="Role" nillable="true" type="tns:Role" />
+  <xs:simpleType name="RoleType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="GeneralManager" />
+      <xs:enumeration value="OperationManager" />
+      <xs:enumeration value="FinanceManager" />
+      <xs:enumeration value="Finance" />
+      <xs:enumeration value="SortingManager" />
+      <xs:enumeration value="StationManager" />
+      <xs:enumeration value="CustomerSupportManager" />
+      <xs:enumeration value="CustomerSupport" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="RoleType" nillable="true" type="tns:RoleType" />
   <xs:complexType name="Entity">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:BaseData">
@@ -124,6 +118,31 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfRole" nillable="true" type="tns:ArrayOfRole" />
+  <xs:complexType name="Route">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseData">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Route" nillable="true" type="tns:Route" />
+  <xs:complexType name="AppStatusCach">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseData">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Entities" nillable="true" type="tns:ArrayOfEntity" />
+          <xs:element minOccurs="0" name="StaffCurrent" nillable="true" type="tns:Entity" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="AppStatusCach" nillable="true" type="tns:AppStatusCach" />
+  <xs:complexType name="ArrayOfEntity">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Entity" nillable="true" type="tns:Entity" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEntity" nillable="true" type="tns:ArrayOfEntity" />
   <xs:complexType name="Package">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:BaseData">

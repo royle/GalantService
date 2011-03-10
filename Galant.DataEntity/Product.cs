@@ -8,7 +8,11 @@ namespace Galant.DataEntity
 {
     [DataContract]
     public enum ProductEnum
-    { }
+    { 
+        Ticket = 0x01,
+        Autonomy = 0x02
+    }
+
     [DataContract]
     public class Product:BaseData
     {
