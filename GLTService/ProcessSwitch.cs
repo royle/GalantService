@@ -27,6 +27,9 @@ namespace GLTService
             {
                 Entity entity = new Entity();
                 Galant.DataEntity.Entity AuthorizedStaff = entity.Authorize(dataOper, staff.Alias, staff.Password, false);
+
+                GLTService.Operation.Search search;
+
                 switch (OperationType)
                 {
                     case "Login":
@@ -34,8 +37,12 @@ namespace GLTService
                         returnData = log.InitAppCach(dataOper, AuthorizedStaff);
                         break;
                     case "SearchEntity":
-                        GLTService.Operation.Search search = new Search();
+                        search = new Search();
                         returnData = search.SearchEntitys(dataOper, DetailObj as Galant.DataEntity.Result.SearchEntityResult);
+                        break;
+                    case "SearchProduction":
+                        search = new Search();
+                        returnData = search.SearchProduction(dataOper, DetailObj as Galant.DataEntity.Production.Result);
                         break;
                     case "Refresh":
                         returnData = ProcessRefresh(dataOper, DetailObj);

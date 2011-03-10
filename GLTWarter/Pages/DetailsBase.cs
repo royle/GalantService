@@ -497,7 +497,7 @@ namespace GLTWarter.Pages
        
         protected void buttonNext_Click(object sender, RoutedEventArgs e)
         {
-            InvokeEnsureLoaded((Action)DoNext, null); ;
+            InvokeEnsureLoaded((Action)DoNext, null);
         }
 
         void NextCallback(object sender, GLTService.DoRequestCompletedEventArgs e)

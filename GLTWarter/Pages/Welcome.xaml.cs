@@ -145,7 +145,10 @@ namespace GLTWarter.Pages
 
         private void ManageProduct_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new GLTWarter.Pages.Product.ProductionSearch(null));
+            Galant.DataEntity.Production.Result data = new Galant.DataEntity.Production.Result();
+            data.SearchCondition.Type = Galant.DataEntity.ProductEnum.Autonomy;
+            data.Operation = BaseOperatorName.ProductSearch;
+            this.NavigationService.Navigate(new GLTWarter.Pages.Product.ProductionSearch(data));
         }
     }
 }

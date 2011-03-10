@@ -13,5 +13,12 @@ namespace GLTService.Operation
             searchResult.ResultData = entity.GetEntitysByConditions(data, searchResult.SearchCondition);
             return searchResult;
         }
+
+        public Galant.DataEntity.Production.Result SearchProduction(Operation.BaseEntity.DataOperator data, Galant.DataEntity.Production.Result result)
+        {
+            GLTService.Operation.BaseEntity.Product product = new BaseEntity.Product();
+            result.ResultData = product.SearchProductes(data, result.SearchCondition);
+            return result;
+        }
     }
 }
