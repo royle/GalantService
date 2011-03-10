@@ -23,7 +23,7 @@
                         </my:PropertyRow>
                         <my:PropertyRow HeaderText="付款方式(_A):" >
                             <ComboBox Name="comboPayType" MinWidth="100" VerticalAlignment="Center" HorizontalAlignment="Left" SelectedIndex="0"
-                      ItemsSource="{Binding Source={StaticResource PayType}, XPath=//Entity[@searchable\=1]}" DisplayMemberPath="Text" SelectedValuePath="Value" 
+                      ItemsSource="{Binding Source={StaticResource PayType}, XPath=//Type[@searchable\=1]}" DisplayMemberPath="Text" SelectedValuePath="Value" 
                       SelectedValue="{Binding Path=PayType, UpdateSourceTrigger=PropertyChanged}">
                             </ComboBox>
                         </my:PropertyRow>
