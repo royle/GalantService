@@ -9,7 +9,9 @@ namespace Galant.DataEntity
     [DataContract]
     public enum ProductEnum
     { 
+        [EnumMember]
         Ticket = 0x01,
+        [EnumMember]
         Autonomy = 0x02
     }
 

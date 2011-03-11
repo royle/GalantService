@@ -19,6 +19,8 @@ namespace Galant.DataEntity
     [KnownType(typeof(AppStatusCach))]
     [KnownType(typeof(Galant.DataEntity.Search.SearchEntityCondition))]
     [KnownType(typeof(Galant.DataEntity.Result.SearchEntityResult))]
+    [KnownType(typeof(Galant.DataEntity.Production.Result))]
+    [KnownType(typeof(Galant.DataEntity.Production.Search))]
     public abstract class BaseData : IIdentifiable, INotifyPropertyChanged, IDataErrorInfo, ICloneable, IComparable
     {
         public BaseData(string operation)
