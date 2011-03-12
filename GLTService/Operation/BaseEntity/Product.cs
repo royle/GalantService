@@ -17,10 +17,18 @@ namespace GLTService.Operation.BaseEntity
         {
             get
             {
-                return @"INSERT INTO products(
-Product_Name,Alias,Amount,Type,Discretion,Need_back,Return_Name,Return_Value,Able_flag)
-VALUES (
-@Product_Name,@Alias,@Amount,@Type,@Discretion,@Need_back,@Return_Name,@Return_Value,@Able_flag)";
+                return SqlInsertDataSql;
+//                    @"INSERT INTO products(
+//Product_Name,Alias,Amount,Type,Discretion,Need_back,Return_Name,Return_Value,Able_flag)
+//VALUES (
+//@Product_Name,@Alias,@Amount,@Type,@Discretion,@Need_back,@Return_Name,@Return_Value,@Able_flag)";
+            }
+        }
+        public override string SqlUpdateSql
+        {
+            get
+            {
+                return SqlUpdateDataSql;
             }
         }
 
@@ -61,8 +69,10 @@ VALUES (
                 conditions.Add("product_name = '" + search.ProductName + "'");
             if (!String.IsNullOrEmpty(search.Alias))
                 conditions.Add("Alias = '" + search.Alias + "'");
+            if (!search.IsStop)
+                conditions.Add("Able_flag = true");
             if (conditions.Count > 0)
-                sqlText += "WHERE" + string.Join(" AND ", conditions);
+                sqlText += " WHERE " + string.Join(" AND ", conditions);
             DataTable dt = SqlHelper.ExecuteDataset(data.myConnection, CommandType.Text, sqlText).Tables[0];
 
             List<Galant.DataEntity.Product> Tproductes = new List<Galant.DataEntity.Product>();

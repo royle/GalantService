@@ -77,8 +77,16 @@ namespace GLTService
         {
             if (detailObj is Galant.DataEntity.Entity)
             {
-                Entity entity = new Entity();
-                detailObj = entity.SaveEntity(dataOper,detailObj as Galant.DataEntity.Entity);
+                Entity op = new Entity();
+                detailObj = op.SaveEntity(dataOper,detailObj as Galant.DataEntity.Entity);
+            }
+            else if (detailObj is Galant.DataEntity.Product)
+            {
+                Product op = new Product(dataOper);
+                if (((Galant.DataEntity.Product)detailObj).ProductId == 0)
+                    op.AddNewData(detailObj);
+                else
+                    op.UpdateData(detailObj);
             }
             return detailObj;
         }

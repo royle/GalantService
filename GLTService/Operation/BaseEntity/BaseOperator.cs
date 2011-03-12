@@ -58,11 +58,12 @@ namespace GLTService.Operation.BaseEntity
         protected virtual void SetTableName()
         { }
 
+        internal string SqlInsertDataSql;
         public virtual string SqlAddNewSql
         {
             get { return string.Empty; }
         }
-
+        internal string SqlUpdateDataSql;
         public virtual string SqlUpdateSql
         {
             get { return string.Empty; }
@@ -71,17 +72,30 @@ namespace GLTService.Operation.BaseEntity
         public virtual bool AddNewData(BaseData data)
         {
             Operator.CreateConnectionAndTransaction();
-
+            MySqlParameter[] paramArray = BuildParameteres(data, DicDataMapping, true, false);
             if (Operator.CanDoTransaction)
-                SqlHelper.ExecuteNonQuery(Operator.mytransaction, System.Data.CommandType.Text, SqlAddNewSql, BuildParameteres(data));
+                SqlHelper.ExecuteNonQuery(Operator.mytransaction, System.Data.CommandType.Text, SqlAddNewSql, paramArray);
             else
-                MySqlHelper.ExecuteNonQuery(Operator.myConnection, SqlAddNewSql, BuildParameteres(data));
+                MySqlHelper.ExecuteNonQuery(Operator.myConnection, SqlAddNewSql, paramArray);
+
+            return true;
+        }
+
+        public virtual bool UpdateData(BaseData data)
+        {
+            Operator.CreateConnectionAndTransaction();
+            MySqlParameter[] paramArray = BuildParameteres(data, DicDataMapping, false, true);
+            if (Operator.CanDoTransaction)
+                SqlHelper.ExecuteNonQuery(Operator.mytransaction, System.Data.CommandType.Text, SqlUpdateSql , paramArray);
+            else
+                MySqlHelper.ExecuteNonQuery(Operator.myConnection, SqlUpdateSql, paramArray);
 
             return true;
         }
 
         private const string ParameteraStartWith = @"@";
         private const string SqlInsertStringFormat = @"INSERT INTO {0} ({1}) VALUES({2})";
+        private const string SqlUpdateStringFormat = @"UPDATE {0} SET {1} WHERE {2}";
 
         public virtual string KeyId
         {
@@ -90,30 +104,67 @@ namespace GLTService.Operation.BaseEntity
 
         public virtual MySqlParameter[] BuildParameteres(BaseData data)
         {
-            return BuildParameteres(data, DicDataMapping);
+            return BuildParameteres(data, DicDataMapping, false, false);
         }
 
         public virtual MySqlParameter[] BuildInsertParameteres(BaseData data)
         {
-            return BuildParameteres(data, this.DicInsertMapping);
+            return BuildParameteres(data, this.DicInsertMapping,true,false);
         }
 
         public virtual MySqlParameter[] BuildUpdateParameteres(BaseData data)
         {
-            return BuildParameteres(data, this.DicUpdateMapping);
+            return BuildParameteres(data, this.DicUpdateMapping, false, true);
         }
 
-        public virtual MySqlParameter[] BuildParameteres(BaseData data,Dictionary<string,string> DicData)
+        public virtual MySqlParameter[] BuildParameteres(BaseData data, Dictionary<string, string> DicData, bool isInsert, bool isUpdate)
         {
+            List<String> conditions = new List<string>();
+            List<String> parameters = new List<string>();
+            List<String> updateParamters = new List<string>();
             List<MySqlParameter> param = new List<MySqlParameter>();
+            String keyParam = String.Empty;
+
             foreach (System.Reflection.PropertyInfo info in data.GetType().GetProperties())
             {
                 string key = string.Empty;
-                if (DicData.TryGetValue(info.Name, out key))
+                string propertyName = info.Name;
+                
+                if (DicData.TryGetValue(propertyName, out key))
                 {
                     object obj = info.GetValue(data, null);
-                    param.Add(new MySqlParameter(ParameteraStartWith + key, obj));
+                    if (obj == null)
+                        continue;
+
+                    string parameterName = ParameteraStartWith + key;
+
+                    if (obj.GetType().BaseType == typeof(Enum))
+                    {
+                        param.Add(new MySqlParameter(parameterName, (int)obj));
+                    }
+                    else
+                    {
+                        param.Add(new MySqlParameter(parameterName, obj));
+                    }
+                    if (key == this.KeyId)
+                    {
+                        keyParam = key + "=" + parameterName;
+                    }
+                    else
+                    {
+                        updateParamters.Add(key + "=" + parameterName);
+                        conditions.Add(key);
+                        parameters.Add(parameterName);
+                    }
                 }
+            }
+            if (isUpdate)
+            {
+                SqlUpdateDataSql = string.Format(SqlUpdateStringFormat, TableName, string.Join(" ,", updateParamters), keyParam);
+            }
+            if (isInsert)
+            {
+                SqlInsertDataSql = string.Format(SqlInsertStringFormat, TableName, String.Join(" ,", conditions), String.Join(" ,", parameters));
             }
             return param.ToArray();
         }
@@ -121,11 +172,6 @@ namespace GLTService.Operation.BaseEntity
         private static string MarkParameter(string propertyName)
         {
             return string.Format("{0}{1}", ParameteraStartWith, propertyName);
-        }
-
-        public virtual bool UpdateData(string dataId)
-        {
-            return true;
         }
 
         public virtual List<BaseData> SearchByKeyId(string id)
@@ -155,7 +201,10 @@ namespace GLTService.Operation.BaseEntity
                 string key = string.Empty;
                 if (DicDataMapping.TryGetValue(info.Name, out key))
                 {
-                    info.SetValue(info, row[key], null);
+                    if (!String.IsNullOrEmpty(row[key].ToString()))
+                    {
+                        info.SetValue(data, row[key], null);
+                    }
                 }
             }
             return data;
@@ -167,6 +216,8 @@ namespace GLTService.Operation.BaseEntity
             { 
                 case "Entity":
                     return new Galant.DataEntity.Entity();
+                case "Product":
+                    return new Galant.DataEntity.Product();
                 default:
                     throw new NotImplementedException("Add PropertyName Before This Exception.");
             }

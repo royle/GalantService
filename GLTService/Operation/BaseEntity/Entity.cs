@@ -380,7 +380,7 @@ namespace GLTService.Operation.BaseEntity
             string sqlUpdate = @"UPDATE entities SET ALIAS =  CONCAT('C',entity_id) WHERE entity_id = @entity_id";
             Dictionary<string, string> dictGenerateAlias = new Dictionary<string, string>();
             dictGenerateAlias.Add("EntityId", "Entity_id");
-            SqlHelper.ExecuteNonQuery(data.mytransaction, CommandType.Text, sqlUpdate, this.BuildParameteres(entity, dictGenerateAlias));
+            SqlHelper.ExecuteNonQuery(data.mytransaction, CommandType.Text, sqlUpdate, this.BuildParameteres(entity, dictGenerateAlias, false, true));
             entity.Alias = "C"+entity.EntityId.ToString();
             return "C" + entity.EntityId.ToString();
         }
