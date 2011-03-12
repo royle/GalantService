@@ -9,11 +9,11 @@
     xmlns:styles="clr-namespace:GLTWarter.Styles"
     xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
-	Title="ProductionManagement">
+	Title="产品管理">
     <my:DetailsPagePresenter TitleBrush="Blue" TitleForNew="建立产品" TitleForEdit="编辑产品">
         <my:DetailsPagePresenter.LatestVersionButtonsPanel>
             <Button IsDefault="True" Name="btnNext" Click="buttonOk_Click">确定</Button>
-            <Button IsCancel="True">取消</Button>
+            <Button IsCancel="True"  Click="buttonCancel_Click">取消</Button>
         </my:DetailsPagePresenter.LatestVersionButtonsPanel>
         <TabControl Margin="5">
             <TabItem Header="一般">

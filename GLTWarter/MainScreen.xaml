@@ -6,6 +6,7 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     Height="700" Width="900"
         Icon="App.ico"
+        Title="Grant"
     >
     <Window.Resources>
         <src:MainWindowEffectiveRoleCheckConverter x:Key="MainWindowEffectiveRoleCheckConverter"/>

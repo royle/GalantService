@@ -37,6 +37,11 @@ namespace GLTWarter.Pages.Product
             }
         }
 
+        protected override void FocusFirstControl()
+        {
+            this.buttonSearch.Focus();
+        }
+
         protected override void OnNext(Galant.DataEntity.BaseData incomingData)
         {
             incomingData.Operation = BaseOperatorName.ProductSearch;
