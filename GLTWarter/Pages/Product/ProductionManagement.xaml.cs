@@ -17,11 +17,40 @@ namespace GLTWarter.Pages.Product
     /// <summary>
     /// Interaction logic for ProductionManagement.xaml
     /// </summary>
-    public partial class ProductionManagement : Page
+    public partial class ProductionManagement : DetailsBase
     {
-        public ProductionManagement()
+        public ProductionManagement(Galant.DataEntity.BaseData data):base(data)
         {
             InitializeComponent();
+            data.Operation = BaseOperatorName.DataSave;
+        }
+
+        protected override Galant.DataEntity.BaseData CreateNewEntity()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override bool BackAllowed
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        protected override bool OnSavedEditedItem()
+        {
+            return false;
+        }
+
+        protected override bool OnSavedNewItem()
+        {
+            MessageBox.Show(AppCurrent.Active.MainWindow, Resource.msgProductCreated, this.Title, MessageBoxButton.OK, MessageBoxImage.Information);
+
+            Galant.DataEntity.BaseData data = new Galant.DataEntity.Product() { ProductType = ((Galant.DataEntity.Product)dataCurrent).ProductType};
+            this.dataCurrent = data;
+            this.DataContext = this.dataCurrent;
+            return false;
         }
     }
 }

@@ -61,7 +61,6 @@
             </ScrollViewer>
             <StackPanel Grid.Row="1" Name="ResultView">
                 <xcdg:DataGridControl ItemsSource="{Binding Source={StaticResource ResultData}}" Name="listResult" styles:ExportHint.IsExportable="true">
-
                     <xcdg:DataGridControl.ItemContainerStyle>
                         <Style TargetType="{x:Type xcdg:DataRow}" BasedOn="{StaticResource DataRowStyle}">
                             <EventSetter Event="MouseDoubleClick" Handler="HandleItemActivate"/>
@@ -69,10 +68,11 @@
                         </Style>
                     </xcdg:DataGridControl.ItemContainerStyle>
                     <xcdg:DataGridControl.Columns>
-                        <xcdg:Column Title="类型" Width="120" FieldName="ProductType" />
-                        <xcdg:Column Title="账号名" Width="120" FieldName="Alias" />
-                        <xcdg:Column Title="已停用" Width="50" FieldName="AbleFlag" GroupValueTemplate="{StaticResource GroupBooleanValueTemplate}"/>
-                        <xcdg:Column Title="名字" Width="120" FieldName="ProductName" />
+                        <xcdg:Column Title="类型" Width="120" ReadOnly="True"  FieldName="ProductType" />
+                        <xcdg:Column Title="名字" Width="120" ReadOnly="True" FieldName="ProductName" />
+                        <xcdg:Column Title="账号名" Width="120" ReadOnly="True" FieldName="Alias" />
+                        <xcdg:Column Title="已停用" Width="50" ReadOnly="True" FieldName="AbleFlag" GroupValueTemplate="{StaticResource GroupBooleanValueTemplate}"/>
+                        <xcdg:Column Title="价值" Width="120" ReadOnly="True" FieldName="Amount" />
                     </xcdg:DataGridControl.Columns>
                 </xcdg:DataGridControl>
             </StackPanel>

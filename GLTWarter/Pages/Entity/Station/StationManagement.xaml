@@ -3,13 +3,11 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-                   xmlns:my="clr-namespace:GLTWarter.Controls"
+    xmlns:my="clr-namespace:GLTWarter.Controls"
     xmlns:pages="clr-namespace:GLTWarter.Pages"
     xmlns:src="clr-namespace:GLTWarter"
     xmlns:styles="clr-namespace:GLTWarter.Styles"
     xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
-      mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
 	Title="StationManagement">
     <my:DetailsPagePresenter TitleBrush="AliceBlue" TitleForEdit="修改站点" TitleForNew="建立站点">
         <my:DetailsPagePresenter.LatestVersionButtonsPanel>

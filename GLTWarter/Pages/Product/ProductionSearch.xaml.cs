@@ -58,11 +58,14 @@ namespace GLTWarter.Pages.Product
             {
                 data.Operation = "Save";
             }
+            this.NavigationService.Navigate(new ProductionManagement(data));
         }
 
         private void buttonNew_Click(object sender, RoutedEventArgs e)
-        { 
-            
+        {
+            DetailsBase page = new ProductionManagement(new Galant.DataEntity.Product() { ProductType = Galant.DataEntity.ProductEnum.Autonomy});
+            this.NavigationService.Navigate(page);
         }
+
     }
 }

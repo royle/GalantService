@@ -1,13 +1,59 @@
-﻿<Page x:Class="GLTWarter.Pages.Product.ProductionManagement"
+﻿<pages:DetailsBase x:Class="GLTWarter.Pages.Product.ProductionManagement"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+    xmlns:my="clr-namespace:GLTWarter.Controls"
+    xmlns:pages="clr-namespace:GLTWarter.Pages"
+    xmlns:src="clr-namespace:GLTWarter"
+    xmlns:styles="clr-namespace:GLTWarter.Styles"
+    xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
 	Title="ProductionManagement">
-
-    <Grid>
-        
-    </Grid>
-</Page>
+    <my:DetailsPagePresenter TitleBrush="Blue" TitleForNew="建立产品" TitleForEdit="编辑产品">
+        <my:DetailsPagePresenter.LatestVersionButtonsPanel>
+            <Button IsDefault="True" Name="btnNext" Click="buttonOk_Click">确定</Button>
+            <Button IsCancel="True">取消</Button>
+        </my:DetailsPagePresenter.LatestVersionButtonsPanel>
+        <TabControl Margin="5">
+            <TabItem Header="一般">
+                <StackPanel>
+                    <my:PropertyRow HeaderText="产品类型(_T):">
+                        <ComboBox MinWidth="100" Style="{StaticResource vInput}" Name="comboType"
+                                  ItemsSource="{Binding Source={StaticResource ProductType}, XPath=//Product[@editable\=1]}" DisplayMemberPath="Text" SelectedValuePath="Value" 
+                                  SelectedValue="{Binding ProductType, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}">
+                        </ComboBox>
+                    </my:PropertyRow>
+                    <my:PropertyRow HeaderText="产品缩写(_N):">
+                        <TextBox Name="txtAlias" Text="{Binding Path=Alias,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}" Style="{StaticResource vInput}"
+                                     Width="100" Margin="0,5,0,0" MaxWidth="50" />
+                    </my:PropertyRow>
+                    <my:PropertyRow HeaderText="产品全称(_F):">
+                        <TextBox Name="txtFullName" Text="{Binding Path=ProductName,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"  Style="{StaticResource vInput}"
+                                     Width="300" Margin="0,5,0,0" MaxWidth="50" />
+                    </my:PropertyRow>
+                    <my:PropertyRow HeaderText="价格(_A):">
+                        <TextBox Name="txtPhone" Text="{Binding Path=Amount,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"  Style="{StaticResource vInput}" 
+                                     Width="100" Margin="0,5,0,0" MaxWidth="50" />
+                    </my:PropertyRow>
+                    <my:PropertyRow>
+                        <CheckBox Name="chkNeedBack" IsChecked="{Binding Path=NeedBack,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}" Content="可回收(_C)" />
+                    </my:PropertyRow>
+                    <StackPanel Visibility="{Binding IsChecked, ElementName=chkNeedBack, Converter={StaticResource BooleanVisibilityConverter}}">
+                        <my:PropertyRow HeaderText="收回物名称(_R):">
+                            <TextBox Name="txtReturnName" Text="{Binding Path=ReturnName,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"  Style="{StaticResource vInput}"
+                                     Width="150" Margin="0,5,0,0" MaxWidth="50" />
+                        </my:PropertyRow>
+                        <my:PropertyRow HeaderText="收回物价值(_R):">
+                            <TextBox Name="txtReturnValue" Text="{Binding Path=ReturnValue,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"  Style="{StaticResource vInput}"
+                                     Width="150" Margin="0,5,0,0" MaxWidth="50" />
+                        </my:PropertyRow>
+                    </StackPanel>
+                    <my:PropertyRow >
+                        <CheckBox Name="chkAble" Content="下架" IsChecked="{Binding AbleFlag,Converter={StaticResource BooleanNotConverter},UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}" />
+                    </my:PropertyRow>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </my:DetailsPagePresenter>
+</pages:DetailsBase>

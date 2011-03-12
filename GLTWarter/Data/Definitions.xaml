@@ -58,11 +58,11 @@
                     <Value></Value>
                     <Text>所有</Text>
                 </Product>
-                <Product searchable="1">
+                <Product searchable="1" editable ="1">
                     <Value>Ticket</Value>
                     <Text>兑换券</Text>
                 </Product>
-                <Product searchable="1">
+                <Product searchable="1" editable ="1">
                     <Value>Autonomy</Value>
                     <Text>产品</Text>
                 </Product>

@@ -370,10 +370,9 @@ namespace GLTWarter.Pages
             if (IsDataValid())
             {
                 isLastItemNew = dataCurrent.IsNew;
-                BackupFocus();
-                dataCurrent.IsLoading = true;
-                this.DataReadyRefresh();
-                //dataCurrent.BeginSave(SaveCallback, null);
+                GLTService.ServiceAPIClient client = new GLTService.ServiceAPIClient();
+                client.DoRequestCompleted += new EventHandler<GLTService.DoRequestCompletedEventArgs>(SaveCallback);
+                client.DoRequestAsync(this.DataContext as Galant.DataEntity.BaseData, AppCurrent.Active.StaffCurrent, (this.DataContext as Galant.DataEntity.BaseData).Operation);
             }
         }
 
@@ -382,7 +381,7 @@ namespace GLTWarter.Pages
             InvokeEnsureLoaded((Action)DoOk, null);
         }
 
-        void SaveCallback(IAsyncResult asr)
+        void SaveCallback(object sender, GLTService.DoRequestCompletedEventArgs e)
         {
             this.Dispatcher.Invoke(
                 System.Windows.Threading.DispatcherPriority.Normal,
@@ -390,7 +389,7 @@ namespace GLTWarter.Pages
                 {
                     try
                     {
-                        Galant.DataEntity.BaseData data = null;//dataCurrent.EndPopulate(asr) as Galant.DataEntity.BaseData;
+                        Galant.DataEntity.BaseData data = e.Result;
                         if (data != null)
                         {
                             dataCurrent = data;
@@ -490,7 +489,7 @@ namespace GLTWarter.Pages
                 this.DataReadyRefresh();
                 GLTService.ServiceAPIClient client = new GLTService.ServiceAPIClient();
                 client.DoRequestCompleted += new EventHandler<GLTService.DoRequestCompletedEventArgs>(NextCallback);
-                client.DoRequestAsync(this.DataContext as Galant.DataEntity.BaseData, AppCurrent.Active.StaffCurrent, (this.DataContext as Galant.DataEntity.BaseData).Operation);                
+                client.DoRequestAsync(this.DataContext as Galant.DataEntity.BaseData, AppCurrent.Active.StaffCurrent, (this.DataContext as Galant.DataEntity.BaseData).Operation);
             }
         }
 

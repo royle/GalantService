@@ -29,5 +29,12 @@ namespace Galant.DataEntity.Production
             get { return productName; }
             set { productName = value; OnPropertyChanged("ProductName"); }
         }
+
+        private bool isStop;
+        public bool IsStop
+        {
+            set { isStop = value; OnPropertyChanged("IsStop"); }
+            get { return isStop; }
+        }
     }
 }

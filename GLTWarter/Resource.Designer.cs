@@ -79,6 +79,15 @@ namespace GLTWarter {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 建立产品成功。.
+        /// </summary>
+        internal static string msgProductCreated {
+            get {
+                return ResourceManager.GetString("msgProductCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 建立站点成功。.
         /// </summary>
         internal static string msgStationCreated {

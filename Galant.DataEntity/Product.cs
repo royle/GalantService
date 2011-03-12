@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 namespace Galant.DataEntity
 {
     [DataContract]
-    public enum ProductEnum
+    public enum ProductEnum:int
     { 
         [EnumMember]
         Ticket = 0x01,
@@ -18,43 +18,48 @@ namespace Galant.DataEntity
     [DataContract]
     public class Product:BaseData
     {
-        private int productId;
+        public Product()
+        {
+            AbleFlag = true;
+        }
 
+        private int productId;
+        [DataMember]
         public int ProductId
         {
             get { return productId; }
             set { productId = value; }
         }
         private String productName;
-
+        [DataMember]
         public String ProductName
         {
             get { return productName; }
             set { productName = value; }
         }
         private String alias;
-
+        [DataMember]
         public String Alias
         {
             get { return alias; }
             set { alias = value; }
         }
         private decimal amount;
-
+        [DataMember]
         public decimal Amount
         {
             get { return amount; }
             set { amount = value; }
         }
         private ProductEnum productType;
-
+        [DataMember]
         public ProductEnum ProductType
         {
             get { return productType; }
             set { productType = value; }
         }
         private String discretion;
-
+        [DataMember]
         public String Discretion
         {
             get { return discretion; }
@@ -62,28 +67,28 @@ namespace Galant.DataEntity
         }
 
         private bool needBack;
-
+        [DataMember]
         public bool NeedBack
         {
             get { return needBack; }
             set { needBack = value; }
         }
         private String returnName;
-
+        [DataMember]
         public String ReturnName
         {
             get { return returnName; }
             set { returnName = value; }
         }
         private decimal returnValue;
-
+        [DataMember]
         public decimal ReturnValue
         {
             get { return returnValue; }
             set { returnValue = value; }
         }
         private bool ableFlag;
-
+        [DataMember]
         public bool AbleFlag
         {
             get { return ableFlag; }
