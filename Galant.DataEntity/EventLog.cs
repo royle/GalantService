@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 namespace Galant.DataEntity
 {
+    [DataContract]
     public class EventLog: BaseData
     {
         #region Model
@@ -17,7 +19,7 @@ namespace Galant.DataEntity
         private string _event_type;
         private string _event_data;
 
-
+        [DataMember]
         /// <summary>
         /// auto_increment
         /// </summary>
@@ -26,7 +28,7 @@ namespace Galant.DataEntity
             set { _event_id = value; OnPropertyChanged("EventId"); }
             get { return _event_id; }
         }
-
+        [DataMember] 
         /// <summary>
         /// 
         /// </summary>
@@ -35,6 +37,7 @@ namespace Galant.DataEntity
             set { _paper_id = value; }
             get { return _paper_id; }
         }
+        [DataMember]
         /// <summary>
         /// 
         /// </summary>
@@ -43,6 +46,7 @@ namespace Galant.DataEntity
             set { _insert_time = value; }
             get { return _insert_time; }
         }
+        [DataMember]
         /// <summary>
         /// 
         /// </summary>
@@ -51,13 +55,13 @@ namespace Galant.DataEntity
             set { _relation_entity = value; }
             get { return _relation_entity; }
         }
-
+        [DataMember]
         public int? EntityID
         {
             get { return _entity_id; }
             set { _entity_id = value; }
         }
-
+        [DataMember]
         /// <summary>
         /// 
         /// </summary>
@@ -66,6 +70,7 @@ namespace Galant.DataEntity
             set { _at_station = value; }
             get { return _at_station; }
         }
+        [DataMember]
         /// <summary>
         /// 
         /// </summary>
@@ -74,6 +79,7 @@ namespace Galant.DataEntity
             set { _event_type = value; }
             get { return _event_type; }
         }
+        [DataMember]
         /// <summary>
         /// 
         /// </summary>

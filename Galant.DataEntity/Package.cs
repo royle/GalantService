@@ -21,20 +21,21 @@ namespace Galant.DataEntity
         }
 
         private string paperId;
+        [DataMember]
         public string PaperId
         {
             get { return paperId; }
         }
 
         private int packageId;
-
+        [DataMember]  
         public int PackageId
         {
             get { return packageId; }
             set { packageId = value; }
         }
         private Product product;
-
+        [DataMember]
         public Product Product
         {
             get { return product; }
@@ -47,28 +48,28 @@ namespace Galant.DataEntity
         }
 
         private int count;
-
+        [DataMember]
         public int Count
         {
             get { return count; }
             set { count = value; }
         }
         private decimal amount;
-
+        [DataMember]
         public decimal Amount
         {
             get { return amount; }
             set { amount = value; }
         }
         private decimal originAmount;
-
+        [DataMember]
         public decimal OriginAmount
         {
             get { return originAmount; }
             set { originAmount = value; }
         }
         private PackageState packageType;
-
+        [DataMember]
         public PackageState PackageType
         {
             get { return packageType; }
