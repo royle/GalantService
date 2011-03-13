@@ -12,7 +12,49 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
 	Title="调度中心">
     <Page.Resources>
-        
+        <xcdg:DataGridCollectionViewSource x:Key="ResultData" Source="{Binding ResultData, FallbackValue={x:Null}}" AutoCreateItemProperties="False">
+            <xcdg:DataGridCollectionViewSource.ItemProperties>
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="ProductName" DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="Alias" DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="ProductType" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource ProductType}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="Amount" DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="AbleFlag" Converter="{StaticResource BooleanNotConverter}" DataType="{x:Type sys:Boolean}" />
+            </xcdg:DataGridCollectionViewSource.ItemProperties>
+            <xcdg:DataGridCollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="ProductType" Direction="Ascending" />
+            </xcdg:DataGridCollectionViewSource.SortDescriptions>
+        </xcdg:DataGridCollectionViewSource>
     </Page.Resources>
-    
+    <my:DetailsPagePresenter TitleBrush="Blue" TitleForEdit="调度中心" TitleForNew="调度中心">
+        <my:DetailsPagePresenter.LatestVersionButtonsPanel>
+            <Button IsDefault="True">调度</Button>
+            <Button IsCancel="False">取消</Button>
+        </my:DetailsPagePresenter.LatestVersionButtonsPanel>
+
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel>
+            <!--<my:PropertyRow HeaderText="显示限制(_L):"></my:PropertyRow>-->
+            <my:PropertyRow HeaderText="检索条件(_I):">
+                <StackPanel>
+                    <CheckBox Name="NoRouted">没有调度</CheckBox>
+                    <CheckBox Name="AutoRouted">待确认</CheckBox>
+                    <CheckBox Name="Routed">调度未接受</CheckBox>
+                </StackPanel>
+            </my:PropertyRow>
+            </StackPanel>
+            <StackPanel Grid.Row="1">
+                
+            </StackPanel>
+            <my:PropertyRow HeaderText="调度站点">
+                <ComboBox></ComboBox>
+            </my:PropertyRow>
+        </Grid>
+        
+    </my:DetailsPagePresenter>
 </pages:DetailsBase>

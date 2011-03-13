@@ -14,12 +14,17 @@ namespace GLTService.Operation.BaseEntity
         {
             get
             {
-                return @"INSERT INTO event_logs(
-                    Paper_id,Insert_Time,Relation_Entity,At_Station,Event_Type,Event_Data)
-                    VALUES (
-                    @Paper_id,@Insert_Time,@Relation_Entity,@At_Station,@Event_Type,@Event_Data)";
+                return SqlInsertDataSql;
             }
         }
+        public override string SqlUpdateSql
+        {
+            get
+            {
+                return SqlUpdateDataSql;
+            }
+        }
+
 
         protected override void SetTableName()
         {

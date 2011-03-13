@@ -8,19 +8,56 @@ namespace Galant.DataEntity
 {
     [DataContract]
     public enum PaperStatus
-    { }
+    {
+        Finish = 0, Adviced = 1, Transfer = 2, FinishProcessing = 9
+    }
     [DataContract]
     public enum PaperSubState
-    { }
+    {
+        FinishGood = 0x00,
+        FinishWithLost = 0x01,
+        FinishWithCancel = 0x02,
+        FinishWithAbondon = 0x03,
+
+        AdviceReceived = 0x10,
+        AdviceInStation = 0x11,
+
+        InStation = 0x20,
+        InTransit = 0x21,
+        Unloading = 0x22,
+        Loading = 0x23,
+
+        // These are only for state differentiation for PackageFinish. Will never appear in Database
+        Implicit = 0x90,
+        NextActionAssured = 0x91,
+        CheckinException = 0x92,
+        SemiDeliveryToReturn = 0x93,
+        DeliveryToReturn = 0x94,
+        SemiReturnToDelivery = 0x95,
+        ReturnToDelivery = 0x96,
+        NextFinish = 0x97,
+        CheckinExceptionWithoutIn = 0x98
+    }
     [DataContract]
     public enum PaperBound
-    { }
+    {
+        Stay = 0x00,
+        ToA = 0x01,
+        ToB = 0x02,
+        ToC = 0x03
+    }
     [DataContract]
     public enum PaperType
-    { }
+    { 
+        
+    }
+
     [DataContract]
     public enum PaperMobileStatus
-    { }
+    {
+        
+    }
+
     [DataContract]
     public class Paper:BaseData
     {
