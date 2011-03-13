@@ -60,7 +60,7 @@ VALUES (
             DataTable dt = SqlHelper.ExecuteDataset(data.myConnection, CommandType.Text, SqlSearch).Tables[0];
             if (dt.Rows.Count > 0)
             {
-                Entity entity = new Entity();
+                Entity entity = new Entity(data);
                 List<Galant.DataEntity.Entity> routeEntitys = entity.GetRoutedEntitys(data);
                 List<Galant.DataEntity.Route> routes = new List<Galant.DataEntity.Route>();
                 foreach (DataRow dr in dt.Rows)

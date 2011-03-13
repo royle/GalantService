@@ -80,7 +80,7 @@ VALUES (
         {
             if (dr == null)
                 return null;
-            Entity entity=new Entity();
+            Entity entity=new Entity(data);
             Galant.DataEntity.Role role = new Galant.DataEntity.Role();
             role.RoleId = Convert.ToInt32(dr["Role_ID"]);
             role.RoleType = (Galant.DataEntity.RoleType)dr["Role_Type"];
@@ -96,7 +96,7 @@ VALUES (
             if (dt.Rows.Count > 0)
             {
                 ObservableCollection<Galant.DataEntity.Role> roles = new ObservableCollection<Galant.DataEntity.Role>();
-                Entity entity=new Entity();
+                Entity entity=new Entity(data);
                 foreach (DataRow dr in dt.Rows)
                 {
                     Galant.DataEntity.Role role = new Galant.DataEntity.Role();

@@ -21,7 +21,7 @@ namespace Galant.DataEntity
         }
 
         private string paperId;
-        [DataMember]
+
         public string PaperId
         {
             get { return paperId; }

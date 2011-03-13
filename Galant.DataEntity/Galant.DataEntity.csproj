@@ -65,6 +65,8 @@
     <Compile Include="Entity.cs" />
     <Compile Include="EventLog.cs" />
     <Compile Include="IIdentifiable.cs" />
+    <Compile Include="OrderBooking\CustomerSevicesBookingOrderData.cs" />
+    <Compile Include="OrderBooking\PaperProduct.cs" />
     <Compile Include="Package.cs" />
     <Compile Include="Paper.cs" />
     <Compile Include="Product.cs" />

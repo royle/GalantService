@@ -9,7 +9,7 @@ namespace GLTService.Operation
     {
         public Galant.DataEntity.Result.SearchEntityResult SearchEntitys(Operation.BaseEntity.DataOperator data, Galant.DataEntity.Result.SearchEntityResult searchResult)
         {
-            GLTService.Operation.BaseEntity.Entity entity = new BaseEntity.Entity();
+            GLTService.Operation.BaseEntity.Entity entity = new BaseEntity.Entity(data);
             searchResult.ResultData = entity.GetEntitysByConditions(data, searchResult.SearchCondition);
             return searchResult;
         }

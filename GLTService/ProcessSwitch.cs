@@ -25,7 +25,7 @@ namespace GLTService
             Galant.DataEntity.BaseData returnData = null;
             try
             {
-                Entity entity = new Entity();
+                Entity entity = new Entity(dataOper);
                 Galant.DataEntity.Entity AuthorizedStaff = entity.Authorize(dataOper, staff.Alias, staff.Password, false);
 
                 GLTService.Operation.Search search;
@@ -67,7 +67,7 @@ namespace GLTService
         {
             if (detailObj is Galant.DataEntity.Entity)
             {
-                Entity entity = new Entity();
+                Entity entity = new Entity(dataOper);
                 detailObj = entity.GetEntityByID(dataOper, detailObj.QueryId, true);
             }
             return detailObj;
@@ -77,7 +77,7 @@ namespace GLTService
         {
             if (detailObj is Galant.DataEntity.Entity)
             {
-                Entity op = new Entity();
+                Entity op = new Entity(dataOper);
                 detailObj = op.SaveEntity(dataOper,detailObj as Galant.DataEntity.Entity);
             }
             else if (detailObj is Galant.DataEntity.Product)

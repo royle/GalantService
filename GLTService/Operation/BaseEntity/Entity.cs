@@ -20,12 +20,13 @@ namespace GLTService.Operation.BaseEntity
         {
             get
             {
-                return @"INSERT INTO entities(
-                Alias,Password,Full_Name,Home_phone,Cell_phone1,Cell_phone2,Type,
-                Address_Family,Address_Child,Comment,Deposit,Pay_type,Route_Station,Able_flag)
-                VALUES (
-                @Alias,@Password,@Full_Name,@Home_phone,@Cell_phone1,@Cell_phone2,@Type,
-                @Address_Family,@Address_Child,@Comment,@Deposit,@Pay_type,@Route_Station,@Able_flag)";
+                return SqlInsertDataSql;
+//                return @"INSERT INTO entities(
+//                Alias,Password,Full_Name,Home_phone,Cell_phone1,Cell_phone2,Type,
+//                Address_Family,Address_Child,Comment,Deposit,Pay_type,Route_Station,Able_flag)
+//                VALUES (
+//                @Alias,@Password,@Full_Name,@Home_phone,@Cell_phone1,@Cell_phone2,@Type,
+//                @Address_Family,@Address_Child,@Comment,@Deposit,@Pay_type,@Route_Station,@Able_flag)";
                 
             }
         }
@@ -251,7 +252,7 @@ namespace GLTService.Operation.BaseEntity
         /// <returns></returns>
         public List<Galant.DataEntity.Entity> GetAllAvailableEntitys(DataOperator data)
         {
-            string SqlSearch = this.BuildSearchSQL() + " WHERE Able_flag = 0";
+            string SqlSearch = this.BuildSearchSQL() + " WHERE Able_flag = 1";
             DataTable dt = SqlHelper.ExecuteDataset(data.myConnection, CommandType.Text, SqlSearch).Tables[0];            
             if (dt.Rows.Count > 0)
             {
@@ -348,8 +349,7 @@ namespace GLTService.Operation.BaseEntity
             {
                 if (entity.IsAliasAllowed && this.CheckAliasExist(data, entity.Alias))
                     throw new Galant.DataEntity.WCFFaultException(1234, "User Name Exist", "用户名(" + entity.Alias + ")已存在，请输入其它用户名");
-
-                SqlHelper.ExecuteNonQuery(data.mytransaction, CommandType.Text, this.SqlAddNewSql, this.BuildInsertParameteres(entity));
+                this.AddNewData(entity);
                 DataTable dt = SqlHelper.ExecuteDataset(data.mytransaction, CommandType.Text, "SELECT * FROM entities WHERE entity_id = (SELECT LAST_INSERT_ID() AS entity_id)", this.BuildParameteres(entity)).Tables[0];
                 if (dt.Rows.Count > 0)
                 {

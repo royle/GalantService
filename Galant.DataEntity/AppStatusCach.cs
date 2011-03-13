@@ -76,10 +76,22 @@ namespace Galant.DataEntity
         /// <summary>
         /// 路线集合
         /// </summary>
+        [DataMember]
         public List<Route> Routes
         {
             get { return routes; }
             set { routes = value; OnPropertyChanged("Routes"); }
+        }
+
+        private List<Product> products;
+        /// <summary>
+        /// 系统定义商品
+        /// </summary>
+        [DataMember]
+        public List<Product> Products
+        {
+            get { return products; }
+            set { products = value; OnPropertyChanged("Products"); }
         }
     }
 }

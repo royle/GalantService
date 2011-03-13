@@ -18,12 +18,15 @@ namespace GLTService.Operation
 
         public Galant.DataEntity.AppStatusCach InitAppCach(DataOperator data, Galant.DataEntity.Entity staff)
         {
-            Entity entity = new Entity();
-            Route route = new Route();
+            Entity entity = new Entity(data);
+            Route route = new Route(data);
+            Product product = new Product(data);
+            Galant.DataEntity.Production.Search pSearch = new Galant.DataEntity.Production.Search();            
             Galant.DataEntity.AppStatusCach cach = new Galant.DataEntity.AppStatusCach();
             cach.StaffCurrent = entity.Authorize(data, staff.Alias, staff.Password, true);
             cach.Entities = entity.GetAllAvailableEntitys(data);
             cach.Routes = route.GetAllRoutes(data);
+            cach.Products = product.SearchProductes(data, pSearch);
             return cach;
         }
 

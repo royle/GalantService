@@ -35,9 +35,10 @@ CREATE TABLE `entities` (
   `address_child` text COLLATE utf8_unicode_ci,
   `comment` text COLLATE utf8_unicode_ci,
   `deposit` decimal(10,2) DEFAULT '0.00',
-  `pay_type` int(11) COMMENT '付款类型\n预付，后附，及时付款',
-  `route_station` int(11) DEFAULT NULL ,
+  `pay_type` int(11) DEFAULT NULL '付款类型\n预付，后附，及时付款',
+  `route_station` int(11) DEFAULT NULL COMMENT,
   `able_flag` tinyint(1) NOT NULL DEFAULT '1',
+  `last_update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`entity_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

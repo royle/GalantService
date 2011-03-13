@@ -66,77 +66,77 @@ namespace Galant.DataEntity
         public String PaperId
         {
             get { return paperId; }
-            set { paperId = value; }
+            set { paperId = value; OnPropertyChanged("PaperId"); }
         }
         private PaperStatus paperStatus;
 
         public PaperStatus PaperStatus
         {
             get { return paperStatus; }
-            set { paperStatus = value; }
+            set { paperStatus = value; OnPropertyChanged("PaperStatus"); }
         }
         private PaperSubState paperSubStatus;
 
         public PaperSubState PaperSubStatus
         {
             get { return paperSubStatus; }
-            set { paperSubStatus = value; }
+            set { paperSubStatus = value; OnPropertyChanged("PaperSubStatus"); }
         }
         private Entity holder;
 
         public Entity Holder
         {
             get { return holder; }
-            set { holder = value; }
+            set { holder = value; OnPropertyChanged("Holder"); }
         }
         private PaperBound bound;
 
         public PaperBound Bound
         {
             get { return bound; }
-            set { bound = value; }
+            set { bound = value; OnPropertyChanged("Bound"); }
         }
         private Entity contactA;
 
         public Entity ContactA
         {
             get { return contactA; }
-            set { contactA = value; }
+            set { contactA = value; OnPropertyChanged("ContactA"); }
         }
         private Entity contactB;
 
         public Entity ContactB
         {
             get { return contactB; }
-            set { contactB = value; }
+            set { contactB = value; OnPropertyChanged("ContactB"); }
         }
         private Entity contactC;
 
         public Entity ContactC
         {
             get { return contactC; }
-            set { contactC = value; }
+            set { contactC = value; OnPropertyChanged("ContactC"); }
         }
         private Entity deliverA;
 
         public Entity DeliverA
         {
             get { return deliverA; }
-            set { deliverA = value; }
+            set { deliverA = value; OnPropertyChanged("DeliverA"); }
         }
         private Entity deliverB;
 
         public Entity DeliverB
         {
             get { return deliverB; }
-            set { deliverB = value; }
+            set { deliverB = value; OnPropertyChanged("DeliverB"); }
         }
         private Entity deliverC;
 
         public Entity DeliverC
         {
             get { return deliverC; }
-            set { deliverC = value; }
+            set { deliverC = value; OnPropertyChanged("DeliverC"); }
         }
 
         private DateTime deliverATime;
@@ -144,21 +144,21 @@ namespace Galant.DataEntity
         public DateTime DeliverATime
         {
             get { return deliverATime; }
-            set { deliverATime = value; }
+            set { deliverATime = value; OnPropertyChanged("DeliverATime"); }
         }
         private DateTime deliverBTime;
 
         public DateTime DeliverBTime
         {
             get { return deliverBTime; }
-            set { deliverBTime = value; }
+            set { deliverBTime = value; OnPropertyChanged("DeliverBTime"); }
         }
         private DateTime deliverCTime;
 
         public DateTime DeliverCTime
         {
             get { return deliverCTime; }
-            set { deliverCTime = value; }
+            set { deliverCTime = value; OnPropertyChanged("DeliverCTime"); }
         }
 
         private DateTime startTime;
@@ -166,14 +166,14 @@ namespace Galant.DataEntity
         public DateTime StartTime
         {
             get { return startTime; }
-            set { startTime = value; }
+            set { startTime = value; OnPropertyChanged("StartTime"); }
         }
         private DateTime finishTime;
 
         public DateTime FinishTime
         {
             get { return finishTime; }
-            set { finishTime = value; }
+            set { finishTime = value; OnPropertyChanged("FinishTime"); }
         }
 
         private decimal salary;
@@ -181,56 +181,56 @@ namespace Galant.DataEntity
         public decimal Salary
         {
             get { return salary; }
-            set { salary = value; }
+            set { salary = value; OnPropertyChanged("Salary"); }
         }
         private string comment;
 
         public string Comment
         {
             get { return comment; }
-            set { comment = value; }
+            set { comment = value; OnPropertyChanged("Comment"); }
         }
         private PaperType paperType;
 
         public PaperType PaperType
         {
             get { return paperType; }
-            set { paperType = value; }
+            set { paperType = value; OnPropertyChanged("PaperType"); }
         }
         private Route nextRoute;
 
         public Route NextRoute
         {
             get { return nextRoute; }
-            set { nextRoute = value; }
+            set { nextRoute = value; OnPropertyChanged("NextRoute"); }
         }
         private PaperMobileStatus mobileStatus;
 
         public PaperMobileStatus MobileStatus
         {
             get { return mobileStatus; }
-            set { mobileStatus = value; }
+            set { mobileStatus = value; OnPropertyChanged("MobileStatus"); }
         }
 
         private List<String> originName;
         public List<String> OriginName
         {
             get { return originName; }
-            set { originName = value; }
+            set { originName = value; OnPropertyChanged("OriginName"); }
         }
 
         private List<Paper> childPapers;
         public List<Paper> ChildPapers
         {
             get { return childPapers; }
-            set { childPapers = value; }
+            set { childPapers = value; OnPropertyChanged("ChildPapers"); }
         }
 
         private List<Route> routes;
         public List<Route> Routes
         {
             get { return routes; }
-            set { routes = value; }
+            set { routes = value; OnPropertyChanged("Routes"); }
         }
 
         private List<Package> packages;
@@ -238,7 +238,7 @@ namespace Galant.DataEntity
         public List<Package> Packages
         {
             get { return packages; }
-            set { packages = value; }
+            set { packages = value; OnPropertyChanged("Packages"); }
         }
     }
 }

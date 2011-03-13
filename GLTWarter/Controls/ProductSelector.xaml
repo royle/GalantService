@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="GLTWarter.Controls.EntitySelector"
+﻿<UserControl x:Class="GLTWarter.Controls.ProductSelector"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
@@ -8,19 +8,16 @@
     Width="250"
     PreviewGotKeyboardFocus="UserControl_PreviewGotKeyboardFocus">
     <UserControl.Resources>
-        <DataTemplate x:Key="ItemById">
-            <TextBlock>客户代号: <TextBlock Text="{Binding SelectedValue}">  客户姓名:  <TextBlock Text="{Binding SelectedEntity.FullName}"/></TextBlock></TextBlock>
+        <DataTemplate x:Key="ProductById">
+            <TextBlock>产品代号: <TextBlock Text="{Binding SelectedValue}"/> 产品名:  <TextBlock Text="{Binding SelectedProduct.ProductName}"/></TextBlock>
         </DataTemplate>
-        <DataTemplate x:Key="ItemByPhoneNo">
-            <TextBlock>电话号码: <TextBlock Text="{Binding SelectedValue}"/>客户姓名:  <TextBlock Text="{Binding SelectedEntity.FullName}"/></TextBlock>
-        </DataTemplate>
-        <DataTemplate x:Key="ItemByName">
-            <TextBlock>客户姓名: <TextBlock Text="{Binding SelectedValue}"/></TextBlock>
+        <DataTemplate x:Key="ProductByName">
+            <TextBlock>产品名称: <TextBlock Text="{Binding SelectedValue}"/> 产品名:  <TextBlock Text="{Binding SelectedProduct.ProductName}"/></TextBlock>
         </DataTemplate>
         <DataTemplate x:Key="ItemUnknown">
-            <TextBlock><TextBlock Text="{Binding DisplayText}"/>  客户姓名:  <TextBlock Text="{Binding SelectedEntity.FullName}"/></TextBlock>
+            <TextBlock><TextBlock Text="{Binding DisplayText}"/></TextBlock>
         </DataTemplate>
-        <my:EntitySelectorTemplateSelector x:Key="EntitySelectorTemplateSelector"/>
+        <my:ProductSelectorTemplateSelector x:Key="ProductSelectorTemplateSelector"/>
     </UserControl.Resources>
     <UserControl.ContentTemplate>
         <DataTemplate>
@@ -28,11 +25,13 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="5" />
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <ComboBox Grid.Column="0" VerticalAlignment="Center" IsEditable="True" IsReadOnly="False" StaysOpenOnEdit="True" IsTextSearchEnabled="False" MaxDropDownHeight="200"
                           SelectedValuePath="SelectedValue" Name="comboBarcode" HorizontalAlignment="Stretch"
-                          ItemTemplateSelector="{StaticResource EntitySelectorTemplateSelector}"
+                          ItemTemplateSelector="{StaticResource ProductSelectorTemplateSelector}"
                           VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling"
                           >
                     <ComboBox.ItemsPanel>
@@ -41,9 +40,6 @@
                         </ItemsPanelTemplate>
                     </ComboBox.ItemsPanel>
                 </ComboBox>
-                <Button VerticalAlignment="Center" Name="buttonEnter" Click="buttonEnter_Click" 
-                        MinWidth="72" MinHeight="23" Grid.Column="2" IsTabStop="False"
-                        Content="{TemplateBinding Content}"></Button>
             </Grid>
         </DataTemplate>
     </UserControl.ContentTemplate>

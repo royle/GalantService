@@ -72,15 +72,6 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
     </DataTemplate>
-    <DataTemplate x:Key="BillOrigAmountTemplate">
-        <TextBlock Text="{Binding Converter={StaticResource BillOrigAmountConverter}}" />
-    </DataTemplate>
-    <DataTemplate x:Key="BillAmountTemplate">
-        <TextBlock Text="{Binding Converter={StaticResource BillAmountConverter}}" />
-    </DataTemplate>
-    <DataTemplate x:Key="EventDateTemplate">
-        <TextBlock Text="{Binding Converter={StaticResource EventDateConverter}}"/>
-    </DataTemplate>
     <DataTemplate x:Key="BillSumAmountTemplate">
         <StackPanel>
             <TextBlock Text="没有数据" Visibility="{Binding NoDataFlag, Converter={StaticResource BooleanVisibilityConverter}}"/>

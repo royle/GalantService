@@ -138,6 +138,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\EntitySelector.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ProductSelector.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\WaitingIcon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -182,6 +190,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Order\CustomerServiceBookingOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Welcome.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -210,6 +222,12 @@
       <DependentUpon>ControlStyle.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\DetailsPagePresenter.cs" />
+    <Compile Include="Controls\EntitySelector.xaml.cs">
+      <DependentUpon>EntitySelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ProductSelector.xaml.cs">
+      <DependentUpon>ProductSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PropertyRow.cs" />
     <Compile Include="Controls\WaitingIcon.xaml.cs">
       <DependentUpon>WaitingIcon.xaml</DependentUpon>
@@ -217,6 +235,7 @@
     <Compile Include="Data\BackObject.cs" />
     <Compile Include="Data\BindingConverter.cs" />
     <Compile Include="Data\SearchCondition.cs" />
+    <Compile Include="Data\Validators.cs" />
     <Compile Include="DeploymentSettings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -256,6 +275,9 @@
     </Compile>
     <Compile Include="Pages\Product\ProductionSearch.xaml.cs">
       <DependentUpon>ProductionSearch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Order\CustomerServiceBookingOrder.xaml.cs">
+      <DependentUpon>CustomerServiceBookingOrder.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Welcome.xaml.cs">
       <DependentUpon>Welcome.xaml</DependentUpon>
@@ -311,6 +333,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\bell.svg" />
     <None Include="Service References\GLTService\Service1.wsdl" />
     <None Include="Service References\GLTService\ServiceAPI.xsd">
       <SubType>Designer</SubType>
@@ -395,9 +418,21 @@
     <None Include="Service References\GLTService\ServiceAPI.disco" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\arrow_refresh.png" />
+    <Resource Include="Resources\bell-gray.png" />
+    <Resource Include="Resources\bell-red.png" />
+    <Resource Include="Resources\bell-yellow.png" />
+    <Resource Include="Resources\bullet_yellow.png" />
     <Content Include="Resources\Ding.wav" />
+    <Resource Include="Resources\door_in.png" />
+    <Resource Include="Resources\error.png" />
+    <Resource Include="Resources\loader.gif" />
     <Content Include="Resources\Mismatch.wav" />
+    <Resource Include="Resources\ok.png" />
+    <Resource Include="Resources\report_disk.png" />
     <Content Include="Resources\Selected.wav" />
+    <Resource Include="Resources\tick.png" />
+    <Resource Include="Resources\warning.png" />
     <Content Include="Resources\Weight.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

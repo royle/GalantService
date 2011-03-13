@@ -1,0 +1,122 @@
+﻿<pages:DetailsBase x:Class="GLTWarter.Pages.Order.CustomerServiceBookingOrder"
+     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:my="clr-namespace:GLTWarter.Controls"
+    xmlns:pages="clr-namespace:GLTWarter.Pages"
+    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+    xmlns:src="clr-namespace:GLTWarter"
+    xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+    xmlns:styles="clr-namespace:GLTWarter.Styles"                   
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+	Title="客服订水">
+    <Page.Resources>
+        <xcdg:DataGridCollectionViewSource x:Key="Packages" Source="{Binding Packages, FallbackValue={x:Null}}" AutoCreateItemProperties="False">
+            <xcdg:DataGridCollectionViewSource.ItemProperties>
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="IsMarked" DataType="{x:Type sys:Boolean}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="Product.ProductName" DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="False" Name="Count" DataType="{x:Type sys:Int32}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="Product.Amount" DataType="{x:Type sys:Decimal}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="Amount" DataType="{x:Type sys:Decimal}" />
+            </xcdg:DataGridCollectionViewSource.ItemProperties>
+            <xcdg:DataGridCollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="Amount" Direction="Ascending" />
+            </xcdg:DataGridCollectionViewSource.SortDescriptions>
+        </xcdg:DataGridCollectionViewSource>
+    </Page.Resources>
+    <my:DetailsPagePresenter TitleBrush="Blue" TitleForNew="客服订水">
+        <my:DetailsPagePresenter.LatestVersionButtonsPanel>
+            <Button IsDefault="true"  Name="btnBookPaper" Click="btnBookPaper_Click">订水</Button>
+            <Button IsCancel="true" >取消</Button>
+        </my:DetailsPagePresenter.LatestVersionButtonsPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ScrollViewer Name="SearchView" Grid.Row="0" VerticalScrollBarVisibility="Auto" Margin="5,10">
+                <StackPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="5*"/>
+                        </Grid.ColumnDefinitions>
+                        <my:PropertyRow HeaderText="快速选择客户:" Grid.Row="0" Grid.ColumnSpan="2">
+                            <my:EntitySelector x:Name="entitySelector" Enter="EntitySelector_Enter"  EntitysList="{Binding Path=AppCach.Customers, Source={x:Static src:AppCurrent.Active}}"/>
+                        </my:PropertyRow>
+                        <my:PropertyRow HeaderText="付款方式:" Grid.Row="1">
+                            <ComboBox Name="comboPayType" MinWidth="100" VerticalAlignment="Center" HorizontalAlignment="Left" SelectedIndex="0"
+                                      IsEnabled="{Binding Path=ContactA.IsNew, Converter={StaticResource BooleanNotConverter}}"
+                          ItemsSource="{Binding Source={StaticResource PayType}, XPath=//Type[@searchable\=1]}" DisplayMemberPath="Text" SelectedValuePath="Value" 
+                          SelectedValue="{Binding Path=ContactA.PayType, UpdateSourceTrigger=PropertyChanged}">
+                            </ComboBox>
+                        </my:PropertyRow>
+                        <my:PropertyRow HeaderText="电话号码:" Grid.Row="2">
+                            <TextBlock Name="textPhones" Width="150" MinHeight="40"
+                                     Text="{Binding Path=ContactA.Phones, Converter={StaticResource ArrayStringConverter}, UpdateSourceTrigger=PropertyChanged}"  />
+                        </my:PropertyRow>
+                        <my:PropertyRow HeaderText="客户代码:" Grid.Row="3">
+                                <TextBlock Name="textAlias" Width="150" MinHeight="20"
+                                    Text="{Binding Path=ContactA.Alias}" />
+                        </my:PropertyRow>
+                        <my:PropertyRow HeaderText="客户姓名:" Grid.Row="4">
+                            <TextBlock Name="textFullName" Width="150" MinHeight="20"
+                                    Text="{Binding Path=ContactA.FullName}" />
+                        </my:PropertyRow>
+                        <my:PropertyRow HeaderText="客户登记地址:" Grid.Row="5">
+                            <TextBlock Name="textAddress" Width="150" MinHeight="20"
+                                    Text="{Binding Path=ContactA.FullName}" />
+                        </my:PropertyRow>
+                        <my:PropertyRow HeaderText="客户姓名:" Grid.Row="6">
+                            <TextBlock Name="textProduct" Width="150" MinHeight="20"
+                                    Text="{Binding Path=ContactA.FullName}" />
+                        </my:PropertyRow>
+                        <my:PropertyRow Grid.Row="7" Grid.ColumnSpan="2" HeaderText="选择产品:">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <my:ProductSelector x:Name="productSelector" ProductList="{Binding Source={x:Static src:AppCurrent.Active}, Path=AppCach.Products}" Enter="ProductSelector_Enter">
+                                </my:ProductSelector>
+                                <TextBlock Grid.Row="1">数量:  <TextBox Width="50"></TextBox></TextBlock>
+                                <Button Name="btnAddProduct" Grid.Row="2" Style="{StaticResource StandardButton}" Margin="20,5,10,5" Width="30" HorizontalAlignment="Right" Click="btnAddProduct_Click">添加</Button>
+                            </Grid>
+                        </my:PropertyRow>
+                        <my:PropertyRow HeaderText="备注:" Focusable="False" Grid.Row="3" Grid.Column="1" Margin="25,0,0,0"/>
+                        <TextBox Grid.Row="4" Grid.Column="1" Grid.RowSpan="3" Text="{Binding Comment}" Margin="25,0,0,0"/>
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+            <StackPanel Grid.Row="1" Name="PackagesView" Margin="5,10">
+                <xcdg:DataGridControl ItemsSource="{Binding Source={StaticResource Packages}}" Name="listResult" styles:ExportHint.IsExportable="true">
+
+                    <xcdg:DataGridControl.ItemContainerStyle>
+                        <Style TargetType="{x:Type xcdg:DataRow}" BasedOn="{StaticResource DataRowStyle}">
+                           
+                        </Style>
+                    </xcdg:DataGridControl.ItemContainerStyle>
+                    <xcdg:DataGridControl.Columns>
+                        <xcdg:Column Title="" Width="30" FieldName="IsMarked" CellContentTemplate="{StaticResource IsMarkTemplate}" />
+                        <xcdg:Column Title="产品" Width="200" FieldName="Product.ProductName" />
+                        <xcdg:Column Title="数量" Width="120" FieldName="Count" />
+                        <xcdg:Column Title="单价" Width="50" FieldName="Product.Amount"/>
+                        <xcdg:Column Title="总价" Width="120" FieldName="Amount" />
+                        <xcdg:Column Title="修改" Width="70" FieldName="2321"/>
+                    </xcdg:DataGridControl.Columns>
+                </xcdg:DataGridControl>
+            </StackPanel>
+        </Grid>
+    </my:DetailsPagePresenter>
+</pages:DetailsBase>

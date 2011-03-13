@@ -103,21 +103,21 @@ namespace Galant.DataEntity
         public String HomePhone
         {
             get { return homePhone; }
-            set { homePhone = value; OnPropertyChanged("HomePhone"); }
+            set { homePhone = value; OnPropertyChanged("HomePhone"); OnPropertyChanged("Phones"); }
         }
         private String cellPhoneOne;
         [DataMember]
         public String CellPhoneOne
         {
             get { return cellPhoneOne; }
-            set { cellPhoneOne = value; OnPropertyChanged("CellPhoneOne"); }
+            set { cellPhoneOne = value; OnPropertyChanged("CellPhoneOne"); OnPropertyChanged("Phones"); }
         }
         private String cellPhoneTwo;
         [DataMember]
         public String CellPhoneTwo
         {
             get { return cellPhoneTwo; }
-            set { cellPhoneTwo = value; OnPropertyChanged("CellPhoneTwo"); }
+            set { cellPhoneTwo = value; OnPropertyChanged("CellPhoneTwo"); OnPropertyChanged("Phones"); }
         }
         private EntityType entityType;
         [DataMember]
@@ -141,7 +141,7 @@ namespace Galant.DataEntity
                     phones.Add(this.CellPhoneTwo);
                 return phones;
             }
-            set { phones = value; }
+            set { phones = value; OnPropertyChanged("Phones"); }
         }
 
         private String addressFamily;
