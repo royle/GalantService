@@ -1,0 +1,12 @@
+EventData各个简写代表的含义（必须全都使用大写）：
+COMMENT:备注
+RESULT:原因
+ASSIGN:委派
+ROUTE:调度
+AMOUNT:应收款
+PAPER:订单
+ADDRESS:地址
+
+
+
+如果有增加，请及时增加到此文档中。
