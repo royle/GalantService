@@ -88,6 +88,18 @@ namespace GLTService
                 else
                     op.UpdateData(detailObj);
             }
+            else if (detailObj is Galant.DataEntity.Paper)
+            {
+                Paper op = new Paper(dataOper);
+                if (string.IsNullOrEmpty((detailObj as Galant.DataEntity.Paper).PaperId))
+                {
+                    op.AddNewData(detailObj);
+                }
+                else
+                {
+
+                }
+            }
             return detailObj;
         }
     }

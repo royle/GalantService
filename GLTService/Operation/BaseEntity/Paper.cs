@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
 
 namespace GLTService.Operation.BaseEntity
 {
@@ -14,10 +15,11 @@ namespace GLTService.Operation.BaseEntity
         {
             get
             {
-                return @"insert into papers(
-paper_id,Status,SubState,Holder,Bound,Contact_a,Contact_b,Contact_c,Deliver_a,Deliver_b,Deliver_c,Deliver_a_time,Deliver_b_time,Deliver_c_time,Start_time,Finish_time,Salary,Comment,Type,Next_Route,Mobile_Status)
-values (
-@paper_id,@Status,@SubState,@Holder,@Bound,@Contact_a,@Contact_b,@Contact_c,@Deliver_a,@Deliver_b,@Deliver_c,@Deliver_a_time,@Deliver_b_time,@Deliver_c_time,@Start_time,@Finish_time,@Salary,@Comment,@Type,@Next_Route,@Mobile_Status)";
+                return base.SqlInsertDataSql;
+//                return @"insert into papers(
+//paper_id,Status,SubState,Holder,Bound,Contact_a,Contact_b,Contact_c,Deliver_a,Deliver_b,Deliver_c,Deliver_a_time,Deliver_b_time,Deliver_c_time,Start_time,Finish_time,Salary,Comment,Type,Next_Route,Mobile_Status)
+//values (
+//@paper_id,@Status,@SubState,@Holder,@Bound,@Contact_a,@Contact_b,@Contact_c,@Deliver_a,@Deliver_b,@Deliver_c,@Deliver_a_time,@Deliver_b_time,@Deliver_c_time,@Start_time,@Finish_time,@Salary,@Comment,@Type,@Next_Route,@Mobile_Status)";
             }
         }
 
@@ -25,7 +27,7 @@ values (
         {
             get
             {
-                return "PaperId";
+                return "paper_id";
             }
         }
 
@@ -57,6 +59,25 @@ values (
         protected override void SetTableName()
         {
             TableName = "papers";
+        }
+
+        public override bool AddNewData(Galant.DataEntity.BaseData data)
+        {
+            base.AddNewData(data);
+            DataTable dt = GLTService.DBConnector.SqlHelper.ExecuteDataset(this.Operator.mytransaction, System.Data.CommandType.Text, "SELECT paper_id FROM papers WHERE paper_id = (SELECT LAST_INSERT_ID() AS paper_id)").Tables[0];
+
+            if (dt.Rows.Count > 0)
+            {
+                (data as Galant.DataEntity.Paper).PaperId = dt.Rows[0]["paper_id"].ToString();
+                Package opPackage = new Package(this.Operator);
+                foreach (Galant.DataEntity.Package pg in (data as Galant.DataEntity.Paper).Packages)
+                {
+                    pg.PackageType = Galant.DataEntity.PackageState.New;
+                    pg.PaperId = (data as Galant.DataEntity.Paper).PaperId;
+                    opPackage.AddNewData(pg);
+                }
+            }
+            return true;
         }
     }
 }

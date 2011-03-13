@@ -30,7 +30,7 @@ namespace GLTService.Operation.BaseEntity
 
         #region IDisposable Members
 
-        private DataOperator Operator
+        protected DataOperator Operator
         { get; set; }
 
 

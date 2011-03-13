@@ -25,8 +25,6 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="5" />
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="5" />
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <ComboBox Grid.Column="0" VerticalAlignment="Center" IsEditable="True" IsReadOnly="False" StaysOpenOnEdit="True" IsTextSearchEnabled="False" MaxDropDownHeight="200"
@@ -40,6 +38,9 @@
                         </ItemsPanelTemplate>
                     </ComboBox.ItemsPanel>
                 </ComboBox>
+                <Button Visibility="Collapsed" VerticalAlignment="Center" Name="buttonEnter" Click="buttonEnter_Click" 
+                        MinWidth="72" MinHeight="23" Grid.Column="2" IsTabStop="False"
+                        Content="{TemplateBinding Content}"></Button>
             </Grid>
         </DataTemplate>
     </UserControl.ContentTemplate>

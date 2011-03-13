@@ -9,7 +9,21 @@ namespace Galant.DataEntity
     [DataContract]
     public enum PackageState
     {
-        
+        /// <summary>
+        /// 完成
+        /// </summary>
+        [EnumMember]
+        Finish=0,
+        /// <summary>
+        /// 新建
+        /// </summary>
+        [EnumMember]
+        New =1,        
+        /// <summary>
+        /// 取消
+        /// </summary>
+        [EnumMember]
+        Cancle = 9,        
     }
 
     [DataContract]
@@ -25,6 +39,7 @@ namespace Galant.DataEntity
         public string PaperId
         {
             get { return paperId; }
+            set { paperId = value; }
         }
 
         private int packageId;
@@ -52,7 +67,7 @@ namespace Galant.DataEntity
         public int Count
         {
             get { return count; }
-            set { count = value; }
+            set { count = value; this.Amount = this.Product == null ? 0 : this.Product.Amount * value; }
         }
         private decimal amount;
         [DataMember]
@@ -74,6 +89,17 @@ namespace Galant.DataEntity
         {
             get { return packageType; }
             set { packageType = value; }
+        }
+
+        protected override string ValidateProperty(string columnName, Enum stage)
+        {
+            switch (columnName)
+            {
+                case "Count":
+                    if (Count==null || Count <= 0) return "数量不能小于0！";
+                    return string.Empty;              
+            }
+            return null;
         }
     }
 }

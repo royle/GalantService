@@ -14,10 +14,11 @@ namespace GLTService.Operation.BaseEntity
         {
             get
             {
-                return @"INSERT INTO packages(
-Product_id,Count,Amount,Origin_Amount,Paper_id,State)
-VALUES (
-@Product_id,@Count,@Amount,@Origin_Amount,@Paper_id,@State)";
+                return base.SqlInsertDataSql;
+//                return @"INSERT INTO packages(
+//Product_id,Count,Amount,Origin_Amount,Paper_id,State)
+//VALUES (
+//@Product_id,@Count,@Amount,@Origin_Amount,@Paper_id,@State)";
             }
         }
 

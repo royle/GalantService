@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using System.IO.Packaging;
+using System.Collections.ObjectModel;
 
 namespace GLTWarter.Pages
 {
@@ -122,7 +123,7 @@ namespace GLTWarter.Pages
         {
             Galant.DataEntity.Paper paper = new Galant.DataEntity.Paper();
             paper.ContactA = new Galant.DataEntity.Entity();
-            paper.Packages = new List<Galant.DataEntity.Package>();
+            paper.Packages = new ObservableCollection<Galant.DataEntity.Package>();
             paper.Operation = BaseOperatorName.DataSave;
             this.NavigationService.Navigate(new GLTWarter.Pages.Order.CustomerServiceBookingOrder(paper));
 

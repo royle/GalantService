@@ -41,8 +41,20 @@ namespace GLTWarter.Controls
             comboBarcode.AddHandler(TextBox.TextChangedEvent, new TextChangedEventHandler(comboBarcode_TextChanged), true);
             comboBarcode.AddHandler(TextBox.PreviewTextInputEvent, new TextCompositionEventHandler(comboBarcode_PreviewTextInput), true);
             comboBarcode.AddHandler(ComboBox.PreviewKeyDownEvent, new KeyEventHandler(comboBarcode_KeyDown), true);
+            comboBarcode.AddHandler(ComboBox.LostFocusEvent, new RoutedEventHandler(comboBarcode_LostFocus), true);
             GenerateEntityList();
         }
+
+        void comboBarcode_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (comboBarcode.SelectedItem != null && (comboBarcode.SelectedItem as EntitySelectorItem) != null)
+            {
+                if (this.SelectedEntity == null || !this.SelectedEntity.EntityEquals((comboBarcode.SelectedItem as EntitySelectorItem).SelectedEntity))
+                    this.buttonEnter_Click(sender, e);
+            }
+        }
+
+        
 
         ComboBox comboBarcode;
         Button buttonEnter;
@@ -138,7 +150,7 @@ namespace GLTWarter.Controls
                 {
                 }
             }
-        }        
+        }
 
         private void comboBarcode_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
