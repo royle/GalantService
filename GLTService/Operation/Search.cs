@@ -20,5 +20,10 @@ namespace GLTService.Operation
             result.ResultData = product.SearchProductes(data, result.SearchCondition);
             return result;
         }
+
+        public Galant.DataEntity.Assign.Result SearchCenterRoute(Operation.BaseEntity.DataOperator data, Galant.DataEntity.Production.Result result)
+        { 
+            
+        }
     }
 }

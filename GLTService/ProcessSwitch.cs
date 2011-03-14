@@ -44,6 +44,10 @@ namespace GLTService
                         search = new Search();
                         returnData = search.SearchProduction(dataOper, DetailObj as Galant.DataEntity.Production.Result);
                         break;
+                    case "SearchCenterRoute":
+                        search = new Search();
+                       //returnData = search
+                        break;
                     case "Refresh":
                         returnData = ProcessRefresh(dataOper, DetailObj);
                         break;

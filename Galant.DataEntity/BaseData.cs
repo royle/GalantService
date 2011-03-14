@@ -21,6 +21,8 @@ namespace Galant.DataEntity
     [KnownType(typeof(Galant.DataEntity.Result.SearchEntityResult))]
     [KnownType(typeof(Galant.DataEntity.Production.Result))]
     [KnownType(typeof(Galant.DataEntity.Production.Search))]
+    [KnownType(typeof(Galant.DataEntity.Assign.Search))]
+    [KnownType(typeof(Galant.DataEntity.Assign.Result))]
     public abstract class BaseData : IIdentifiable, INotifyPropertyChanged, IDataErrorInfo, ICloneable, IComparable
     {
         public BaseData(string operation)

@@ -9,7 +9,8 @@ namespace GLTWarter
     {
         public static string DataSave = "Save";
         public static string ProductSearch = "SearchProduction";
-        
+        public static string CenterRouteSearch = "SearchCenterRoute";
+
         public static string NullPassword = "****";
     }
 }
