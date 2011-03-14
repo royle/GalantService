@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 5.5.8, for Win64 (x86)
+﻿-- MySQL dump 10.13  Distrib 5.5.8, for Win64 (x86)
 --
 -- Host: 127.0.0.1    Database: galant
 -- ------------------------------------------------------
@@ -204,7 +204,7 @@ DROP TABLE IF EXISTS `papers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `papers` (
-  `paper_id` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
+  `paper_id` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
   `status` int(11) NOT NULL,
   `substate` int(11) NOT NULL,
   `holder` int(11) NOT NULL,
@@ -225,6 +225,7 @@ CREATE TABLE `papers` (
   `type` int(11) DEFAULT NULL,
   `next_route` int(11) DEFAULT NULL,
   `mobile_status` int(11) DEFAULT NULL,
+  `is_collection' tinyint(1) NOT NULL,
   PRIMARY KEY (`paper_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

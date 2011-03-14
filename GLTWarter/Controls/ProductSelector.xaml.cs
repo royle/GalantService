@@ -158,6 +158,8 @@ namespace GLTWarter.Controls
             if (comboBarcode.ItemsSource != null && comboBarcode.ItemsSource.OfType<ProductSelectorItem>().Count() == 1
                 && MatchProduct(hint, comboBarcode.ItemsSource.OfType<ProductSelectorItem>().First().SelectedProduct) != null)
                 SelectedProduct = comboBarcode.ItemsSource.OfType<ProductSelectorItem>().First().SelectedProduct;
+            if (SelectedProduct != null)
+                this.buttonEnter_Click(sender, e);
         }
 
         void GenerateProductList()

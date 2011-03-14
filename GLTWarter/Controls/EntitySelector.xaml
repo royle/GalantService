@@ -41,7 +41,7 @@
                         </ItemsPanelTemplate>
                     </ComboBox.ItemsPanel>
                 </ComboBox>
-                <Button VerticalAlignment="Center" Name="buttonEnter" Click="buttonEnter_Click" 
+                <Button Visibility="Collapsed" VerticalAlignment="Center" Name="buttonEnter" Click="buttonEnter_Click" 
                         MinWidth="72" MinHeight="23" Grid.Column="2" IsTabStop="False"
                         Content="确定"></Button>
             </Grid>

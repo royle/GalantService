@@ -11,9 +11,9 @@ namespace Galant.DataEntity
     {
         public Route() : base() { }
 
-        private int routeId;
+        private int? routeId;
         [DataMember]
-        public int RouteId
+        public int? RouteId
         {
             get { return routeId; }
             set { routeId = value; }
@@ -56,6 +56,18 @@ namespace Galant.DataEntity
         {
             get { return isFinally; }
             set { isFinally = value; }
+        }
+
+        public override string QueryId
+        {
+            get
+            {
+                return this.RouteId.ToString();
+            }
+            set
+            {
+                this.RouteId = value == null ? (int?)null : (int?)Int32.Parse(value);
+            }
         }
     }
 }

@@ -20,7 +20,8 @@ namespace GLTWarter.Pages.Order
     /// </summary>
     public partial class CustomerServiceBookingOrder : DetailsBase
     {
-        public CustomerServiceBookingOrder(Galant.DataEntity.Paper paper):base(paper)
+        public CustomerServiceBookingOrder(Galant.DataEntity.Paper paper)
+            : base(paper)
         {
             InitializeComponent();
             packet.PaperId = paper.PaperId;
@@ -32,13 +33,26 @@ namespace GLTWarter.Pages.Order
 
         private void btnBookPaper_Click(object sender, RoutedEventArgs e)
         {
+            (this.DataContext as Galant.DataEntity.Paper).ContactA = new Galant.DataEntity.Entity();
+            (this.DataContext as Galant.DataEntity.Paper).ContactA.EntityId = 0;
+            (this.DataContext as Galant.DataEntity.Paper).ContactC = new Galant.DataEntity.Entity();
+            (this.DataContext as Galant.DataEntity.Paper).ContactC.EntityId = 0;
+            (this.DataContext as Galant.DataEntity.Paper).Holder = new Galant.DataEntity.Entity();
+            (this.DataContext as Galant.DataEntity.Paper).Holder.EntityId = 0;
+            (this.DataContext as Galant.DataEntity.Paper).PaperStatus = Galant.DataEntity.PaperStatus.Adviced;
+            (this.DataContext as Galant.DataEntity.Paper).PaperSubStatus = Galant.DataEntity.PaperSubState.AdviceInStation;
+            if ((this.DataContext as Galant.DataEntity.Paper).ContactB != null && (this.DataContext as Galant.DataEntity.Paper).ContactB.RountStation != null)
+            {
+                (this.DataContext as Galant.DataEntity.Paper).PaperSubStatus = Galant.DataEntity.PaperSubState.Routeing;
+            }
             this.buttonNext_Click(sender, e);
         }
 
         protected override void OnNext(Galant.DataEntity.BaseData incomingData)
         {
             Galant.DataEntity.Paper paper = new Galant.DataEntity.Paper();
-            paper.ContactA = new Galant.DataEntity.Entity();
+            paper.ContactB = new Galant.DataEntity.Entity();
+            paper.ContactB.EntityType = Galant.DataEntity.EntityType.Client;
             paper.Packages = new ObservableCollection<Galant.DataEntity.Package>();
             paper.Operation = BaseOperatorName.DataSave;
             this.DataContext = paper;
@@ -49,7 +63,7 @@ namespace GLTWarter.Pages.Order
         {
             if (this.entitySelector.SelectedEntity != null)
             {
-                (this.DataContext as Galant.DataEntity.Paper).ContactA = this.entitySelector.SelectedEntity;
+                (this.DataContext as Galant.DataEntity.Paper).ContactB = this.entitySelector.SelectedEntity;
             }
         }
 
@@ -81,6 +95,19 @@ namespace GLTWarter.Pages.Order
                 this.packet.Amount = this.packet.Product.Amount * this.packet.Count;
                 (this.DataContext as Galant.DataEntity.Paper).Packages.Add(this.packet.Clone() as Galant.DataEntity.Package);
             }
+        }
+
+        private void delete_Click(object sender, RoutedEventArgs e)
+        {
+
+            Galant.DataEntity.Package data = listResult.GetItemFromContainer((System.Windows.DependencyObject)sender) as Galant.DataEntity.Package;
+            (this.DataContext as Galant.DataEntity.Paper).Packages.Remove(data);
+        }
+
+        private void btnNewCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            (this.DataContext as Galant.DataEntity.Paper).ContactB = new Galant.DataEntity.Entity();
+            (this.DataContext as Galant.DataEntity.Paper).ContactB.EntityType = Galant.DataEntity.EntityType.Client;
         }
     }
 }

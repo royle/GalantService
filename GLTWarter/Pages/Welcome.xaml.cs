@@ -122,7 +122,7 @@ namespace GLTWarter.Pages
         private void linkWarterOrder_Click(object sender, RoutedEventArgs e)
         {
             Galant.DataEntity.Paper paper = new Galant.DataEntity.Paper();
-            paper.ContactA = new Galant.DataEntity.Entity();
+            paper.ContactB = new Galant.DataEntity.Entity();
             paper.Packages = new ObservableCollection<Galant.DataEntity.Package>();
             paper.Operation = BaseOperatorName.DataSave;
             this.NavigationService.Navigate(new GLTWarter.Pages.Order.CustomerServiceBookingOrder(paper));

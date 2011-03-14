@@ -44,6 +44,8 @@ namespace Galant.DataEntity
         Unloading = 0x22,
         [EnumMember]
         Loading = 0x23,
+        [EnumMember]
+        Routeing = 0x24,
 
         // These are only for state differentiation for PackageFinish. Will never appear in Database
         [EnumMember]
@@ -81,15 +83,15 @@ namespace Galant.DataEntity
     public enum PaperType
     {
         /// <summary>
-        /// 运送单
+        /// 快递
         /// </summary>
         [EnumMember]
-        Collection = 0,
+        Deliver = 0,
         /// <summary>
-        /// 订单
+        /// 送水
         /// </summary>
         [EnumMember]
-        Order =1
+        Product =1
     }
 
     [DataContract]
@@ -276,6 +278,14 @@ namespace Galant.DataEntity
         {
             get { return packages; }
             set { packages = value; OnPropertyChanged("Packages"); }
+        }
+
+        private bool isCollection;
+        [DataMember]
+        public bool IsCollection
+        {
+            get { return isCollection; }
+            set { isCollection = value; OnPropertyChanged("IsCollection"); }
         }
     }
 }

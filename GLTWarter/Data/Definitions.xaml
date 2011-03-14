@@ -81,6 +81,10 @@
                     <Text>入库中</Text>
                 </SubStatus>
                 <SubStatus>
+                    <Value>Routeing</Value>
+                    <Text>已调度</Text>
+                </SubStatus>
+                <SubStatus>
                     <Value>Implicit</Value>
                     <Text>缺省</Text>
                 </SubStatus>

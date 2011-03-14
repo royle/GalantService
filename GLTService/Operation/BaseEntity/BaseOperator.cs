@@ -142,6 +142,10 @@ namespace GLTService.Operation.BaseEntity
                     {
                         param.Add(new MySqlParameter(parameterName, (int)obj));
                     }
+                    else if (obj.GetType().BaseType == typeof(Galant.DataEntity.BaseData))
+                    {
+                        param.Add(new MySqlParameter(parameterName, (obj as Galant.DataEntity.BaseData).QueryId));
+                    }
                     else
                     {
                         param.Add(new MySqlParameter(parameterName, obj));

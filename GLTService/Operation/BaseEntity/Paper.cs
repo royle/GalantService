@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace GLTService.Operation.BaseEntity
 {
@@ -63,21 +64,90 @@ namespace GLTService.Operation.BaseEntity
 
         public override bool AddNewData(Galant.DataEntity.BaseData data)
         {
-            base.AddNewData(data);
-            DataTable dt = GLTService.DBConnector.SqlHelper.ExecuteDataset(this.Operator.mytransaction, System.Data.CommandType.Text, "SELECT paper_id FROM papers WHERE paper_id = (SELECT LAST_INSERT_ID() AS paper_id)").Tables[0];
-
-            if (dt.Rows.Count > 0)
+            (data as Galant.DataEntity.Paper).PaperId = this.GenerateId();
+            if ((data as Galant.DataEntity.Paper).ContactB.IsNew)
             {
-                (data as Galant.DataEntity.Paper).PaperId = dt.Rows[0]["paper_id"].ToString();
-                Package opPackage = new Package(this.Operator);
-                foreach (Galant.DataEntity.Package pg in (data as Galant.DataEntity.Paper).Packages)
+                Entity entity = new Entity(this.Operator);
+                entity.SaveEntity(this.Operator,(data as Galant.DataEntity.Paper).ContactB);
+            }
+            base.AddNewData(data);
+
+            Package opPackage = new Package(this.Operator);
+            foreach (Galant.DataEntity.Package pg in (data as Galant.DataEntity.Paper).Packages)
+            {
+                pg.PackageType = Galant.DataEntity.PackageState.New;
+                pg.PaperId = (data as Galant.DataEntity.Paper).PaperId;
+                opPackage.AddNewData(pg);
+            }
+
+            return true;
+        }
+
+        private string GenerateId()
+        {
+            long i = 1;
+            foreach (byte b in Guid.NewGuid().ToByteArray())
+            {
+                i *= ((int)b + 1);
+            }
+            return string.Format("{0:x}", i - DateTime.Now.Ticks).ToUpper();
+        }
+
+        public override MySqlParameter[] BuildParameteres(Galant.DataEntity.BaseData data, Dictionary<string, string> DicData, bool isInsert, bool isUpdate)
+        {
+            List<String> conditions = new List<string>();
+            List<String> parameters = new List<string>();
+            List<String> updateParamters = new List<string>();
+            List<MySqlParameter> param = new List<MySqlParameter>();
+            String keyParam = String.Empty;
+
+            foreach (System.Reflection.PropertyInfo info in data.GetType().GetProperties())
+            {
+                string key = string.Empty;
+                string propertyName = info.Name;
+
+                if (DicData.TryGetValue(propertyName, out key))
                 {
-                    pg.PackageType = Galant.DataEntity.PackageState.New;
-                    pg.PaperId = (data as Galant.DataEntity.Paper).PaperId;
-                    opPackage.AddNewData(pg);
+                    object obj = info.GetValue(data, null);
+                    if (obj == null)
+                        continue;
+
+                    string parameterName = "@" + key;
+
+                    if (obj.GetType().BaseType == typeof(Enum))
+                    {
+                        param.Add(new MySqlParameter(parameterName, (int)obj));
+                    }
+                    else if(obj.GetType().BaseType==typeof(Galant.DataEntity.BaseData))
+                    {
+                        param.Add(new MySqlParameter(parameterName, (obj as Galant.DataEntity.BaseData).QueryId));
+                    }
+                    else
+                    {
+                        param.Add(new MySqlParameter(parameterName, obj));
+                    }
+                    conditions.Add(key);
+                    parameters.Add(parameterName);
+                    if (key == this.KeyId)
+                    {
+                        keyParam = key + "=" + parameterName;
+                    }
+                    else
+                    {
+                        updateParamters.Add(key + "=" + parameterName);
+                       
+                    }
                 }
             }
-            return true;
+            if (isUpdate)
+            {
+                SqlUpdateDataSql = string.Format("UPDATE {0} SET {1} WHERE {2}", TableName, string.Join(" ,", updateParamters), keyParam);
+            }
+            if (isInsert)
+            {
+                SqlInsertDataSql = string.Format("INSERT INTO {0} ({1}) VALUES({2})", TableName, String.Join(" ,", conditions), String.Join(" ,", parameters));
+            }
+            return param.ToArray();
         }
     }
 }

@@ -62,7 +62,6 @@
     <DataTemplate x:Key="MarkConfirmTemplate">
         <Image Source="pack://application:,,,/GLTWarter;component/Resources/tick.png" Height="16" Width="16" />
     </DataTemplate>
-
     <DataTemplate x:Key="ArrayStringTemplate">
         <ItemsControl ItemsSource="{Binding}" Focusable="False">
             <ItemsControl.ItemTemplate>

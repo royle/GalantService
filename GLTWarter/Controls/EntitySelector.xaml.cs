@@ -41,20 +41,10 @@ namespace GLTWarter.Controls
             comboBarcode.AddHandler(TextBox.TextChangedEvent, new TextChangedEventHandler(comboBarcode_TextChanged), true);
             comboBarcode.AddHandler(TextBox.PreviewTextInputEvent, new TextCompositionEventHandler(comboBarcode_PreviewTextInput), true);
             comboBarcode.AddHandler(ComboBox.PreviewKeyDownEvent, new KeyEventHandler(comboBarcode_KeyDown), true);
-            comboBarcode.AddHandler(ComboBox.LostFocusEvent, new RoutedEventHandler(comboBarcode_LostFocus), true);
             GenerateEntityList();
         }
 
-        void comboBarcode_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (comboBarcode.SelectedItem != null && (comboBarcode.SelectedItem as EntitySelectorItem) != null)
-            {
-                if (this.SelectedEntity == null || !this.SelectedEntity.EntityEquals((comboBarcode.SelectedItem as EntitySelectorItem).SelectedEntity))
-                    this.buttonEnter_Click(sender, e);
-            }
-        }
 
-        
 
         ComboBox comboBarcode;
         Button buttonEnter;
@@ -166,10 +156,15 @@ namespace GLTWarter.Controls
             }
 
             string hint = comboBarcode.Text.Trim();
-            if (comboBarcode.SelectedItem as EntitySelectorItem != null) SelectedEntity = ((EntitySelectorItem)comboBarcode.SelectedItem).SelectedEntity;
+            if (comboBarcode.SelectedItem as EntitySelectorItem != null) 
+                SelectedEntity = ((EntitySelectorItem)comboBarcode.SelectedItem).SelectedEntity;
             if (comboBarcode.ItemsSource != null && comboBarcode.ItemsSource.OfType<EntitySelectorItem>().Count() == 1
                 && MatchEntity(hint, comboBarcode.ItemsSource.OfType<EntitySelectorItem>().First().SelectedEntity) != null)
-                SelectedEntity = comboBarcode.ItemsSource.OfType<EntitySelectorItem>().First().SelectedEntity;
+            {
+                SelectedEntity = comboBarcode.ItemsSource.OfType<EntitySelectorItem>().First().SelectedEntity;                
+            }
+            if(SelectedEntity!=null)
+                this.buttonEnter_Click(sender, e);
         }
 
         void GenerateEntityList()
@@ -298,6 +293,8 @@ namespace GLTWarter.Controls
                 }
             }
         }
+
+        
     }
 
     class EntitySelectorUnknownItem
