@@ -156,5 +156,12 @@ namespace GLTWarter.Pages
             data.Operation = BaseOperatorName.ProductSearch;
             this.NavigationService.Navigate(new GLTWarter.Pages.Product.ProductionSearch(data));
         }
+
+        private void WarterFinishing_Click(object sender, RoutedEventArgs e)
+        {
+            Galant.DataEntity.Result.FinishingListResult data = new Galant.DataEntity.Result.FinishingListResult();
+            data.Operation = "SearchFinishList";
+            this.NavigationService.Navigate(new GLTWarter.Pages.Finishing.FinishingList(data));
+        }
     }
 }

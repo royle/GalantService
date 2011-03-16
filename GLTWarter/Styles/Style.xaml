@@ -26,6 +26,37 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    <Style x:Key="StandardButton" TargetType="{x:Type FrameworkElement}">
+        <Setter Property="MinWidth" Value="72" />
+        <Setter Property="MinHeight" Value="23" />
+    </Style>
+    <Style x:Key="SearchButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource StandardButton}">
+        <Setter Property="Margin" Value="0,0,33,10" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="VerticalAlignment" Value="Bottom" />
+        <Setter Property="Content" Value="搜索 »" />
+    </Style>
+
+    <Style TargetType="{x:Type xcdg:TableView}">
+        <Setter Property="Theme">
+            <Setter.Value>
+                <xcdg:AeroNormalColorTheme />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ShowRowSelectorPane" Value="False" />
+        <Setter Property="HorizontalGridLineThickness" Value="1" />
+        <Setter Property="HorizontalGridLineBrush"  Value="{x:Static SystemColors.ControlLightBrush}" />
+    </Style>
+    <Style TargetType="{x:Type xcdg:DataGridControl}">
+        <Setter Property="NavigationBehavior" Value="RowOnly"/>
+        <Setter Property="ItemScrollingBehavior" Value="Immediate"/>
+        <Setter Property="style:RightClickSelects.Enabled" Value="True" />
+        <Setter Property="ReadOnly" Value="True" />
+        <Setter Property="AutoCreateColumns" Value="False" />
+    </Style>
+    <Style TargetType="{x:Type xcdg:HierarchicalGroupByControl}">
+        <Setter Property="NoGroupContent" Value="将要分组的字段拖到这里" />
+    </Style>
     <Style TargetType="{x:Type xcdg:DataRow}" x:Key="DataRowStyle">
         <Style.Triggers>
             <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},
@@ -40,16 +71,82 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="StandardButton" TargetType="{x:Type FrameworkElement}">
-        <Setter Property="MinWidth" Value="72" />
-        <Setter Property="MinHeight" Value="23" />
+    <Style TargetType="{x:Type xcdg:DataRow}" BasedOn="{StaticResource DataRowStyle}" />
+    <Style TargetType="{x:Type xcdg:DataRow}" BasedOn="{StaticResource DataRowStyle}" x:Key="DataRowSelectedHighlightStyle">
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSelected}" Value="True" />
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Foreground">
+                        <Setter.Value>
+                            <SolidColorBrush Color="Red" />
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
     </Style>
-    <Style x:Key="SearchButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource StandardButton}">
-        <Setter Property="Margin" Value="0,0,33,10" />
-        <Setter Property="HorizontalAlignment" Value="Right" />
-        <Setter Property="VerticalAlignment" Value="Bottom" />
-        <Setter Property="Content" Value="搜索 »" />
+    <DataTemplate DataType="{x:Type xcdg:Group}">
+        <StackPanel Orientation="Horizontal">
+            <ContentPresenter Content="{Binding Title}" ContentTemplate="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DataContext.TitleTemplate}" ContentTemplateSelector="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DataContext.TitleTemplateSelector}"/>
+            <TextBlock Text=": " />
+            <ContentPresenter Content="{Binding Value}" ContentTemplate="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DataContext.ValueTemplate}" ContentTemplateSelector="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DataContext.ValueTemplateSelector}"/>
+            <TextBlock Text=" (共 " />
+            <TextBlock Text="{Binding Items.Count}"/>
+            <TextBlock Text=" 项)" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type xcdg:Group}" x:Key="DataGridGroupWithMarkStyle">
+        <Button Click="DataGridGroup_Click">
+            <Button.Content>
+                <TextBlock>
+                    <InlineUIContainer BaselineAlignment="Center"><ContentPresenter Content="{Binding Title}" ContentTemplate="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DataContext.TitleTemplate}" ContentTemplateSelector="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DataContext.TitleTemplateSelector}"/></InlineUIContainer>: <InlineUIContainer BaselineAlignment="Center"><ContentPresenter Content="{Binding Value}" ContentTemplate="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DataContext.ValueTemplate}" ContentTemplateSelector="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DataContext.ValueTemplateSelector}"/></InlineUIContainer> (共<TextBlock Text="{Binding Items.Count}"/>项)
+                </TextBlock>
+            </Button.Content>
+        </Button>
+    </DataTemplate>
+    <Style TargetType="{x:Type xcdg:StatCell}">
+        <!-- The line(s) will be of the same color as the HorizontalGridLine. -->
+        <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).HorizontalGridLineBrush}"/>
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="xcdg:StatCell">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="{TemplateBinding Padding}">
+                        <StackPanel>
+                            <xcdg:CellContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            <Border x:Name="totalBorder"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="0,0,0,1" />
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ParentColumn.Visible}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <!-- When the StatCell is not inside a Group, display a double line. -->
+                        <Trigger Property="xcdg:GroupLevelIndicatorPane.GroupLevel" Value="-1">
+                            <Setter TargetName="totalBorder" Property="BorderThickness" Value="0,1,0,1"/>
+                            <Setter TargetName="totalBorder" Property="Padding" Value="0,0,0,2"/>
+                        </Trigger>
+
+                        <!-- When the StatCell has no content, don't display any line above. -->
+                        <Trigger Property="HasContent" Value="False">
+                            <Setter TargetName="totalBorder" Property="BorderThickness" Value="0"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
+
+    
     <Style x:Key="NotificationBar" TargetType="{x:Type Control}">
         <Setter Property="BorderThickness" Value="0,0,0,1"/>
         <Setter Property="Background" Value="LightGoldenrodYellow" />

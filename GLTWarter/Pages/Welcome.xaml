@@ -82,7 +82,7 @@
                             <Hyperlink >任务分配</Hyperlink>
                         </TextBlock>
                         <TextBlock Visibility="{Binding StationShipmentQueryVisibility}"> 
-                            <Hyperlink >归班结算</Hyperlink>
+                            <Hyperlink Name="WarterFinishing" Click="WarterFinishing_Click">归班结算</Hyperlink>
                         </TextBlock>
                         <TextBlock Visibility="{Binding StationShipmentQueryVisibility}"> 
                             <Hyperlink >货源补给</Hyperlink>

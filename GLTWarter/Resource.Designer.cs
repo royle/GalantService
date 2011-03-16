@@ -61,6 +61,15 @@ namespace GLTWarter {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} ({1}).
+        /// </summary>
+        internal static string converterRouteName {
+            get {
+                return ResourceManager.GetString("converterRouteName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to yyyy-MM-dd HH:mm:ss.
         /// </summary>
         internal static string dateEventConvention {

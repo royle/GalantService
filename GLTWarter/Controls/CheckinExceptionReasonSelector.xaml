@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="GLTWarter.Controls.CheckinExceptionReasonSelector"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctrl="clr-namespace:GLTWarter.Controls"
+    Focusable="False" Width="350">
+    <UserControl.Resources>
+        
+    </UserControl.Resources>
+    <StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0"></ColumnDefinition>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition Width="10"></ColumnDefinition>
+                <ColumnDefinition Width="140"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Grid.Row="0" Name="btnExceptionReason" MouseRightButtonDown="btnExceptionReason_MouseRightButtonDown" MouseRightButtonUp="btnExceptionReason_MouseRightButtonDown" Content="{Binding ElementName=comboReason, Path=SelectedValue, Converter={StaticResource ValueTypeBindingConverter}, ConverterParameter={StaticResource CheckinReasons}}">
+                <Button.ContextMenu>
+                    <ContextMenu   PlacementTarget="{Binding ElementName=btnExceptionReason}" Placement="Bottom">
+                        <MenuItem Name="menuItem0" Header="_0 最近使用过的原因" Visibility="Collapsed"/>
+                        <MenuItem Name="menuItem1" Header="_1 物流原因">
+                            <MenuItem  Name="menuItem11"  Header="_1 联系不上客户">
+                                <MenuItem Name="menuItem111" Tag="NO_CONTACT" Header="_1 电话关机"/>
+                                <MenuItem Name="menuItem112" Tag="NO_CONTACT" Header="_2 电话不接"/>
+                                <MenuItem Name="menuItem113" Tag="NO_CONTACT" Header="_3 电话无法接通"/>
+                                <MenuItem Name="menuItem114" Tag="NO_CONTACT" Header="_4 不在家，送到无人"/>
+                                <MenuItem Name="menuItem115" Tag="NO_CONTACT" Header="_5 电话停机"/>
+                                <MenuItem Name="menuItem116" Tag="NO_CONTACT" Header="_6 电话错误"/>
+                                <MenuItem Name="menuItem117" Tag="NO_CONTACT" Header="_7 客户要求他人代收"/>
+                                <MenuItem Name="menuItem119" Tag="NO_CONTACT" Header="_9 其他原因"/>
+                            </MenuItem>
+                            <MenuItem Tag="OUT_OF_SERVICE" Name="menuItem12" Header="_2 超出配送服务范围"/>
+                            <MenuItem Tag="ADDR_ERR" Name="menuItem13" Header="_3 地址有误"/>
+                            <MenuItem Tag="ACCIDENT" Name="menuItem14" Header="_4 我方责任服务事故"/>
+                            <MenuItem Tag="DELAYED" Name="menuItem15" Header="_5 我方责任配送延迟"/>
+                            <MenuItem Tag="WEATHER" Name="menuItem16" Header="_6 天气原因"/>
+                        </MenuItem>
+                        <MenuItem Name="menuItem2" Header="_2 客户改配送方式">
+                            <MenuItem  Name="menuItem21" Header="_1 客户要求更改配送时间">
+                                <MenuItem Name="menuItem211" Tag="CUST_CHG_TIME" Header="_1 "/>
+                                <MenuItem Name="menuItem212" Tag="CUST_CHG_TIME" Header="_2 "/>
+                                <MenuItem Name="menuItem213" Tag="CUST_CHG_TIME" Header="_3 "/>
+                                <MenuItem Name="menuItem214" Tag="CUST_CHG_TIME" Header="_4 "/>
+                                <MenuItem Name="menuItem215" Tag="CUST_CHG_TIME" Header="_5 "/>
+                                <MenuItem Name="menuItem216" Tag="CUST_CHG_TIME" Header="_6 "/>
+                                <MenuItem Name="menuItem217" Tag="CUST_CHG_TIME" Header="_7 "/>
+                                <MenuItem Name="menuItem218" Tag="CUST_CHG_TIME" Header="_8 双休"/>
+                                <MenuItem Name="menuItem219" Tag="CUST_CHG_TIME" Header="_9 其他时间"/>
+                            </MenuItem>
+                            <MenuItem Tag="CUST_CHG_ADDR" Name="menuItem22" Header="_2 客户要求更改地址"/>
+                            <MenuItem Tag="CANCEL_FROM_CUST" Name="menuItem23" Header="_3 客户要求取消配送"/>
+                        </MenuItem>
+                        <MenuItem Name="menuItem3" Header="_3 客户拒绝">
+                            <MenuItem Tag="HALF_ACCEPT" Name="menuItem31" Header="_1 客户要求半收半退"/>
+                            <MenuItem Name="menuItem32" Header="_2 客户要求拆包验货">
+                                <MenuItem Name="menuItem321" Tag="INVALID_OPEN" Header="_1 要求打开外包装，但是商家不允许"/>
+                                <MenuItem Name="menuItem322" Tag="INVALID_OPEN" Header="_2 要求打开内包装，但是商家不允许"/>
+                                <MenuItem Name="menuItem329" Tag="INVALID_OPEN" Header="_9 其他原因"/>
+                            </MenuItem>
+                            <MenuItem  Name="menuItem33"  Header="_3 客户拒付全款或更改付款方式">
+                                <MenuItem Name="menuItem331" Tag="INVALID_PAY" Header="_1 拒付全款"/>
+                                <MenuItem Name="menuItem332" Tag="INVALID_PAY" Header="_2 要求POS刷卡"/>
+                                <MenuItem Name="menuItem333" Tag="INVALID_PAY" Header="_3 要求用支票"/>
+                                <MenuItem Name="menuItem334" Tag="INVALID_PAY" Header="_4 要求使用抵用券"/>
+                                <MenuItem Name="menuItem339" Tag="INVALID_PAY" Header="_9 其他原因"/>
+                            </MenuItem>
+                            <MenuItem Tag="CAN_NOT_MEET" Name="menuItem34" Header="_4 客户要求无法满足"/>
+                            <MenuItem Name="menuItem35" Header="_5 拒收">
+                                <MenuItem Name="menuItem351" Tag="REFUSE" Header="_1 无理由拒收"/>
+                                <MenuItem Name="menuItem359" Tag="REFUSE" Header="_9 其他原因"/>
+                            </MenuItem>
+                        </MenuItem>
+                        <MenuItem Name="menuItem4" Header="_4 货物问题">
+                            <MenuItem Tag="GOOD_BOX_LACK_INNER" Name="menuItem41" Header="_1 外包装完好内物缺少"/>
+                            <MenuItem Tag="GOOD_BOX_DESTROYED_INNER" Name="menuItem42" Header="_2 外包装完好内物破损"/>
+                            <MenuItem Tag="QUALITY" Name="menuItem43" Header="_3 客户反映质量有问题"/>
+                            <MenuItem Tag="INVOICE" Name="menuItem44" Header="_4 客户反映发票有问题"/>
+                            <MenuItem Tag="WRONG_RESERVED" Name="menuItem45" Header="_5 客户重复订购或订购错误"/>
+                            <MenuItem Tag="NO_RESERVED" Name="menuItem46" Header="_6 客户表示未曾订购"/>
+                        </MenuItem>
+                        <MenuItem Tag="OTHER" Name="menuItem5" Header="_9 其他原因"/>
+                    </ContextMenu>
+                </Button.ContextMenu>
+            </Button>
+            <ComboBox Grid.Column="0" Visibility="Collapsed" VerticalAlignment="Center"  Name="comboReason"
+                          ItemsSource="{Binding Source={StaticResource CheckinReasons}, XPath=//Reason}" DisplayMemberPath="Text" SelectedValuePath="Value"
+                          SelectedValue="{Binding DigestedEventData[R], UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}"
+                          Style="{StaticResource vInput}" IsEditable="False" />
+            <TextBox Grid.Column="3"  Name="textNote"
+                         Style="{StaticResource vInput}" 
+                         Text="{Binding DigestedEventData[C],  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}"
+                          LostFocus="textNote_LostFocus" TextChanged="textNote_TextChanged"/>
+        </Grid>
+    </StackPanel>
+    
+</UserControl>

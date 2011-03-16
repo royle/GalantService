@@ -89,5 +89,54 @@ namespace Galant.DataEntity
             get { return _event_data; }
         }
         #endregion Model
+
+        ObservableDictionary<string, string> digestedEventData;
+        public ObservableDictionary<string, string> DigestedEventData
+        {
+            get { EnsureEventDataDigested(); return digestedEventData; }
+            set { /* Satisfy Invalidation Checker */ }
+        }
+
+        bool eventDataDigested;
+
+        void EnsureEventDataDigested()
+        {
+            if (eventDataDigested) return;
+
+            digestedEventData = new ObservableDictionary<string, string>();
+            if (_event_data != null)
+            {
+                foreach (string line in _event_data.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    string[] tokens = line.Split(new char[] { '\t' }, 2);
+                    if (tokens.Length >= 2)
+                    {
+                        if (!digestedEventData.ContainsKey(tokens[0]))
+                        {
+                            digestedEventData.Add(tokens[0], tokens[1]);
+                        }
+                    }
+                    else { break; }
+                }
+            }
+            digestedEventData.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(digestedEventData_CollectionChanged);
+            eventDataDigested = true;
+        }
+
+        void digestedEventData_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            {
+                ObservableDictionary<string, string> data = sender as ObservableDictionary<string, string>;
+                string v = "";
+                foreach (string k in data.Keys)
+                {
+                    v += string.Format(System.Globalization.CultureInfo.InvariantCulture, "{0}\t{1}\n", k, data[k]);
+                }
+                v = v.TrimEnd(new char[] { '\n' });
+                _event_data = v;
+                OnPropertyChanged("EventData");
+            }
+        }
     }
 }

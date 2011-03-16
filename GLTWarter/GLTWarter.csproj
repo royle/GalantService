@@ -134,6 +134,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\CheckinExceptionReasonSelector.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\ControlStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -169,6 +173,10 @@
     <Page Include="Pages\Entity\SearchEntity.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Finishing\FinishingList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Login.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -218,6 +226,9 @@
     </Compile>
     <Compile Include="AppCurrent.cs" />
     <Compile Include="BaseOperatorName.cs" />
+    <Compile Include="Controls\CheckinExceptionReasonSelector.xaml.cs">
+      <DependentUpon>CheckinExceptionReasonSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ControlStyle.xaml.cs">
       <DependentUpon>ControlStyle.xaml</DependentUpon>
     </Compile>
@@ -260,6 +271,9 @@
     </Compile>
     <Compile Include="Pages\Entity\SearchEntity.xaml.cs">
       <DependentUpon>SearchEntity.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Finishing\FinishingList.xaml.cs">
+      <DependentUpon>FinishingList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>

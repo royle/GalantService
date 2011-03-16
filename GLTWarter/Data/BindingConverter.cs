@@ -1065,6 +1065,32 @@ namespace GLTWarter.Data
             throw new NotImplementedException();
         }
     }
-   
+
+    [ValueConversion(typeof(Route), typeof(string))]
+    class RouteNameConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value as Route != null)
+            {
+                return Convert((Route)value);
+            }
+            return null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+
+        public static string Convert(Route e)
+        {
+            return
+                string.Format(
+                CultureInfo.CurrentCulture, Resource.converterRouteName,
+                e.RountName ?? string.Empty,
+                e.RouteId);
+        }
+    }
   
  }

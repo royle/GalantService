@@ -1,0 +1,84 @@
+﻿<pages:DetailsBase x:Class="GLTWarter.Pages.Finishing.FinishingList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:my="clr-namespace:GLTWarter.Controls"
+    xmlns:pages="clr-namespace:GLTWarter.Pages"
+    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+    xmlns:src="clr-namespace:GLTWarter"
+    xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+    xmlns:styles="clr-namespace:GLTWarter.Styles"                   
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+	Title="归班结算">
+    <Page.Resources>
+       <xcdg:DataGridCollectionViewSource AutoCreateItemProperties="False" x:Key="DeliveryManData" Source="{Binding HolderResultData, FallbackValue={x:Null}}" >
+            <xcdg:DataGridCollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="Holder" Direction="Ascending" />
+            </xcdg:DataGridCollectionViewSource.SortDescriptions>
+            <xcdg:DataGridCollectionViewSource.ItemProperties>
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="Holder" Converter="{StaticResource EntityNameConverter}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="PackagesCount" DataType="{x:Type sys:Int32}" />
+            </xcdg:DataGridCollectionViewSource.ItemProperties>
+        </xcdg:DataGridCollectionViewSource>
+        <xcdg:DataGridCollectionViewSource AutoCreateDetailDescriptions="False" x:Key="CollectionData" Source="{Binding Data, FallbackValue={x:Null}}">
+            <xcdg:DataGridCollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="LastUpdateTime" Direction="Descending" />
+            </xcdg:DataGridCollectionViewSource.SortDescriptions>
+            <xcdg:DataGridCollectionViewSource.ItemProperties>
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="ShipmentId"  DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="Holder" Converter="{StaticResource EntityNameConverter}"  DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="SubStatus" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource ShipmentSubStatus}"  DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="NextHop" Converter="{StaticResource RouteNameConverter}"  DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="LastUpdateTime"  DataType="{x:Type sys:String}" />
+            </xcdg:DataGridCollectionViewSource.ItemProperties>
+        </xcdg:DataGridCollectionViewSource>
+    </Page.Resources>
+    <my:DetailsPagePresenter TitleBrush="Blue" TitleForNew="归班结算">
+        <my:DetailsPagePresenter.LatestVersionButtonsPanel>
+            <Button HorizontalAlignment="Right" Content="进行归班操作" Click="buttonNew_Click"  Name="buttonFinish" />
+        </my:DetailsPagePresenter.LatestVersionButtonsPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ScrollViewer Name="SearchView" Grid.Row="0" VerticalScrollBarVisibility="Auto" Margin="5,10">
+                <StackPanel>
+						<TextBlock Margin="0,2">
+						所有有待 <TextBlock Text="{Binding Path=Station, Converter={StaticResource EntityNameConverter}}" FontWeight="Bold" /> 归班的配送单。
+						</TextBlock>
+                    <Button Style="{StaticResource SearchButtonStyle}" Click="buttonNext_Click" Name="buttonSearch" />
+                </StackPanel>
+            </ScrollViewer>
+            <StackPanel Grid.Row="1" Name="ResultView">
+                <TabControl SelectionChanged="TabControl_SelectionChanged">
+					<TabItem Name="tabDeliveryMan" Header="配送员">
+						<xcdg:DataGridControl SelectionMode="Single" ItemsSource="{Binding Source={StaticResource DeliveryManData}}" Name="listDeliveryMan" NavigationBehavior="RowOnly" ReadOnly="True">
+							<xcdg:DataGridControl.View>
+								<xcdg:TableView ColumnStretchMode="First" />
+							</xcdg:DataGridControl.View>
+							<xcdg:DataGridControl.Columns>
+								<xcdg:Column Title="配送员" Width="120"  FieldName="Holder" ReadOnly="True" />
+								<xcdg:Column Title="订单量" Width="70"  FieldName="PackagesCount" ReadOnly="True" />
+							</xcdg:DataGridControl.Columns>
+						</xcdg:DataGridControl>
+					</TabItem>
+					<TabItem Name="tabCollection" Header="配送单">
+						<xcdg:DataGridControl ItemsSource="{Binding Source={StaticResource CollectionData}}" Name="listCollection" NavigationBehavior="RowOnly" ReadOnly="True">
+							<xcdg:DataGridControl.View>
+								<xcdg:TableView ColumnStretchMode="First" />
+							</xcdg:DataGridControl.View>
+							<xcdg:DataGridControl.Columns>
+								<xcdg:Column Title="配送单号" Width="120"  FieldName="ShipmentId" ReadOnly="True" />
+								<xcdg:Column Title="配送员" Width="120"  FieldName="Holder" ReadOnly="True" />
+								<xcdg:Column Title="状态" Width="50"  FieldName="SubStatus" ReadOnly="True" />
+								<xcdg:Column Title="配送路线" Width="120"  FieldName="NextHop" ReadOnly="True" />
+								<xcdg:Column Title="出库时间" Width="120"  FieldName="LastUpdateTime" ReadOnly="True" />
+							</xcdg:DataGridControl.Columns>
+						</xcdg:DataGridControl>
+					</TabItem>
+				</TabControl>
+            </StackPanel>
+        </Grid>
+    </my:DetailsPagePresenter>
+</pages:DetailsBase>

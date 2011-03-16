@@ -65,6 +65,7 @@
     <Compile Include="Entity.cs" />
     <Compile Include="EventLog.cs" />
     <Compile Include="IIdentifiable.cs" />
+    <Compile Include="ObservableDictionary.cs" />
     <Compile Include="OrderBooking\CustomerSevicesBookingOrderData.cs" />
     <Compile Include="OrderBooking\PaperProduct.cs" />
     <Compile Include="Package.cs" />
@@ -73,9 +74,11 @@
     <Compile Include="Production\Result.cs" />
     <Compile Include="Production\Search.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Result\FinishingListResult.cs" />
     <Compile Include="Result\SearchEntityResult.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="Route.cs" />
+    <Compile Include="Search\FinishListCondition.cs" />
     <Compile Include="Search\SearchEntityCondition.cs" />
     <Compile Include="WCFFaultException.cs" />
   </ItemGroup>
