@@ -216,6 +216,9 @@ namespace GLTService.Operation.BaseEntity
         /// <returns></returns>
         public Galant.DataEntity.Entity GetEntityByAlias(DataOperator data,string alias,bool IsDetail)
         {
+            if (string.IsNullOrWhiteSpace(alias))
+                return null;
+
             string SqlSearch = "SELECT * FROM ENTITIES WHERE UPPER(ALIAS) = '"+alias.ToUpper().Trim()+"'";
              DataTable dt = SqlHelper.ExecuteDataset(data.myConnection, CommandType.Text, SqlSearch).Tables[0];
              if (dt.Rows.Count > 0)

@@ -126,6 +126,9 @@
   <data name="dateEventLongConvention" xml:space="preserve">
     <value>yyyy年M月d日 (ddd) HH:mm</value>
   </data>
+  <data name="msgOrderCreated" xml:space="preserve">
+    <value>订水成功。</value>
+  </data>
   <data name="msgProductCreated" xml:space="preserve">
     <value>建立产品成功。</value>
   </data>

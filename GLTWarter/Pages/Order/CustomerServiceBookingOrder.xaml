@@ -87,7 +87,7 @@
                             </my:PropertyRow>
                             <my:PropertyRow HeaderText="客户登记地址:">
                                 <TextBox Name="textAddress" Width="150" MinHeight="20" IsEnabled="{Binding Path=ContactB.IsNew}"
-                                    Text="{Binding Path=ContactB.AddressFamily}" />
+                                    Text="{Binding Path=ContactB.AddressChild}" />
                             </my:PropertyRow>
                         </StackPanel>
                     </GroupBox>

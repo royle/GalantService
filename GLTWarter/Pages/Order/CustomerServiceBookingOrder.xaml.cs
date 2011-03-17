@@ -52,6 +52,8 @@ namespace GLTWarter.Pages.Order
 
         protected override void OnNext(Galant.DataEntity.BaseData incomingData)
         {
+            MessageBox.Show(AppCurrent.Active.MainWindow, Resource.msgOrderCreated, this.Title, MessageBoxButton.OK, MessageBoxImage.Information);
+
             Galant.DataEntity.Paper paper = new Galant.DataEntity.Paper();
             paper.ContactB = new Galant.DataEntity.Entity();
             paper.ContactB.EntityType = Galant.DataEntity.EntityType.Client;

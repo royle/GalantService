@@ -64,19 +64,21 @@ namespace GLTService.Operation.BaseEntity
 
         public override bool AddNewData(Galant.DataEntity.BaseData data)
         {
-            (data as Galant.DataEntity.Paper).PaperId = this.GenerateId();
-            if ((data as Galant.DataEntity.Paper).ContactB.IsNew)
+            Galant.DataEntity.Paper paper = data as Galant.DataEntity.Paper;
+            paper.PaperId = this.GenerateId();
+            if (paper.ContactB.IsNew)
             {
                 Entity entity = new Entity(this.Operator);
-                entity.SaveEntity(this.Operator,(data as Galant.DataEntity.Paper).ContactB);
+                paper.ContactB.EntityType = Galant.DataEntity.EntityType.Client;
+                entity.SaveEntity(this.Operator, paper.ContactB);
             }
             base.AddNewData(data);
 
             Package opPackage = new Package(this.Operator);
-            foreach (Galant.DataEntity.Package pg in (data as Galant.DataEntity.Paper).Packages)
+            foreach (Galant.DataEntity.Package pg in paper.Packages)
             {
                 pg.PackageType = Galant.DataEntity.PackageState.New;
-                pg.PaperId = (data as Galant.DataEntity.Paper).PaperId;
+                pg.PaperId = paper.PaperId;
                 opPackage.AddNewData(pg);
             }
 
