@@ -22,8 +22,8 @@ namespace GLTService.Operation
         }
 
         public Galant.DataEntity.Assign.Result SearchCenterRoute(Operation.BaseEntity.DataOperator data, Galant.DataEntity.Production.Result result)
-        { 
-            
+        {
+            return null;
         }
     }
 }
