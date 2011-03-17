@@ -65,6 +65,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependency\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
@@ -240,6 +241,7 @@
     <Compile Include="Controls\ControlStyle.xaml.cs">
       <DependentUpon>ControlStyle.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\DateTimeBox.cs" />
     <Compile Include="Controls\DetailsPagePresenter.cs" />
     <Compile Include="Controls\EntitySelector.xaml.cs">
       <DependentUpon>EntitySelector.xaml</DependentUpon>

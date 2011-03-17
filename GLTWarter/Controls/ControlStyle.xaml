@@ -7,6 +7,21 @@
     xmlns:toolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
     x:Class="GLTWarter.Controls.ControlStyle">
 
+    <Style TargetType="my:FooterRow">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="my:FooterRow">
+                    <Border BorderBrush="LightBlue" BorderThickness="0,1,0,0" Padding="5"
+                            MinWidth="{Binding RelativeSource={RelativeSource AncestorType={x:Type ScrollViewer}}, Path=ViewportWidth}">
+                        <AdornerDecorator>
+                            <ContentControl Name="TMPL_CONTENT" Content="{TemplateBinding Presentation}" Focusable="False" />
+                        </AdornerDecorator>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <Style TargetType="my:PropertyRow" x:Key="PropertyRowBase">
         <Setter Property="Margin" Value="0,2" />
         <Setter Property="HeaderColumnWidth" Value="130"/>
@@ -115,6 +130,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
     <Style TargetType="my:DetailsPagePresenter">
         <Setter Property="Focusable" Value="False"/>
         <Setter Property="Template">
@@ -201,4 +217,30 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="HintedStyle" TargetType="my:HintedTextBox">
+        <Setter Property="Foreground" Value="Gray"/>
+    </Style>
+
+    <Style TargetType="my:DateTimeBox">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="my:DateTimeBox">
+                    <AdornerDecorator>
+                        <StackPanel Orientation="Horizontal">
+                            <toolkit:DatePicker 
+                                Name="PART_DatePicker"
+                                />
+                            <TextBox MaxLength="2" Margin="10,0,0,0" Width="25" 
+                                     Name="PART_HourTextBox"/>
+                            <TextBlock Margin="2,0" >:</TextBlock>
+                            <TextBox MaxLength="2" Margin="0,0,0,0" Width="25" 
+                                     Name="PART_MinTextBox"/>
+                        </StackPanel>
+                    </AdornerDecorator>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>
