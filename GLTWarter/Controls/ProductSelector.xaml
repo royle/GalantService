@@ -9,10 +9,10 @@
     PreviewGotKeyboardFocus="UserControl_PreviewGotKeyboardFocus">
     <UserControl.Resources>
         <DataTemplate x:Key="ProductById">
-            <TextBlock>产品代号: <TextBlock Text="{Binding SelectedValue}"/> 产品名:  <TextBlock Text="{Binding SelectedProduct.ProductName}"/></TextBlock>
+            <TextBlock>代号: <TextBlock Text="{Binding SelectedValue}" MinWidth="30" MaxWidth="50"/>| 产品名:  <TextBlock Text="{Binding SelectedProduct.ProductName}"/></TextBlock>
         </DataTemplate>
         <DataTemplate x:Key="ProductByName">
-            <TextBlock>产品名称: <TextBlock Text="{Binding SelectedValue}"/> 产品名:  <TextBlock Text="{Binding SelectedProduct.ProductName}"/></TextBlock>
+            <TextBlock>名称: <TextBlock Text="{Binding SelectedValue}" MinWidth="30" MaxWidth="50"/>| 产品名:  <TextBlock Text="{Binding SelectedProduct.ProductName}"/></TextBlock>
         </DataTemplate>
         <DataTemplate x:Key="ItemUnknown">
             <TextBlock><TextBlock Text="{Binding DisplayText}"/></TextBlock>

@@ -41,93 +41,85 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <ScrollViewer Name="SearchView" Grid.Row="0" VerticalScrollBarVisibility="Auto" Margin="5,10">
-                <StackPanel>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="5*"/>
-                            <ColumnDefinition Width="5*"/>
-                        </Grid.ColumnDefinitions>
-                        <my:PropertyRow HeaderText="快速选择客户:" Grid.Row="0" Grid.ColumnSpan="2">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="100"/>
-                                </Grid.ColumnDefinitions>
-                            <my:EntitySelector x:Name="entitySelector" Enter="EntitySelector_Enter"  EntitysList="{Binding Path=AppCach.Customers, Source={x:Static src:AppCurrent.Active}}"/>
-                                <Button Name="btnNewCustomer" Grid.Column="1" Margin="5,0" Content="新客户" Click="btnNewCustomer_Click" />
-                            </Grid>
-                        </my:PropertyRow>
-                        <my:PropertyRow HeaderText="付款方式:" Grid.Row="1">
-                            <ComboBox Name="comboPayType" MinWidth="100" VerticalAlignment="Center" HorizontalAlignment="Left" SelectedIndex="0"
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Header="客户基本信息" Grid.Row="0">
+                        <StackPanel>
+                            <my:PropertyRow HeaderText="快速选择客户:" Grid.Row="0">
+                                <StackPanel Orientation="Horizontal" >
+                                    <my:EntitySelector x:Name="entitySelector" Enter="EntitySelector_Enter"  EntitysList="{Binding Path=AppCach.Customers, Source={x:Static src:AppCurrent.Active}}"/>
+                                    <Button Name="btnNewCustomer" Grid.Column="1" Margin="5,0" Content="新客户" Click="btnNewCustomer_Click" />
+                                </StackPanel>
+                            </my:PropertyRow>
+                            <my:PropertyRow HeaderText="付款方式:">
+                                <ComboBox Name="comboPayType" MinWidth="100" VerticalAlignment="Center" HorizontalAlignment="Left" SelectedIndex="0"
                                       IsEnabled="{Binding Path=ContactB.IsNew}"
                           ItemsSource="{Binding Source={StaticResource PayType}, XPath=//Type[@searchable\=1]}" DisplayMemberPath="Text" SelectedValuePath="Value" 
                           SelectedValue="{Binding Path=ContactB.PayType, UpdateSourceTrigger=PropertyChanged}">
-                            </ComboBox>
-                        </my:PropertyRow>
-                        <my:PropertyRow HeaderText="座机号码:" Grid.Row="2" Grid.RowSpan="2">
-                            <TextBox Name="textPhones" Width="150" MinHeight="40" IsEnabled="{Binding Path=ContactB.IsNew}"
+                                </ComboBox>
+                            </my:PropertyRow>
+                            <my:PropertyRow HeaderText="座机号码:" >
+                                <TextBox Name="textPhones" Width="150" IsEnabled="{Binding Path=ContactB.IsNew}"
                                      Text="{Binding Path=ContactB.HomePhone, UpdateSourceTrigger=PropertyChanged}"  />
-                        </my:PropertyRow>
-                        <my:PropertyRow HeaderText="手机号码:" Grid.Row="2" Grid.Column="1">
-                            <TextBox Name="textCellPhonesOne" Width="150" MinHeight="20" IsEnabled="{Binding Path=ContactB.IsNew}"
+                            </my:PropertyRow>
+                            <my:PropertyRow HeaderText="手机号码:">
+                                <TextBox Name="textCellPhonesOne" Width="150" MinHeight="20" IsEnabled="{Binding Path=ContactB.IsNew}"
                                      Text="{Binding Path=ContactB.CellPhoneOne,  UpdateSourceTrigger=PropertyChanged}"  />
-                        </my:PropertyRow>
-                        <my:PropertyRow HeaderText="备用手机号码:" Grid.Row="3" Grid.Column="1">
-                            <TextBox Name="textCellPhonesTwo" Width="150" MinHeight="20" IsEnabled="{Binding Path=ContactB.IsNew}"
+                            </my:PropertyRow>
+                            <my:PropertyRow HeaderText="备用手机号码:">
+                                <TextBox Name="textCellPhonesTwo" Width="150" MinHeight="20" IsEnabled="{Binding Path=ContactB.IsNew}"
                                      Text="{Binding Path=ContactB.CellPhoneTwo, UpdateSourceTrigger=PropertyChanged}"  />
-                        </my:PropertyRow>
-                        <my:PropertyRow HeaderText="客户代码:" Grid.Row="4">
-                                <TextBlock Name="textAlias" Width="150" MinHeight="20"
-                                    Text="{Binding Path=ContactB.Alias}" />
-                        </my:PropertyRow>
-                        <my:PropertyRow HeaderText="客户姓名:" Grid.Row="5">
-                            <TextBox Name="textFullName" Width="150" MinHeight="20" IsEnabled="{Binding Path=ContactB.IsNew}"
+                            </my:PropertyRow>
+                            <my:PropertyRow HeaderText="客户代码:">
+                                <TextBox Name="textAlias" Width="150" MinHeight="20"
+                                    Text="{Binding Path=ContactB.Alias}" IsEnabled="False" />
+                            </my:PropertyRow>
+                            <my:PropertyRow HeaderText="客户姓名:">
+                                <TextBox Name="textFullName" Width="150" MinHeight="20" IsEnabled="{Binding Path=ContactB.IsNew}"
                                     Text="{Binding Path=ContactB.FullName}" />
-                        </my:PropertyRow>
-                        <my:PropertyRow HeaderText="客户登记地址:" Grid.Row="6">
-                            <TextBox Name="textAddress" Width="150" MinHeight="20" IsEnabled="{Binding Path=ContactB.IsNew}"
+                            </my:PropertyRow>
+                            <my:PropertyRow HeaderText="客户登记地址:">
+                                <TextBox Name="textAddress" Width="150" MinHeight="20" IsEnabled="{Binding Path=ContactB.IsNew}"
                                     Text="{Binding Path=ContactB.AddressFamily}" />
-                        </my:PropertyRow>
-                        <my:PropertyRow Grid.Row="8" Grid.ColumnSpan="2" Margin="0,5,0,0" HeaderText="选择产品:" VerticalAlignment="Top" x:Name="packetageSelecter">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
+                            </my:PropertyRow>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Grid.Column="1" Header="">
+                        <StackPanel>
+                    <my:PropertyRow HeaderText="备注:" Focusable="False" VerticalAlignment="Stretch"  HorizontalAlignment="Left" />
+                        <TextBox Text="{Binding Comment}" Margin="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MinHeight="200" />
+                    </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="选择产品" Grid.Row="1" Grid.ColumnSpan="2"  Name="packetageSelecter">
+                        <StackPanel>
+                            <my:PropertyRow HeaderText="产品:">
                                 <my:ProductSelector x:Name="productSelector"  ProductList="{Binding Source={x:Static src:AppCurrent.Active}, Path=AppCach.Products}" Enter="ProductSelector_Enter">
                                 </my:ProductSelector>
-                                <TextBlock  Grid.Row="0" Grid.Column="1">数量:  <TextBox Name="txtCount" Text="{Binding Count, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Width="50"></TextBox></TextBlock>
-                                <Button Name="btnAddProduct" Grid.Row="1" Grid.Column="1" Style="{StaticResource StandardButton}" Margin="20,5,10,5" Width="30" HorizontalAlignment="Right" Click="btnAddProduct_Click">添加</Button>
-                            </Grid>
-                        </my:PropertyRow>
-                        <my:PropertyRow HeaderText="备注:" Focusable="False" Grid.Row="4" Grid.Column="1" Margin="2,0,0,0"/>
-                        <TextBox Grid.Row="5" Grid.Column="1" Grid.RowSpan="3" Text="{Binding Comment}" Margin="2,0,0,0"/>
-                    </Grid>
-                </StackPanel>
+                            </my:PropertyRow>
+                            <my:PropertyRow HeaderText="数量:">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox Name="txtCount" Text="{Binding Count, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Width="50" Height="20"></TextBox>
+                                    <Button Name="btnAddProduct" Style="{StaticResource StandardButton}" Margin="10,0,0,0" Click="btnAddProduct_Click">添加</Button>
+                                </StackPanel>
+                            </my:PropertyRow>
+
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
             </ScrollViewer>
             <StackPanel Grid.Row="1" Name="PackagesView" Margin="5,10">
                 <xcdg:DataGridControl Margin="0,0,0,0" HorizontalAlignment="Stretch" ItemsSource="{Binding Source={StaticResource Packages}}" Name="listResult" styles:ExportHint.IsExportable="true">
 
                     <xcdg:DataGridControl.ItemContainerStyle>
                         <Style TargetType="{x:Type xcdg:DataRow}" BasedOn="{StaticResource DataRowStyle}">
-                           
+
                         </Style>
                     </xcdg:DataGridControl.ItemContainerStyle>
                     <xcdg:DataGridControl.Columns>

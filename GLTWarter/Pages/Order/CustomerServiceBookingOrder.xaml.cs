@@ -26,6 +26,7 @@ namespace GLTWarter.Pages.Order
             InitializeComponent();
             packet.PaperId = paper.PaperId;
             packet.PackageType = Galant.DataEntity.PackageState.New;
+            packet.Count = 1;
             this.packetageSelecter.DataContext = packet;
         }
 
@@ -33,17 +34,18 @@ namespace GLTWarter.Pages.Order
 
         private void btnBookPaper_Click(object sender, RoutedEventArgs e)
         {
-            (this.DataContext as Galant.DataEntity.Paper).ContactA = new Galant.DataEntity.Entity();
-            (this.DataContext as Galant.DataEntity.Paper).ContactA.EntityId = 0;
-            (this.DataContext as Galant.DataEntity.Paper).ContactC = new Galant.DataEntity.Entity();
-            (this.DataContext as Galant.DataEntity.Paper).ContactC.EntityId = 0;
-            (this.DataContext as Galant.DataEntity.Paper).Holder = new Galant.DataEntity.Entity();
-            (this.DataContext as Galant.DataEntity.Paper).Holder.EntityId = 0;
-            (this.DataContext as Galant.DataEntity.Paper).PaperStatus = Galant.DataEntity.PaperStatus.Adviced;
-            (this.DataContext as Galant.DataEntity.Paper).PaperSubStatus = Galant.DataEntity.PaperSubState.AdviceInStation;
-            if ((this.DataContext as Galant.DataEntity.Paper).ContactB != null && (this.DataContext as Galant.DataEntity.Paper).ContactB.RountStation != null)
+            Galant.DataEntity.Paper data = (this.DataContext as Galant.DataEntity.Paper);
+            data.ContactA = new Galant.DataEntity.Entity();
+            data.ContactA.EntityId = 0;
+            data.ContactC = new Galant.DataEntity.Entity();
+            data.ContactC.EntityId = 0;
+            data.Holder = new Galant.DataEntity.Entity();
+            data.Holder.EntityId = 0;
+            data.PaperStatus = Galant.DataEntity.PaperStatus.Adviced;
+            data.PaperSubStatus = Galant.DataEntity.PaperSubState.AdviceInStation;
+            if (data.ContactB != null && (this.DataContext as Galant.DataEntity.Paper).ContactB.RountStation != null)
             {
-                (this.DataContext as Galant.DataEntity.Paper).PaperSubStatus = Galant.DataEntity.PaperSubState.Routeing;
+                data.PaperSubStatus = Galant.DataEntity.PaperSubState.Routeing;
             }
             this.buttonNext_Click(sender, e);
         }
@@ -99,7 +101,6 @@ namespace GLTWarter.Pages.Order
 
         private void delete_Click(object sender, RoutedEventArgs e)
         {
-
             Galant.DataEntity.Package data = listResult.GetItemFromContainer((System.Windows.DependencyObject)sender) as Galant.DataEntity.Package;
             (this.DataContext as Galant.DataEntity.Paper).Packages.Remove(data);
         }
