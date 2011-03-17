@@ -398,4 +398,56 @@
             </Reasons>
         </x:XData>
     </XmlDataProvider>
+    <XmlDataProvider x:Key="PaperBound" IsAsynchronous="False">
+        <x:XData>
+            <Bounds xmlns="">
+                <Bound>
+                    <Value>Stay</Value>
+                    <Text>完成</Text>
+                </Bound>
+                <Bound>
+                    <Value>ToA</Value>
+                    <Text>提货</Text>
+                </Bound>
+                <Bound>
+                    <Value>ToB</Value>
+                    <Text>送货</Text>
+                </Bound>
+                <Bound>
+                    <Value>ToC</Value>
+                    <Text>退货</Text>
+                </Bound>
+                <Bound>
+                    <Value>0</Value>
+                    <Text>完成</Text>
+                </Bound>
+                <Bound>
+                    <Value>1</Value>
+                    <Text>提货</Text>
+                </Bound>
+                <Bound>
+                    <Value>2</Value>
+                    <Text>送货</Text>
+                </Bound>
+                <Bound>
+                    <Value>3</Value>
+                    <Text>退货</Text>
+                </Bound>
+            </Bounds>
+        </x:XData>
+    </XmlDataProvider>
+    <XmlDataProvider x:Key="PaperNature" IsAsynchronous="False">
+        <x:XData>
+            <PaperNature xmlns="">
+                <Nature>
+                    <Value>Delivery</Value>
+                    <Text>送货单</Text>
+                </Nature>
+                <Nature>
+                    <Value>Return</Value>
+                    <Text>退换货单</Text>
+                </Nature>
+            </PaperNature>
+        </x:XData>
+    </XmlDataProvider>
 </ResourceDictionary>

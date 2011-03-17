@@ -8,6 +8,11 @@
 
     <style:ValidationErrorsConverter x:Key="ValidationErrorsConverter"/>
     <style:AlternateRowIndexConverter x:Key="AlternateRowIndexConverter"/>
+
+    <Style TargetType="{x:Type Control}">
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Background" Value="White"/>
+    </Style>
     
     <Style x:Key="vInput" TargetType="{x:Type Control}">
         <Setter Property="Validation.ErrorTemplate">
