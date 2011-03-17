@@ -99,6 +99,7 @@
 /GLTWarter/obj/Debug/TempPE/Resource.Designer.cs.dll
 /GLTWarter/obj/Debug/TempPE/Service References.GLTService.Reference.cs.dll
 /GLTWarter/obj/Debug/UserDetail.g.i.cs
+/Galant.DataEntity/Galant.DataEntity.csproj.user
 /WCFTest/WCFTest.csproj.user
 /WCFTest/bin/Debug/Galant.DataEntity.dll
 /WCFTest/bin/Debug/Galant.DataEntity.pdb
@@ -121,6 +122,8 @@
 /WCFTest/obj/x86/Debug/WCFTest_MarkupCompile.cache
 /GLTService/bin/log4net.dll
 /GLTService/GLTService.Publish.xml
+/GLTService/GLTService.csproj.user
+/GLTWarter/GLTWarter.csproj.user
 /GLTWarter/Thumbs.db
 /GLTWarter/obj/Debug/Pages/Entity/Customer/CustomerDetail.baml
 /GLTWarter/obj/Debug/Pages/Entity/Customer/CustomerDetail.g.cs
