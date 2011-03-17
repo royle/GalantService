@@ -454,6 +454,7 @@
     <Resource Include="Resources\bell-red.png" />
     <Resource Include="Resources\bell-yellow.png" />
     <Resource Include="Resources\bullet_yellow.png" />
+    <SplashScreen Include="grant.png" />
     <Content Include="Resources\Ding.wav" />
     <Resource Include="Resources\door_in.png" />
     <Resource Include="Resources\error.png" />

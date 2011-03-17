@@ -61,6 +61,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppStatusCach.cs" />
+    <Compile Include="Assign\Result.cs" />
+    <Compile Include="Assign\Search.cs" />
     <Compile Include="BaseData.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EventLog.cs" />
