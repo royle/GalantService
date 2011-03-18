@@ -372,7 +372,7 @@ namespace GLTWarter.Views
 
         protected void Hyperlink_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: App.Active.MainScreen.NavigateEntityDetails(((Hyperlink)sender).Tag);
+            // TODO: AppCurrent.Active.MainScreen.NavigateEntityDetails(((Hyperlink)sender).Tag);
         }        
         #endregion
 

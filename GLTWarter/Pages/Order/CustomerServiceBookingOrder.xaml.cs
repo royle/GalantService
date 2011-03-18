@@ -52,7 +52,7 @@ namespace GLTWarter.Pages.Order
 
         protected override void OnNext(Galant.DataEntity.BaseData incomingData)
         {
-            MessageBox.Show(AppCurrent.Active.MainWindow, Resource.msgOrderCreated, this.Title, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(AppCurrent.Active.MainScreen, Resource.msgOrderCreated, this.Title, MessageBoxButton.OK, MessageBoxImage.Information);
 
             Galant.DataEntity.Paper paper = new Galant.DataEntity.Paper();
             paper.ContactB = new Galant.DataEntity.Entity();

@@ -17,6 +17,9 @@ using System.IO;
 using System.Printing;
 using System.ComponentModel;
 using GLTWarter.Controls;
+using GLTWarter.ExternalData;
+using System.Threading;
+using GLTWarter.Printings;
 
 namespace GLTWarter
 {
@@ -54,6 +57,100 @@ namespace GLTWarter
 
             this.AddHandler(BrowserTabItem.CloseTabEvent, new RoutedEventHandler(this.CloseTab_Event));
         }
+
+        #region Excel
+        public static readonly DependencyProperty ExportJobsCountProperty = DependencyProperty.Register(
+            "ExportJobsCount", typeof(int), typeof(MainScreen), new FrameworkPropertyMetadata(0));
+
+        Dictionary<object, double> excelExportJobs = new Dictionary<object, double>();
+
+        public int ExportJobsCount
+        {
+            get { return (int)this.GetValue(ExportJobsCountProperty); }
+            set { this.SetValue(ExportJobsCountProperty, value); }
+        }
+
+        public void ExportJob_ReportDoWork(ExcelExporterBase exporter)
+        {
+            excelExportJobs.Add(exporter, 0);
+            exporter.Context = SynchronizationContext.Current;
+
+            UpdateExcelProgress();
+
+            ExportJobsCount++;
+            this.Cursor = System.Windows.Input.Cursors.AppStarting;
+
+            exporter.RunWorkerCompleted += new RunWorkerCompletedEventHandler(this.ExportJob_RunWorkerCompleted);
+            exporter.ProgressChanged += new ProgressChangedEventHandler(exporter_ProgressChanged);
+            exporter.RunWorkerAsync();
+        }
+
+        private void MenuItem_ReportPrinterSetting_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                AppCurrent.Active.Printing.Report.Setup();
+            }
+            catch (System.Printing.PrintSystemException ex)
+            {
+                MessageBox.Show(AppCurrent.Active.MainWindow, ex.ToString(), this.Title);
+            }
+        }
+
+        private void MenuItem_ReportPrinterTest_Click(object sender, RoutedEventArgs e)
+        {
+            AppCurrent.Active.Printing.Report.Print(PrintTemplates.ReportDemo, null);
+        }
+
+        void exporter_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            excelExportJobs[sender] = e.ProgressPercentage / 100.0;
+            UpdateExcelProgress();
+        }
+
+        void UpdateExcelProgress()
+        {
+            double progress = (from x in excelExportJobs select x.Value).Sum() / excelExportJobs.Count;
+            progressExcelJobs.Value = excelExportJobs.Count == 0 ? 1 : progress;
+            progressExcelJobs.IsIndeterminate = (progress < 0.01);
+        }
+
+        void ExportJob_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            excelExportJobs.Remove(sender);
+            UpdateExcelProgress();
+
+            if (--ExportJobsCount == 0) this.Cursor = null;
+            ((BackgroundWorker)sender).RunWorkerCompleted -= new RunWorkerCompletedEventHandler(ExportJob_RunWorkerCompleted);
+            if (e.Error != null)
+            {
+                MessageBox.Show(AppCurrent.Active.MainScreen, string.Format(System.Globalization.CultureInfo.InvariantCulture, Resource.exportError, e.Error.Message), this.Title);
+            }
+            else
+            {
+                this.OpenFile(((IExcelExporter)sender).Filename);
+            }
+
+        }
+
+        private void OpenFile(string Filename)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(Filename))
+                    return;
+                System.Diagnostics.Process.Start(Filename);
+            }
+            catch (FileNotFoundException)
+            {
+                // TODO: Logging
+            }
+            catch (Win32Exception)
+            {
+                // TODO: Logging
+            }
+        }
+        #endregion
 
         #region Tab
         private void CloseTab_Event(object source, RoutedEventArgs args)

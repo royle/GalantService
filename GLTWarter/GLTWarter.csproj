@@ -65,7 +65,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependency\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\Dependency\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
@@ -217,6 +223,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Printings\LabelPaddingScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PrintTemplates\ReportDemo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles\Style.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -266,6 +280,13 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>DeploymentSettings.settings</DependentUpon>
     </Compile>
+    <Compile Include="ExcelCultureBlock.cs" />
+    <Compile Include="ExternalData\IExcelExporter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ExternalData\XceedFlattener.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LoginScreen.xaml.cs">
       <DependentUpon>LoginScreen.xaml</DependentUpon>
     </Compile>
@@ -313,6 +334,11 @@
     <Compile Include="Pages\Welcome.xaml.cs">
       <DependentUpon>Welcome.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Printings\LabelPaddingScreen.xaml.cs">
+      <DependentUpon>LabelPaddingScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Printings\Printer.cs" />
+    <Compile Include="Printings\Printing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -326,6 +352,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ReportGenerator.cs" />
     <Compile Include="Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -336,11 +363,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Styles\BindableExtender.cs" />
     <Compile Include="Styles\ExportHint.cs" />
     <Compile Include="Styles\ItemsControlBehavior.cs" />
+    <Compile Include="Styles\ReportHint.cs" />
     <Compile Include="Styles\Style.cs" />
     <Compile Include="Styles\ValidationErrorsConverter.cs" />
     <Compile Include="TabPage.cs" />
+    <Compile Include="Tools\TemplateStringExtractor.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Views\ShouldValidateAttribute.cs" />
     <Compile Include="Views\ViewBase.cs" />

@@ -65,7 +65,7 @@ namespace GLTWarter.Pages.Entity.Users
 
         protected override bool OnSavedNewItem()
         {
-            MessageBox.Show(AppCurrent.Active.MainWindow, "保存成功", this.Title, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(AppCurrent.Active.MainScreen, "保存成功", this.Title, MessageBoxButton.OK, MessageBoxImage.Information);
 
             this.dataCurrent = new Galant.DataEntity.Entity();
             Galant.DataEntity.Entity data = (Galant.DataEntity.Entity)dataCurrent;

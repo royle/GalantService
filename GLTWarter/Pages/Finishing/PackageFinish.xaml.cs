@@ -398,7 +398,7 @@ namespace GLTWarter.Pages.Finishing
             //                    if (listOriginReference != null && listOriginReference.Count > 0)
             //                    {
             //                        string errorMessage = string.Format(CultureInfo.InvariantCulture, string.Join(Resource.validationImportPreAdviceSeparator, listOriginReference.ToArray()) + Resource.validationCheckinFinishSignInfoMissing);
-            //                        MessageBox.Show(App.Active.MainWindow, errorMessage, this.Title);
+            //                        MessageBox.Show(AppCurrent.Active.MainScreen, errorMessage, this.Title);
             //                        return;
             //                    }
             //                }

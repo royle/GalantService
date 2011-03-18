@@ -11,8 +11,6 @@
     <Window.Resources>
         <src:MainWindowEffectiveRoleCheckConverter x:Key="MainWindowEffectiveRoleCheckConverter"/>
         <src:MainWindowEntityRolesMapHeaderConverter x:Key="MainWindowEntityRolesMapHeaderConverter"/>
-        <src:MainWindowWeighScaleSelectionConverter x:Key="MainWindowWeighScaleSelectionConverter"/>
-        <src:MainWindowWeighScaleCheckConverter x:Key="MainWindowWeighScaleCheckConverter"/>
         <Style x:Key="EffectiveRoleStyle" TargetType="{x:Type MenuItem}">
             <Style.Setters>
                 <EventSetter Event="Click" Handler="MenuItem_EffectiveRole_Click"></EventSetter>
@@ -71,6 +69,17 @@
     </Window.InputBindings>
     <DockPanel>
         <Menu Name="menu1" IsMainMenu="True" VerticalAlignment="Top" DockPanel.Dock="Top" KeyboardNavigation.TabNavigation="None">
+            <MenuItem Header="文件(_F)" Name="menuFile">
+                <MenuItem Header="报表打印机(_P)" DataContext="{Binding Printing.Report, Source={x:Static src:AppCurrent.Active}}" Name="menuPrintingReport">
+                    <MenuItem Header="设定...(_S)" Click="MenuItem_ReportPrinterSetting_Click" />
+                    <MenuItem Header="启用(_E)" IsEnabled="{Binding IsValid}" IsChecked="{Binding IsEnable}" IsCheckable="True" Name="menuPrintingReportIsEnabled" />
+                    <MenuItem Header="测试(_T)" IsEnabled="{Binding IsEnable}" Click="MenuItem_ReportPrinterTest_Click" />
+                    <MenuItem Header="打印模式(_M)" >
+                        <MenuItem Header="打印汇总" IsChecked="{Binding IsPrintReportSummary}" IsCheckable="{Binding IsPrintReportSummary, Converter={StaticResource BooleanNotConverter}}"/>
+                        <MenuItem Header="打印明细" IsChecked="{Binding IsPrintReportFull}" IsCheckable="{Binding IsPrintReportFull, Converter={StaticResource BooleanNotConverter}}"/>
+                    </MenuItem>
+                </MenuItem>
+            </MenuItem>
             <MenuItem Header="转到(_G)" Name="menuGo">
                 <MenuItem Header="回主画面(_H)" InputGestureText="F12" Command="src:MainScreen.BrowseHomepage" />
                 <Separator />
@@ -96,6 +105,11 @@
                 操作身份: <TextBlock Text="{Binding AppCach.StaffCurrent, Source={x:Static src:AppCurrent.Active}, Converter={StaticResource EntityNameConverter}}" />
                 <TextBlock Text="    "></TextBlock>
                 当前地点: <TextBlock Text="{Binding AppCach.StationCurrent,Source={x:Static src:AppCurrent.Active}, Converter={StaticResource EntityNameConverter}}" Name="labelSelectedEntity" />
+            </TextBlock>
+            <TextBlock Visibility="{Binding ExportJobsCount, Converter={StaticResource IsZeroNotVisibilityConverter}}" TextWrapping="Wrap" Margin="2">
+                <InlineUIContainer BaselineAlignment="Center"><Image Source="pack://application:,,,/GLTWarter;component/Resources/report_disk.png" Height="16" Width="16" /></InlineUIContainer>
+                正在导出 <TextBlock Text="{Binding ExportJobsCount}"/> 张报表
+                <InlineUIContainer BaselineAlignment="Center"><ProgressBar Name="progressExcelJobs" Margin="10,0,0,0" Maximum="1" Minimum="0" Width="150" Height="15" /></InlineUIContainer>                
             </TextBlock>
         </ItemsControl>
         

@@ -138,6 +138,9 @@
   <data name="msgStationCreated" xml:space="preserve">
     <value>建立站点成功。</value>
   </data>
+  <data name="ProductNameLong" xml:space="preserve">
+    <value>格兰特</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="soundDing" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Ding.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -157,6 +160,9 @@
   <data name="validationEmptyPassword" xml:space="preserve">
     <value>密码不能为空</value>
   </data>
+  <data name="validationInvalidLabelPadding" xml:space="preserve">
+    <value>请以毫米为单位输入边距。输入的数字要等于或大于零。</value>
+  </data>
   <data name="validationPasswordConfirmMismatch" xml:space="preserve">
     <value>两次输入密码不一致</value>
   </data>
@@ -165,5 +171,26 @@
   </data>
   <data name="validationShipmentAlias" xml:space="preserve">
     <value>别名不能包含特殊符号或空格</value>
+  </data>
+  <data name="excelExportMergeWorksheetInvalidFormat" xml:space="preserve">
+    <value>Excel的工作表中数据少于两行，未能合并。</value>
+  </data>
+  <data name="excelExportMergeWorksheetMissing" xml:space="preserve">
+    <value>未能打开Excel中的工作表。</value>
+  </data>
+  <data name="exportDateFormat" xml:space="preserve">
+    <value>yyyy/MM/dd HH:mm:ss</value>
+  </data>
+  <data name="exportError" xml:space="preserve">
+    <value>存档时出现以下错误，请再试一次：{0}</value>
+  </data>
+  <data name="msgFileDialogExcelFileFilter" xml:space="preserve">
+    <value>Excel文件 (*.xls;*.xlsx)|*.xls;*.xlsx|所有文件|*.*</value>
+  </data>
+  <data name="validationExportMergeColumnEmpty" xml:space="preserve">
+    <value>请选择要导出的字段。</value>
+  </data>
+  <data name="validationExportMergeDataExcelEmpty" xml:space="preserve">
+    <value>请选择要合并的Excel文件。</value>
   </data>
 </root>

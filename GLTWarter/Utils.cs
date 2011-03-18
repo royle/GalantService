@@ -228,7 +228,7 @@ namespace GLTWarter
             string filename = Path.GetFileNameWithoutExtension(path);
             string extension = Path.GetExtension(path);
 
-            string[] locals = new string[] { "-private", "-" + "", "" };//App.Active.Rpc.Company, string.Empty };
+            string[] locals = new string[] { "-private", "-" + "", "" };//AppCurrent.Active.Rpc.Company, string.Empty };
 
             foreach (string local in locals)
             {

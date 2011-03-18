@@ -326,7 +326,7 @@ namespace GLTWarter.Pages
 
         protected void ShowPopulateError(string message)
         {
-            MessageBox.Show(AppCurrent.Active.MainWindow, message, this.Title);
+            MessageBox.Show(AppCurrent.Active.MainScreen, message, this.Title);
         }
 
         protected virtual void PreCommit()
@@ -585,7 +585,7 @@ namespace GLTWarter.Pages
 
         protected void Hyperlink_Click(object sender, RoutedEventArgs e)
         {
-           // App.Active.MainScreen.NavigateEntityDetails(((Hyperlink)sender).Tag);
+           // AppCurrent.Active.MainScreen.NavigateEntityDetails(((Hyperlink)sender).Tag);
         }
 
         protected virtual void pageNext_Return(object sender, ReturnEventArgs<Galant.DataEntity.BaseData> e)

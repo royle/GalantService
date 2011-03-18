@@ -27,12 +27,12 @@ namespace GLTWarter
         {
             Xceed.Wpf.DataGrid.Licenser.LicenseKey = "DGP31-M42XN-22M34-CWJA";
 
-            this.MainWindow = new MainScreen();
+            this.MainWindow = AppCurrent.Active.MainScreen = new MainScreen();
             if (new LoginScreen().ShowDialog() == false)
             {
                 Application.Current.Shutdown();
             }
-            this.MainWindow.Show();
+            AppCurrent.Active.MainScreen.Show();
         }
 
         void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

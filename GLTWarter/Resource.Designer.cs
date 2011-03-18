@@ -97,6 +97,51 @@ namespace GLTWarter {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Excel的工作表中数据少于两行，未能合并。.
+        /// </summary>
+        internal static string excelExportMergeWorksheetInvalidFormat {
+            get {
+                return ResourceManager.GetString("excelExportMergeWorksheetInvalidFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 未能打开Excel中的工作表。.
+        /// </summary>
+        internal static string excelExportMergeWorksheetMissing {
+            get {
+                return ResourceManager.GetString("excelExportMergeWorksheetMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to yyyy/MM/dd HH:mm:ss.
+        /// </summary>
+        internal static string exportDateFormat {
+            get {
+                return ResourceManager.GetString("exportDateFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 存档时出现以下错误，请再试一次：{0}.
+        /// </summary>
+        internal static string exportError {
+            get {
+                return ResourceManager.GetString("exportError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Excel文件 (*.xls;*.xlsx)|*.xls;*.xlsx|所有文件|*.*.
+        /// </summary>
+        internal static string msgFileDialogExcelFileFilter {
+            get {
+                return ResourceManager.GetString("msgFileDialogExcelFileFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 订水成功。.
         /// </summary>
         internal static string msgOrderCreated {
@@ -120,6 +165,15 @@ namespace GLTWarter {
         internal static string msgStationCreated {
             get {
                 return ResourceManager.GetString("msgStationCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 格兰特.
+        /// </summary>
+        internal static string ProductNameLong {
+            get {
+                return ResourceManager.GetString("ProductNameLong", resourceCulture);
             }
         }
         
@@ -162,6 +216,33 @@ namespace GLTWarter {
         internal static string validationEmptyPassword {
             get {
                 return ResourceManager.GetString("validationEmptyPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 请选择要导出的字段。.
+        /// </summary>
+        internal static string validationExportMergeColumnEmpty {
+            get {
+                return ResourceManager.GetString("validationExportMergeColumnEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 请选择要合并的Excel文件。.
+        /// </summary>
+        internal static string validationExportMergeDataExcelEmpty {
+            get {
+                return ResourceManager.GetString("validationExportMergeDataExcelEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 请以毫米为单位输入边距。输入的数字要等于或大于零。.
+        /// </summary>
+        internal static string validationInvalidLabelPadding {
+            get {
+                return ResourceManager.GetString("validationInvalidLabelPadding", resourceCulture);
             }
         }
         
