@@ -21,6 +21,13 @@ namespace Galant.DataEntity
 
         private Entity staffCurrent;
 
+        private Entity stationCurrent;
+        public Entity StationCurrent
+        {
+            get { return stationCurrent; }
+            set { stationCurrent = value; OnPropertyChanged("StationCurrent"); }
+        }
+
         /// <summary>
         /// 当前登陆用户
         /// </summary>
@@ -46,7 +53,16 @@ namespace Galant.DataEntity
                 OnPropertyChanged("Stations");
                 OnPropertyChanged("Customers");
                 OnPropertyChanged("Staffs");
+                OnPropertyChanged("Headquarters");
             }
+        }
+
+        /// <summary>
+        /// 总部
+        /// </summary>
+        public List<Entity> Headquarters
+        {
+            get { return Entities == null ? null : Entities.Where(e=>e.EntityType == EntityType.Headquarter).ToList(); }
         }
 
         /// <summary>

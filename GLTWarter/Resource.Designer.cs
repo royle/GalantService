@@ -61,6 +61,15 @@ namespace GLTWarter {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}.
+        /// </summary>
+        internal static string converterEntityRolesMap {
+            get {
+                return ResourceManager.GetString("converterEntityRolesMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} ({1}).
         /// </summary>
         internal static string converterRouteName {

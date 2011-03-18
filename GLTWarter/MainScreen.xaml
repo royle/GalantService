@@ -14,7 +14,17 @@
         <src:MainWindowWeighScaleSelectionConverter x:Key="MainWindowWeighScaleSelectionConverter"/>
         <src:MainWindowWeighScaleCheckConverter x:Key="MainWindowWeighScaleCheckConverter"/>
         <Style x:Key="EffectiveRoleStyle" TargetType="{x:Type MenuItem}">
-            <Style.Setters>                             
+            <Style.Setters>
+                <EventSetter Event="Click" Handler="MenuItem_EffectiveRole_Click"></EventSetter>
+                <Setter Property="Tag" Value="{Binding}"/>
+                <Setter Property="IsChecked">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource MainWindowEffectiveRoleCheckConverter}" Mode="OneWay">
+                            <Binding />
+                            <Binding Source="{x:Static src:AppCurrent.Active}" Path="AppCach.StationCurrent"/>
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="Header" Value="{Binding Converter={StaticResource MainWindowEntityRolesMapHeaderConverter}}"/>
             </Style.Setters>
         </Style>
@@ -61,12 +71,32 @@
     </Window.InputBindings>
     <DockPanel>
         <Menu Name="menu1" IsMainMenu="True" VerticalAlignment="Top" DockPanel.Dock="Top" KeyboardNavigation.TabNavigation="None">
-           
+            <MenuItem Header="转到(_G)" Name="menuGo">
+                <MenuItem Header="回主画面(_H)" InputGestureText="F12" Command="src:MainScreen.BrowseHomepage" />
+                <Separator />
+                <MenuItem Header="开新页面(_T)" InputGestureText="Ctrl+T" Command="src:MainScreen.NewTab" />
+                <MenuItem Header="关闭页面(_C)"  InputGestureText="Ctrl+W" Command="src:MainScreen.CloseTab" />
+            </MenuItem>
+            <MenuItem Header="切换地点(_E)"
+                      Name="menuEffectiveRole">
+                <MenuItem Header="总部(_H)" ItemsSource="{Binding Source={x:Static src:AppCurrent.Active}, Path=AppCach.Headquarters}"
+                          ItemContainerStyle="{StaticResource EffectiveRoleStyle}" Name="menuEffectiveRoleHq">
+                </MenuItem>
+                <MenuItem Header="站点(_S)" ItemsSource="{Binding Source={x:Static src:AppCurrent.Active}, Path=AppCach.Stations}"
+                          ItemContainerStyle="{StaticResource EffectiveRoleStyle}" Name="menuEffectiveRoleStation">
+                </MenuItem>
+            </MenuItem>
         </Menu>
         <ItemsControl DockPanel.Dock="Top" Style="{StaticResource NotificationBar}" Padding="3" Focusable="False">
             <TextBlock  TextWrapping="Wrap" Margin="2">
                 <InlineUIContainer BaselineAlignment="Center"></InlineUIContainer>
                </TextBlock>
+            <TextBlock Visibility="{Binding Rpc.IsCredentialOverride, Source={x:Static src:AppCurrent.Active}, Converter={StaticResource BooleanNotVisibilityConverter}}" TextWrapping="Wrap" Margin="2">
+                <InlineUIContainer BaselineAlignment="Center"><Image Source="pack://application:,,,/GLTWarter;component/Resources/ok.png" Height="16" Width="16" /></InlineUIContainer>
+                操作身份: <TextBlock Text="{Binding AppCach.StaffCurrent, Source={x:Static src:AppCurrent.Active}, Converter={StaticResource EntityNameConverter}}" />
+                <TextBlock Text="    "></TextBlock>
+                当前地点: <TextBlock Text="{Binding AppCach.StationCurrent,Source={x:Static src:AppCurrent.Active}, Converter={StaticResource EntityNameConverter}}" Name="labelSelectedEntity" />
+            </TextBlock>
         </ItemsControl>
         
         <my:BrowserTabControl Margin="0,2,0,0" x:Name="tabPageControl" Focusable="False">

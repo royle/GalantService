@@ -109,6 +109,12 @@ namespace GLTWarter
         #region Menu
 
 
+        private void MenuItem_EffectiveRole_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem m = ((MenuItem)e.Source);
+            AppCurrent.Active.AppCach.StationCurrent = m.Tag as Galant.DataEntity.Entity;
+        }
+
         /// <summary>
         /// Whenever you press F12 , you will be navigated to the Welcome.xaml.
         /// </summary>
@@ -229,7 +235,11 @@ namespace GLTWarter
     public class MainWindowEffectiveRoleCheckConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {            
+        {
+            if (AppCurrent.Active.AppCach.StationCurrent!= null)
+            {
+                return AppCurrent.Active.AppCach.StationCurrent == values[0] as Galant.DataEntity.Entity;
+            }
             return false;
         }
 
@@ -282,7 +292,11 @@ namespace GLTWarter
     {
         public object Convert(object values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return false;
+            Galant.DataEntity.Entity rm = values as Galant.DataEntity.Entity;
+            return string.Format(
+                System.Globalization.CultureInfo.CurrentCulture,
+                Resource.converterEntityRolesMap,
+                Data.EntityNameConverter.Convert(rm));
         }
 
         public object ConvertBack(object value, Type targetTypes, object parameter, System.Globalization.CultureInfo culture)

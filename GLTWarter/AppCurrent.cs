@@ -17,15 +17,22 @@ namespace GLTWarter
         /// 当前登陆用户
         /// </summary>
         public Galant.DataEntity.Entity StaffCurrent { get; set; }
+
+        private Galant.DataEntity.AppStatusCach appCach;
+
         /// <summary>
         /// 当前程序缓存
         /// </summary>
-        public Galant.DataEntity.AppStatusCach AppCach { get; set; }
+        public Galant.DataEntity.AppStatusCach AppCach {
+            get { return appCach; }
+            set { appCach = value; OnPropertyChanged("AppCach"); }
+        }
+        static private AppCurrent active;
 
         static public AppCurrent Active
         {
-            get;
-            set;
+            get { return active; }
+            set { active = value;}
         }
 
         public AppCurrent()
