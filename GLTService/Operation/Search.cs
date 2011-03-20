@@ -13,6 +13,18 @@ namespace GLTService.Operation
             searchResult.ResultData = entity.GetEntitysByConditions(data, searchResult.SearchCondition);
             return searchResult;
         }
+        /// <summary>
+        /// 获取归班运送单列表
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="searchResult"></param>
+        /// <returns></returns>
+        public Galant.DataEntity.Result.FinishingListResult SearchFinishingList(Operation.BaseEntity.DataOperator data, Galant.DataEntity.Result.FinishingListResult searchResult)
+        {
+            GLTService.Operation.BaseEntity.Paper paper = new BaseEntity.Paper(data);
+            searchResult.ResultData = paper.GetFinishList(data, searchResult.SearchCondition.Station);
+            return searchResult;
+        }
 
         public Galant.DataEntity.Production.Result SearchProduction(Operation.BaseEntity.DataOperator data, Galant.DataEntity.Production.Result result)
         {

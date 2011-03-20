@@ -104,16 +104,16 @@ namespace Galant.DataEntity
             get { return paperId; }
             set { paperId = value; OnPropertyChanged("PaperId"); }
         }
-        private PaperStatus paperStatus;
+        private PaperStatus? paperStatus;
         [DataMember]
-        public PaperStatus PaperStatus
+        public PaperStatus? PaperStatus
         {
             get { return paperStatus; }
             set { paperStatus = value; OnPropertyChanged("PaperStatus"); }
         }
-        private PaperSubState paperSubStatus;
+        private PaperSubState? paperSubStatus;
         [DataMember]
-        public PaperSubState PaperSubStatus
+        public PaperSubState? PaperSubStatus
         {
             get { return paperSubStatus; }
             set { paperSubStatus = value; OnPropertyChanged("PaperSubStatus"); }
@@ -125,9 +125,9 @@ namespace Galant.DataEntity
             get { return holder; }
             set { holder = value; OnPropertyChanged("Holder"); }
         }
-        private PaperBound bound;
+        private PaperBound? bound;
         [DataMember]
-        public PaperBound Bound
+        public PaperBound? Bound
         {
             get { return bound; }
             set { bound = value; OnPropertyChanged("Bound"); }
@@ -175,46 +175,46 @@ namespace Galant.DataEntity
             set { deliverC = value; OnPropertyChanged("DeliverC"); }
         }
 
-        private DateTime deliverATime;
+        private DateTime? deliverATime;
         [DataMember]
-        public DateTime DeliverATime
+        public DateTime? DeliverATime
         {
             get { return deliverATime; }
             set { deliverATime = value; OnPropertyChanged("DeliverATime"); }
         }
-        private DateTime deliverBTime;
+        private DateTime? deliverBTime;
         [DataMember]
-        public DateTime DeliverBTime
+        public DateTime? DeliverBTime
         {
             get { return deliverBTime; }
             set { deliverBTime = value; OnPropertyChanged("DeliverBTime"); }
         }
-        private DateTime deliverCTime;
+        private DateTime? deliverCTime;
         [DataMember]
-        public DateTime DeliverCTime
+        public DateTime? DeliverCTime
         {
             get { return deliverCTime; }
             set { deliverCTime = value; OnPropertyChanged("DeliverCTime"); }
         }
 
-        private DateTime startTime;
+        private DateTime? startTime;
         [DataMember]
-        public DateTime StartTime
+        public DateTime? StartTime
         {
             get { return startTime; }
             set { startTime = value; OnPropertyChanged("StartTime"); }
         }
-        private DateTime finishTime;
+        private DateTime? finishTime;
         [DataMember]
-        public DateTime FinishTime
+        public DateTime? FinishTime
         {
             get { return finishTime; }
             set { finishTime = value; OnPropertyChanged("FinishTime"); }
         }
 
-        private decimal salary;
+        private decimal? salary;
         [DataMember]
-        public decimal Salary
+        public decimal? Salary
         {
             get { return salary; }
             set { salary = value; OnPropertyChanged("Salary"); }
@@ -226,9 +226,9 @@ namespace Galant.DataEntity
             get { return comment; }
             set { comment = value; OnPropertyChanged("Comment"); }
         }
-        private PaperType paperType;
+        private PaperType? paperType;
         [DataMember]
-        public PaperType PaperType
+        public PaperType? PaperType
         {
             get { return paperType; }
             set { paperType = value; OnPropertyChanged("PaperType"); }
@@ -240,9 +240,9 @@ namespace Galant.DataEntity
             get { return nextRoute; }
             set { nextRoute = value; OnPropertyChanged("NextRoute"); }
         }
-        private PaperSubState mobileStatus;
+        private PaperSubState? mobileStatus;
         [DataMember]
-        public PaperSubState MobileStatus
+        public PaperSubState? MobileStatus
         {
             get { return mobileStatus; }
             set { mobileStatus = value; OnPropertyChanged("MobileStatus"); }
@@ -262,6 +262,11 @@ namespace Galant.DataEntity
         {
             get { return childPapers; }
             set { childPapers = value; OnPropertyChanged("ChildPapers"); }
+        }
+
+        public int? ChildsCount
+        {
+            get { return ChildPapers == null ? 0 : ChildPapers.Count; }
         }
 
         private List<Route> routes;

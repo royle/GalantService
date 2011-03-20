@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using MySql.Data.MySqlClient;
+using GLTService.DBConnector;
 
 namespace GLTService.Operation.BaseEntity
 {
@@ -61,6 +62,110 @@ namespace GLTService.Operation.BaseEntity
         {
             TableName = "papers";
         }
+
+
+        public List<Galant.DataEntity.Paper> GetFinishList(DataOperator dataOper, Galant.DataEntity.Entity station)
+        {
+            string SqlSearch = @"select p.* from papers as p join event_logs as e on p.paper_id = e.paper_id 
+                where p.is_collection and e.event_id = 
+                (select max(event_id) from event_logs where event_type ='CKO-B' and paper_id = p.paper_id)
+                and p.substate = @substate 
+                and e.at_station = @at_station";
+            List<MySqlParameter> paras = new List<MySqlParameter>();
+            paras.Add(new MySqlParameter("@substate", (int)Galant.DataEntity.PaperSubState.InTransit));
+            paras.Add(new MySqlParameter("@at_station", station.EntityId));
+
+            DataTable dt = SqlHelper.ExecuteDataset(dataOper.myConnection, CommandType.Text, SqlSearch,paras.ToArray()).Tables[0];
+            List<Galant.DataEntity.Paper> papers = new List<Galant.DataEntity.Paper>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                papers.Add(MappingRow(dr, dataOper));
+            }
+            return papers;
+        }
+
+        private List<Galant.DataEntity.Paper> GetPaperChilders(DataOperator dataOper, Galant.DataEntity.Paper paper)
+        {
+            if (!paper.IsCollection)
+                return null;
+            string SqlSearch = @"select p.* from papers as p where p.paper_id in (select paper_id from paper_links as pl where pl.parent_id in (select link_id from paper_links where paper_id = @paper_id) and able_flag)";
+            List<MySqlParameter> paras = new List<MySqlParameter>();
+            paras.Add(new MySqlParameter("@paper_id", paper.PaperId));
+            DataTable dt = SqlHelper.ExecuteDataset(dataOper.myConnection, CommandType.Text, SqlSearch, paras.ToArray()).Tables[0];
+            List<Galant.DataEntity.Paper> papers = new List<Galant.DataEntity.Paper>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                papers.Add(MappingRow(dr, dataOper));
+            }
+            return papers;
+
+        }
+
+        public Galant.DataEntity.Paper MappingRow(DataRow dr, DataOperator dataOper)
+        {
+            if (dr == null)
+                return null;
+            Entity entityOper = new Entity(dataOper);
+            Galant.DataEntity.Paper paper = new Galant.DataEntity.Paper();
+            if (!string.IsNullOrEmpty(dr["paper_id"].ToString()))
+                paper.PaperId = dr["paper_id"].ToString();
+            if (!string.IsNullOrEmpty(dr["status"].ToString()))
+                paper.PaperStatus = (Galant.DataEntity.PaperStatus)(Convert.ToInt32(dr["status"]));
+            if (!string.IsNullOrEmpty(dr["substate"].ToString()))
+                paper.PaperSubStatus = (Galant.DataEntity.PaperSubState)(Convert.ToInt32(dr["substate"]));
+            if (!string.IsNullOrEmpty(dr["holder"].ToString()))
+                paper.Holder = entityOper.GetEntityByID(dataOper, dr["holder"].ToString(), false);
+            if (!string.IsNullOrEmpty(dr["bound"].ToString()))
+                paper.Bound = (Galant.DataEntity.PaperBound)(Convert.ToInt32(dr["bound"]));
+            if (!string.IsNullOrEmpty(dr["contact_a"].ToString()))
+                paper.ContactA = entityOper.GetEntityByID(dataOper, dr["contact_a"].ToString(), false);
+            if (!string.IsNullOrEmpty(dr["contact_b"].ToString()))
+                paper.ContactB = entityOper.GetEntityByID(dataOper, dr["contact_b"].ToString(), false);
+            if (!string.IsNullOrEmpty(dr["contact_c"].ToString()))
+                paper.ContactC = entityOper.GetEntityByID(dataOper, dr["contact_c"].ToString(), false);
+
+            if (!string.IsNullOrEmpty(dr["deliver_a"].ToString()))
+                paper.DeliverA = entityOper.GetEntityByID(dataOper, dr["deliver_a"].ToString(), false);
+            if (!string.IsNullOrEmpty(dr["deliver_b"].ToString()))
+                paper.DeliverB = entityOper.GetEntityByID(dataOper, dr["deliver_b"].ToString(), false);
+            if (!string.IsNullOrEmpty(dr["deliver_c"].ToString()))
+                paper.DeliverC = entityOper.GetEntityByID(dataOper, dr["deliver_c"].ToString(), false);
+
+            if (!string.IsNullOrEmpty(dr["deliver_a_time"].ToString()))
+                paper.DeliverATime = Convert.ToDateTime(dr["deliver_a_time"]);
+            if (!string.IsNullOrEmpty(dr["deliver_b_time"].ToString()))
+                paper.DeliverBTime = Convert.ToDateTime(dr["deliver_b_time"]);
+            if (!string.IsNullOrEmpty(dr["deliver_c_time"].ToString()))
+                paper.DeliverCTime = Convert.ToDateTime(dr["deliver_c_time"]);
+
+            if (!string.IsNullOrEmpty(dr["start_time"].ToString()))
+                paper.StartTime = Convert.ToDateTime(dr["start_time"]);
+            if (!string.IsNullOrEmpty(dr["finish_time"].ToString()))
+                paper.FinishTime = Convert.ToDateTime(dr["finish_time"]);
+
+            if (!string.IsNullOrEmpty(dr["salary"].ToString()))
+                paper.Salary = Convert.ToDecimal(dr["salary"]);
+            paper.Comment = dr["comment"].ToString();
+
+            if (!string.IsNullOrEmpty(dr["type"].ToString()))
+                paper.PaperType = (Galant.DataEntity.PaperType)(Convert.ToInt32(dr["type"]));
+
+            if (!string.IsNullOrEmpty(dr["next_route"].ToString()))
+            {
+                Route r = new Route(dataOper);
+                paper.NextRoute = r.GetRouteByID(dr["next_route"].ToString(), dataOper);
+            }
+
+            if (!string.IsNullOrEmpty(dr["mobile_status"].ToString()))
+                paper.MobileStatus = (Galant.DataEntity.PaperSubState)(Convert.ToInt32(dr["mobile_status"]));
+
+            if (!string.IsNullOrEmpty(dr["is_collection"].ToString()))
+                paper.IsCollection = Convert.ToBoolean(dr["is_collection"]);
+            if (paper.IsCollection)
+                paper.ChildPapers = this.GetPaperChilders(dataOper, paper);
+            return paper;
+        }
+
 
         public override bool AddNewData(Galant.DataEntity.BaseData data)
         {

@@ -83,6 +83,10 @@ namespace GLTWarter.Pages
         {
             AppCurrent.Active.AppCach = incomingData as Galant.DataEntity.AppStatusCach;
             AppCurrent.Active.StaffCurrent = AppCurrent.Active.AppCach.StaffCurrent;
+            if(AppCurrent.Active.AppCach.StaffCurrent.Roles!=null && AppCurrent.Active.AppCach.StaffCurrent.Roles.Count>0)
+            {
+                AppCurrent.Active.AppCach.StationCurrent = AppCurrent.Active.AppCach.StaffCurrent.Roles[0].Station;
+            }
             OnVerdictReceived(incomingData);
         }
 

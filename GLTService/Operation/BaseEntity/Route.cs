@@ -83,5 +83,35 @@ VALUES (
             }
             return null;
         }
+
+        public Galant.DataEntity.Route GetRouteByID(string routeID,DataOperator data)
+        {
+            string SqlSearch = this.BuildSearchSQLByKey(routeID);
+            DataTable dt = SqlHelper.ExecuteDataset(data.myConnection, CommandType.Text, SqlSearch).Tables[0];
+            foreach (DataRow dr in dt.Rows)
+            {
+                return MappingRow(dr, data);
+            }
+            return null;
+        }
+
+        private Galant.DataEntity.Route MappingRow(DataRow dr, DataOperator data)
+        {
+            Entity entity = new Entity(data);
+            List<Galant.DataEntity.Entity> routeEntitys = entity.GetRoutedEntitys(data);
+            Galant.DataEntity.Route route = new Galant.DataEntity.Route();
+            route.RouteId = Convert.ToInt32(dr["Route_ID"]);
+            route.RountName = dr["Route_Name"].ToString();
+            if (dr["to_entity"] != null)
+            {
+                route.ToEntity = routeEntitys.Where(e => e.EntityId == Convert.ToInt32(dr["to_entity"])).FirstOrDefault();
+            }
+            if (dr["from_entity"] != null)
+            {
+                route.FromEntity = routeEntitys.Where(e => e.EntityId == Convert.ToInt32(dr["from_entity"])).FirstOrDefault();
+            }
+            route.IsFinally = Convert.ToBoolean(dr["Is_finally"]);
+            return route;
+        }
     }
 }

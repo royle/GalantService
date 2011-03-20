@@ -61,7 +61,7 @@ DROP TABLE IF EXISTS `event_logs`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `event_logs` (
   `event_id` int(11) NOT NULL AUTO_INCREMENT,
-  `paper_id` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `paper_id` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL,
   `insert_time` datetime NOT NULL,
   `relation_entity` int(11) NOT NULL,
   `entity_id` int(11) DEFAULT NULL,
@@ -92,7 +92,7 @@ DROP TABLE IF EXISTS `origin_paper_links`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `origin_paper_links` (
   `link_id` int(11) NOT NULL AUTO_INCREMENT,
-  `paper_id` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `paper_id` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL,
   `origin_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`link_id`),
   KEY `origin_paper_id_relate` (`paper_id`),
@@ -122,7 +122,7 @@ CREATE TABLE `packages` (
   `count` decimal(8,0) NOT NULL DEFAULT '1',
   `amount` decimal(10,2) NOT NULL,
   `origin_amount` decimal(10,2) NOT NULL,
-  `paper_id` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `paper_id` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
   `state` int(11) NOT NULL,
   PRIMARY KEY (`package_id`),
   KEY `package_paper_id_relate` (`paper_id`),
@@ -150,7 +150,7 @@ DROP TABLE IF EXISTS `paper_links`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `paper_links` (
   `link_id` int(11) NOT NULL AUTO_INCREMENT,
-  `paper_id` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `paper_id` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
   `able_flag` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`link_id`),
@@ -177,7 +177,7 @@ DROP TABLE IF EXISTS `paper_routes`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `paper_routes` (
   `step_id` int(11) NOT NULL AUTO_INCREMENT,
-  `paper_id` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
+  `paper_id` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
   `route_id` int(11) NOT NULL,
   `is_routed` tinyint(1) NOT NULL,
   `able_flag` tinyint(1) NOT NULL,

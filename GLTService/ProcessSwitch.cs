@@ -48,6 +48,10 @@ namespace GLTService
                         search = new Search();
                        //returnData = search
                         break;
+                    case "SearchFinishingList":
+                        search = new Search();
+                        returnData = search.SearchFinishingList(dataOper, DetailObj as Galant.DataEntity.Result.FinishingListResult);
+                        break;
                     case "Refresh":
                         returnData = ProcessRefresh(dataOper, DetailObj);
                         break;

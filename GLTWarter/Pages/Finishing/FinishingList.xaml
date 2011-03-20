@@ -9,7 +9,7 @@
     xmlns:styles="clr-namespace:GLTWarter.Styles"                   
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
-	Title="归班结算">
+	Title="归班结算" Loaded="DetailsBase_Loaded">
     <Page.Resources>
        <xcdg:DataGridCollectionViewSource AutoCreateItemProperties="False" x:Key="DeliveryManData" Source="{Binding HolderResultData, FallbackValue={x:Null}}" >
             <xcdg:DataGridCollectionViewSource.SortDescriptions>
@@ -20,16 +20,16 @@
                 <xcdg:DataGridItemProperty IsReadOnly="True" Name="PackagesCount" DataType="{x:Type sys:Int32}" />
             </xcdg:DataGridCollectionViewSource.ItemProperties>
         </xcdg:DataGridCollectionViewSource>
-        <xcdg:DataGridCollectionViewSource AutoCreateDetailDescriptions="False" x:Key="CollectionData" Source="{Binding Data, FallbackValue={x:Null}}">
+        <xcdg:DataGridCollectionViewSource AutoCreateDetailDescriptions="False" x:Key="CollectionData" Source="{Binding ResultData, FallbackValue={x:Null}}">
             <xcdg:DataGridCollectionViewSource.SortDescriptions>
-                <scm:SortDescription PropertyName="LastUpdateTime" Direction="Descending" />
+                <scm:SortDescription PropertyName="StartTime" Direction="Descending" />
             </xcdg:DataGridCollectionViewSource.SortDescriptions>
             <xcdg:DataGridCollectionViewSource.ItemProperties>
-                <xcdg:DataGridItemProperty IsReadOnly="True" Name="ShipmentId"  DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="PaperId"  DataType="{x:Type sys:String}" />
                 <xcdg:DataGridItemProperty IsReadOnly="True" Name="Holder" Converter="{StaticResource EntityNameConverter}"  DataType="{x:Type sys:String}" />
-                <xcdg:DataGridItemProperty IsReadOnly="True" Name="SubStatus" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource ShipmentSubStatus}"  DataType="{x:Type sys:String}" />
-                <xcdg:DataGridItemProperty IsReadOnly="True" Name="NextHop" Converter="{StaticResource RouteNameConverter}"  DataType="{x:Type sys:String}" />
-                <xcdg:DataGridItemProperty IsReadOnly="True" Name="LastUpdateTime"  DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="PaperSubStatus" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource ShipmentSubStatus}"  DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="NextRoute" Converter="{StaticResource RouteNameConverter}"  DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="StartTime"  DataType="{x:Type sys:String}" />
             </xcdg:DataGridCollectionViewSource.ItemProperties>
         </xcdg:DataGridCollectionViewSource>
     </Page.Resources>
@@ -45,7 +45,7 @@
             <ScrollViewer Name="SearchView" Grid.Row="0" VerticalScrollBarVisibility="Auto" Margin="5,10">
                 <StackPanel>
 						<TextBlock Margin="0,2">
-						所有有待 <TextBlock Text="{Binding Path=Station, Converter={StaticResource EntityNameConverter}}" FontWeight="Bold" /> 归班的配送单。
+						所有有待 <TextBlock Text="{Binding Path=SearchCondition.Station, Converter={StaticResource EntityNameConverter}}" FontWeight="Bold" /> 归班的配送单。
 						</TextBlock>
                     <Button Style="{StaticResource SearchButtonStyle}" Click="buttonNext_Click" Name="buttonSearch" />
                 </StackPanel>
@@ -69,11 +69,11 @@
 								<xcdg:TableView ColumnStretchMode="First" />
 							</xcdg:DataGridControl.View>
 							<xcdg:DataGridControl.Columns>
-								<xcdg:Column Title="配送单号" Width="120"  FieldName="ShipmentId" ReadOnly="True" />
+                                <xcdg:Column Title="配送单号" Width="120"  FieldName="PaperId" ReadOnly="True" />
 								<xcdg:Column Title="配送员" Width="120"  FieldName="Holder" ReadOnly="True" />
 								<xcdg:Column Title="状态" Width="50"  FieldName="SubStatus" ReadOnly="True" />
-								<xcdg:Column Title="配送路线" Width="120"  FieldName="NextHop" ReadOnly="True" />
-								<xcdg:Column Title="出库时间" Width="120"  FieldName="LastUpdateTime" ReadOnly="True" />
+                                <xcdg:Column Title="配送路线" Width="120"  FieldName="NextRoute" ReadOnly="True" />
+                                <xcdg:Column Title="出库时间" Width="120"  FieldName="StartTime" ReadOnly="True" />
 							</xcdg:DataGridControl.Columns>
 						</xcdg:DataGridControl>
 					</TabItem>

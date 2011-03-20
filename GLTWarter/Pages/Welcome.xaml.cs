@@ -160,7 +160,9 @@ namespace GLTWarter.Pages
         private void WarterFinishing_Click(object sender, RoutedEventArgs e)
         {
             Galant.DataEntity.Result.FinishingListResult data = new Galant.DataEntity.Result.FinishingListResult();
-            data.Operation = "SearchFinishList";
+            data.SearchCondition = new Galant.DataEntity.Search.FinishListCondition();
+            data.SearchCondition.Station = AppCurrent.Active.AppCach.StationCurrent;
+            data.Operation = "SearchFinishingList";
             this.NavigationService.Navigate(new GLTWarter.Pages.Finishing.FinishingList(data));
         }
     }

@@ -31,7 +31,7 @@ namespace GLTWarter.Pages.Finishing
 
         protected override void OnNext(Galant.DataEntity.BaseData incomingData)
         {
-            incomingData.Operation = "FinishingList";
+            incomingData.Operation = "SearchFinishingList";
             this.DataContext = incomingData;
             this.dataCurrent = incomingData;
         }
@@ -48,6 +48,11 @@ namespace GLTWarter.Pages.Finishing
                 return;
 
             SelectedTab = (TabItem)e.AddedItems[0];
+        }
+
+        private void DetailsBase_Loaded(object sender, RoutedEventArgs e)
+        {
+            base.buttonNext_Click(sender, e);
         }
        
     }
