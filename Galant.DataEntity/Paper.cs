@@ -97,6 +97,8 @@ namespace Galant.DataEntity
     [DataContract]
     public class Paper:BaseData
     {
+        public Paper():base()
+        { }
         private String paperId;
         [DataMember]
         public String PaperId
@@ -253,7 +255,13 @@ namespace Galant.DataEntity
         public List<String> OriginName
         {
             get { return originName; }
-            set { originName = value; OnPropertyChanged("OriginName"); }
+            set { originName = value; OnPropertyChanged("OriginName"); OnPropertyChanged("OriginReference"); }
+        }
+
+        [IgnoreDataMember]
+        public String OriginReference
+        {
+            get { return string.Join(Environment.NewLine, originName); }
         }
 
         private List<Paper> childPapers;
@@ -269,9 +277,9 @@ namespace Galant.DataEntity
             get { return ChildPapers == null ? 0 : ChildPapers.Count; }
         }
 
-        private List<Route> routes;
+        private Route routes;
         [DataMember]
-        public List<Route> Routes
+        public Route Routes
         {
             get { return routes; }
             set { routes = value; OnPropertyChanged("Routes"); }

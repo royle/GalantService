@@ -80,7 +80,7 @@ namespace GLTService.Operation.BaseEntity
                 entity.Deposit = Convert.ToDecimal(dr["Deposit"]);
 
             if (string.IsNullOrEmpty(dr["Pay_type"].ToString()))
-                entity.PayType = null;
+                entity.PayType = Galant.DataEntity.PayType.AtTime;
             else
                 entity.PayType = (Galant.DataEntity.PayType)dr["Pay_type"];
 

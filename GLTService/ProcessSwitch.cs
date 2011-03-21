@@ -46,7 +46,7 @@ namespace GLTService
                         break;
                     case "SearchCenterRoute":
                         search = new Search();
-                       //returnData = search
+                        returnData = search.SearchCenterRoute(dataOper, DetailObj as Galant.DataEntity.Assign.Result);
                         break;
                     case "SearchFinishingList":
                         search = new Search();
@@ -67,6 +67,7 @@ namespace GLTService
                 }
                 dataOper.CommitAndClose();
             }
+            
             catch (Exception ex)
             {
                 dataOper.RollBackAndClose();

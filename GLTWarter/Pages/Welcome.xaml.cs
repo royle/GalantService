@@ -121,12 +121,11 @@ namespace GLTWarter.Pages
 
         private void linkWarterOrder_Click(object sender, RoutedEventArgs e)
         {
-            Galant.DataEntity.Paper paper = new Galant.DataEntity.Paper();
+            Galant.DataEntity.Paper paper = new Galant.DataEntity.Paper() { PaperType = Galant.DataEntity.PaperType.Product, IsCollection = false, Bound = Galant.DataEntity.PaperBound.ToB };
             paper.ContactB = new Galant.DataEntity.Entity();
             paper.Packages = new ObservableCollection<Galant.DataEntity.Package>();
             paper.Operation = BaseOperatorName.DataSave;
             this.NavigationService.Navigate(new GLTWarter.Pages.Order.CustomerServiceBookingOrder(paper));
-
         }
 
         private void linkDeliverOrder_Click(object sender, RoutedEventArgs e)

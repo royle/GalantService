@@ -185,6 +185,15 @@ namespace GLTService.Operation.BaseEntity
             return MappingTable(dt);
         }
 
+        public virtual BaseData SearchById(string id)
+        {
+            String SqlSearch = BuildSearchSQLByKey(id);
+            DataTable dt = SqlHelper.ExecuteDataset(Operator.myConnection, CommandType.Text, SqlSearch).Tables[0];
+            if (dt.Rows.Count == 0)
+                return null;//应该报错
+            return MappingRow(dt.Rows[0]);
+        }
+
         public List<BaseData> MappingTable(DataTable table)
         {
             if (table == null)

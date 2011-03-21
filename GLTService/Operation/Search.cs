@@ -28,14 +28,16 @@ namespace GLTService.Operation
 
         public Galant.DataEntity.Production.Result SearchProduction(Operation.BaseEntity.DataOperator data, Galant.DataEntity.Production.Result result)
         {
-            GLTService.Operation.BaseEntity.Product product = new BaseEntity.Product();
+            GLTService.Operation.BaseEntity.Product product = new BaseEntity.Product(data);
             result.ResultData = product.SearchProductes(data, result.SearchCondition);
             return result;
         }
 
-        public Galant.DataEntity.Assign.Result SearchCenterRoute(Operation.BaseEntity.DataOperator data, Galant.DataEntity.Production.Result result)
+        public Galant.DataEntity.Assign.Result SearchCenterRoute(Operation.BaseEntity.DataOperator data, Galant.DataEntity.Assign.Result result)
         {
-            return null;
+            Assign.CenterAssign center = new Assign.CenterAssign(data);
+            result.ResultData = center.ReadCenterAssgin();
+            return result;
         }
     }
 }

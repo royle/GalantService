@@ -15,13 +15,15 @@
         <xcdg:DataGridCollectionViewSource x:Key="ResultData" Source="{Binding ResultData, FallbackValue={x:Null}}" AutoCreateItemProperties="False">
             <xcdg:DataGridCollectionViewSource.ItemProperties>
                 <xcdg:DataGridItemProperty IsReadOnly="True" Name="ProductName" DataType="{x:Type sys:String}" />
-                <xcdg:DataGridItemProperty IsReadOnly="True" Name="Alias" DataType="{x:Type sys:String}" />
-                <xcdg:DataGridItemProperty IsReadOnly="True" Name="ProductType" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource ProductType}" />
-                <xcdg:DataGridItemProperty IsReadOnly="True" Name="Amount" DataType="{x:Type sys:String}" />
-                <xcdg:DataGridItemProperty IsReadOnly="True" Name="AbleFlag" Converter="{StaticResource BooleanNotConverter}" DataType="{x:Type sys:Boolean}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="PaperStatus" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource PaperSubState}" DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="Bound" DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="Comment" DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="NextRoute" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource ProductType}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="Packages" DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="ContactB.AddressChild" Converter="{StaticResource BooleanNotConverter}" DataType="{x:Type sys:Boolean}" />
             </xcdg:DataGridCollectionViewSource.ItemProperties>
             <xcdg:DataGridCollectionViewSource.SortDescriptions>
-                <scm:SortDescription PropertyName="ProductType" Direction="Ascending" />
+                <scm:SortDescription PropertyName="NextRoute" Direction="Ascending" />
             </xcdg:DataGridCollectionViewSource.SortDescriptions>
         </xcdg:DataGridCollectionViewSource>
     </Page.Resources>
@@ -30,8 +32,6 @@
             <Button IsDefault="True">调度</Button>
             <Button IsCancel="False">取消</Button>
         </my:DetailsPagePresenter.LatestVersionButtonsPanel>
-
-        
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />

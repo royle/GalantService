@@ -20,10 +20,14 @@ namespace GLTService.Operation.BaseEntity
         {
             get
             {
-                return @"INSERT INTO routes(
-Route_Name,from_entity,to_entity,Is_finally)
-VALUES (
-@Route_Name,@from_entity,@to_entity,@Is_finally)";
+                return SqlInsertDataSql;
+            }
+        }
+        public override string SqlUpdateSql
+        {
+            get
+            {
+                return SqlUpdateDataSql;
             }
         }
 

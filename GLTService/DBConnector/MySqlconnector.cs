@@ -16,7 +16,7 @@ namespace GLTService.DBConnector
 {
     public class MySqlconnector
     {
-        private static string mySqlConnectString = "Server=127.0.0.1;Port=3306;Database=GLT;Uid=root;Pwd=;";
+        private static string mySqlConnectString = string.Empty;
 
         private static string MySqlConnectString
         {

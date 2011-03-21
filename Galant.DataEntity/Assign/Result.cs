@@ -15,12 +15,42 @@ namespace Galant.DataEntity.Assign
             set { searchCondition = value; OnPropertyChanged("SearchCondition"); }
         }
 
-        private List<Galant.DataEntity.Paper> resultData;
-        public List<Galant.DataEntity.Paper> ResultData
+        private List<CenterAssignData> resultData;
+        public List<CenterAssignData> ResultData
         {
             get { return resultData; }
             set { resultData = value; OnPropertyChanged("ResultData"); }
         }
 
+    }
+
+    public class CenterAssignData:Paper
+    {
+
+        public override bool IsMarked
+        {
+            get
+            {
+                return base.IsMarked;
+            }
+            set
+            {
+                base.IsMarked = value;
+                OnPropertyChanged("MarkMode");
+            }
+        }
+
+        bool hasNewRoute;
+        public bool HasNewRoute
+        {
+            get { return hasNewRoute; }
+            set { hasNewRoute = value; OnPropertyChanged("HasNewRoute"); OnPropertyChanged("MarkMode"); OnPropertyChanged("NewRouteTo"); }
+        }
+
+        public enum MarkModes { None, Standby, Confirm }
+        public MarkModes MarkMode
+        {
+            get { return IsMarked ? MarkModes.Standby : HasNewRoute ? MarkModes.Confirm : MarkModes.None; }
+        }
     }
 }
