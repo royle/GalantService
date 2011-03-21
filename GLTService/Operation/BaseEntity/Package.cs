@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
+using GLTService.DBConnector;
+using MySql.Data.MySqlClient;
 
 namespace GLTService.Operation.BaseEntity
 {
@@ -44,6 +47,28 @@ namespace GLTService.Operation.BaseEntity
             DicDataMapping.Add("OriginAmount", "Origin_Amount");
             DicDataMapping.Add("PaperId", "Paper_id");
             DicDataMapping.Add("PackageType", "State");
+        }
+
+        public List<Galant.DataEntity.Package> GetPackagesByPaper(DataOperator dataOper, string paperID)
+        {
+            string SqlSearch = @"select * from packages where paper_id = @paper_id";
+            List<MySqlParameter> paras = new List<MySqlParameter>();
+            paras.Add(new MySqlParameter("@paper_id", paperID));
+            DataTable dt = SqlHelper.ExecuteDataset(dataOper.myConnection, CommandType.Text, SqlSearch, paras.ToArray()).Tables[0];
+
+            List<Galant.DataEntity.Package> packages = new List<Galant.DataEntity.Package>();
+            if (dt.Rows.Count <= 0)
+                return packages;
+            Galant.DataEntity.Production.Search pSearch = new Galant.DataEntity.Production.Search();
+            Product product = new Product(dataOper);
+            List<Galant.DataEntity.Product> producs = product.SearchProductes(dataOper, pSearch);
+            foreach (DataRow dr in dt.Rows)
+            {
+                Galant.DataEntity.Package pg = MappingRow(dr) as Galant.DataEntity.Package;
+                pg.Product = producs.Where(p => p.ProductId == pg.ProductId).FirstOrDefault();
+                packages.Add(pg);
+            }
+            return packages;
         }
     }
 }

@@ -76,6 +76,7 @@
     <Compile Include="Production\Result.cs" />
     <Compile Include="Production\Search.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Result\FinishCheckin.cs" />
     <Compile Include="Result\FinishingListResult.cs" />
     <Compile Include="Result\SearchEntityResult.cs" />
     <Compile Include="Role.cs" />

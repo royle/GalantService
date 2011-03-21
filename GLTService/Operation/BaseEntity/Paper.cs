@@ -63,6 +63,23 @@ namespace GLTService.Operation.BaseEntity
             TableName = "papers";
         }
 
+        public List<Galant.DataEntity.Paper> GetCheckinPaperListByCollection(DataOperator dataOper,Galant.DataEntity.Result.FinishCheckin checkinData)
+        {
+            List<Galant.DataEntity.Paper> papers = new List<Galant.DataEntity.Paper>();
+            foreach (Galant.DataEntity.Paper p in checkinData.CheckinPapers)
+            {
+                papers.AddRange(this.GetPaperChilders(dataOper, p));
+            }
+            Package package = new Package(dataOper);
+            foreach (Galant.DataEntity.Paper p in papers)
+            {
+                foreach (Galant.DataEntity.Package pa in package.GetPackagesByPaper(dataOper, p.PaperId))
+                {
+                    p.Packages.Add(pa);
+                }
+            }
+            return null;
+        }
 
         public List<Galant.DataEntity.Paper> GetFinishList(DataOperator dataOper, Galant.DataEntity.Entity station)
         {

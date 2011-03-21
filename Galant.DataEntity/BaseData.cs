@@ -25,6 +25,7 @@ namespace Galant.DataEntity
     [KnownType(typeof(Galant.DataEntity.Assign.Result))]
     [KnownType(typeof(Galant.DataEntity.Search.FinishListCondition))]
     [KnownType(typeof(Galant.DataEntity.Result.FinishingListResult))]
+    [KnownType(typeof(Galant.DataEntity.Result.FinishCheckin))]
     public abstract class BaseData : IIdentifiable, INotifyPropertyChanged, IDataErrorInfo, ICloneable, IComparable
     {
         public BaseData(string operation)
