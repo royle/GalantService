@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 //using Xceed.Wpf.DataGrid;
 using System.Windows.Input;
+using Xceed.Wpf.DataGrid;
 
 namespace GLTWarter
 {
@@ -280,16 +281,16 @@ namespace GLTWarter
             catch (Exception) { }
         }
 
-        //static public void MoveHightlightToNext(this DataGridControl listResult)
-        //{
-        //    if (listResult.SelectedItems.Count == 1 && listResult.Items.Count > listResult.SelectedIndex + 1)
-        //    {
-        //        object itemNext = listResult.Items[listResult.SelectedIndex + 1];
-        //        listResult.BringItemIntoView(itemNext);
-        //        listResult.SelectedItem = itemNext;
-        //        listResult.CurrentItem = itemNext;
-        //    }
-        //}
+        static public void MoveHightlightToNext(this DataGridControl listResult)
+        {
+            if (listResult.SelectedItems.Count == 1 && listResult.Items.Count > listResult.SelectedIndex + 1)
+            {
+                object itemNext = listResult.Items[listResult.SelectedIndex + 1];
+                listResult.BringItemIntoView(itemNext);
+                listResult.SelectedItem = itemNext;
+                listResult.CurrentItem = itemNext;
+            }
+        }
 
         static public void MoveHightlightToNext(this ListView listResult)
         {

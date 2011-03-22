@@ -565,7 +565,9 @@ namespace GLTWarter.Pages
         protected virtual bool OnSavedNewItem() { return true; }
         protected virtual bool OnSavedEditedItem() { return true; }
         protected virtual bool OnDeletedItem() { return true; }
-        protected virtual void OnNext(Galant.DataEntity.BaseData incomingData) { }
+        protected virtual void OnNext(Galant.DataEntity.BaseData incomingData) {
+            this.DataContext = this.dataCurrent = incomingData;
+        }
 
         protected void buttonCancel_Click(object sender, RoutedEventArgs e)
         {

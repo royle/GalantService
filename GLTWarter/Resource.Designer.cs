@@ -70,6 +70,15 @@ namespace GLTWarter {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}路.
+        /// </summary>
+        internal static string converterRouteCacheNewRoute {
+            get {
+                return ResourceManager.GetString("converterRouteCacheNewRoute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} ({1}).
         /// </summary>
         internal static string converterRouteName {

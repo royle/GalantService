@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="GLTWarter.Controls.RouteSeletor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:odc="clr-namespace:Odyssey.Controls;assembly=Odyssey"
+             xmlns:data="clr-namespace:Galant.DataEntity;assembly=Galant.DataEntity"
+             xmlns:my="clr-namespace:GLTWarter.Controls"
+             Focusable="True" 
+             PreviewGotKeyboardFocus="UserControl_PreviewGotKeyboardFocus" 
+             KeyboardNavigation.TabNavigation="Once">
+    <UserControl.Resources>
+        <my:RouteSelectorItemTraceConverter x:Key="RouteSelectorItemTraceConverter" />
+        <DataTemplate DataType="{x:Type data:Entity}">
+            <TextBlock Text="{Binding Converter={StaticResource RouteSelectorItemTraceConverter}}"/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type data:Route}">
+            <TextBlock Text="{Binding Converter={StaticResource RouteSelectorItemTraceConverter}}"/>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <odc:BreadcrumbBar x:Name="bar" Focusable="True"
+                       PopulateItems="bar_PopulateItems"
+                       BreadcrumbItemDropDownOpened="bar_BreadcrumbItemDropDownOpened"
+                       BreadcrumbItemDropDownClosed="bar_BreadcrumbItemDropDownClosed"
+                       InputStateEntered="bar_InputStateEntered"
+                       TraceBinding="{Binding Converter={StaticResource RouteSelectorItemTraceConverter}}"
+                       PreviewKeyDown="bar_PreviewKeyDown"
+                       AutomationProperties.AutomationId="routeBreadcrumbBar"
+                       >
+        </odc:BreadcrumbBar>
+        <ComboBox Name="box" Visibility="Hidden"
+              VerticalAlignment="Center"
+              HorizontalAlignment="Stretch"
+              IsEditable="True" IsReadOnly="False" StaysOpenOnEdit="True" IsTextSearchEnabled="False" MaxDropDownHeight="200"
+              PreviewTextInput="box_PreviewTextInput"
+              TextBoxBase.TextChanged="box_TextChanged"
+              DropDownClosed="box_DropDownClosed"
+              AutomationProperties.AutomationId="routeCombobox"
+              >
+        </ComboBox>
+    </Grid>
+</UserControl>

@@ -83,6 +83,7 @@
   <ItemGroup>
     <Compile Include="DBConnector\MySqlconnector.cs" />
     <Compile Include="DBConnector\SqlHelper.cs" />
+    <Compile Include="Operation\Assign\CenterAssign.cs" />
     <Compile Include="Operation\BaseEntity\BaseOperator.cs" />
     <Compile Include="Operation\BaseEntity\DataOperator.cs" />
     <Compile Include="Operation\BaseEntity\Entity.cs" />

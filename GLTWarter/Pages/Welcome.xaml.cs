@@ -164,5 +164,13 @@ namespace GLTWarter.Pages
             data.Operation = "SearchFinishingList";
             this.NavigationService.Navigate(new GLTWarter.Pages.Finishing.FinishingList(data));
         }
+
+        private void linkCenterAssign_Click(object sender, RoutedEventArgs e)
+        {
+            Galant.DataEntity.Assign.Result data = new Galant.DataEntity.Assign.Result();
+            data.SearchCondition = new Galant.DataEntity.Assign.Search();
+            data.SearchCondition.Station = AppCurrent.Active.AppCach.StationCurrent;
+            this.NavigationService.Navigate(new GLTWarter.Pages.Assign.AssignCenter(data));
+        }
     }
 }

@@ -59,7 +59,7 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="1">
-                                <Hyperlink Click="linkWarterOrder_Click"  Name="linkAssign">任务分配</Hyperlink>
+                                <Hyperlink Click="linkCenterAssign_Click"  Name="linkCenterAssign">任务分配</Hyperlink>
                         </TextBlock>
                         <TextBlock Grid.Row="2">
                                 <Hyperlink Click="linkDeliverOrder_Click"  Name="linkDeliverRoute">快递调度</Hyperlink>

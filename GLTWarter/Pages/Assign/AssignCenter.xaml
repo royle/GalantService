@@ -7,23 +7,26 @@
     xmlns:pages="clr-namespace:GLTWarter.Pages"
     xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
     xmlns:src="clr-namespace:GLTWarter"
+                   xmlns:this="clr-namespace:GLTWarter.Pages.Assign"
     xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     xmlns:styles="clr-namespace:GLTWarter.Styles"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
 	Title="调度中心">
     <Page.Resources>
+        <this:MarkModesTemplateSelector x:Key="MarkModesTemplateSelector" />
         <xcdg:DataGridCollectionViewSource x:Key="ResultData" Source="{Binding ResultData, FallbackValue={x:Null}}" AutoCreateItemProperties="False">
             <xcdg:DataGridCollectionViewSource.ItemProperties>
                 <xcdg:DataGridItemProperty IsReadOnly="True" Name="ProductName" DataType="{x:Type sys:String}" />
-                <xcdg:DataGridItemProperty IsReadOnly="True" Name="PaperStatus" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource PaperSubState}" DataType="{x:Type sys:String}" />
-                <xcdg:DataGridItemProperty IsReadOnly="True" Name="Bound" DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="PaperSubStatus" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource PaperSubState}" DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="Bound" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource PaperBound}" DataType="{x:Type sys:String}" />
                 <xcdg:DataGridItemProperty IsReadOnly="True" Name="Comment" DataType="{x:Type sys:String}" />
-                <xcdg:DataGridItemProperty IsReadOnly="True" Name="NextRoute" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource ProductType}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="NextRoute.ToEntity.FullName" DataType="{x:Type sys:String}"/>
                 <xcdg:DataGridItemProperty IsReadOnly="True" Name="Packages" DataType="{x:Type sys:String}" />
-                <xcdg:DataGridItemProperty IsReadOnly="True" Name="ContactB.AddressChild" Converter="{StaticResource BooleanNotConverter}" DataType="{x:Type sys:Boolean}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="ContactB.AddressChild" DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="MarkMode" />
             </xcdg:DataGridCollectionViewSource.ItemProperties>
             <xcdg:DataGridCollectionViewSource.SortDescriptions>
-                <scm:SortDescription PropertyName="NextRoute" Direction="Ascending" />
+                <scm:SortDescription PropertyName="PaperSubStatus" Direction="Ascending" />
             </xcdg:DataGridCollectionViewSource.SortDescriptions>
         </xcdg:DataGridCollectionViewSource>
     </Page.Resources>
@@ -34,25 +37,42 @@
         </my:DetailsPagePresenter.LatestVersionButtonsPanel>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <StackPanel>
             <!--<my:PropertyRow HeaderText="显示限制(_L):"></my:PropertyRow>-->
-            <my:PropertyRow HeaderText="检索条件(_I):">
+            <my:PropertyRow HeaderText="检索条件(_I):" Visibility="Hidden">
                 <StackPanel>
                     <CheckBox Name="NoRouted">没有调度</CheckBox>
                     <CheckBox Name="AutoRouted">待确认</CheckBox>
                     <CheckBox Name="Routed">调度未接受</CheckBox>
-                </StackPanel>
+                    </StackPanel>
             </my:PropertyRow>
+                <Button Style="{StaticResource SearchButtonStyle}" Click="buttonNext_Click" Name="buttonSearch" />
             </StackPanel>
             <StackPanel Grid.Row="1">
-                
+                <xcdg:DataGridControl Margin="0" ItemsSource="{Binding Source={StaticResource ResultData}}" Name="listResult" styles:ExportHint.IsExportable="true"
+                                      NavigationBehavior="RowOnly" ReadOnly="True">
+                    <xcdg:DataGridControl.ItemContainerStyle>
+                        <Style TargetType="{x:Type xcdg:DataRow}" BasedOn="{StaticResource DataRowStyle}">
+                            <EventSetter Event="MouseDoubleClick" Handler="HandleItemActivate"/>
+                            <EventSetter Event="PreviewKeyDown" Handler="HandleItemActivate"/>
+                        </Style>
+                    </xcdg:DataGridControl.ItemContainerStyle>
+                    <xcdg:DataGridControl.Columns>
+                        <xcdg:Column Title="" FieldName="MarkMode" Width="30" ShowInColumnChooser="False" CellContentTemplateSelector="{StaticResource MarkModesTemplateSelector}" />
+                        <xcdg:Column Title="类型" Width="120" ReadOnly="True"  FieldName="PaperSubStatus" />
+                        <xcdg:Column Title="方向"  MinWidth="120" ReadOnly="True" FieldName="Bound" />
+                        <xcdg:Column Title="配送指示" Width="120" ReadOnly="True" FieldName="Comment" />
+                        <xcdg:Column Title="下一站点" Width="120" ReadOnly="True" FieldName="NextRoute.ToEntity.FullName" />
+                        <xcdg:Column Title="地址" Width="120" ReadOnly="True" FieldName="ContactB.AddressChild" />
+                    </xcdg:DataGridControl.Columns>
+                </xcdg:DataGridControl>
             </StackPanel>
-            <my:PropertyRow HeaderText="调度站点">
-                <ComboBox></ComboBox>
+            <my:PropertyRow Grid.Row="2" HeaderText="调度站点" x:Name="gridManualRouting" >
+                <ComboBox Name="routeManualRouting"></ComboBox>
             </my:PropertyRow>
         </Grid>
         

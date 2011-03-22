@@ -29,5 +29,8 @@ namespace Galant.DataEntity.Assign
             get { return unAccept; }
             set { unAccept = value; OnPropertyChanged("UnAccept"); }
         }
+
+        public Entity Station
+        { get; set; }
     }
 }

@@ -70,6 +70,9 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>..\Dependency\Microsoft.Office.Interop.Excel.dll</HintPath>
     </Reference>
+    <Reference Include="Odyssey">
+      <HintPath>..\..\git3\git3\bin\Vitalink-x86-Release\Odyssey.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="ReachFramework" />
     <Reference Include="System" />
@@ -161,6 +164,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\RouteSeletor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\WaitingIcon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -174,6 +181,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="LoginScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Assign\AssignCenter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -217,6 +228,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\StationAssign\StationAssign.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\Welcome.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -249,6 +264,7 @@
     </Compile>
     <Compile Include="AppCurrent.cs" />
     <Compile Include="BaseOperatorName.cs" />
+    <Compile Include="ComplexData\RouteCache.cs" />
     <Compile Include="Controls\CheckinExceptionReasonSelector.xaml.cs">
       <DependentUpon>CheckinExceptionReasonSelector.xaml</DependentUpon>
     </Compile>
@@ -268,6 +284,9 @@
       <DependentUpon>ProductSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PropertyRow.cs" />
+    <Compile Include="Controls\RouteSeletor.xaml.cs">
+      <DependentUpon>RouteSeletor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\WaitingIcon.xaml.cs">
       <DependentUpon>WaitingIcon.xaml</DependentUpon>
     </Compile>
@@ -300,6 +319,9 @@
     <Compile Include="Controls\ConstrainingStackPanel.cs" />
     <Compile Include="Controls\HintedTextbox.cs" />
     <Compile Include="Controls\SqueezeTabPanel.cs" />
+    <Compile Include="Pages\Assign\AssignCenter.xaml.cs">
+      <DependentUpon>AssignCenter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\DetailsBase.cs" />
     <Compile Include="Pages\Entity\Customer\CustomerDetail.xaml.cs">
       <DependentUpon>CustomerDetail.xaml</DependentUpon>
@@ -330,6 +352,9 @@
     </Compile>
     <Compile Include="Pages\Order\CustomerServiceBookingOrder.xaml.cs">
       <DependentUpon>CustomerServiceBookingOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\StationAssign\StationAssign.xaml.cs">
+      <DependentUpon>StationAssign.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Welcome.xaml.cs">
       <DependentUpon>Welcome.xaml</DependentUpon>

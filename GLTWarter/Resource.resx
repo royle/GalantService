@@ -193,4 +193,7 @@
   <data name="validationExportMergeDataExcelEmpty" xml:space="preserve">
     <value>请选择要合并的Excel文件。</value>
   </data>
+  <data name="converterRouteCacheNewRoute" xml:space="preserve">
+    <value>{0}路</value>
+  </data>
 </root>
