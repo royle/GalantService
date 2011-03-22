@@ -42,6 +42,7 @@ namespace GLTService.Operation.BaseEntity
         #endregion
 
         public string TableName;
+        String sqlLastInsertId = @"SELECT LAST_INSERT_ID()";
         public Dictionary<string, string> DicDataMapping;
         public Dictionary<string, string> DicInsertMapping;
         public Dictionary<string, string> DicUpdateMapping;
@@ -262,6 +263,12 @@ namespace GLTService.Operation.BaseEntity
             sql.AppendLine(" FROM ");
             sql.Append(TableName);
             return sql.ToString();
+        }
+
+        public String ReadLastInsertId()
+        {
+            object obj= MySqlHelper.ExecuteScalar(this.Operator.myConnection, sqlLastInsertId);
+            return obj == null ? string.Empty : obj.ToString();
         }
     }
 }

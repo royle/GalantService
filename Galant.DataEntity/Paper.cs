@@ -113,6 +113,7 @@ namespace Galant.DataEntity
             get { return paperStatus; }
             set { paperStatus = value; OnPropertyChanged("PaperStatus"); }
         }
+
         private PaperSubState? paperSubStatus;
         [DataMember]
         public PaperSubState? PaperSubStatus
@@ -240,8 +241,24 @@ namespace Galant.DataEntity
         public Route NextRoute
         {
             get { return nextRoute; }
-            set { nextRoute = value; OnPropertyChanged("NextRoute"); }
+            set { nextRoute = value; OnPropertyChanged("NextRoute"); OnPropertyChanged("NextEntity"); }
         }
+
+
+        [IgnoreDataMember]
+        public Entity NextEntity
+        {
+            get { return (NextRoute == null && NextRoute.ToEntity == null) ? new Entity() : NextRoute.ToEntity; }
+            set
+            {
+                if (NextRoute == null)
+                {
+                    NextRoute = new Route() { IsFinally = false };
+                }
+                NextRoute.ToEntity = value; OnPropertyChanged("NextEntity"); OnPropertyChanged("NextRoute");
+            }
+        }
+
         private PaperSubState? mobileStatus;
         [DataMember]
         public PaperSubState? MobileStatus

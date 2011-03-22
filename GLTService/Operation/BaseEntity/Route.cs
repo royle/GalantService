@@ -99,6 +99,14 @@ namespace GLTService.Operation.BaseEntity
             return null;
         }
 
+        String sqlFindRouteIdByEntities = @"SELECT {0} FROM {1} WHERE from_entity = {2} AND to_entity ={3}";
+        public String GetRouteIdByEnities(string fromEntityId, string toEntityId)
+        {
+            string sqlText = string.Format(sqlFindRouteIdByEntities, KeyId, TableName, fromEntityId, toEntityId);
+            object obj = MySql.Data.MySqlClient.MySqlHelper.ExecuteScalar(this.Operator.myConnection, sqlText);
+            return obj == null ? string.Empty : obj.ToString();
+        }
+
         private Galant.DataEntity.Route MappingRow(DataRow dr, DataOperator data)
         {
             Entity entity = new Entity(data);

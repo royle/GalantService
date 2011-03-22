@@ -13,6 +13,7 @@ using GLTService.DBConnector;
 using MySql.Data.MySqlClient;
 using GLTService.Operation;
 using GLTService.Operation.BaseEntity;
+using GLTService.Operation.Assign;
 
 namespace GLTService
 {
@@ -60,6 +61,9 @@ namespace GLTService
                         returnData = ProcessRefresh(dataOper, DetailObj);
                         break;
                     case "Save":
+                        returnData = ProcessSave(dataOper, DetailObj);
+                        break;
+                    case "SaveRoute":
                         returnData = ProcessSave(dataOper, DetailObj);
                         break;
                     default:
@@ -112,6 +116,11 @@ namespace GLTService
                 {
 
                 }
+            }
+            else if (detailObj is Galant.DataEntity.Assign.Result)
+            {
+                CenterAssign assign = new CenterAssign(dataOper);
+                assign.UpdatePaper(((Galant.DataEntity.Assign.Result)detailObj).ResultData);
             }
             return detailObj;
         }

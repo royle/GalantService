@@ -8,6 +8,8 @@ namespace GLTWarter
     public class BaseOperatorName
     {
         public static string DataSave = "Save";
+
+        public static string SaveCenterRouteSearch = "SaveRoute";
         public static string ProductSearch = "SearchProduction";
         public static string CenterRouteSearch = "SearchCenterRoute";
 

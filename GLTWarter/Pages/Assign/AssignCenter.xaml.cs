@@ -41,6 +41,11 @@ namespace GLTWarter.Pages.Assign
             }
         }
 
+        protected override void SetDoOkOperatorString()
+        {
+            dataCurrent.Operation = BaseOperatorName.SaveCenterRouteSearch;
+        }
+
         protected override void OnNext(Galant.DataEntity.BaseData incomingData)
         {
             incomingData.Operation = BaseOperatorName.CenterRouteSearch;
@@ -73,10 +78,29 @@ namespace GLTWarter.Pages.Assign
             {
                 be.IsMarked = !isAllMarked;
             }
-            SomethingSelected = (from s in ((List<Galant.DataEntity.Assign.CenterAssignData>)DataContext) where s.MarkMode == Galant.DataEntity.Assign.CenterAssignData.MarkModes.Standby select s).Any();
+            SomethingSelected = (from s in ((Galant.DataEntity.Assign.Result)DataContext).ResultData where s.MarkMode == Galant.DataEntity.Assign.CenterAssignData.MarkModes.Standby select s).Any();
 
             if (e is KeyEventArgs) listResult.MoveHightlightToNext();
             e.Handled = true;
+        }
+
+        private void buttonManualRouting_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateRoute((Galant.DataEntity.Entity)routeManualRouting.SelectionBoxItem);
+            listResult.Focus();
+        }
+
+        void UpdateRoute(Galant.DataEntity.Entity route)
+        {
+            foreach (Galant.DataEntity.Assign.CenterAssignData rc in (from s in ((Galant.DataEntity.Assign.Result)DataContext).ResultData where s.MarkMode == Galant.DataEntity.Assign.CenterAssignData.MarkModes.Standby select s))
+            {
+                rc.HasNewRoute = true;
+                rc.NextEntity = route;
+                rc.Holder = route;
+                rc.NewSubStatus = Galant.DataEntity.PaperSubState.InStation;
+                rc.IsMarked = false;
+            }
+            SomethingSelected = false;
         }
     }
 

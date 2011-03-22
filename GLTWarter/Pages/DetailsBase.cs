@@ -368,10 +368,13 @@ namespace GLTWarter.Pages
             }
         }
 
+        protected virtual void SetDoOkOperatorString(){}
+
         protected void DoOk()
         {
             if (IsDataValid())
             {
+                SetDoOkOperatorString();
                 isLastItemNew = dataCurrent.IsNew;
                 GLTService.ServiceAPIClient client = new GLTService.ServiceAPIClient();
                 client.DoRequestCompleted += new EventHandler<GLTService.DoRequestCompletedEventArgs>(SaveCallback);

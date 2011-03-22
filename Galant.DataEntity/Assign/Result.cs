@@ -22,6 +22,12 @@ namespace Galant.DataEntity.Assign
             set { resultData = value; OnPropertyChanged("ResultData"); }
         }
 
+        public List<Entity> entities;
+        public List<Entity> Entities
+        {
+            get { return entities; }
+            set { entities = value; OnPropertyChanged("Entities"); }
+        }
     }
 
     public class CenterAssignData:Paper
@@ -45,6 +51,13 @@ namespace Galant.DataEntity.Assign
         {
             get { return hasNewRoute; }
             set { hasNewRoute = value; OnPropertyChanged("HasNewRoute"); OnPropertyChanged("MarkMode"); OnPropertyChanged("NewRouteTo"); }
+        }
+
+        private PaperSubState? newPaperSubStatus;
+        public PaperSubState? NewSubStatus
+        {
+            get { return newPaperSubStatus; }
+            set { newPaperSubStatus = value; }
         }
 
         public enum MarkModes { None, Standby, Confirm }

@@ -37,6 +37,7 @@ namespace GLTService.Operation
         {
             Assign.CenterAssign center = new Assign.CenterAssign(data);
             result.ResultData = center.ReadCenterAssgin();
+            result.Entities = center.ReadAllStationEntity();
             return result;
         }
     }

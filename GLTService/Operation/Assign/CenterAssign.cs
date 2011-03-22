@@ -8,6 +8,7 @@ using System.Data;
 using MySql;
 using MySql.Data.MySqlClient;
 using Galant.DataEntity;
+using GLTService.DBConnector;
 
 namespace GLTService.Operation.Assign
 {
@@ -17,7 +18,35 @@ namespace GLTService.Operation.Assign
 
         public readonly string sqlSelect = @"SELECT PAPER_ID,SUBSTATE,HOLDER,BOUND,CONTACT_A,CONTACT_B,`TYPE`,NEXT_ROUTE FROM PAPERS
 WHERE `TYPE`= 1 AND HOLDER = 0 AND SUBSTATE <= 36 ";
+        public readonly string sqlUpdatePaper = @"UPDATE papers SET holder = {0}, SubState={1}, Next_Route = {2} WHERE paper_id = '{3}'";
 
+        public void UpdatePaper(List<Galant.DataEntity.Assign.CenterAssignData> data)
+        {
+            foreach(Galant.DataEntity.Assign.CenterAssignData assign in data)
+            {
+                if (!assign.HasNewRoute) continue;
+                string routeid = assign.NextRoute.RouteId.ToString();
+                if (assign.NextRoute.RouteId == null)
+                {
+                    GLTService.Operation.BaseEntity.Route opera = new BaseEntity.Route(this.Operator);
+                    routeid = opera.GetRouteIdByEnities("0", assign.NextEntity.EntityId.ToString());
+                    if (string.IsNullOrEmpty(routeid))
+                    {
+                        Galant.DataEntity.Route route = new Galant.DataEntity.Route()
+                        {
+                            FromEntity = new Galant.DataEntity.Entity() { EntityId = 0 },
+                            ToEntity = assign.NextEntity,
+                            IsFinally = false,
+                            RountName = "hq to " + assign.NextEntity.Alias
+                        };
+                        opera.AddNewData(route);
+                        routeid = ReadLastInsertId();
+                    }
+                }
+                String sqlText = string.Format(sqlUpdatePaper, assign.Holder.EntityId, (int)assign.NewSubStatus, routeid, assign.PaperId);
+                SqlHelper.ExecuteNonQuery(this.Operator.mytransaction, CommandType.Text, sqlText);
+            }
+        }
 
         public List<CenterAssignData> ReadCenterAssgin()
         {
@@ -26,6 +55,11 @@ WHERE `TYPE`= 1 AND HOLDER = 0 AND SUBSTATE <= 36 ";
             return data;
         }
 
+        public List<Galant.DataEntity.Entity> ReadAllStationEntity()
+        {
+            GLTService.Operation.BaseEntity.Entity entity = new BaseEntity.Entity(this.Operator);
+            return entity.GetEntitysByConditions(this.Operator, new Galant.DataEntity.Search.SearchEntityCondition() { Type = Galant.DataEntity.EntityType.Station });
+        }
 
         List<CenterAssignData> MappingTable(DataTable dt)
         {
