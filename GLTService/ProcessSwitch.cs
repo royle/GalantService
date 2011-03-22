@@ -52,6 +52,10 @@ namespace GLTService
                         search = new Search();
                         returnData = search.SearchFinishingList(dataOper, DetailObj as Galant.DataEntity.Result.FinishingListResult);
                         break;
+                    case "CheckinFinish":
+                        Paper paper = new Paper(dataOper);
+                        returnData = paper.GetCheckinPaperListByCollection(dataOper, DetailObj as Galant.DataEntity.Result.FinishCheckin);
+                        break;
                     case "Refresh":
                         returnData = ProcessRefresh(dataOper, DetailObj);
                         break;

@@ -219,7 +219,10 @@ namespace GLTWarter.Pages
                     System.Windows.Threading.DispatcherPriority.Loaded,
                     (Action)delegate()
                     {
-                        lastFocusElement.Focus();
+                        if (lastFocusElement != null)
+                            lastFocusElement.Focus();
+                        else
+                            FocusFirstControl();
                     }
                 );
             }

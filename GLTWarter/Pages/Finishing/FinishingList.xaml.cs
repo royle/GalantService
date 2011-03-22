@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.Specialized;
 
 namespace GLTWarter.Pages.Finishing
 {
@@ -36,10 +37,17 @@ namespace GLTWarter.Pages.Finishing
             this.dataCurrent = incomingData;
         }
 
-        private void buttonNew_Click(object sender, RoutedEventArgs e)
+        public override void OnApplyTemplate()
         {
-           
+            (listCollection.SelectedItems as INotifyCollectionChanged).CollectionChanged += new NotifyCollectionChangedEventHandler(List_CollectionChanged);
+            (listDeliveryMan.SelectedItems as INotifyCollectionChanged).CollectionChanged += new NotifyCollectionChangedEventHandler(List_CollectionChanged);
         }
+
+        void List_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            CalculateSelectedResults();
+        }
+
         TabItem SelectedTab = null;
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -48,11 +56,55 @@ namespace GLTWarter.Pages.Finishing
                 return;
 
             SelectedTab = (TabItem)e.AddedItems[0];
+            this.CalculateSelectedResults();
         }
 
         private void DetailsBase_Loaded(object sender, RoutedEventArgs e)
         {
             base.buttonNext_Click(sender, e);
+        }
+
+        private void CalculateSelectedResults()
+        {
+            if (SelectedTab == tabDeliveryMan)
+            {
+                if (this.listDeliveryMan.SelectedItems != null)
+                {
+                    List<Galant.DataEntity.Paper> list = new List<Galant.DataEntity.Paper>();
+                    foreach (Galant.DataEntity.Result.HolderPapers holder in this.listDeliveryMan.SelectedItems)
+                    {
+                        list.AddRange(holder.Papers);
+                    }
+                    SelectedResults = list;
+                }
+            }
+            else
+            {
+                if (this.listCollection.SelectedItems != null)
+                {
+                    SelectedResults = this.listCollection.SelectedItems;
+                }
+            }
+        }
+
+        public System.Collections.IList SelectedResults
+        {
+            get;
+            set;
+        }
+
+        private void buttonNew_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.SelectedResults == null || this.SelectedResults.Count <= 0)
+            {
+                MessageBox.Show(AppCurrent.Active.MainWindow, "请选择要归班的清单", this.Title);
+                return;
+            }
+            Galant.DataEntity.Result.FinishCheckin checkin = new Galant.DataEntity.Result.FinishCheckin();
+            checkin.CheckinCollections = this.SelectedResults as List<Galant.DataEntity.Paper>;
+            checkin.Operation = "CheckinFinish";
+            this.NavigationService.Navigate(new GLTWarter.Pages.Finishing.PackageFinish(checkin));
+
         }
        
     }

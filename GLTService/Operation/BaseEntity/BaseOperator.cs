@@ -222,6 +222,8 @@ namespace GLTService.Operation.BaseEntity
                     return new Galant.DataEntity.Entity();
                 case "Product":
                     return new Galant.DataEntity.Product();
+                case "Package":
+                    return new Galant.DataEntity.Package();
                 default:
                     throw new NotImplementedException("Add PropertyName Before This Exception.");
             }

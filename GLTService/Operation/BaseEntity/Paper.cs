@@ -62,11 +62,16 @@ namespace GLTService.Operation.BaseEntity
         {
             TableName = "papers";
         }
-
-        public List<Galant.DataEntity.Paper> GetCheckinPaperListByCollection(DataOperator dataOper,Galant.DataEntity.Result.FinishCheckin checkinData)
+        /// <summary>
+        /// 获取清单中未完成订单的列表
+        /// </summary>
+        /// <param name="dataOper"></param>
+        /// <param name="checkinData"></param>
+        /// <returns></returns>
+        public Galant.DataEntity.Result.FinishCheckin GetCheckinPaperListByCollection(DataOperator dataOper, Galant.DataEntity.Result.FinishCheckin checkinData)
         {
             List<Galant.DataEntity.Paper> papers = new List<Galant.DataEntity.Paper>();
-            foreach (Galant.DataEntity.Paper p in checkinData.CheckinPapers)
+            foreach (Galant.DataEntity.Paper p in checkinData.CheckinCollections)
             {
                 papers.AddRange(this.GetPaperChilders(dataOper, p));
             }
@@ -75,12 +80,21 @@ namespace GLTService.Operation.BaseEntity
             {
                 foreach (Galant.DataEntity.Package pa in package.GetPackagesByPaper(dataOper, p.PaperId))
                 {
+                    if (p.Packages == null)
+                        p.Packages = new System.Collections.ObjectModel.ObservableCollection<Galant.DataEntity.Package>();
                     p.Packages.Add(pa);
                 }
             }
-            return null;
+            papers.RemoveAll(p => p.PaperSubStatus != Galant.DataEntity.PaperSubState.InTransit);
+            checkinData.CheckinPapers = papers;
+            return checkinData;
         }
-
+        /// <summary>
+        /// 获取未完成清单列表
+        /// </summary>
+        /// <param name="dataOper"></param>
+        /// <param name="station"></param>
+        /// <returns></returns>
         public List<Galant.DataEntity.Paper> GetFinishList(DataOperator dataOper, Galant.DataEntity.Entity station)
         {
             string SqlSearch = @"select p.* from papers as p join event_logs as e on p.paper_id = e.paper_id 

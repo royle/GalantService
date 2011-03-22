@@ -119,7 +119,7 @@ DROP TABLE IF EXISTS `packages`;
 CREATE TABLE `packages` (
   `package_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
-  `count` decimal(8,0) NOT NULL DEFAULT '1',
+  `count` int(11) NOT NULL DEFAULT '1',
   `amount` decimal(10,2) NOT NULL,
   `origin_amount` decimal(10,2) NOT NULL,
   `paper_id` varchar(16) COLLATE utf8_unicode_ci NOT NULL,

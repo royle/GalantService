@@ -197,9 +197,9 @@
             </Powers>
         </x:XData>
     </XmlDataProvider>
-    <XmlDataProvider x:Key="ShipmentSubStatus" IsAsynchronous="False">
+    <XmlDataProvider x:Key="PaperSubStatus" IsAsynchronous="False">
         <x:XData>
-            <ShipmentSubStatus xmlns="">
+            <PaperSubStatus xmlns="">
                 <SubStatus>
                     <Value>FinishGood</Value>
                     <Text>完成</Text>
@@ -300,7 +300,7 @@
                     <Value>152</Value>
                     <Text>不入库、只录异常</Text>
                 </SubStatus>
-            </ShipmentSubStatus>
+            </PaperSubStatus>
         </x:XData>
     </XmlDataProvider>
     <XmlDataProvider x:Key="CheckinReasons" IsAsynchronous="False">
@@ -446,6 +446,20 @@
                 <Nature>
                     <Value>Return</Value>
                     <Text>退换货单</Text>
+                </Nature>
+            </PaperNature>
+        </x:XData>
+    </XmlDataProvider>
+    <XmlDataProvider x:Key="PaperType" IsAsynchronous="False">
+        <x:XData>
+            <PaperNature xmlns="">
+                <Nature>
+                    <Value>Deliver</Value>
+                    <Text>快递</Text>
+                </Nature>
+                <Nature>
+                    <Value>Product</Value>
+                    <Text>送水</Text>
                 </Nature>
             </PaperNature>
         </x:XData>

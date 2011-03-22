@@ -1092,5 +1092,33 @@ namespace GLTWarter.Data
                 e.RouteId);
         }
     }
+
+    [ValueConversion(typeof(List<Galant.DataEntity.Package>), typeof(string))]
+    class PackageArrayNamesConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value as List<Galant.DataEntity.Package> != null)
+            {
+                return Convert((List<Galant.DataEntity.Package>)value);
+            }
+            return null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+
+        public static string Convert(List<Galant.DataEntity.Package> e)
+        {
+            string returnString = "";
+            foreach (Galant.DataEntity.Package  p in e)
+            {
+                returnString += string.IsNullOrEmpty(returnString) ? p.Product.ProductName : Environment.NewLine + p.Product.ProductName;
+            }
+            return returnString;
+        }
+    }
   
  }

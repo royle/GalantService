@@ -27,7 +27,7 @@
             <xcdg:DataGridCollectionViewSource.ItemProperties>
                 <xcdg:DataGridItemProperty IsReadOnly="True" Name="PaperId"  DataType="{x:Type sys:String}" />
                 <xcdg:DataGridItemProperty IsReadOnly="True" Name="Holder" Converter="{StaticResource EntityNameConverter}"  DataType="{x:Type sys:String}" />
-                <xcdg:DataGridItemProperty IsReadOnly="True" Name="PaperSubStatus" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource ShipmentSubStatus}"  DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="PaperSubStatus" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource PaperSubStatus}"  DataType="{x:Type sys:String}" />
                 <xcdg:DataGridItemProperty IsReadOnly="True" Name="NextRoute" Converter="{StaticResource RouteNameConverter}"  DataType="{x:Type sys:String}" />
                 <xcdg:DataGridItemProperty IsReadOnly="True" Name="StartTime"  DataType="{x:Type sys:String}" />
             </xcdg:DataGridCollectionViewSource.ItemProperties>

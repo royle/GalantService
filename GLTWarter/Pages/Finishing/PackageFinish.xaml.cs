@@ -32,7 +32,7 @@ namespace GLTWarter.Pages.Finishing
         BatchHandler batchFunction = null;
         bool isUpdateCurrency = true;//是否批量修改状态时更新收款方式
 
-        public PackageFinish(Galant.DataEntity.BaseData data)
+        public PackageFinish(Galant.DataEntity.Result.FinishCheckin data)
             : base(data)
         {
             //Data.CheckinRequest c = (Data.CheckinRequest)data;
@@ -48,17 +48,18 @@ namespace GLTWarter.Pages.Finishing
 
         public override void OnApplyTemplate()
         {//增加事件
-            (this.listSuccess.SelectedItems as INotifyCollectionChanged).CollectionChanged +=
-                new System.Collections.Specialized.NotifyCollectionChangedEventHandler(ResultXceedSelectionChanged);
+            //(this.listSuccess.SelectedItems as INotifyCollectionChanged).CollectionChanged +=
+            //    new System.Collections.Specialized.NotifyCollectionChangedEventHandler(ResultXceedSelectionChanged);
 
-            (this.listReGLTWarter.SelectedItems as INotifyCollectionChanged).CollectionChanged +=
-                new System.Collections.Specialized.NotifyCollectionChangedEventHandler(ReGLTWarterGLTWarterXceedSelectionChanged);
-            (this.listRefuse.SelectedItems as INotifyCollectionChanged).CollectionChanged +=
-                new System.Collections.Specialized.NotifyCollectionChangedEventHandler(GLTWarterToReturnXceedSelectionChanged);
+            //(this.listReGLTWarter.SelectedItems as INotifyCollectionChanged).CollectionChanged +=
+            //    new System.Collections.Specialized.NotifyCollectionChangedEventHandler(ReGLTWarterGLTWarterXceedSelectionChanged);
+            //(this.listRefuse.SelectedItems as INotifyCollectionChanged).CollectionChanged +=
+            //    new System.Collections.Specialized.NotifyCollectionChangedEventHandler(GLTWarterToReturnXceedSelectionChanged);
         }
 
         void PackageFinish_Loaded(object sender, RoutedEventArgs e)
         {
+            base.buttonNext_Click(sender, e);
             //if (dataBackup != null) dataBackup.Stage = Data.CheckinRequest.Stages.Finishing;
             //if (dataCurrent != null) dataCurrent.Stage = Data.CheckinRequest.Stages.Finishing;
         }
@@ -89,9 +90,10 @@ namespace GLTWarter.Pages.Finishing
 
         protected override void OnNext(Galant.DataEntity.BaseData incomingData)
         {
-            //DetailsBase pageNext = new PackageFinishConsign(incomingData);
-            //pageNext.Return += new ReturnEventHandler<GLTWarter.Galant.DataEntity.BaseData>(pageNext_Return);
-            //this.NavigationService.Navigate(pageNext);
+            Galant.DataEntity.Result.FinishCheckin checkin = incomingData as Galant.DataEntity.Result.FinishCheckin;
+            checkin.Operation = "CheckinFinish";
+            this.DataContext = checkin;
+            this.dataCurrent = checkin;
         }
 
         private void Shipment_selectorEnter(object sender, PaperSelectorEnterEventArgs e)
@@ -165,17 +167,17 @@ namespace GLTWarter.Pages.Finishing
 
         private void Finish_Undo_ButtonClick(object sender, RoutedEventArgs e)
         {//完成 未处理
-            BuildBatchHandle((BatchHandler)BatchReDoHandler, listSuccess);
+            //BuildBatchHandle((BatchHandler)BatchReDoHandler, listSuccess);
         }
 
         private void ReGLTWarter_Undo_ButtonClick(object sender, RoutedEventArgs e)
         {//二次配送 未处理 
-            BuildBatchHandle((BatchHandler)BatchReDoHandler, listReGLTWarter);
+           // BuildBatchHandle((BatchHandler)BatchReDoHandler, listReGLTWarter);
         }
 
         private void Exception_Undo_ButtonClick(object sender, RoutedEventArgs e)
         {//拒收 未处理 
-            BuildBatchHandle((BatchHandler)BatchReDoHandler, listRefuse);
+            //BuildBatchHandle((BatchHandler)BatchReDoHandler, listRefuse);
         }
 
         /// <summary>
@@ -491,14 +493,14 @@ namespace GLTWarter.Pages.Finishing
 
         private void SignSuccess_TextChanged(object sender, TextChangedEventArgs e)
         {//修改成功签收信息
-            if (this.textSuccessSignInfo.IsFocused)
-            {
-                string signInfo = this.textSuccessSignInfo.Text.Trim();
-                foreach (Galant.DataEntity.Paper sm in this.listSuccess.SelectedItems.OfType<Galant.DataEntity.Paper>())
-                {
-                    //if (sm.FinishingCanHasSignInfo) { sm.SignInfo = signInfo; }
-                }
-            }
+            //if (this.textSuccessSignInfo.IsFocused)
+            //{
+            //    string signInfo = this.textSuccessSignInfo.Text.Trim();
+            //    foreach (Galant.DataEntity.Paper sm in this.listSuccess.SelectedItems.OfType<Galant.DataEntity.Paper>())
+            //    {
+            //        //if (sm.FinishingCanHasSignInfo) { sm.SignInfo = signInfo; }
+            //    }
+            //}
         }
 
         private void reasonReGLTWarter_Selected(object sender, RoutedEventArgs e)
@@ -539,11 +541,11 @@ namespace GLTWarter.Pages.Finishing
 
         private void ReGLTWarterGLTWarterXceedSelectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {//根据选择二次包裹，修改异常信息
-            SelectedExceptionRowsReason(this.listReGLTWarter,this.reasonReGLTWarter);
+            //SelectedExceptionRowsReason(this.listReGLTWarter,this.reasonReGLTWarter);
         }
         private void GLTWarterToReturnXceedSelectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {//根据选择二次包裹，修改异常信息
-            SelectedExceptionRowsReason(this.listRefuse, this.reasonRefuse);
+            //SelectedExceptionRowsReason(this.listRefuse, this.reasonRefuse);
         }   
 
         /// <summary>
@@ -617,7 +619,7 @@ namespace GLTWarter.Pages.Finishing
             //        break;
             //    }
             //}
-            this.textSuccessSignInfo.Text = signInfo;
+            //this.textSuccessSignInfo.Text = signInfo;
         }
 
         private void BindSelectedSuccessRowsCurrencyAmounts()
@@ -671,8 +673,8 @@ namespace GLTWarter.Pages.Finishing
 
         private void comboSuccessCurrency_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {//修改收款方式
-            if (this.comboSuccessCurrency.SelectedItem == null)
-                return;
+            //if (this.comboSuccessCurrency.SelectedItem == null)
+            //    return;
 
             //foreach (Galant.DataEntity.Paper sm in new List<Galant.DataEntity.Paper>(listSuccess.SelectedItems.OfType<Galant.DataEntity.Paper>()))
             //{

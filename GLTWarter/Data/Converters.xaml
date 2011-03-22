@@ -50,7 +50,7 @@
     <data:DoubleDigitsIntInputConverter x:Key="DoubleDigitsIntInputConverter"/>
     <data:SubstringStartConverter x:Key="SubstringStartConverter"/>
     <data:RouteNameConverter x:Key="RouteNameConverter"/>
-
+    <data:PackageArrayNamesConverter x:Key="PackageArrayNamesConverter"/>
 
     <DataTemplate x:Key="IsMarkTemplate">
         <Image Visibility="{Binding Converter={StaticResource BooleanVisibilityConverter}}" Source="pack://application:,,,/GLTWarter;component/Resources/tick.png" Height="16" Width="16" />

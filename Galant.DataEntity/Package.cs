@@ -34,6 +34,10 @@ namespace Galant.DataEntity
             this.paperId = paperid;
         }
 
+        public Package()
+            : base()
+        { }
+
         private string paperId;
 
         public string PaperId
@@ -57,9 +61,11 @@ namespace Galant.DataEntity
             set { product = value; }
         }
 
-        public int ProductId
+        private int? productId;
+        public int? ProductId
         {
-            get { return Product.ProductId; }
+            get { return productId; }
+            set { productId = value; }
         }
 
         private int count;
