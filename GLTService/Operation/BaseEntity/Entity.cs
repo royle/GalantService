@@ -35,11 +35,7 @@ namespace GLTService.Operation.BaseEntity
         {
             get
             {
-                return @"UPDATE entities SET 
-                Alias = @Alias,Password = @Password,Full_Name = @Full_Name,Home_phone = @Home_phone,Cell_phone1 = @Cell_phone1,Cell_phone2 = @Cell_phone2,Type = @Type ,
-                Address_Family =@Address_Family ,Address_Child =@Address_Child  ,Comment =@Comment,Deposit =@Deposit  ,Pay_type =@Pay_type  ,Route_Station = @Route_Station ,Able_flag =@Able_flag  
-                WHERE entity_id = @entity_id 
-                ";
+                return SqlUpdateDataSql;
 
             }
         }
@@ -365,7 +361,8 @@ namespace GLTService.Operation.BaseEntity
             }
             else
             {
-                SqlHelper.ExecuteNonQuery(data.mytransaction, CommandType.Text, this.SqlUpdateSql, this.BuildUpdateParameteres(entity));
+                this.UpdateData(entity);
+                //SqlHelper.ExecuteNonQuery(data.mytransaction, CommandType.Text, this.SqlUpdateSql, this.BuildUpdateParameteres(entity));
             }
 
             Role role = new Role();

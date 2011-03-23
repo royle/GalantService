@@ -43,7 +43,7 @@ namespace GLTWarter.Pages.Entity.Users
         protected  void buttonSubmit_Click(object sender, RoutedEventArgs e)
         {
             this.dataCurrent.Operation = "Save";
-            base.buttonNext_Click(sender, e);
+            base.buttonOk_Click(sender, e);
         }
 
         private void ButtonAddRole_Click(object sender, RoutedEventArgs e)
@@ -65,17 +65,24 @@ namespace GLTWarter.Pages.Entity.Users
 
         protected override bool OnSavedNewItem()
         {
-            MessageBox.Show(AppCurrent.Active.MainScreen, "保存成功", this.Title, MessageBoxButton.OK, MessageBoxImage.Information);
-
+            MessageBox.Show(AppCurrent.Active.MainScreen, Resource.msgUserCreated, this.Title, MessageBoxButton.OK, MessageBoxImage.Information);            
             this.dataCurrent = new Galant.DataEntity.Entity();
+            this.dataCurrent.Operation = "Save";
+            (this.dataCurrent as Galant.DataEntity.Entity).EntityType = Galant.DataEntity.EntityType.Staff;
+            (this.dataCurrent as Galant.DataEntity.Entity).AbleFlag = true;
             Galant.DataEntity.Entity data = (Galant.DataEntity.Entity)dataCurrent;
             this.DataContext = this.dataCurrent;
-
-            data.EntityType = ((Galant.DataEntity.Entity)this.dataBackup).EntityType;
             this.dataBackup = (Galant.DataEntity.BaseData)data.Clone();
             passwordPassword.Clear();
             passwordConfirm.Clear();
             return false;
+        }
+
+        protected override bool OnSavedEditedItem()
+        {
+            MessageBox.Show(AppCurrent.Active.MainScreen, Resource.msgUserModified, this.Title, MessageBoxButton.OK, MessageBoxImage.Information);
+            this.dataCurrent.Operation = "Save";
+            return true;
         }
 
         void HandleItemActivate(object source, RoutedEventArgs e)
@@ -101,7 +108,7 @@ namespace GLTWarter.Pages.Entity.Users
 
         private void PasswordPopulation()
         {
-            if (dataCurrent != null)
+            if (dataCurrent != null && (dataCurrent as Galant.DataEntity.Entity).IsPasswordAllowed)
             {
                 Galant.DataEntity.Entity data = (Galant.DataEntity.Entity)dataCurrent;
                 data.Password = passwordPassword.Password;

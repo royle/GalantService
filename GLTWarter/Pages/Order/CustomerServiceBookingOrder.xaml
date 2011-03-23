@@ -115,7 +115,7 @@
                 </Grid>
             </ScrollViewer>
             <StackPanel Grid.Row="1" Name="PackagesView" Margin="5,10">
-                <xcdg:DataGridControl Margin="0,0,0,0" HorizontalAlignment="Stretch" ItemsSource="{Binding Source={StaticResource Packages}}" Name="listResult" styles:ExportHint.IsExportable="true">
+                <xcdg:DataGridControl Margin="0,0,0,0" UpdateSourceTrigger="CellEndingEdit"  NavigationBehavior="CellOnly" ReadOnly="False"  HorizontalAlignment="Stretch" ItemsSource="{Binding Source={StaticResource Packages}}" Name="listResult" styles:ExportHint.IsExportable="true">
 
                     <xcdg:DataGridControl.ItemContainerStyle>
                         <Style TargetType="{x:Type xcdg:DataRow}" BasedOn="{StaticResource DataRowStyle}">

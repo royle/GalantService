@@ -41,12 +41,12 @@
                                  Text="{Binding Path=FullName, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" MaxLength="50" />
                         </my:PropertyRow>
                         <my:PropertyRow HeaderText="电话号码(_O):">
-                            <TextBox Name="HomePhone" MinLines="2" Width="150" 
+                            <TextBox Name="HomePhone" Width="150" 
                                  Text="{Binding Path=HomePhone, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" TextWrapping="Wrap" AcceptsReturn="True" Style="{StaticResource vInput}" MaxLength="50"/>
                         </my:PropertyRow>
                         <my:PropertyRow HeaderText="地址(_A):">
                             <TextBox Name="textAddress" Width="300" 
-                                 Text="{Binding Path=AddressFamily, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" MaxLength="200"/>
+                                 Text="{Binding Path=AddressChild, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" MaxLength="200"/>
                         </my:PropertyRow>
                         <my:PropertyRow HeaderText="设定:">
                             <StackPanel>

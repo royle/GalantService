@@ -179,9 +179,9 @@ namespace Galant.DataEntity
             get { return deposit; }
             set { deposit = value; OnPropertyChanged("Deposit"); }
         }
-        private PayType payType;
+        private PayType? payType;
         [DataMember]
-        public PayType PayType
+        public PayType? PayType
         {
             get { return payType; }
             set { payType = value; OnPropertyChanged("PayType"); }
@@ -262,11 +262,13 @@ namespace Galant.DataEntity
                     if (String.IsNullOrEmpty(Alias) && this.IsNew && this.EntityType != DataEntity.EntityType.Client) return "用户名不能为空！";
                     return string.Empty;
                 case "PasswordConfirm":
+                    if (String.IsNullOrEmpty(Password) && (this.Operation == "Login" || (this.EntityType == DataEntity.EntityType.Staff && this.IsNew))) return "密码不能为空！";
+                    return string.Empty;
                 case "Password":
                     if (String.IsNullOrEmpty(Password) && (this.Operation == "Login" || this.EntityType == DataEntity.EntityType.Staff)) return "密码不能为空！";
                     return string.Empty;
                 case "PayType":
-                    if (this.IsNew && this.EntityType == DataEntity.EntityType.Client)
+                    if (this.IsNew && this.EntityType == DataEntity.EntityType.Client && this.PayType==null)
                         return "客户付款类型不能为空！";
                     return string.Empty;
             }

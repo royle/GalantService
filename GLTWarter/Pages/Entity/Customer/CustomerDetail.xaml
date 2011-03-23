@@ -45,10 +45,6 @@
                         </my:PropertyRow>
                         <my:PropertyRow HeaderText="地址(_A):">
                             <TextBox Name="textAddress" Width="300" 
-                                 Text="{Binding Path=AddressFamily, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" MaxLength="200"/>
-                        </my:PropertyRow>
-                        <my:PropertyRow HeaderText="备用地址(_A):">
-                            <TextBox Name="textAddressChild" Width="300" 
                                  Text="{Binding Path=AddressChild, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" MaxLength="200"/>
                         </my:PropertyRow>
                         <my:PropertyRow HeaderText="设定:">

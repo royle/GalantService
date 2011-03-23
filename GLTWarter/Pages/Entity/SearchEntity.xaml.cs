@@ -24,6 +24,14 @@ namespace GLTWarter.Pages.Entity
             InitializeComponent();
         }
 
+        private void btnModify_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.listResult.SelectedItem != null)
+            {
+                this.entityModifySwitch(this.listResult.SelectedItem as Galant.DataEntity.Entity);
+            }
+        }
+
         void HandleItemActivate(object source, RoutedEventArgs e)
         {
             if (e is KeyEventArgs)
@@ -35,6 +43,11 @@ namespace GLTWarter.Pages.Entity
                 }
             }
             Galant.DataEntity.Entity data = listResult.GetItemFromContainer((System.Windows.DependencyObject)source) as Galant.DataEntity.Entity;
+            this.entityModifySwitch(data);
+        }
+
+        private void entityModifySwitch(Galant.DataEntity.Entity data)
+        {
             if (data != null)
             {
                 data.Operation = "Save";

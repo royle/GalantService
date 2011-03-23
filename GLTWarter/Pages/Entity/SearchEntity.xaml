@@ -19,14 +19,14 @@
                 <xcdg:DataGridItemProperty IsReadOnly="True" Name="AbleFlag" Converter="{StaticResource BooleanNotConverter}" DataType="{x:Type sys:Boolean}" />
             </xcdg:DataGridCollectionViewSource.ItemProperties>
             <xcdg:DataGridCollectionViewSource.SortDescriptions>
-                <scm:SortDescription PropertyName="Alias" Direction="Ascending" />
+                <scm:SortDescription PropertyName="EntityType" Direction="Ascending" />
             </xcdg:DataGridCollectionViewSource.SortDescriptions>
         </xcdg:DataGridCollectionViewSource>
     </Page.Resources>
     <my:DetailsPagePresenter TitleBrush="Blue" TitleForNew="用户/客户/站点查询">
         <my:DetailsPagePresenter.LatestVersionButtonsPanel>
             <Button HorizontalAlignment="Right" Content="新建" Click="buttonNew_Click"  Name="buttonNew" />
-            <Button IsDefault="true" >修改</Button>
+            <Button IsDefault="true" Name="btnModify" Click="btnModify_Click">修改</Button>
             <Button IsCancel="true" >取消</Button>
         </my:DetailsPagePresenter.LatestVersionButtonsPanel>
         <Grid>

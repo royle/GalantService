@@ -196,4 +196,16 @@
   <data name="converterRouteCacheNewRoute" xml:space="preserve">
     <value>{0}路</value>
   </data>
+  <data name="msgCustomerCreated" xml:space="preserve">
+    <value>客户创建成功</value>
+  </data>
+  <data name="msgCustomerModified" xml:space="preserve">
+    <value>客户修改成功</value>
+  </data>
+  <data name="msgUserCreated" xml:space="preserve">
+    <value>创建用户成功</value>
+  </data>
+  <data name="msgUserModified" xml:space="preserve">
+    <value>用户保存成功</value>
+  </data>
 </root>

@@ -26,7 +26,7 @@
                     <Value>Client</Value>
                     <Text>收件人</Text>
                 </Entity>
-                <Entity searchable="1">
+                <Entity searchable="0">
                     <Value>Individual</Value>
                     <Text>供应商</Text>
                 </Entity>

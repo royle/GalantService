@@ -142,6 +142,24 @@ namespace GLTWarter {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 客户创建成功.
+        /// </summary>
+        internal static string msgCustomerCreated {
+            get {
+                return ResourceManager.GetString("msgCustomerCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 客户修改成功.
+        /// </summary>
+        internal static string msgCustomerModified {
+            get {
+                return ResourceManager.GetString("msgCustomerModified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Excel文件 (*.xls;*.xlsx)|*.xls;*.xlsx|所有文件|*.*.
         /// </summary>
         internal static string msgFileDialogExcelFileFilter {
@@ -174,6 +192,24 @@ namespace GLTWarter {
         internal static string msgStationCreated {
             get {
                 return ResourceManager.GetString("msgStationCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 创建用户成功.
+        /// </summary>
+        internal static string msgUserCreated {
+            get {
+                return ResourceManager.GetString("msgUserCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 用户保存成功.
+        /// </summary>
+        internal static string msgUserModified {
+            get {
+                return ResourceManager.GetString("msgUserModified", resourceCulture);
             }
         }
         

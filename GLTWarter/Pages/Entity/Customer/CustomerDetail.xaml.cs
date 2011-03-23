@@ -50,7 +50,28 @@ namespace GLTWarter.Pages.Entity.Customer
         protected void buttonSubmit_Click(object sender, RoutedEventArgs e)
         {
             this.dataCurrent.Operation = "Save";
-            base.buttonNext_Click(sender, e);
+            base.buttonOk_Click(sender, e);
+        }
+
+        protected override bool OnSavedNewItem()
+        {
+            MessageBox.Show(AppCurrent.Active.MainScreen, Resource.msgCustomerCreated, this.Title, MessageBoxButton.OK, MessageBoxImage.Information);
+            this.dataCurrent = new Galant.DataEntity.Entity();
+            this.dataCurrent.Operation = "Save";
+            (this.dataCurrent as Galant.DataEntity.Entity).EntityType = Galant.DataEntity.EntityType.Client;
+            (this.dataCurrent as Galant.DataEntity.Entity).AbleFlag = true;
+            (this.dataCurrent as Galant.DataEntity.Entity).PayType = Galant.DataEntity.PayType.AtTime;
+            Galant.DataEntity.Entity data = (Galant.DataEntity.Entity)dataCurrent;
+            this.DataContext = this.dataCurrent;
+            this.dataBackup = (Galant.DataEntity.BaseData)data.Clone();
+            return false;
+        }
+
+        protected override bool OnSavedEditedItem()
+        {
+            MessageBox.Show(AppCurrent.Active.MainScreen, Resource.msgCustomerModified, this.Title, MessageBoxButton.OK, MessageBoxImage.Information);
+            this.dataCurrent.Operation = "Save";
+            return true;
         }
     }
 }

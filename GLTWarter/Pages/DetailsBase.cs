@@ -398,21 +398,31 @@ namespace GLTWarter.Pages
                         Galant.DataEntity.BaseData data = e.Result;
                         if (data != null)
                         {
-                            dataCurrent = data;
-                            dataBackup = dataCurrent.Clone() as Galant.DataEntity.BaseData;
-                            dataBackup.IsLoading = false;
+                            string errorString = this.GetErrorString(data);
+                            if (string.IsNullOrEmpty(errorString))
+                            {
 
-                            if (this.DataContext as Galant.DataEntity.BaseData != null) (this.DataContext as Galant.DataEntity.BaseData).IsLoading = false;
-                            bool isFinishReturn =
-                                isLastItemNew ? OnSavedNewItem() : OnSavedEditedItem();
-                            this.DataContext = dataCurrent;
-                            dataCurrent.IsLoading = false;
-                            dataCurrent.ClearInvalid();
-                            if (isFinishReturn) OnReturn(new ReturnEventArgs<Galant.DataEntity.BaseData>(data.IsNew ? null : data));
-                            dataCurrent.IsLoading = false;
-                            this.DataReadyRefresh();
-                            this.Restorefocus();
-                            return;
+                                dataCurrent = data;
+                                dataBackup = dataCurrent.Clone() as Galant.DataEntity.BaseData;
+                                dataBackup.IsLoading = false;
+
+                                if (this.DataContext as Galant.DataEntity.BaseData != null) (this.DataContext as Galant.DataEntity.BaseData).IsLoading = false;
+                                bool isFinishReturn =
+                                    isLastItemNew ? OnSavedNewItem() : OnSavedEditedItem();
+                                this.DataContext = dataCurrent;
+                                dataCurrent.IsLoading = false;
+                                dataCurrent.ClearInvalid();
+                                if (isFinishReturn) OnReturn(new ReturnEventArgs<Galant.DataEntity.BaseData>(data.IsNew ? null : data));
+                                dataCurrent.IsLoading = false;
+                                this.DataReadyRefresh();
+                                this.Restorefocus();
+                                return;
+                            }
+                            else
+                            {
+                                AppCurrent.Logger.Info(errorString);
+                                ShowPopulateError(errorString);
+                            }
                         }
                     }
                     
