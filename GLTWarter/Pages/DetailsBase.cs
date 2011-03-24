@@ -161,7 +161,7 @@ namespace GLTWarter.Pages
                     {   
                         GLTService.ServiceAPIClient client = new GLTService.ServiceAPIClient();
                         client.DoRequestCompleted += new EventHandler<GLTService.DoRequestCompletedEventArgs>(PopulateCallback);
-                        client.DoRequestAsync(this.DataContext as Galant.DataEntity.BaseData, AppCurrent.Active.StaffCurrent, "Refresh");         
+                        client.DoRequestAsync(this.DataContext as Galant.DataEntity.BaseData, AppCurrent.Active.StaffCurrent, "Refresh");
                     }
                 }
             }
