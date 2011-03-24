@@ -53,14 +53,7 @@ namespace GLTWarter.Pages.Order
         protected override void OnNext(Galant.DataEntity.BaseData incomingData)
         {
             MessageBox.Show(AppCurrent.Active.MainScreen, Resource.msgOrderCreated, this.Title, MessageBoxButton.OK, MessageBoxImage.Information);
-
-            Galant.DataEntity.Paper paper = new Galant.DataEntity.Paper();
-            paper.ContactB = new Galant.DataEntity.Entity();
-            paper.ContactB.EntityType = Galant.DataEntity.EntityType.Client;
-            paper.Packages = new ObservableCollection<Galant.DataEntity.Package>();
-            paper.Operation = BaseOperatorName.DataSave;
-            this.DataContext = paper;
-            this.dataCurrent = packet;
+            this.NavigationService.Navigate(new Welcome());
         }
 
         private void EntitySelector_Enter(object sender, GLTWarter.Controls.EntitySelectorEnterEventArgs e)
