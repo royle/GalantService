@@ -114,7 +114,7 @@
                     </GroupBox>
                 </Grid>
             </ScrollViewer>
-            <StackPanel Grid.Row="1" Name="PackagesView" Margin="5,10">
+            <Grid Grid.Row="1" Name="PackagesView" Margin="5,10">
                 <xcdg:DataGridControl Margin="0,0,0,0" UpdateSourceTrigger="CellEndingEdit"  NavigationBehavior="CellOnly" ReadOnly="False"  HorizontalAlignment="Stretch" ItemsSource="{Binding Source={StaticResource Packages}}" Name="listResult" styles:ExportHint.IsExportable="true">
 
                     <xcdg:DataGridControl.ItemContainerStyle>
@@ -131,7 +131,7 @@
                         <xcdg:Column Title="修改" Width="70" FieldName="123" CellContentTemplate="{StaticResource buttonCellTemplate}"/>
                     </xcdg:DataGridControl.Columns>
                 </xcdg:DataGridControl>
-            </StackPanel>
+            </Grid>
         </Grid>
     </my:DetailsPagePresenter>
 </pages:DetailsBase>

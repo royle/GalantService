@@ -50,7 +50,7 @@
                     <Button Style="{StaticResource SearchButtonStyle}" Click="buttonNext_Click" Name="buttonSearch" />
                 </StackPanel>
             </ScrollViewer>
-            <StackPanel Grid.Row="1" Name="ResultView">
+            <Grid Grid.Row="1" Name="ResultView">
                 <TabControl SelectionChanged="TabControl_SelectionChanged">
 					<TabItem Name="tabDeliveryMan" Header="配送员">
 						<xcdg:DataGridControl SelectionMode="Single" ItemsSource="{Binding Source={StaticResource DeliveryManData}}" Name="listDeliveryMan" NavigationBehavior="RowOnly" ReadOnly="True">
@@ -78,7 +78,7 @@
 						</xcdg:DataGridControl>
 					</TabItem>
 				</TabControl>
-            </StackPanel>
+            </Grid>
         </Grid>
     </my:DetailsPagePresenter>
 </pages:DetailsBase>

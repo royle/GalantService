@@ -62,7 +62,7 @@
                     <Button Style="{StaticResource SearchButtonStyle}" Click="buttonNext_Click" Name="buttonSearch" />
                 </StackPanel>
             </ScrollViewer>
-            <StackPanel Grid.Row="1" Name="ResultView">
+            <Grid Grid.Row="1" Name="ResultView">
                 <xcdg:DataGridControl ItemsSource="{Binding Source={StaticResource ResultData}}" Name="listResult" styles:ExportHint.IsExportable="true">
                     
                     <xcdg:DataGridControl.ItemContainerStyle>
@@ -78,7 +78,7 @@
                         <xcdg:Column Title="名字" Width="120" FieldName="FullName" />
                     </xcdg:DataGridControl.Columns>
                 </xcdg:DataGridControl>
-            </StackPanel>
+            </Grid>
         </Grid>
     </my:DetailsPagePresenter>
 </pages:DetailsBase>

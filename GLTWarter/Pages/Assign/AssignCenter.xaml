@@ -53,7 +53,7 @@
                 </my:PropertyRow>
                 <Button Style="{StaticResource SearchButtonStyle}" Click="buttonNext_Click" Name="buttonSearch" />
             </StackPanel>
-            <StackPanel Grid.Row="1">
+            <Grid Grid.Row="1">
                 <xcdg:DataGridControl Margin="0" ItemsSource="{Binding Source={StaticResource ResultData}}" Name="listResult" styles:ExportHint.IsExportable="true"
                                       NavigationBehavior="RowOnly" ReadOnly="True">
                     <xcdg:DataGridControl.ItemContainerStyle>
@@ -74,7 +74,7 @@
                         <xcdg:Column Title="地址" Width="120" ReadOnly="True" FieldName="ContactB.AddressChild" />
                     </xcdg:DataGridControl.Columns>
                 </xcdg:DataGridControl>
-            </StackPanel>
+            </Grid>
             <StackPanel Grid.Row="2" Orientation="Horizontal" Name="routeline" >
                 <my:PropertyRow HeaderText="调度站点" x:Name="gridManualRouting" >
                     <ComboBox Name="routeManualRouting" ItemsSource="{Binding Entities}" Style="{StaticResource vInput}"
