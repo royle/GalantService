@@ -317,5 +317,11 @@ namespace Galant.DataEntity
             get { return isCollection; }
             set { isCollection = value; OnPropertyChanged("IsCollection"); }
         }
+        [IgnoreDataMember]
+        public string NewSubStatus
+        {
+            get { return this.PaperSubStatus == null ? string.Empty : this.PaperSubStatus.ToString(); }
+            set { this.PaperSubStatus = string.IsNullOrEmpty(value) ? this.PaperSubStatus : (Galant.DataEntity.PaperSubState)Enum.Parse(typeof(Galant.DataEntity.PaperSubState), value); }
+        }
     }
 }

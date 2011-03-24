@@ -22,7 +22,7 @@ namespace Galant.DataEntity.Result
                 OnPropertyChanged("CheckinPapers");
                 OnPropertyChanged("FinishDoneList");
                 OnPropertyChanged("CheckinExceptionList");
-                OnPropertyChanged("SemiGLTWarterToReturnList");
+                OnPropertyChanged("SemiDeliverToReturnList");
                 OnPropertyChanged("WorkPendingList");
             }
         }
@@ -39,7 +39,7 @@ namespace Galant.DataEntity.Result
          }
 
          /// <summary>
-         /// 成功列表
+         /// 未处理
          /// </summary>
          [IgnoreDataMember]
          public List<Paper> WorkPendingList
@@ -47,6 +47,17 @@ namespace Galant.DataEntity.Result
              get { return CheckinPapers.Where(p => p.PaperSubStatus == Galant.DataEntity.PaperSubState.InTransit).ToList(); }
              set { }
          }
+
+         /// <summary>
+         /// 已处理
+         /// </summary>
+         [IgnoreDataMember]
+         public List<Paper> WorkDoneList
+         {
+             get { return CheckinPapers.Where(p => p.PaperSubStatus != Galant.DataEntity.PaperSubState.InTransit).ToList(); }
+             set { }
+         }
+
 
         /// <summary>
         /// 成功列表
@@ -71,7 +82,7 @@ namespace Galant.DataEntity.Result
         /// 派送失败的列表
         /// </summary>
         [IgnoreDataMember]
-        public List<Paper> SemiGLTWarterToReturnList
+        public List<Paper> SemiDeliverToReturnList
         {
             get { return CheckinPapers.Where(p => p.PaperSubStatus == Galant.DataEntity.PaperSubState.DeliveryToReturn).ToList(); }
             set { }

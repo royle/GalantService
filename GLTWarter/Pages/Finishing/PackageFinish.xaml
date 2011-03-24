@@ -18,10 +18,25 @@
             <xcdg:DataGridCollectionViewSource AutoCreateItemProperties="False" x:Key="PendingPapers" Source="{Binding WorkPendingList}">
                 <xcdg:DataGridCollectionViewSource.ItemProperties>
                     <xcdg:DataGridItemProperty IsReadOnly="True" Name="ContactB" Converter="{StaticResource EntityNameConverter}" DataType="{x:Type sys:String}" />
-                    <xcdg:DataGridItemProperty IsReadOnly="True" Name="OriginName" Converter="{StaticResource ArrayStringConverter}" DataType="{x:Type sys:String}" />
+                    <xcdg:DataGridItemProperty IsReadOnly="True" Name="ContactB.AddressChild" DataType="{x:Type sys:String}" />
                     <xcdg:DataGridItemProperty IsReadOnly="True" Name="Packages" Converter="{StaticResource PackageArrayNamesConverter}" DataType="{x:Type sys:String}" />
                     <xcdg:DataGridItemProperty IsReadOnly="True" Name="Bound" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource PaperBound}" DataType="{x:Type sys:String}" />
                     <xcdg:DataGridItemProperty IsReadOnly="True" Name="PaperType" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource PaperType}" DataType="{x:Type sys:String}" />
+                    <xcdg:DataGridItemProperty IsReadOnly="True" Name="Comment" DataType="{x:Type sys:String}" />
+                </xcdg:DataGridCollectionViewSource.ItemProperties>
+                <xcdg:DataGridCollectionViewSource.SortDescriptions>
+                    <scm:SortDescription PropertyName="ContactB" Direction="Ascending" />
+                </xcdg:DataGridCollectionViewSource.SortDescriptions>
+            </xcdg:DataGridCollectionViewSource>
+            <xcdg:DataGridCollectionViewSource AutoCreateItemProperties="False" x:Key="DownPapers" Source="{Binding WorkDownList}">
+                <xcdg:DataGridCollectionViewSource.ItemProperties>
+                    <xcdg:DataGridItemProperty IsReadOnly="True" Name="ContactB" Converter="{StaticResource EntityNameConverter}" DataType="{x:Type sys:String}" />
+                    <xcdg:DataGridItemProperty IsReadOnly="True" Name="ContactB.AddressChild" DataType="{x:Type sys:String}" />
+                    <xcdg:DataGridItemProperty IsReadOnly="True" Name="Packages" Converter="{StaticResource PackageArrayNamesConverter}" DataType="{x:Type sys:String}" />
+                    <xcdg:DataGridItemProperty IsReadOnly="True" Name="PaperSubStatus" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource PaperSubStatus}" DataType="{x:Type sys:String}" />
+                    <xcdg:DataGridItemProperty IsReadOnly="True" Name="Bound" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource PaperBound}" DataType="{x:Type sys:String}" />
+                    <xcdg:DataGridItemProperty IsReadOnly="True" Name="PaperType" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource PaperType}" DataType="{x:Type sys:String}" />
+                    <xcdg:DataGridItemProperty IsReadOnly="True" Name="Comment" DataType="{x:Type sys:String}" />
                 </xcdg:DataGridCollectionViewSource.ItemProperties>
                 <xcdg:DataGridCollectionViewSource.SortDescriptions>
                     <scm:SortDescription PropertyName="ContactB" Direction="Ascending" />
@@ -43,31 +58,22 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <my:PropertyRow HeaderText="配送员和单号">
-                <!--<Expander Header="{Binding WorkingOn[0].Holder, Converter={StaticResource EntityNameConverter}}">
+                <Expander Header="{Binding WorkingOn[0].Holder, Converter={StaticResource EntityNameConverter}}">
                     <TextBlock Text="{Binding WorkingOnId, Converter={StaticResource ArrayStringConverter}, ConverterParameter=', '}" TextWrapping="Wrap"/>
-                </Expander>-->
+                </Expander>
             </my:PropertyRow>
             <my:PropertyRow HeaderText="条形码(_B):" Grid.Row="1">
                 <StackPanel Grid.Row="1" Orientation="Horizontal">
-                    <my:PaperSelector HorizontalAlignment="Left" x:Name="selectorShipment" PapersList="{Binding FlatternScannableWorkingList}" 
+                    <my:PaperSelector HorizontalAlignment="Left" x:Name="selectorShipment" PapersList="{Binding CheckinPapers}" 
                                              UnknownText="搜索其他订单 (修改配送员): {0}"  Margin="10,0,10,0" Enter="Shipment_selectorEnter" >处理</my:PaperSelector>
-                    <RadioButton Name="rdoDetail" Style="{StaticResource vInput}" GroupName="fininshgroup" Checked="rdoSuccess_Checked" Content="详情" IsChecked="True" Margin="5,0,0,0" />
-                    <RadioButton Name="rdoSuccess"  Style="{StaticResource vInput}" GroupName="fininshgroup" Checked="rdoSuccess_Checked" Content="扫成功" Margin="5,0,0,0" />
-                    <RadioButton Name="rdoReGLTWarter" Style="{StaticResource vInput}" GroupName="fininshgroup" Checked="rdoSuccess_Checked" Content="扫二次" Margin="5,0,0,0" />
-                    <RadioButton Name="rdoException" Style="{StaticResource vInput}" GroupName="fininshgroup" Checked="rdoSuccess_Checked" Content="扫只录异常" Margin="5,0,0,0" />
                 </StackPanel>
-            </my:PropertyRow>
-            <my:PropertyRow HeaderText="收款方式(_Y):" Grid.Row="2" x:Name="rowScanningCurrency" Visibility="Collapsed">
-                <ComboBox Name="comboScanningCurrency" MinWidth="175" 
-                              ItemsSource="{Binding AllCurrencies}"  Margin="10,0,10,0" Style="{StaticResource vInput}">
-                </ComboBox>
             </my:PropertyRow>
             <TabControl Grid.Row="3">
                 <TabItem Name="tabPending">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <AccessText VerticalAlignment="Center">未处理(_U)</AccessText>
-                            <!--<TextBlock Margin="3,0,0,0">[<TextBlock Text="{Binding WorkPendingList.Count, Converter={StaticResource IntDisplayConverter}}" />]</TextBlock>-->
+                            <TextBlock Margin="3,0,0,0">[<TextBlock Text="{Binding WorkPendingList.Count, Converter={StaticResource IntDisplayConverter}}" />]</TextBlock>
                         </StackPanel>
                     </TabItem.Header>
                     <Grid>
@@ -98,16 +104,63 @@
                             </xcdg:DataGridControl.View>
                             <xcdg:DataGridControl.Columns>
                                 <xcdg:Column Title="客户名称" Width="120" FieldName="ContactB" />
-                                <xcdg:Column Title="客户订单号" Width="120" FieldName="OriginName" ReadOnly="True" />
+                                <xcdg:Column Title="送水地址" Width="120" FieldName="OriginName" ReadOnly="True" />
                                 <xcdg:Column Title="产品名" Width="120" FieldName="Packages" ReadOnly="True" />
                                 <xcdg:Column Title="方向" Width="75" FieldName="Bound" ReadOnly="True" />
                                 <xcdg:Column Title="性质" Width="75" FieldName="PaperType" ReadOnly="True" />
+                                <xcdg:Column Title="备注" Width="75" FieldName="Comment" ReadOnly="True" />
                             </xcdg:DataGridControl.Columns>
                         </xcdg:DataGridControl>
                         <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal">
-                            <Button VerticalAlignment="Center" Name="buttonBatchSuccess" Style="{StaticResource StandardButton}" Margin="10,5,0,5" Click="Finish_ButtonClick">成功 »</Button>
-                            <Button VerticalAlignment="Center" Name="buttonBatchReGLTWarter" Style="{StaticResource StandardButton}" Margin="10,5,0,5" Click="ReGLTWarter_ButtonClick">二次 »</Button>
-                            <Button VerticalAlignment="Center" Name="buttonBatchException" Style="{StaticResource StandardButton}" Margin="10,5,0,5" Click="Exception_ButtonClick">只录异常 »</Button>
+                            <Button VerticalAlignment="Center" Name="buttonBatchSuccess" Style="{StaticResource StandardButton}" Margin="10,5,0,5" Click="Finish_ButtonClick">处理 »</Button>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem Name="tabDown">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <AccessText VerticalAlignment="Center">未处理(_U)</AccessText>
+                            <TextBlock Margin="3,0,0,0">[<TextBlock Text="{Binding WorkDownList.Count, Converter={StaticResource IntDisplayConverter}}" />]</TextBlock>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <xcdg:DataGridControl ItemsSource="{Binding Source={StaticResource DownPapers}}" Name="listDown" NavigationBehavior="RowOnly" ReadOnly="True">
+                            <xcdg:DataGridControl.View>
+                                <xcdg:TableView ColumnStretchMode="First">
+                                    <xcdg:TableView.FixedFooters>
+                                        <DataTemplate>
+                                            <my:FooterRow>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="共 " />
+                                                    <!--<TextBlock Text="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.StatContext).Total, Converter={StaticResource IntDisplayConverter}}" />-->
+                                                    <TextBlock Text=" 单、" />
+                                                    <!--<TextBlock Text="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.StatContext).TotalPackage, Converter={StaticResource IntDisplayConverter}}" />-->
+                                                    <TextBlock Text=" 包" />
+                                                </StackPanel>
+                                            </my:FooterRow>
+                                        </DataTemplate>
+                                    </xcdg:TableView.FixedFooters>
+                                </xcdg:TableView>
+                            </xcdg:DataGridControl.View>
+                            <xcdg:DataGridControl.Columns>
+                                <xcdg:Column Title="客户名称" Width="120" FieldName="ContactB" />
+                                <xcdg:Column Title="送水地址" Width="120" FieldName="OriginName" ReadOnly="True" />
+                                <xcdg:Column Title="产品名" Width="120" FieldName="Packages" ReadOnly="True" />
+                                <xcdg:Column Title="归班结果" Width="75" FieldName="PaperSubStatus" ReadOnly="True" />
+                                <xcdg:Column Title="方向" Width="75" FieldName="Bound" ReadOnly="True" />
+                                <xcdg:Column Title="订单类型" Width="75" FieldName="PaperType" ReadOnly="True" />
+                                <xcdg:Column Title="备注" Width="75" FieldName="Comment" ReadOnly="True" />
+                            </xcdg:DataGridControl.Columns>
+                        </xcdg:DataGridControl>
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal">
+                            <Button VerticalAlignment="Center" Name="buttonBatchUndo" Style="{StaticResource StandardButton}" Margin="10,5,0,5" Click="Finish_ButtonClick">未处理 »</Button>
                         </StackPanel>
                     </Grid>
                 </TabItem>

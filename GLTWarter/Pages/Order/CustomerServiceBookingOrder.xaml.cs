@@ -47,6 +47,8 @@ namespace GLTWarter.Pages.Order
             {
                 data.PaperSubStatus = Galant.DataEntity.PaperSubState.Routeing;
             }
+            this.confimPaper.Visibility = System.Windows.Visibility.Visible;
+            this.btnBookPaper.Visibility = System.Windows.Visibility.Collapsed;
             this.buttonNext_Click(sender, e);
         }
 
@@ -104,6 +106,12 @@ namespace GLTWarter.Pages.Order
         {
             (this.DataContext as Galant.DataEntity.Paper).ContactB = new Galant.DataEntity.Entity();
             (this.DataContext as Galant.DataEntity.Paper).ContactB.EntityType = Galant.DataEntity.EntityType.Client;
+        }
+
+        private void confimPaper_Click(object sender, RoutedEventArgs e)
+        {
+            this.confimPaper.Visibility = System.Windows.Visibility.Collapsed;
+            this.btnBookPaper.Visibility = System.Windows.Visibility.Visible;
         }
     }
 }

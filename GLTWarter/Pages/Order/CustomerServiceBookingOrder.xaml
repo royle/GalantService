@@ -11,7 +11,7 @@
     xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
 	Title="客服订水">
     <Page.Resources>
-        <xcdg:DataGridCollectionViewSource x:Key="Packages" Source="{Binding Packages, FallbackValue={x:Null}}" AutoCreateItemProperties="False">
+        <xcdg:DataGridCollectionViewSource x:Key="Packages" Source="{Binding Packages, UpdateSourceTrigger=PropertyChanged, FallbackValue={x:Null}}" AutoCreateItemProperties="False">
             <xcdg:DataGridCollectionViewSource.ItemProperties>
                 <xcdg:DataGridItemProperty IsReadOnly="True" Name="IsMarked" DataType="{x:Type sys:Boolean}" />
                 <xcdg:DataGridItemProperty IsReadOnly="True" Name="Product.ProductName" DataType="{x:Type sys:String}" />
@@ -32,7 +32,8 @@
     </Page.Resources>
     <my:DetailsPagePresenter TitleBrush="Blue" TitleForNew="客服订水">
         <my:DetailsPagePresenter.LatestVersionButtonsPanel>
-            <Button IsDefault="true"  Name="btnBookPaper" Click="btnBookPaper_Click">订水</Button>
+            <Button IsDefault="true"  Name="confimPaper" Click="confimPaper_Click">确认订单信息</Button>
+            <Button IsDefault="true"  Name="btnBookPaper" Visibility="Collapsed" Click="btnBookPaper_Click">提交订单</Button>
             <Button IsCancel="true" >取消</Button>
         </my:DetailsPagePresenter.LatestVersionButtonsPanel>
         <Grid>

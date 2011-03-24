@@ -1093,14 +1093,14 @@ namespace GLTWarter.Data
         }
     }
 
-    [ValueConversion(typeof(List<Galant.DataEntity.Package>), typeof(string))]
+    [ValueConversion(typeof(IList<Galant.DataEntity.Package>), typeof(string))]
     class PackageArrayNamesConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value as List<Galant.DataEntity.Package> != null)
+            if (value as IList<Galant.DataEntity.Package> != null)
             {
-                return Convert((List<Galant.DataEntity.Package>)value);
+                return Convert((IList<Galant.DataEntity.Package>)value);
             }
             return null;
         }
@@ -1110,7 +1110,7 @@ namespace GLTWarter.Data
             throw new NotSupportedException();
         }
 
-        public static string Convert(List<Galant.DataEntity.Package> e)
+        public static string Convert(IList<Galant.DataEntity.Package> e)
         {
             string returnString = "";
             foreach (Galant.DataEntity.Package  p in e)

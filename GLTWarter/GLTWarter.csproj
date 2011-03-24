@@ -156,6 +156,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\FinishResultSelector.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\PaperSelector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -195,6 +199,10 @@
     <Page Include="Pages\Entity\SearchEntity.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Finishing\FinishDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Finishing\FinishingList.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -276,6 +284,9 @@
     <Compile Include="Controls\EntitySelector.xaml.cs">
       <DependentUpon>EntitySelector.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\FinishResultSelector.xaml.cs">
+      <DependentUpon>FinishResultSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\FooterRow.cs" />
     <Compile Include="Controls\PaperSelector.xaml.cs">
       <DependentUpon>PaperSelector.xaml</DependentUpon>
@@ -328,6 +339,9 @@
     </Compile>
     <Compile Include="Pages\Entity\SearchEntity.xaml.cs">
       <DependentUpon>SearchEntity.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Finishing\FinishDetail.xaml.cs">
+      <DependentUpon>FinishDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Finishing\FinishingList.xaml.cs">
       <DependentUpon>FinishingList.xaml</DependentUpon>
