@@ -64,11 +64,7 @@ namespace Galant.DataEntity
         private int? productId;
         public int? ProductId
         {
-<<<<<<< HEAD
             get { return productId ?? Product.ProductId; }
-=======
-            get { return productId?? Product.ProductId; }
->>>>>>> 225e7ca... 修改小bug    不能订水
             set { productId = value; }
         }
 

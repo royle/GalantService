@@ -270,5 +270,14 @@ namespace GLTService.Operation.BaseEntity
             object obj= MySqlHelper.ExecuteScalar(this.Operator.myConnection, sqlLastInsertId);
             return obj == null ? string.Empty : obj.ToString();
         }
+
+        /// <summary>
+        /// 增加事件
+        /// </summary>
+        protected void AddEvent(Galant.DataEntity.EventLog data)
+        {
+            EventLog eventlog = new EventLog(this.Operator);
+            eventlog.AddNewData(data);
+        }
     }
 }
