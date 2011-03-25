@@ -44,7 +44,7 @@
             </xcdg:DataGridCollectionViewSource>
         </my:DetailsPagePresenter.Resources>
         <my:DetailsPagePresenter.LatestVersionButtonsPanel>
-            <Button IsDefault="true" Name="buttonNext" Click="buttonNextDry_Click">下一步</Button>
+            <Button IsDefault="true" Name="buttonNextDry" Click="buttonNextDry_Click">下一步</Button>
             <Button IsCancel="true" Name="buttonCancel" Click="buttonCancel_Click">关闭</Button>
         </my:DetailsPagePresenter.LatestVersionButtonsPanel>
         <Grid Margin="10,10">
@@ -102,6 +102,12 @@
                                     </xcdg:TableView.FixedFooters>
                                 </xcdg:TableView>
                             </xcdg:DataGridControl.View>
+                            <xcdg:DataGridControl.ItemContainerStyle>
+                                <Style TargetType="{x:Type xcdg:DataRow}" BasedOn="{StaticResource DataRowStyle}">
+                                    <EventSetter Event="MouseDoubleClick" Handler="HandleItemActivate"/>
+                                    <EventSetter Event="PreviewKeyDown" Handler="HandleItemActivate"/>
+                                </Style>
+                            </xcdg:DataGridControl.ItemContainerStyle>
                             <xcdg:DataGridControl.Columns>
                                 <xcdg:Column Title="客户名称" Width="120" FieldName="ContactB" />
                                 <xcdg:Column Title="送水地址" Width="120" FieldName="OriginName" ReadOnly="True" />
@@ -160,7 +166,7 @@
                             </xcdg:DataGridControl.Columns>
                         </xcdg:DataGridControl>
                         <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal">
-                            <Button VerticalAlignment="Center" Name="buttonBatchUndo" Style="{StaticResource StandardButton}" Margin="10,5,0,5" Click="Finish_ButtonClick">未处理 »</Button>
+                            <Button VerticalAlignment="Center" Name="buttonUndo" Style="{StaticResource StandardButton}" Margin="10,5,0,5" Click="buttonUndo_Click">未处理 »</Button>
                         </StackPanel>
                     </Grid>
                 </TabItem>

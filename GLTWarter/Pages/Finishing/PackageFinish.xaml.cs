@@ -39,6 +39,7 @@ namespace GLTWarter.Pages.Finishing
             InitializeComponent();
 
             this.Loaded += new RoutedEventHandler(PackageFinish_Loaded);
+            this.Loaded += new RoutedEventHandler(PackageFinish_LoadedOnce);
         }
 
         public override void OnApplyTemplate()
@@ -47,6 +48,18 @@ namespace GLTWarter.Pages.Finishing
 
         void PackageFinish_Loaded(object sender, RoutedEventArgs e)
         {
+            if (this.DataContext != null)
+            {
+                Galant.DataEntity.Result.FinishCheckin checkin = this.DataContext as Galant.DataEntity.Result.FinishCheckin;
+                checkin.NotifyPapersChanged();
+            }
+        }
+
+        
+
+        void PackageFinish_LoadedOnce(object sender, RoutedEventArgs e)
+        {
+            this.Loaded -= new RoutedEventHandler(PackageFinish_LoadedOnce);
             base.buttonNext_Click(sender, e);
         }
 
@@ -92,8 +105,11 @@ namespace GLTWarter.Pages.Finishing
 
         private void Finish_ButtonClick(object sender, RoutedEventArgs e)
         {//归班为成功
-            isUpdateCurrency = false;
-           // BuildBatchHandle((BatchHandler)BatchSuccessHandler);
+            if (this.listPending.SelectedItem == null)
+                return;
+            Galant.DataEntity.Paper paper = this.listPending.SelectedItem as Galant.DataEntity.Paper;
+            if(paper !=null)
+                this.NavigationService.Navigate(new GLTWarter.Pages.Finishing.FinishDetail(paper));
         }
 
        
@@ -103,7 +119,8 @@ namespace GLTWarter.Pages.Finishing
         /// </summary>
         private void GoToDetail(Galant.DataEntity.Paper sm, bool isUnknownMode, string enteredText)
         {
-           
+            if (sm != null)
+                this.NavigationService.Navigate(new GLTWarter.Pages.Finishing.FinishDetail(sm));
         }
 
         private void FigureBatchSimple(Galant.DataEntity.Paper sm, bool isUnknownMode, string enteredText, BatchHandler handle)
@@ -114,19 +131,53 @@ namespace GLTWarter.Pages.Finishing
 
         void pageBatch_Return(object sender, ReturnEventArgs<Galant.DataEntity.BaseData> e)
         {
-            if (Data.BackObject.IsReturnGenuine(e))
-            {
-               
-            }
-            else
-            {
-                batchShipment = null;
-            }
+            
         }
 
         void page_Return(object sender, ReturnEventArgs<Galant.DataEntity.BaseData> e)
         {
            
+        }
+
+        private void buttonNextDry_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        void HandleItemActivate(object source, RoutedEventArgs e)
+        {
+            if (e is KeyEventArgs)
+            {
+                KeyEventArgs ke = (KeyEventArgs)e;
+                if (!(ke.Key == Key.Enter && ke.KeyboardDevice.Modifiers == ModifierKeys.None))
+                {
+                    return;
+                }
+            }
+            Xceed.Wpf.DataGrid.DataRow row =source as Xceed.Wpf.DataGrid.DataRow;
+            Galant.DataEntity.Paper data = row.DataContext as Galant.DataEntity.Paper;
+            if (data != null)
+            {
+                this.NavigationService.Navigate(new GLTWarter.Pages.Finishing.FinishDetail(data));
+            }
+            //this.entityModifySwitch(data);
+        }
+
+        private void buttonUndo_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.listDown.SelectedItems == null || this.listDown.SelectedItems.Count == 0)
+                return;
+            foreach (object o in this.listDown.SelectedItems)
+            {
+                Galant.DataEntity.Paper p = o as Galant.DataEntity.Paper;
+                p.PaperSubStatus = Galant.DataEntity.PaperSubState.InTransit;
+            }
+
+            if (this.DataContext != null)
+            {
+                Galant.DataEntity.Result.FinishCheckin checkin = this.DataContext as Galant.DataEntity.Result.FinishCheckin;
+                checkin.NotifyPapersChanged();
+            }
         }
 
     

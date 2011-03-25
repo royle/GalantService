@@ -109,5 +109,33 @@ namespace Galant.DataEntity
             get { return products; }
             set { products = value; OnPropertyChanged("Products"); }
         }
+
+        /// <summary>
+        /// 需要返回的商品
+        /// </summary>
+        [IgnoreDataMember]
+        public List<Product> ProductsNeedReturn
+        {
+            get 
+            {
+                if (Products == null)
+                    Products = new List<Product>();
+                return Products.Where(p => p.NeedBack).ToList();
+            }
+        }
+
+        /// <summary>
+        /// 水票
+        /// </summary>
+        [IgnoreDataMember]
+        public List<Product> ProductsTickets
+        {
+            get
+            {
+                if (Products == null)
+                    Products = new List<Product>();
+                return Products.Where(p => p.ProductType==ProductEnum.Ticket).ToList();
+            }
+        }
     }
 }

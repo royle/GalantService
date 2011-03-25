@@ -323,5 +323,69 @@ namespace Galant.DataEntity
             get { return this.PaperSubStatus == null ? string.Empty : this.PaperSubStatus.ToString(); }
             set { this.PaperSubStatus = string.IsNullOrEmpty(value) ? this.PaperSubStatus : (Galant.DataEntity.PaperSubState)Enum.Parse(typeof(Galant.DataEntity.PaperSubState), value); }
         }
+
+        private List<Package> returnPackages = new List<Package>();
+        /// <summary>
+        /// 归班返回的物品
+        /// </summary>
+        [DataMember]
+        public List<Package> ReturnPackages
+        {
+            get 
+            {
+                if (returnPackages.Count <= 0)
+                {
+                    Package pBulk = new Package(this.PaperId);
+                    Product pr = new Product();
+                    pr.ReturnName = "";
+                    pr.NeedBack = true;
+                    pr.ProductType = ProductEnum.Autonomy;
+                    pBulk.Product = pr;
+
+                    returnPackages.Add(pBulk);
+
+                    Package pTicket = new Package(this.PaperId);
+                    Product prTicket = new Product();
+                    prTicket.ProductType = ProductEnum.Ticket;
+                    prTicket.ProductName = "";
+                    pTicket.Product = prTicket;
+                    returnPackages.Add(pTicket);
+
+                }
+                return returnPackages; 
+            }
+            set { returnPackages = value; OnPropertyChanged("ReturnPackages"); OnPropertyChanged("ReturnBulk"); OnPropertyChanged("ReturnTicket"); }
+        }
+
+        public void NotifyReturnListChanget()
+        {
+            OnPropertyChanged("ReturnPackages"); OnPropertyChanged("ReturnBulk"); OnPropertyChanged("ReturnTicket"); 
+        }
+
+
+        /// <summary>
+        /// 归班返回的空桶
+        /// </summary>
+        [IgnoreDataMember]
+        public List<Package> ReturnBulk
+        {
+            get { return ReturnPackages.Where(p => p.Product != null && p.Product.ProductType == ProductEnum.Autonomy && p.Product.NeedBack).ToList(); }
+        }
+
+        /// <summary>
+        /// 归班返回的水票
+        /// </summary>
+        [IgnoreDataMember]
+        public List<Package> ReturnTicket
+        {
+            get { return ReturnPackages.Where(p => p.Product != null && p.Product.ProductType == ProductEnum.Ticket).ToList(); }
+        }
+        /// <summary>
+        /// 返回的金额
+        /// </summary>
+        [DataMember]
+        public Decimal ReturnCash = 0;
+
+
     }
 }

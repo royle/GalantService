@@ -24,7 +24,18 @@ namespace Galant.DataEntity.Result
                 OnPropertyChanged("CheckinExceptionList");
                 OnPropertyChanged("SemiDeliverToReturnList");
                 OnPropertyChanged("WorkPendingList");
+                OnPropertyChanged("WorkDoneList");
             }
+        }
+
+        public void NotifyPapersChanged()
+        {
+            OnPropertyChanged("CheckinPapers");
+            OnPropertyChanged("FinishDoneList");
+            OnPropertyChanged("CheckinExceptionList");
+            OnPropertyChanged("SemiDeliverToReturnList");
+            OnPropertyChanged("WorkPendingList");
+            OnPropertyChanged("WorkDoneList");
         }
 
          private List<Paper> checkinCollections = new List<Paper>();
