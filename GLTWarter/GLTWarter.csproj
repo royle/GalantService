@@ -200,6 +200,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Finishing\FinishConsign.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\Finishing\FinishDetail.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -339,6 +343,9 @@
     </Compile>
     <Compile Include="Pages\Entity\SearchEntity.xaml.cs">
       <DependentUpon>SearchEntity.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Finishing\FinishConsign.xaml.cs">
+      <DependentUpon>FinishConsign.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Finishing\FinishDetail.xaml.cs">
       <DependentUpon>FinishDetail.xaml</DependentUpon>

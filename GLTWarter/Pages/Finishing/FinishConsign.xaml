@@ -1,0 +1,73 @@
+﻿<pages:DetailsBase x:Class="GLTWarter.Pages.Finishing.FinishConsign"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:my="clr-namespace:GLTWarter.Controls"
+    xmlns:pages="clr-namespace:GLTWarter.Pages"
+    xmlns:src="clr-namespace:GLTWarter"
+    xmlns:styles="clr-namespace:GLTWarter.Styles"
+    xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+	Title="归班确认">
+    <Page.Resources>
+        <DataTemplate x:Key="ReturnProductName">
+            <TextBlock Text="{Binding ReturnName}"></TextBlock>
+        </DataTemplate>
+        <DataTemplate x:Key="ReturnTicketName">
+            <TextBlock Text="{Binding ProductName}"></TextBlock>
+        </DataTemplate>
+    </Page.Resources>
+    <my:DetailsPagePresenter TitleBrush="Blue" TitleForEdit="归班确认" TitleForNew="归班确认">
+        <my:DetailsPagePresenter.LatestVersionButtonsPanel>
+            <Button IsDefault="true" Name="btnSubmit"  Click="btnSubmit_Click" >确定</Button>
+            <Button IsCancel="true" Name="btnCancel" Click="btnCancel_Click" >取消</Button>
+        </my:DetailsPagePresenter.LatestVersionButtonsPanel>
+        <TabControl Margin="5" Background="Transparent" >
+            <TabItem Header="一般" Background="Transparent">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="10,10">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<my:PropertyRow Grid.Column="0" HeaderText="正在处理清单列表:">
+                                <TextBlock Text="{Binding CheckinPapersID, Converter={StaticResource ArrayStringConverter}, ConverterParameter=', '}"/>
+							</my:PropertyRow>
+						</Grid>
+                        <GroupBox Header="归班">
+                            <StackPanel>
+                            <my:PropertyRow HeaderText="配送费用(_N):">
+                                <TextBlock Name="textName"
+                                 Text="{Binding Path=Salary, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}"/>
+                            </my:PropertyRow>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="返回物品及款项">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <my:PropertyRow HeaderText="现金:" Grid.Row="0">
+                                    <TextBlock Name="textAmont" 
+                                 Text="{Binding Path=ReturnCash, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}"/>
+                                </my:PropertyRow>
+                                <my:PropertyRow HeaderText="空桶:" Grid.Row="1">
+                                    <TextBlock Name="textBulk"><TextBlock Text="{Binding Path=RerunBulkCount, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}"/> 个</TextBlock>
+                                </my:PropertyRow>
+                                <my:PropertyRow HeaderText="水票:" Grid.Row="2">
+                                    <TextBlock Name="textTicket"><TextBlock Text="{Binding Path=RerunTicketCount, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}"/> 张</TextBlock>
+                                </my:PropertyRow>
+                            </Grid>
+                        </GroupBox>
+                        <Grid Margin="0,10"/>
+                        <CheckBox Name="confimCheckin">确认交回物品及款项无误！</CheckBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+    </my:DetailsPagePresenter>
+</pages:DetailsBase>

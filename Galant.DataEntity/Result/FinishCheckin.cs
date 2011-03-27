@@ -140,5 +140,28 @@ namespace Galant.DataEntity.Result
                 return c;
             }
         }
+
+        /// <summary>
+        /// 归班配送员应有提成
+        /// </summary>
+        [IgnoreDataMember]
+        public decimal? Salary
+        {
+            get
+            {
+                decimal? d = WorkDoneList == null ? 0 : (from p in WorkDoneList where p.Salary != null select p.Salary).Sum();
+                return d;
+            }
+        }
+
+        [IgnoreDataMember]
+        public string[]  CheckinPapersID
+        {
+            get
+            {
+                List<string> s = (from p in CheckinCollections select p.PaperId).ToList();
+                return s.ToArray();
+            }
+        }
     }
 }

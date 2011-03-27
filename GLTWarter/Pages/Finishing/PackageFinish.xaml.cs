@@ -141,7 +141,11 @@ namespace GLTWarter.Pages.Finishing
 
         private void buttonNextDry_Click(object sender, RoutedEventArgs e)
         {
-
+            Galant.DataEntity.Result.FinishCheckin data = this.DataContext as Galant.DataEntity.Result.FinishCheckin;
+            if (data != null)
+            {
+                this.NavigationService.Navigate(new GLTWarter.Pages.Finishing.FinishConsign(data));
+            }
         }
 
         void HandleItemActivate(object source, RoutedEventArgs e)
@@ -179,6 +183,7 @@ namespace GLTWarter.Pages.Finishing
             }
         }
 
+      
     
     }
 }
