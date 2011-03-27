@@ -18,7 +18,7 @@
         <my:DetailsPagePresenter TitleBrush="Blue" TitleForEdit="归班详情" TitleForNew="归班详情">
         <my:DetailsPagePresenter.LatestVersionButtonsPanel>
             <Button IsDefault="true"  Click="buttonSubmit_Click" >确定</Button>
-            <Button IsCancel="true" Click="buttonCancel_Click" >取消</Button>
+            <Button IsCancel="true" Name="btnCancel" Click="btnCancel_Click" >取消</Button>
         </my:DetailsPagePresenter.LatestVersionButtonsPanel>
         <TabControl Margin="5" Background="Transparent" >
             <TabItem Header="一般" Background="Transparent">
@@ -32,10 +32,33 @@
 							<my:PropertyRow Grid.Column="0" HeaderText="订单号:">
 								<TextBlock Text="{Binding PaperId}"/>
 							</my:PropertyRow>
-							<my:PropertyRow Grid.Column="1" HeaderText="开始时间:">
-								<Label  Content="{Binding StartTime, Converter={StaticResource EventDateLongConverter}}" />
-							</my:PropertyRow>
-						</Grid>
+                            <GroupBox Header="产品列表：" Grid.Column="1">
+                                <ItemsControl ItemsSource="{Binding Packages, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Focusable="False" Name="listProducts">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="5"/>
+                                                    <ColumnDefinition Width="70"/>
+                                                    <ColumnDefinition Width="5"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Column="0">
+                                                                产品名称：<TextBlock MinWidth="30"  VerticalAlignment="Center" Text="{Binding  Product.ProductName}"/>
+                                                </TextBlock>
+                                                <TextBlock Grid.Column="2">
+                                                                数量：<TextBlock MinWidth="30"  VerticalAlignment="Center" Text="{Binding Count, Converter={StaticResource IntInputConverter}}"/>
+                                                </TextBlock>
+                                                <TextBlock Grid.Column="4">
+                                                                价值：<TextBlock MinWidth="30"  VerticalAlignment="Center" Text="{Binding Amount}"/>
+                                                </TextBlock>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </GroupBox>
+                        </Grid>
                         <GroupBox Header="归班">
                             <StackPanel>
                             <my:PropertyRow HeaderText="归班结果(_D):">
@@ -43,11 +66,11 @@
                             </my:PropertyRow>
                             <my:PropertyRow HeaderText="异常原因(_A):" >
                                 <TextBox  Width="150" 
-                                 Text="{Binding Path=FullName, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" MaxLength="50" />
+                                 Text="{Binding Path=CheckinException, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" MaxLength="50" />
                             </my:PropertyRow>
                             <my:PropertyRow HeaderText="配送费用(_N):">
                                 <TextBox Name="textName" Width="150" 
-                                 Text="{Binding Path=FullName, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" MaxLength="50" />
+                                 Text="{Binding Path=Salary, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" MaxLength="50" />
                             </my:PropertyRow>
                             </StackPanel>
                         </GroupBox>
@@ -65,65 +88,70 @@
                                     <TextBox Name="textAmont" Width="150" 
                                  Text="{Binding Path=ReturnCash, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" MaxLength="50" />
                                 </my:PropertyRow>
-                                <my:PropertyRow Grid.Row="1" HeaderText="空桶(_N):">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="30"/>
-                                        </Grid.ColumnDefinitions>
-                                        <ItemsControl ItemsSource="{Binding ReturnBulk, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Focusable="False" Name="listBillAdjustments"
-                                  Style="{StaticResource vInput}">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="*"/>
-                                                        <ColumnDefinition Width="5"/>
-                                                        <ColumnDefinition Width="Auto"/>
-                                                    </Grid.ColumnDefinitions>
-                                                    <ComboBox Grid.Column="0" MinWidth="60" VerticalAlignment="Center" ItemTemplate="{StaticResource ReturnProductName}"
-                                              IsEnabled="{Binding IsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
-                                              ItemsSource="{Binding Source={x:Static src:AppCurrent.Active}, Path=AppCach.ProductsNeedReturn}" SelectedValue="{Binding Product, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" />
-                                                    <TextBlock Grid.Column="2">
-                                                        数量：<TextBox MinWidth="30" Style="{StaticResource vInput}" VerticalAlignment="Center" Text="{Binding Count, Converter={StaticResource IntInputConverter}}"/>个
-                                                    </TextBlock>
-                                                </Grid>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                        <Button Grid.Column="1" Name="btnAddBulk" Click="btnAddBulk_Click" MaxHeight="20">添加</Button>
-                                    </Grid>
-                                </my:PropertyRow>
-
-                                <my:PropertyRow Grid.Row="2" HeaderText="水票(_N):">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="30"/>
-                                        </Grid.ColumnDefinitions>
-                                        <ItemsControl ItemsSource="{Binding ReturnTicket, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Focusable="False" Name="listTitckes"
-                                  Style="{StaticResource vInput}">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="*"/>
-                                                        <ColumnDefinition Width="5"/>
-                                                        <ColumnDefinition Width="Auto"/>
-                                                    </Grid.ColumnDefinitions>
-                                                    <ComboBox Grid.Column="0" MinWidth="60" VerticalAlignment="Center" ItemTemplate="{StaticResource ReturnTicketName}"
-                                              IsEnabled="{Binding IsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
-                                              ItemsSource="{Binding Source={x:Static src:AppCurrent.Active}, Path=AppCach.ProductsTickets}" SelectedValue="{Binding Product, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" />
-                                                    <TextBlock Grid.Column="2">
-                                                        数量：<TextBox Style="{StaticResource vInput}" MinWidth="30" VerticalAlignment="Center" Text="{Binding Count, Converter={StaticResource IntInputConverter}}"/>张
-                                                    </TextBlock>
-                                                </Grid>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                        <Button Grid.Column="1" Name="btnAddTicket" Click="btnAddTicket_Click" MaxHeight="20">添加</Button>
-                                    </Grid>
-                                </my:PropertyRow>
+                                <GroupBox Grid.Row="1" Header="空桶(_N):">
+                                    <my:PropertyRow VerticalAlignment="Top">
+                                   
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="30"/>
+                                                </Grid.ColumnDefinitions>
+                                                <ItemsControl ItemsSource="{Binding ReturnBulk, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Focusable="False" Name="listBillAdjustments"
+                                          Style="{StaticResource vInput}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="5"/>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <ComboBox Grid.Column="0" MinWidth="60" VerticalAlignment="Center" ItemTemplate="{StaticResource ReturnProductName}"
+                                                      IsEnabled="{Binding IsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
+                                                      ItemsSource="{Binding Source={x:Static src:AppCurrent.Active}, Path=AppCach.ProductsNeedReturn}" SelectedValue="{Binding Product, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" />
+                                                            <TextBlock Grid.Column="2">
+                                                                数量：<TextBox MinWidth="30" Style="{StaticResource vInput}" VerticalAlignment="Center" Text="{Binding Count, Converter={StaticResource IntInputConverter}}"/>个
+                                                            </TextBlock>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                                <Button Grid.Column="1" Name="btnAddBulk" Click="btnAddBulk_Click" MaxHeight="20">添加</Button>
+                                            </Grid>
+                                    </my:PropertyRow>
+                                </GroupBox>
+                                <GroupBox Grid.Row="2" Header="水票(_N)">
+                                    <my:PropertyRow  HeaderText="" VerticalAlignment="Top">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="30"/>
+                                                </Grid.ColumnDefinitions>
+                                                <ItemsControl ItemsSource="{Binding ReturnTicket, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Focusable="False" Name="listTitckes"
+                                          Style="{StaticResource vInput}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="5"/>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <ComboBox Grid.Column="0" IsEditable="False" MinWidth="60" VerticalAlignment="Center" ItemTemplate="{StaticResource ReturnTicketName}"
+                                                      IsEnabled="{Binding IsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
+                                                      ItemsSource="{Binding Source={x:Static src:AppCurrent.Active}, Path=AppCach.ProductsTickets}" SelectedValue="{Binding Product, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" />
+                                                            <TextBlock Grid.Column="2">
+                                                                数量：<TextBox Style="{StaticResource vInput}" MinWidth="30" VerticalAlignment="Center" Text="{Binding Count, Converter={StaticResource IntInputConverter}}"/>张
+                                                            </TextBlock>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                                <Button Grid.Column="1" Name="btnAddTicket" Click="btnAddTicket_Click" MaxHeight="20">添加</Button>
+                                            </Grid>
+                                    
+                                    </my:PropertyRow>
+                                </GroupBox>
                             </Grid>
                         </GroupBox>
                         <Grid Margin="0,10"/>

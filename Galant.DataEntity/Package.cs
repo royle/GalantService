@@ -73,14 +73,15 @@ namespace Galant.DataEntity
         public int Count
         {
             get { return count; }
-            set { count = value; this.Amount = this.Product == null ? 0 : this.Product.Amount * value; }
+            set { count = value; this.Amount = this.Product == null ? amount : this.Product.Amount * value; }
         }
         private decimal amount;
         [DataMember]
         public decimal Amount
         {
             get { return amount; }
-            set { amount = value; }
+            set
+            { amount = value; }
         }
         private decimal originAmount;
         [DataMember]

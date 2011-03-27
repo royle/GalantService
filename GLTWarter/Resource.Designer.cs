@@ -292,6 +292,15 @@ namespace GLTWarter {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 归班金额与订单价值不符(订单金额：{0}，归班金额：{1})，是否继续归班？.
+        /// </summary>
+        internal static string validationPaperReturnValueError {
+            get {
+                return ResourceManager.GetString("validationPaperReturnValueError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 两次输入密码不一致.
         /// </summary>
         internal static string validationPasswordConfirmMismatch {

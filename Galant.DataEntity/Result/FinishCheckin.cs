@@ -36,6 +36,9 @@ namespace Galant.DataEntity.Result
             OnPropertyChanged("SemiDeliverToReturnList");
             OnPropertyChanged("WorkPendingList");
             OnPropertyChanged("WorkDoneList");
+            OnPropertyChanged("ReturnCash");
+            OnPropertyChanged("RerunBulkCount");
+            OnPropertyChanged("RerunTicketCount");
         }
 
          private List<Paper> checkinCollections = new List<Paper>();
@@ -97,6 +100,45 @@ namespace Galant.DataEntity.Result
         {
             get { return CheckinPapers.Where(p => p.PaperSubStatus == Galant.DataEntity.PaperSubState.DeliveryToReturn).ToList(); }
             set { }
+        }
+
+        /// <summary>
+        /// 返回现金
+        /// </summary>
+        [IgnoreDataMember]
+        public decimal ReturnCash
+        {
+            get
+            {
+                decimal c = WorkDoneList == null ? 0 : (from p in WorkDoneList  select p.ReturnCash).Sum();
+                return c;
+            }
+        }
+
+        /// <summary>
+        /// 返回空桶数量
+        /// </summary>
+        [IgnoreDataMember]
+        public int RerunBulkCount
+        {
+            get 
+            {
+                int c = WorkDoneList == null ? 0 : (from p in WorkDoneList where p.ReturnBulk != null && p.ReturnBulk.Count > 0 select p.ReturnBulkCount).Sum();
+                return c;
+            }
+        }
+
+        /// <summary>
+        /// 返回水票数量
+        /// </summary>
+        [IgnoreDataMember]
+        public int RerunTicketCount
+        {
+            get
+            {
+                int c = WorkDoneList == null ? 0 : (from p in WorkDoneList where p.ReturnTicket != null && p.ReturnTicket.Count > 0 select p.ReturnTicketCount).Sum();
+                return c;
+            }
         }
     }
 }

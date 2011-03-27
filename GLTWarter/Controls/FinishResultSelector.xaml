@@ -14,6 +14,7 @@
                     <ContextMenu Placement="Bottom" Name="btnContextMenu">
                         <MenuItem Name="menuNextActionAssured"  Tag="NextActionAssured" Header="_1 成功" />
                         <MenuItem Name="menuCheckinException" Tag="FinishWithCancel" Header="_2 取消"/>
+                        <MenuItem Name="menuInTransit" Tag="InTransit" Header="_3 在途"/>
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>

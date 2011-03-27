@@ -160,7 +160,6 @@ namespace GLTWarter.Pages.Finishing
             {
                 this.NavigationService.Navigate(new GLTWarter.Pages.Finishing.FinishDetail(data));
             }
-            //this.entityModifySwitch(data);
         }
 
         private void buttonUndo_Click(object sender, RoutedEventArgs e)

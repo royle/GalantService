@@ -208,4 +208,7 @@
   <data name="msgUserModified" xml:space="preserve">
     <value>用户保存成功</value>
   </data>
+  <data name="validationPaperReturnValueError" xml:space="preserve">
+    <value>归班金额与订单价值不符(订单金额：{0}，归班金额：{1})，是否继续归班？</value>
+  </data>
 </root>

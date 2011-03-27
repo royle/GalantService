@@ -160,7 +160,7 @@ namespace Galant.DataEntity
         [DataMember]
         public Entity DeliverA
         {
-            get { return deliverA; }
+            get { return deliverA;}
             set { deliverA = value; OnPropertyChanged("DeliverA"); }
         }
         private Entity deliverB;
@@ -331,29 +331,7 @@ namespace Galant.DataEntity
         [DataMember]
         public List<Package> ReturnPackages
         {
-            get 
-            {
-                if (returnPackages.Count <= 0)
-                {
-                    Package pBulk = new Package(this.PaperId);
-                    Product pr = new Product();
-                    pr.ReturnName = "";
-                    pr.NeedBack = true;
-                    pr.ProductType = ProductEnum.Autonomy;
-                    pBulk.Product = pr;
-
-                    returnPackages.Add(pBulk);
-
-                    Package pTicket = new Package(this.PaperId);
-                    Product prTicket = new Product();
-                    prTicket.ProductType = ProductEnum.Ticket;
-                    prTicket.ProductName = "";
-                    pTicket.Product = prTicket;
-                    returnPackages.Add(pTicket);
-
-                }
-                return returnPackages; 
-            }
+            get { return returnPackages; }
             set { returnPackages = value; OnPropertyChanged("ReturnPackages"); OnPropertyChanged("ReturnBulk"); OnPropertyChanged("ReturnTicket"); }
         }
 
@@ -380,12 +358,88 @@ namespace Galant.DataEntity
         {
             get { return ReturnPackages.Where(p => p.Product != null && p.Product.ProductType == ProductEnum.Ticket).ToList(); }
         }
+
+        private Decimal returnCash = 0;
         /// <summary>
         /// 返回的金额
         /// </summary>
         [DataMember]
-        public Decimal ReturnCash = 0;
+        public Decimal ReturnCash
+        {
+            get { return returnCash; }
+            set { returnCash = value; OnPropertyChanged("ReturnCash"); }
+        }
 
+        /// <summary>
+        /// 归班异常原因
+        /// </summary>
+        [DataMember]
+        public string CheckinException = string.Empty;
 
+        /// <summary>
+        /// 返回的空桶数量
+        /// </summary>
+        [IgnoreDataMember]
+        public int ReturnBulkCount
+        {
+            get 
+            {
+                int c = ReturnBulk == null ? 0 : (from p in ReturnBulk select p.Count).Sum();
+                return c;
+            }
+        }
+
+        /// <summary>
+        /// 返回水票数量
+        /// </summary>
+        [IgnoreDataMember]
+        public int ReturnTicketCount
+        {
+            get
+            {
+                int c = ReturnTicket == null ? 0 : (from p in ReturnTicket select p.Count).Sum();
+                return c;
+            }
+        }
+
+        /// <summary>
+        /// 订单产品的数量
+        /// </summary>
+        [IgnoreDataMember]
+        public int DeliverPacketCount
+        {
+            get
+            {
+                int c = this.Packages == null ? 0 : (from p in Packages select p.Count).Sum();
+                return c;
+            }
+        }
+
+        /// <summary>
+        /// 订单金额
+        /// </summary>
+        [IgnoreDataMember]
+        public decimal PaperAmount
+        {
+            get
+            {
+                decimal d = this.Packages==null ? 0 : (from p in Packages select p.Amount).Sum();
+                return d;
+            }
+        }
+
+        /// <summary>
+        /// 归班返回的金额(水票价值+现金)
+        /// </summary>
+        [IgnoreDataMember]
+        public decimal ReturnedAmount
+        {
+            get
+            {
+                decimal d = this.ReturnTicket == null ? 0 : (from p in ReturnTicket select p.Amount).Sum();
+                d += this.ReturnCash;
+                return d;
+            }
+        }
     }
 }

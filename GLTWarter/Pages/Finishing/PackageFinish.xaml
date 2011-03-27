@@ -23,12 +23,17 @@
                     <xcdg:DataGridItemProperty IsReadOnly="True" Name="Bound" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource PaperBound}" DataType="{x:Type sys:String}" />
                     <xcdg:DataGridItemProperty IsReadOnly="True" Name="PaperType" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource PaperType}" DataType="{x:Type sys:String}" />
                     <xcdg:DataGridItemProperty IsReadOnly="True" Name="Comment" DataType="{x:Type sys:String}" />
+                    <xcdg:DataGridItemProperty IsReadOnly="True" Name="DeliverPacketCount" DataType="{x:Type sys:Int32}" />
                 </xcdg:DataGridCollectionViewSource.ItemProperties>
+                <xcdg:DataGridCollectionViewSource.StatFunctions>
+                    <xcdg:CountFunction ResultPropertyName="Total" SourcePropertyName="Packages" />
+                    <xcdg:SumFunction ResultPropertyName="TotalPackage" SourcePropertyName="DeliverPacketCount" />
+                </xcdg:DataGridCollectionViewSource.StatFunctions>
                 <xcdg:DataGridCollectionViewSource.SortDescriptions>
                     <scm:SortDescription PropertyName="ContactB" Direction="Ascending" />
                 </xcdg:DataGridCollectionViewSource.SortDescriptions>
             </xcdg:DataGridCollectionViewSource>
-            <xcdg:DataGridCollectionViewSource AutoCreateItemProperties="False" x:Key="DownPapers" Source="{Binding WorkDownList}">
+            <xcdg:DataGridCollectionViewSource AutoCreateItemProperties="False" x:Key="DownPapers" Source="{Binding WorkDoneList}">
                 <xcdg:DataGridCollectionViewSource.ItemProperties>
                     <xcdg:DataGridItemProperty IsReadOnly="True" Name="ContactB" Converter="{StaticResource EntityNameConverter}" DataType="{x:Type sys:String}" />
                     <xcdg:DataGridItemProperty IsReadOnly="True" Name="ContactB.AddressChild" DataType="{x:Type sys:String}" />
@@ -36,8 +41,20 @@
                     <xcdg:DataGridItemProperty IsReadOnly="True" Name="PaperSubStatus" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource PaperSubStatus}" DataType="{x:Type sys:String}" />
                     <xcdg:DataGridItemProperty IsReadOnly="True" Name="Bound" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource PaperBound}" DataType="{x:Type sys:String}" />
                     <xcdg:DataGridItemProperty IsReadOnly="True" Name="PaperType" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource PaperType}" DataType="{x:Type sys:String}" />
+                    <xcdg:DataGridItemProperty IsReadOnly="True" Name="ReturnBulkCount" DataType="{x:Type sys:Int32}" />
+                    <xcdg:DataGridItemProperty IsReadOnly="True" Name="ReturnTicketCount" DataType="{x:Type sys:Int32}" />
+                    <xcdg:DataGridItemProperty IsReadOnly="True" Name="DeliverPacketCount" DataType="{x:Type sys:Int32}" />
+                    <xcdg:DataGridItemProperty IsReadOnly="True" Name="ReturnCash" DataType="{x:Type sys:Decimal}" />
+                    <xcdg:DataGridItemProperty IsReadOnly="True" Name="ContactB.AddressChild" DataType="{x:Type sys:String}" />
                     <xcdg:DataGridItemProperty IsReadOnly="True" Name="Comment" DataType="{x:Type sys:String}" />
                 </xcdg:DataGridCollectionViewSource.ItemProperties>
+                <xcdg:DataGridCollectionViewSource.StatFunctions>
+                    <xcdg:CountFunction ResultPropertyName="Total" SourcePropertyName="Packages" />
+                    <xcdg:SumFunction ResultPropertyName="TotalPackage" SourcePropertyName="DeliverPacketCount" />
+                    <xcdg:SumFunction ResultPropertyName="TotalCash" SourcePropertyName="ReturnCash" />
+                    <xcdg:SumFunction ResultPropertyName="TotalBulk" SourcePropertyName="ReturnBulkCount" />
+                    <xcdg:SumFunction ResultPropertyName="TotalTicket" SourcePropertyName="ReturnTicketCount" />
+                </xcdg:DataGridCollectionViewSource.StatFunctions>
                 <xcdg:DataGridCollectionViewSource.SortDescriptions>
                     <scm:SortDescription PropertyName="ContactB" Direction="Ascending" />
                 </xcdg:DataGridCollectionViewSource.SortDescriptions>
@@ -92,9 +109,9 @@
                                             <my:FooterRow>
                                                 <StackPanel Orientation="Horizontal">
                                                     <TextBlock Text="共 " />
-                                                    <!--<TextBlock Text="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.StatContext).Total, Converter={StaticResource IntDisplayConverter}}" />-->
+                                                    <TextBlock Text="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.StatContext).Total, Converter={StaticResource IntDisplayConverter}}" />
                                                     <TextBlock Text=" 单、" />
-                                                    <!--<TextBlock Text="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.StatContext).TotalPackage, Converter={StaticResource IntDisplayConverter}}" />-->
+                                                    <TextBlock Text="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.StatContext).TotalPackage, Converter={StaticResource IntDisplayConverter}}" />
                                                     <TextBlock Text=" 包" />
                                                 </StackPanel>
                                             </my:FooterRow>
@@ -126,7 +143,7 @@
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <AccessText VerticalAlignment="Center">未处理(_U)</AccessText>
-                            <TextBlock Margin="3,0,0,0">[<TextBlock Text="{Binding WorkDownList.Count, Converter={StaticResource IntDisplayConverter}}" />]</TextBlock>
+                            <TextBlock Margin="3,0,0,0">[<TextBlock Text="{Binding WorkDoneList.Count, Converter={StaticResource IntDisplayConverter}}" />]</TextBlock>
                         </StackPanel>
                     </TabItem.Header>
                     <Grid>
@@ -145,21 +162,36 @@
                                             <my:FooterRow>
                                                 <StackPanel Orientation="Horizontal">
                                                     <TextBlock Text="共 " />
-                                                    <!--<TextBlock Text="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.StatContext).Total, Converter={StaticResource IntDisplayConverter}}" />-->
+                                                    <TextBlock Text="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.StatContext).Total, Converter={StaticResource IntDisplayConverter}}" />
                                                     <TextBlock Text=" 单、" />
-                                                    <!--<TextBlock Text="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.StatContext).TotalPackage, Converter={StaticResource IntDisplayConverter}}" />-->
-                                                    <TextBlock Text=" 包" />
+                                                    <TextBlock Text="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.StatContext).TotalPackage, Converter={StaticResource IntDisplayConverter}}" />
+                                                    <TextBlock Text=" 包、  现金:" />
+                                                    <TextBlock Text="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.StatContext).TotalCash}" />
+                                                    <TextBlock Text="  返回空桶数:" />
+                                                    <TextBlock Text="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.StatContext).TotalBulk, Converter={StaticResource IntDisplayConverter}}" />
+                                                    <TextBlock Text="个、 返回水票:" />
+                                                    <TextBlock Text="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.StatContext).TotalTicket, Converter={StaticResource IntDisplayConverter}}" />
+                                                    <TextBlock Text="张" />
                                                 </StackPanel>
                                             </my:FooterRow>
                                         </DataTemplate>
                                     </xcdg:TableView.FixedFooters>
                                 </xcdg:TableView>
                             </xcdg:DataGridControl.View>
+                            <xcdg:DataGridControl.ItemContainerStyle>
+                                <Style TargetType="{x:Type xcdg:DataRow}" BasedOn="{StaticResource DataRowStyle}">
+                                    <EventSetter Event="MouseDoubleClick" Handler="HandleItemActivate"/>
+                                    <EventSetter Event="PreviewKeyDown" Handler="HandleItemActivate"/>
+                                </Style>
+                            </xcdg:DataGridControl.ItemContainerStyle>
                             <xcdg:DataGridControl.Columns>
                                 <xcdg:Column Title="客户名称" Width="120" FieldName="ContactB" />
                                 <xcdg:Column Title="送水地址" Width="120" FieldName="OriginName" ReadOnly="True" />
                                 <xcdg:Column Title="产品名" Width="120" FieldName="Packages" ReadOnly="True" />
                                 <xcdg:Column Title="归班结果" Width="75" FieldName="PaperSubStatus" ReadOnly="True" />
+                                <xcdg:Column Title="返回空桶数量" Width="120" FieldName="ReturnBulkCount" ReadOnly="True" />
+                                <xcdg:Column Title="返回水票数量" Width="120" FieldName="ReturnTicketCount" ReadOnly="True" />
+                                <xcdg:Column Title="返回现金" Width="75" FieldName="ReturnCash" ReadOnly="True" />
                                 <xcdg:Column Title="方向" Width="75" FieldName="Bound" ReadOnly="True" />
                                 <xcdg:Column Title="订单类型" Width="75" FieldName="PaperType" ReadOnly="True" />
                                 <xcdg:Column Title="备注" Width="75" FieldName="Comment" ReadOnly="True" />
