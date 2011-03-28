@@ -179,9 +179,9 @@ namespace Galant.DataEntity
             get { return deposit; }
             set { deposit = value; OnPropertyChanged("Deposit"); }
         }
-        private PayType? payType;
+        private PayType payType;
         [DataMember]
-        public PayType? PayType
+        public PayType PayType
         {
             get { return payType; }
             set { payType = value; OnPropertyChanged("PayType"); }
