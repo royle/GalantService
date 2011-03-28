@@ -441,5 +441,15 @@ namespace Galant.DataEntity
                 return d;
             }
         }
+
+        private List<PaperCheckin> paperCheckins = new List<PaperCheckin>();
+        /// <summary>
+        /// 归班的金额列表
+        /// </summary>
+        public List<PaperCheckin> PaperCheckins
+        {
+            get { return paperCheckins; }
+            set { paperCheckins = value; }
+        }
     }
 }

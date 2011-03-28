@@ -72,6 +72,7 @@
     <Compile Include="OrderBooking\PaperProduct.cs" />
     <Compile Include="Package.cs" />
     <Compile Include="Paper.cs" />
+    <Compile Include="PaperCheckin.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Production\Result.cs" />
     <Compile Include="Production\Search.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Route.cs" />
     <Compile Include="Search\FinishListCondition.cs" />
     <Compile Include="Search\SearchEntityCondition.cs" />
+    <Compile Include="Store.cs" />
     <Compile Include="WCFFaultException.cs" />
   </ItemGroup>
   <ItemGroup>

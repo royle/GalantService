@@ -340,6 +340,26 @@ CREATE TABLE `stores` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+DROP TABLE IF EXISTS `paper_checkins`;
+CREATE  TABLE `paper_checkins` (
+
+  `checkin_id` INT NOT NULL AUTO_INCREMENT ,
+
+  `paper_id` VARCHAR(16) NOT NULL ,
+
+  `checkin_amount` DECIMAL NULL DEFAULT 0 ,
+
+  `product_id` INT(11) NULL ,
+
+  `product_count` INT NULL DEFAULT 0 ,
+
+  `checkin_type` TINYINT(1) NULL ,
+
+  PRIMARY KEY (`checkin_id`) ,
+
+  INDEX `I_Checkin_Paperid` USING BTREE (`paper_id` ASC) 
+  )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  
 --
 -- Dumping data for table `stores`
 --

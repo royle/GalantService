@@ -93,6 +93,7 @@
     <Compile Include="Operation\BaseEntity\Product.cs" />
     <Compile Include="Operation\BaseEntity\Role.cs" />
     <Compile Include="Operation\BaseEntity\Route.cs" />
+    <Compile Include="Operation\Checkin\FinishCheckin.cs" />
     <Compile Include="Operation\Login.cs" />
     <Compile Include="Operation\Search.cs" />
     <Compile Include="ProcessSwitch.cs" />
