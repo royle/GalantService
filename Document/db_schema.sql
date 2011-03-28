@@ -332,7 +332,7 @@ CREATE TABLE `stores` (
   `store_id` int(11) NOT NULL AUTO_INCREMENT,
   `entity_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `product_count` decimal(8,0) DEFAULT NULL,
+  `product_count` int(11) DEFAULT NULL,
   `bound` int(11) DEFAULT NULL,
   PRIMARY KEY (`store_id`),
   KEY `store_product_id_relate` (`product_id`),
