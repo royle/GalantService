@@ -13,7 +13,7 @@ namespace Galant.DataEntity
 
         #region Model
         private int _store_id;
-        private string _product_id;
+        private int _product_id;
         private int _relation_entity;
         private int? _entity_id;
         private int _product_count;
@@ -49,7 +49,7 @@ namespace Galant.DataEntity
         /// <summary>
         /// 
         /// </summary>
-        public string ProductID
+        public int ProductID
         {
             set { _product_id = value; }
             get { return _product_id; }

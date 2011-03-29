@@ -90,9 +90,11 @@
     <Compile Include="Operation\BaseEntity\EventLog.cs" />
     <Compile Include="Operation\BaseEntity\Package.cs" />
     <Compile Include="Operation\BaseEntity\Paper.cs" />
+    <Compile Include="Operation\BaseEntity\PaperCheckin.cs" />
     <Compile Include="Operation\BaseEntity\Product.cs" />
     <Compile Include="Operation\BaseEntity\Role.cs" />
     <Compile Include="Operation\BaseEntity\Route.cs" />
+    <Compile Include="Operation\BaseEntity\Store.cs" />
     <Compile Include="Operation\Checkin\FinishCheckin.cs" />
     <Compile Include="Operation\Login.cs" />
     <Compile Include="Operation\Search.cs" />

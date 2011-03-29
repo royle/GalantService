@@ -29,6 +29,15 @@ namespace GLTService.Operation.Checkin
                 {
                     throw new Galant.DataEntity.WCFFaultException(9001, "Data Out Of Date", "数据已过期,请返回刷新后再试。");
                 }
+                this.SaveStore(p);
+                this.SaveCheckIn(p);
+                this.UpdatePaperStatus(p);//更新状态
+
+            }
+
+            foreach (Galant.DataEntity.Paper  pc in checkIn.CheckinCollections)
+            {
+                this.paperOp.FinishCollections(pc);
             }
         }
 
@@ -40,20 +49,68 @@ namespace GLTService.Operation.Checkin
         {
             if (p.PaperSubStatus == PaperSubState.InTransit)
                 return;
+            GLTService.Operation.BaseEntity.Store storeOpe = new BaseEntity.Store(this.Operator);
+            GLTService.Operation.BaseEntity.EventLog eventOpe = new BaseEntity.EventLog(this.Operator);
             foreach (Galant.DataEntity.Package pack in p.Packages)
             {
+                Galant.DataEntity.Store store = new Galant.DataEntity.Store() { EntityID=p.DeliverB.EntityId,ProductID=pack.Product.ProductId,ProductCount = (pack.Count *-1),Bound =1};
+                storeOpe.AddNewData(store);//抵消配送员之前的实体库存
                 
+            }
+            if (p.ReturnBulk != null)
+            {
+                foreach (Galant.DataEntity.Package pack in p.ReturnBulk)//抵消配送员返回的空桶
+                {
+                    Galant.DataEntity.Store store = new Galant.DataEntity.Store() { EntityID = p.DeliverB.EntityId, ProductID = pack.Product.ProductId, ProductCount = (pack.Count * -1), Bound = 0 };
+                    storeOpe.AddNewData(store);
+                    Galant.DataEntity.EventLog eventLog = new Galant.DataEntity.EventLog() { PaperId = p.PaperId, InsertTime = DateTime.Now, RelationEntity = p.DeliverB.EntityId, EntityID = p.DeliverB.EntityId, EventType = "CKI-B-BULK", EventData = "归班" + pack.Product.ReturnName + pack.Count + " 个，现金：" + pack.Amount };
+                    eventOpe.AddNewData(eventLog);
+                    if (p.ContactB.PayType == Galant.DataEntity.PayType.After)//抵消后付费客户的空桶库存
+                    {
+                        Galant.DataEntity.Store storeCustomer = new Galant.DataEntity.Store() { EntityID = p.ContactB.EntityId, ProductID = pack.Product.ProductId, ProductCount = (pack.Count * -1), Bound = 0 };
+                        storeOpe.AddNewData(storeCustomer);
+                    }
+                }
             }
         }
 
+        /// <summary>
+        /// 保存
+        /// </summary>
+        /// <param name="p"></param>
+        private void SaveCheckIn(Galant.DataEntity.Paper p)
+        {
+            if (p.PaperSubStatus == PaperSubState.InTransit)
+                return;
+            GLTService.Operation.BaseEntity.PaperCheckin paperCheckin = new BaseEntity.PaperCheckin(this.Operator);
+            if (p.ReturnCash > 0 || p.ReturnCash < 0)//记录订单返回的现金
+            {
+                Galant.DataEntity.PaperCheckin pCheckinCash = new Galant.DataEntity.PaperCheckin() { PaperId = p.PaperId, CheckinAmount = p.ReturnCash, CheckinType = CheckinType.Cash };
+                paperCheckin.AddNewData(pCheckinCash);
+            }
+
+            if (p.ReturnTicket == null)
+                return;
+            
+            foreach (Galant.DataEntity.Package pack in p.Packages)//记录订单返回的水票
+            {
+                Galant.DataEntity.PaperCheckin pCheckinTicket = new Galant.DataEntity.PaperCheckin() { PaperId = p.PaperId, CheckinType = CheckinType.Ticket, ProductId=pack.Product.ProductId,ProductCount=pack.Count };
+                paperCheckin.AddNewData(pCheckinTicket);
+            }
+            
+        }
+
+        /// <summary>
+        /// 修改归班订单的状态
+        /// </summary>
+        /// <param name="p"> 归班的订单</param>
         private void UpdatePaperStatus(Galant.DataEntity.Paper p)
         {
-            string sqlUpdate = "UPDATE papers SET substate = @substate WHERE paper_id = @paper_id";
-            List<MySqlParameter> mps = new List<MySqlParameter>();
-            mps.Add(new MySqlParameter("@substate", (int)p.PaperSubStatus));
-            mps.Add(new MySqlParameter("@paper_id", p.PaperId));
-            MySqlHelper.ExecuteNonQuery(this.Operator.myConnection, sqlUpdate, mps.ToArray());
+            Galant.DataEntity.PaperSubState? subStatus = p.PaperSubStatus == Galant.DataEntity.PaperSubState.NextActionAssured ? Galant.DataEntity.PaperSubState.FinishGood : p.PaperSubStatus;
+            this.paperOp.FinishPaper(p, subStatus);
         }
+
+        
 
 
     }

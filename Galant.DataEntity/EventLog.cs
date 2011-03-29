@@ -13,7 +13,7 @@ namespace Galant.DataEntity
         private int _event_id;
         private string _paper_id;
         private DateTime _insert_time;
-        private int _relation_entity;
+        private int? _relation_entity;
         private int? _entity_id;
         private int? _at_station;
         private string _event_type;
@@ -50,7 +50,7 @@ namespace Galant.DataEntity
         /// <summary>
         /// 
         /// </summary>
-        public int RelationEntity
+        public int? RelationEntity
         {
             set { _relation_entity = value; }
             get { return _relation_entity; }

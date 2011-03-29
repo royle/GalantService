@@ -197,6 +197,39 @@ namespace GLTService.Operation.BaseEntity
             return paper;
         }
 
+        /// <summary>
+        /// 检查运送单下是否还有订单(如订单全部都已经入库,则完成运送单)
+        /// </summary>
+        /// <param name="pc">运送单</param>
+        public void FinishCollections(Galant.DataEntity.Paper pc)
+        {
+            string checkSql = @"SELECT count(1) AS count FROM PAPER_LINKS P WHERE 
+parent_id IN (SELECT link_id FROM PAPER_LINKS WHERE PAPER_ID = @paper_id AND ABLE_FLAG ) AND 
+ABLE_FLAG";
+            List<MySqlParameter> paras = new List<MySqlParameter>();
+            paras.Add(new MySqlParameter("@paper_id", pc.PaperId));
+            DataTable dt = SqlHelper.ExecuteDataset(this.Operator.mytransaction, CommandType.Text, checkSql, paras.ToArray()).Tables[0];
+
+            if (dt.Rows[0]["count"].ToString() == "0")//完成清单
+            {
+                this.FinishPaper(pc,Galant.DataEntity.PaperSubState.FinishGood);
+            }
+        }
+        /// <summary>
+        /// 完成订单
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="status"></param>
+        public void FinishPaper(Galant.DataEntity.Paper p, Galant.DataEntity.PaperSubState? status)
+        {
+            status = status == null ? Galant.DataEntity.PaperSubState.FinishGood : status;
+            string sqlUpdate = "UPDATE papers SET substate = @substate,finish_time = @finish_time WHERE paper_id = @paper_id";
+            List<MySqlParameter> mps = new List<MySqlParameter>();
+            mps.Add(new MySqlParameter("@substate", (int)status));
+            mps.Add(new MySqlParameter("@paper_id", p.PaperId));
+            mps.Add(new MySqlParameter("@finish_time", DateTime.Now));
+            MySqlHelper.ExecuteNonQuery(this.Operator.myConnection, sqlUpdate, mps.ToArray());
+        }
 
         public override bool AddNewData(Galant.DataEntity.BaseData data)
         {

@@ -234,6 +234,12 @@ namespace GLTService.Operation.BaseEntity
                     return new Galant.DataEntity.Product();
                 case "Package":
                     return new Galant.DataEntity.Package();
+                case "Store":
+                    return new Galant.DataEntity.Store();
+                case "PaperCheckin":
+                    return new Galant.DataEntity.PaperCheckin();
+                case "EventLog":
+                    return new Galant.DataEntity.EventLog();
                 default:
                     throw new NotImplementedException("Add PropertyName Before This Exception.");
             }
