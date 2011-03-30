@@ -59,13 +59,13 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="1">
-                                <Hyperlink Click="linkCenterAssign_Click"  Name="linkCenterAssign">任务分配</Hyperlink>
+                                <Hyperlink Name="linkCenterAssign" Click="linkCenterAssign_Click">任务分配</Hyperlink>
                         </TextBlock>
                         <TextBlock Grid.Row="2">
-                                <Hyperlink Click="linkDeliverOrder_Click"  Name="linkDeliverRoute">快递调度</Hyperlink>
+                                <Hyperlink Name="linkDeliverRoute">快递调度</Hyperlink>
                         </TextBlock>
                         <TextBlock Grid.Row="3">
-                                <Hyperlink Click="linkDeliverOrder_Click"  Name="linkOrderQuery">订单查询</Hyperlink>
+                                <Hyperlink  Name="linkOrderQuery">订单查询</Hyperlink>
                         </TextBlock>
                     </Grid>
                 </Grid>
@@ -79,7 +79,7 @@
 
                     <StackPanel Grid.Column="0">
                         <TextBlock Visibility="{Binding StationShipmentQueryVisibility}"> 
-                            <Hyperlink >任务分配</Hyperlink>
+                            <Hyperlink Name="StationAssign" Click="StationAssign_Click">人员分配</Hyperlink>
                         </TextBlock>
                         <TextBlock Visibility="{Binding StationShipmentQueryVisibility}"> 
                             <Hyperlink Name="WarterFinishing" Click="WarterFinishing_Click">归班结算</Hyperlink>

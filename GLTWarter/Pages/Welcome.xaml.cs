@@ -172,5 +172,13 @@ namespace GLTWarter.Pages
             data.SearchCondition.Station = AppCurrent.Active.AppCach.StationCurrent;
             this.NavigationService.Navigate(new GLTWarter.Pages.Assign.AssignCenter(data));
         }
+
+        private void StationAssign_Click(object sender, RoutedEventArgs e)
+        {
+            Galant.DataEntity.StationAssign.Result data = new Galant.DataEntity.StationAssign.Result();
+            data.SearchCondition = new Galant.DataEntity.StationAssign.Search();
+            data.SearchCondition.Station = AppCurrent.Active.AppCach.StationCurrent;
+            this.NavigationService.Navigate(new GLTWarter.Pages.StationAssign.StationAssign(data));
+        }
     }
 }

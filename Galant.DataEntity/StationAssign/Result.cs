@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Galant.DataEntity.Assign
+namespace Galant.DataEntity.StationAssign
 {
     public class Result:BaseData
     {
-        private Galant.DataEntity.Assign.Search searchCondition
+        private Galant.DataEntity.StationAssign.Search searchCondition
             = new Search();
         public Search SearchCondition
         {
@@ -15,24 +15,23 @@ namespace Galant.DataEntity.Assign
             set { searchCondition = value; OnPropertyChanged("SearchCondition"); }
         }
 
-        private List<CenterAssignData> resultData;
-        public List<CenterAssignData> ResultData
-        {
-            get { return resultData; }
+        private List<Paper> resultData;
+        public List<Paper> ResultData
+        { 
+            get{return resultData;}
             set { resultData = value; OnPropertyChanged("ResultData"); }
         }
 
-        private List<Entity> entities;
-        public List<Entity> Entities
+        private List<Entity> entity;
+        public List<Entity> Entity
         {
-            get { return entities; }
-            set { entities = value; OnPropertyChanged("Entities"); }
+            get { return entity; }
+            set { entity = value; OnPropertyChanged("Entity"); }
         }
     }
 
-    public class CenterAssignData:Paper
+    public class StationAssignData : Paper
     {
-
         public override bool IsMarked
         {
             get
@@ -42,16 +41,9 @@ namespace Galant.DataEntity.Assign
             set
             {
                 base.IsMarked = value;
-                OnPropertyChanged("MarkMode");
                 OnPropertyChanged("IsMarked");
+                OnPropertyChanged("MarkMode");
             }
-        }
-
-        bool hasNewRoute;
-        public bool HasNewRoute
-        {
-            get { return hasNewRoute; }
-            set { hasNewRoute = value; OnPropertyChanged("HasNewRoute"); OnPropertyChanged("MarkMode"); OnPropertyChanged("NewRouteTo"); }
         }
 
         private PaperSubState? newPaperSubStatus;
@@ -64,7 +56,7 @@ namespace Galant.DataEntity.Assign
         public enum MarkModes { None, Standby, Confirm }
         public MarkModes MarkMode
         {
-            get { return IsMarked ? MarkModes.Standby : HasNewRoute ? MarkModes.Confirm : MarkModes.None; }
+            get { return IsMarked ? MarkModes.Standby : MarkModes.None; }
         }
     }
 }

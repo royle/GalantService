@@ -40,5 +40,10 @@ namespace GLTService.Operation
             result.Entities = center.ReadAllStationEntity();
             return result;
         }
+
+        public Galant.DataEntity.StationAssign.Result SearchStationAssign(Operation.BaseEntity.DataOperator data, Galant.DataEntity.Assign.Result result)
+        {
+            return null;
+        }
     }
 }

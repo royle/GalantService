@@ -49,6 +49,10 @@ namespace GLTService
                         search = new Search();
                         returnData = search.SearchCenterRoute(dataOper, DetailObj as Galant.DataEntity.Assign.Result);
                         break;
+                    case "SearchStationAssign":
+                        search = new Search();
+
+                        break;
                     case "SearchFinishingList":
                         search = new Search();
                         returnData = search.SearchFinishingList(dataOper, DetailObj as Galant.DataEntity.Result.FinishingListResult);

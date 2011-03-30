@@ -17,11 +17,46 @@ namespace GLTWarter.Pages.StationAssign
     /// <summary>
     /// Interaction logic for StationAssign.xaml
     /// </summary>
-    public partial class StationAssign : Page
+    public partial class StationAssign : DetailsBase
     {
-        public StationAssign()
+        public StationAssign(Galant.DataEntity.BaseData data)
+            : base(data)
         {
+            data.Operation = BaseOperatorName.StationRouteSearch;
             InitializeComponent();
+        }
+
+        bool somethingSelected = false;
+        bool SomethingSelected
+        {
+            get { return somethingSelected; }
+            set
+            {
+                somethingSelected = value;
+            }
+        }
+
+        private void HandleItemActivate(object source, RoutedEventArgs e)
+        {
+            bool isAllMarked = true;
+            foreach (Galant.DataEntity.Paper be in listResult.SelectedItems)
+            {
+                if (!be.IsMarked) { isAllMarked = false; break; }
+            }
+            foreach (Galant.DataEntity.Paper be in listResult.SelectedItems)
+            {
+                be.IsMarked = !isAllMarked;
+            }
+            SomethingSelected = (from s in ((Galant.DataEntity.Assign.Result)DataContext).ResultData where s.MarkMode == Galant.DataEntity.Assign.CenterAssignData.MarkModes.Standby select s).Any();
+
+            if (e is KeyEventArgs) listResult.MoveHightlightToNext();
+            e.Handled = true;
+        }
+
+        protected override void OnNext(Galant.DataEntity.BaseData incomingData)
+        {
+            incomingData.Operation = BaseOperatorName.StationRouteSearch;
+            base.OnNext(incomingData);
         }
     }
 }

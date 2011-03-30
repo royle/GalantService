@@ -85,6 +85,8 @@
     <Compile Include="Search\FinishListCondition.cs" />
     <Compile Include="Search\SearchEntityCondition.cs" />
     <Compile Include="Store.cs" />
+    <Compile Include="StationAssign\Result.cs" />
+    <Compile Include="StationAssign\Search.cs" />
     <Compile Include="WCFFaultException.cs" />
   </ItemGroup>
   <ItemGroup>
