@@ -20,7 +20,7 @@ namespace GLTService.Operation.Checkin
 
         private GLTService.Operation.BaseEntity.Paper paperOp;
 
-        private void CheckinData(Galant.DataEntity.Result.FinishCheckin checkIn)
+        public void CheckinData(Galant.DataEntity.Result.FinishCheckin checkIn)
         {
             foreach (Galant.DataEntity.Paper p in checkIn.WorkDoneList)
             {
@@ -32,7 +32,7 @@ namespace GLTService.Operation.Checkin
                 this.SaveStore(p);
                 this.SaveCheckIn(p);
                 this.UpdatePaperStatus(p);//更新状态
-
+                this.UpdatePaperSalary(p);//修改配送费用
             }
 
             foreach (Galant.DataEntity.Paper  pc in checkIn.CheckinCollections)
@@ -108,6 +108,15 @@ namespace GLTService.Operation.Checkin
         {
             Galant.DataEntity.PaperSubState? subStatus = p.PaperSubStatus == Galant.DataEntity.PaperSubState.NextActionAssured ? Galant.DataEntity.PaperSubState.FinishGood : p.PaperSubStatus;
             this.paperOp.FinishPaper(p, subStatus);
+        }
+
+        private void UpdatePaperSalary(Galant.DataEntity.Paper p)
+        {
+            string sqlUpdate = "update papers set salary = @salary where paper_id = @paper_id ";
+            List<MySqlParameter> mps1 = new List<MySqlParameter>();
+            mps1.Add(new MySqlParameter("@paper_id", p.PaperId));
+            mps1.Add(new MySqlParameter("@salary", p.Salary));
+            MySqlHelper.ExecuteNonQuery(this.Operator.myConnection, sqlUpdate, mps1.ToArray());
         }
 
         

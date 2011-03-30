@@ -46,12 +46,18 @@ namespace GLTWarter.Pages.Finishing
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-
+            (this.DataContext as Galant.DataEntity.Result.FinishCheckin).Operation = "Save";
+            base.buttonOk_Click(sender, e);
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        protected override bool OnSavedNewItem()
+        {
+            return true;
         }
 
         

@@ -56,6 +56,7 @@ namespace GLTService.Operation.BaseEntity
             DicDataMapping.Add("PaperType", "Type");
             DicDataMapping.Add("NextRoute", "Next_Route");
             DicDataMapping.Add("MobileStatus", "Mobile_Status");
+            DicDataMapping.Add("IsCollection", "is_collection");
         }
 
         protected override void SetTableName()
@@ -130,6 +131,11 @@ namespace GLTService.Operation.BaseEntity
             }
             return papers;
 
+        }
+
+        public override Galant.DataEntity.BaseData MappingRow(DataRow row)
+        {
+            return this.MappingRow(row, this.Operator);
         }
 
         public Galant.DataEntity.Paper MappingRow(DataRow dr, DataOperator dataOper)
@@ -229,6 +235,11 @@ ABLE_FLAG";
             mps.Add(new MySqlParameter("@paper_id", p.PaperId));
             mps.Add(new MySqlParameter("@finish_time", DateTime.Now));
             MySqlHelper.ExecuteNonQuery(this.Operator.myConnection, sqlUpdate, mps.ToArray());
+
+            string sqlDisablePaperLink = "update paper_links set able_flag = false where paper_id = @paper_id ";
+            List<MySqlParameter> mps1 = new List<MySqlParameter>();
+            mps1.Add(new MySqlParameter("@paper_id", p.PaperId));
+            MySqlHelper.ExecuteNonQuery(this.Operator.myConnection, sqlDisablePaperLink, mps1.ToArray());
         }
 
         public override bool AddNewData(Galant.DataEntity.BaseData data)

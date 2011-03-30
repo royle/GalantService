@@ -207,7 +207,7 @@ namespace GLTService.Operation.BaseEntity
             return datas;
         }
 
-        public BaseData MappingRow(DataRow row)
+        public virtual BaseData MappingRow(DataRow row)
         {
             BaseData data = BuildNewBaseData(this.GetType().Name);
             foreach (System.Reflection.PropertyInfo info in data.GetType().GetProperties())
@@ -236,6 +236,8 @@ namespace GLTService.Operation.BaseEntity
                     return new Galant.DataEntity.Package();
                 case "Store":
                     return new Galant.DataEntity.Store();
+                case "Paper":
+                    return new Galant.DataEntity.Paper();
                 case "PaperCheckin":
                     return new Galant.DataEntity.PaperCheckin();
                 case "EventLog":

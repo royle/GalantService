@@ -122,6 +122,11 @@ namespace GLTService
                 CenterAssign assign = new CenterAssign(dataOper);
                 assign.UpdatePaper(((Galant.DataEntity.Assign.Result)detailObj).ResultData);
             }
+            else if (detailObj is Galant.DataEntity.Result.FinishCheckin)
+            {
+                GLTService.Operation.Checkin.FinishCheckin checkIn = new Operation.Checkin.FinishCheckin(dataOper);
+                checkIn.CheckinData(detailObj as Galant.DataEntity.Result.FinishCheckin);
+            }
             return detailObj;
         }
     }
