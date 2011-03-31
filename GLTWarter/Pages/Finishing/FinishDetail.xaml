@@ -84,11 +84,11 @@
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                <my:PropertyRow HeaderText="水费现金支付(_N):">
+                                <my:PropertyRow HeaderText="水费现金支付(_N):" Margin="5">
                                     <TextBox Name="textAmont" Width="150" 
                                  Text="{Binding Path=ReturnCash, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" MaxLength="50" />
                                 </my:PropertyRow>
-                                <GroupBox Grid.Row="1" Header="水费水票支付(_N)">
+                                <GroupBox Grid.Row="1" Header="水费水票支付(_N)" Margin="0,5,0,0">
                                     <my:PropertyRow  HeaderText="" VerticalAlignment="Top">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
@@ -106,7 +106,7 @@
                                                                 <ColumnDefinition Width="5"/>
                                                                 <ColumnDefinition Width="Auto"/>
                                                             </Grid.ColumnDefinitions>
-                                                            <ComboBox Grid.Column="0" IsEditable="False" MinWidth="60" VerticalAlignment="Center" ItemTemplate="{StaticResource ReturnTicketName}"
+                                                            <ComboBox Grid.Column="0" IsEditable="False" MinWidth="150" VerticalAlignment="Center" ItemTemplate="{StaticResource ReturnTicketName}"
                                                       IsEnabled="{Binding IsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
                                                       ItemsSource="{Binding Source={x:Static src:AppCurrent.Active}, Path=AppCach.ProductsTickets}" SelectedValue="{Binding Product, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" />
                                                             <TextBlock Grid.Column="2">
@@ -121,7 +121,7 @@
 
                                     </my:PropertyRow>
                                 </GroupBox>
-                                <GroupBox Grid.Row="2" Header="空桶(_N):">
+                                <GroupBox Grid.Row="2" Header="空桶(_N):" Margin="0,5,0,0">
                                     <my:PropertyRow VerticalAlignment="Top">
                                    
                                             <Grid>
@@ -140,7 +140,7 @@
                                                                 <ColumnDefinition Width="5"/>
                                                                 <ColumnDefinition Width="Auto"/>
                                                             </Grid.ColumnDefinitions>
-                                                            <ComboBox Grid.Column="0" MinWidth="60" VerticalAlignment="Center" ItemTemplate="{StaticResource ReturnProductName}"
+                                                            <ComboBox Grid.Column="0" MinWidth="150" VerticalAlignment="Center" ItemTemplate="{StaticResource ReturnProductName}"
                                                       IsEnabled="{Binding IsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
                                                       ItemsSource="{Binding Source={x:Static src:AppCurrent.Active}, Path=AppCach.ProductsNeedReturn}" SelectedValue="{Binding Product, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" />
                                                             <TextBlock Grid.Column="2">
