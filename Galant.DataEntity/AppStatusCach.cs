@@ -25,7 +25,11 @@ namespace Galant.DataEntity
         public Entity StationCurrent
         {
             get { return stationCurrent; }
-            set { stationCurrent = value; OnPropertyChanged("StationCurrent"); }
+            set { 
+                stationCurrent = value;
+                if (staffCurrent != null)
+                    StaffCurrent.CurerentStationID = value == null ? null : value.EntityId;
+                OnPropertyChanged("StationCurrent"); }
         }
 
         /// <summary>

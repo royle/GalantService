@@ -57,13 +57,29 @@ namespace GLTService.Operation.Checkin
                 storeOpe.AddNewData(store);//抵消配送员之前的实体库存
                 
             }
+            Galant.DataEntity.EventLog peventLog = new Galant.DataEntity.EventLog()
+            {
+                EntityID = GLTService.Service1.StaffCurrent == null ? null : Service1.StaffCurrent.EntityId,
+                AtStation = GLTService.Service1.StaffCurrent == null ? null : Service1.StaffCurrent.CurerentStationID,
+                PaperId = p.PaperId,
+                InsertTime = DateTime.Now,
+                RelationEntity = p.DeliverB.EntityId,
+                EventType = "CKI-B",
+                EventData = "订单归班"
+            };
+            eventOpe.AddNewData(peventLog);
+
             if (p.ReturnBulk != null)
             {
                 foreach (Galant.DataEntity.Package pack in p.ReturnBulk)//抵消配送员返回的空桶
                 {
                     Galant.DataEntity.Store store = new Galant.DataEntity.Store() { EntityID = p.DeliverB.EntityId, ProductID = pack.Product.ProductId, ProductCount = (pack.Count * -1), Bound = 0 };
                     storeOpe.AddNewData(store);
-                    Galant.DataEntity.EventLog eventLog = new Galant.DataEntity.EventLog() { PaperId = p.PaperId, InsertTime = DateTime.Now, RelationEntity = p.DeliverB.EntityId, EntityID = p.DeliverB.EntityId, EventType = "CKI-B-BULK", EventData = "归班" + pack.Product.ReturnName + pack.Count + " 个，现金：" + pack.Amount };
+                    Galant.DataEntity.EventLog eventLog = new Galant.DataEntity.EventLog() 
+                    { EntityID = GLTService.Service1.StaffCurrent == null ? null : Service1.StaffCurrent.EntityId, 
+                        AtStation = GLTService.Service1.StaffCurrent == null ? null : Service1.StaffCurrent.CurerentStationID, 
+                        PaperId = p.PaperId, InsertTime = DateTime.Now, RelationEntity = p.DeliverB.EntityId, 
+                        EventType = "CKI-B-BULK", EventData = "归班" + pack.Product.ReturnName + pack.Count + " 个，现金：" + pack.Amount };
                     eventOpe.AddNewData(eventLog);
                     if (p.ContactB.PayType == Galant.DataEntity.PayType.After)//抵消后付费客户的空桶库存
                     {

@@ -169,6 +169,15 @@ namespace GLTWarter {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 归班完成！.
+        /// </summary>
+        internal static string msgFinishCheckinComplete {
+            get {
+                return ResourceManager.GetString("msgFinishCheckinComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 订水成功。.
         /// </summary>
         internal static string msgOrderCreated {

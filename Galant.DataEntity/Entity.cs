@@ -200,6 +200,13 @@ namespace Galant.DataEntity
             get { return ableFlag; }
             set { ableFlag = value; OnPropertyChanged("AbleFlag"); }
         }
+        private int? curerentStationID;
+        [DataMember]
+        public int? CurerentStationID
+        {
+            get { return curerentStationID; }
+            set { curerentStationID = value; OnPropertyChanged("CurerentStationID"); }
+        }
 
         private ObservableCollection<Role> roles = new ObservableCollection<Role>();
         [DataMember]

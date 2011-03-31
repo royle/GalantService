@@ -262,6 +262,13 @@ ABLE_FLAG";
                 opPackage.AddNewData(pg);
             }
 
+            GLTService.Operation.BaseEntity.EventLog eventOp = new EventLog(this.Operator);
+            Galant.DataEntity.EventLog eventLog = new Galant.DataEntity.EventLog() 
+            { EntityID=GLTService.Service1.StaffCurrent==null ? null:Service1.StaffCurrent.EntityId,
+              RelationEntity = GLTService.Service1.StaffCurrent == null ? null : Service1.StaffCurrent.EntityId,
+                AtStation= GLTService.Service1.StaffCurrent==null ? null:Service1.StaffCurrent.CurerentStationID, 
+                EventData="订单建立", EventType="S-Create", InsertTime=DateTime.Now, PaperId= paper.PaperId  };
+            eventOp.AddNewData(eventLog);
             return true;
         }
 

@@ -61,6 +61,7 @@ namespace GLTWarter.Pages.Finishing
 
         private void DetailsBase_Loaded(object sender, RoutedEventArgs e)
         {
+            this.dataCurrent.Operation = "SearchFinishingList";
             base.buttonNext_Click(sender, e);
         }
 
@@ -103,7 +104,8 @@ namespace GLTWarter.Pages.Finishing
             Galant.DataEntity.Result.FinishCheckin checkin = new Galant.DataEntity.Result.FinishCheckin();
             checkin.CheckinCollections = this.SelectedResults as List<Galant.DataEntity.Paper>;
             checkin.Operation = "CheckinFinish";
-            this.NavigationService.Navigate(new GLTWarter.Pages.Finishing.PackageFinish(checkin));
+            DetailsBase pageNext = new GLTWarter.Pages.Finishing.PackageFinish(checkin);
+            this.NavigationService.Navigate(pageNext);
 
         }
        

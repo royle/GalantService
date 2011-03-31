@@ -57,7 +57,9 @@ namespace GLTWarter.Pages.Finishing
 
         protected override bool OnSavedNewItem()
         {
-            return true;
+            MessageBox.Show(AppCurrent.Active.MainScreen, Resource.msgFinishCheckinComplete, this.Title, MessageBoxButton.OK, MessageBoxImage.Information);
+            OnReturn(null);
+            return false;
         }
 
         

@@ -144,7 +144,10 @@ namespace GLTWarter.Pages.Finishing
             Galant.DataEntity.Result.FinishCheckin data = this.DataContext as Galant.DataEntity.Result.FinishCheckin;
             if (data != null)
             {
-                this.NavigationService.Navigate(new GLTWarter.Pages.Finishing.FinishConsign(data));
+                DetailsBase pageNext = new GLTWarter.Pages.Finishing.FinishConsign(data);
+                pageNext.Return += new ReturnEventHandler<Galant.DataEntity.BaseData>(pageNext_Return);
+
+                this.NavigationService.Navigate(pageNext);
             }
         }
 
