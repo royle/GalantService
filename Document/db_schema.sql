@@ -16,6 +16,49 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `papers`
+--
+
+DROP TABLE IF EXISTS `papers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `papers` (
+  `paper_id` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
+  `status` int(11) NOT NULL,
+  `substate` int(11) NOT NULL,
+  `holder` int(11) NOT NULL,
+  `bound` int(11) NOT NULL,
+  `contact_a` int(11) NOT NULL,
+  `contact_b` int(11) NOT NULL,
+  `contact_c` int(11) NOT NULL,
+  `deliver_a` int(11) DEFAULT NULL,
+  `deliver_b` int(11) DEFAULT NULL,
+  `deliver_c` int(11) DEFAULT NULL,
+  `deliver_a_time` datetime DEFAULT NULL,
+  `deliver_b_time` datetime DEFAULT NULL,
+  `deliver_c_time` datetime DEFAULT NULL,
+  `start_time` datetime DEFAULT NULL,
+  `finish_time` datetime DEFAULT NULL,
+  `salary` decimal(10,2) DEFAULT NULL,
+  `comment` text COLLATE utf8_unicode_ci,
+  `type` int(11) DEFAULT NULL,
+  `next_route` int(11) DEFAULT NULL,
+  `mobile_status` int(11) DEFAULT NULL,
+  `is_collection` tinyint(1) NOT NULL,
+  PRIMARY KEY (`paper_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `papers`
+--
+
+LOCK TABLES `papers` WRITE;
+/*!40000 ALTER TABLE `papers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `papers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `entities`
 --
 
@@ -196,48 +239,6 @@ LOCK TABLES `paper_routes` WRITE;
 /*!40000 ALTER TABLE `paper_routes` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `papers`
---
-
-DROP TABLE IF EXISTS `papers`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `papers` (
-  `paper_id` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
-  `status` int(11) NOT NULL,
-  `substate` int(11) NOT NULL,
-  `holder` int(11) NOT NULL,
-  `bound` int(11) NOT NULL,
-  `contact_a` int(11) NOT NULL,
-  `contact_b` int(11) NOT NULL,
-  `contact_c` int(11) NOT NULL,
-  `deliver_a` int(11) DEFAULT NULL,
-  `deliver_b` int(11) DEFAULT NULL,
-  `deliver_c` int(11) DEFAULT NULL,
-  `deliver_a_time` datetime DEFAULT NULL,
-  `deliver_b_time` datetime DEFAULT NULL,
-  `deliver_c_time` datetime DEFAULT NULL,
-  `start_time` datetime DEFAULT NULL,
-  `finish_time` datetime DEFAULT NULL,
-  `salary` decimal(10,2) DEFAULT NULL,
-  `comment` text COLLATE utf8_unicode_ci,
-  `type` int(11) DEFAULT NULL,
-  `next_route` int(11) DEFAULT NULL,
-  `mobile_status` int(11) DEFAULT NULL,
-  `is_collection' tinyint(1) NOT NULL,
-  PRIMARY KEY (`paper_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `papers`
---
-
-LOCK TABLES `papers` WRITE;
-/*!40000 ALTER TABLE `papers` DISABLE KEYS */;
-/*!40000 ALTER TABLE `papers` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `products`
