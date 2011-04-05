@@ -59,8 +59,9 @@ namespace GLTWarter.Pages.Finishing
             this.CalculateSelectedResults();
         }
 
-        private void DetailsBase_Loaded(object sender, RoutedEventArgs e)
+        protected override void OnDataInitialization(object sender, RoutedEventArgs e)
         {
+            base.OnDataInitialization(sender, e);
             this.dataCurrent.Operation = "SearchFinishingList";
             base.buttonNext_Click(sender, e);
         }
@@ -105,8 +106,15 @@ namespace GLTWarter.Pages.Finishing
             checkin.CheckinCollections = this.SelectedResults as List<Galant.DataEntity.Paper>;
             checkin.Operation = "CheckinFinish";
             DetailsBase pageNext = new GLTWarter.Pages.Finishing.PackageFinish(checkin);
+            pageNext.Return+=new ReturnEventHandler<Galant.DataEntity.BaseData>(pageNext_Return);
             this.NavigationService.Navigate(pageNext);
 
+        }
+
+        protected override void pageNext_Return(object sender, ReturnEventArgs<Galant.DataEntity.BaseData> e)
+        {
+            this.dataCurrent.Operation = "SearchFinishingList";
+            base.buttonNext_Click(sender, null);
         }
        
     }

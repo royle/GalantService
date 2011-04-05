@@ -39,7 +39,6 @@ namespace GLTWarter.Pages.Finishing
             InitializeComponent();
 
             this.Loaded += new RoutedEventHandler(PackageFinish_Loaded);
-            this.Loaded += new RoutedEventHandler(PackageFinish_LoadedOnce);
         }
 
         public override void OnApplyTemplate()
@@ -55,11 +54,11 @@ namespace GLTWarter.Pages.Finishing
             }
         }
 
-        
 
-        void PackageFinish_LoadedOnce(object sender, RoutedEventArgs e)
+
+        protected override void OnDataInitialization(object sender, RoutedEventArgs e)
         {
-            this.Loaded -= new RoutedEventHandler(PackageFinish_LoadedOnce);
+            base.OnDataInitialization(sender, e);
             base.buttonNext_Click(sender, e);
         }
 

@@ -9,7 +9,7 @@
     xmlns:styles="clr-namespace:GLTWarter.Styles"                   
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
-	Title="归班结算" Loaded="DetailsBase_Loaded">
+	Title="归班结算">
     <Page.Resources>
        <xcdg:DataGridCollectionViewSource AutoCreateItemProperties="False" x:Key="DeliveryManData" Source="{Binding HolderResultData, FallbackValue={x:Null}}" >
             <xcdg:DataGridCollectionViewSource.SortDescriptions>
