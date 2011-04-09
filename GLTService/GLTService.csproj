@@ -98,6 +98,7 @@
     <Compile Include="Operation\Checkin\FinishCheckin.cs" />
     <Compile Include="Operation\Login.cs" />
     <Compile Include="Operation\Search.cs" />
+    <Compile Include="Operation\StationAssign.cs" />
     <Compile Include="ProcessSwitch.cs" />
     <Compile Include="ServiceAPI.svc.cs">
       <DependentUpon>ServiceAPI.svc</DependentUpon>

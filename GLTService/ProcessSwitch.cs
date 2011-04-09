@@ -51,7 +51,7 @@ namespace GLTService
                         break;
                     case "SearchStationAssign":
                         search = new Search();
-
+                        returnData = search.SearchStationAssign(dataOper, DetailObj as Galant.DataEntity.StationAssign.Result);
                         break;
                     case "SearchFinishingList":
                         search = new Search();
@@ -65,6 +65,7 @@ namespace GLTService
                         returnData = ProcessRefresh(dataOper, DetailObj);
                         break;
                     case "Save":
+                    case "SaveStationAssign":
                         returnData = ProcessSave(dataOper, DetailObj);
                         break;
                     case "SaveRoute":
@@ -130,6 +131,11 @@ namespace GLTService
             {
                 GLTService.Operation.Checkin.FinishCheckin checkIn = new Operation.Checkin.FinishCheckin(dataOper);
                 checkIn.CheckinData(detailObj as Galant.DataEntity.Result.FinishCheckin);
+            }
+            else if (detailObj is Galant.DataEntity.StationAssign.Result)
+            {
+                GLTService.Operation.StationAssign op = new StationAssign(dataOper);
+                op.UpdatePaper((Galant.DataEntity.StationAssign.Result)detailObj);
             }
             return detailObj;
         }

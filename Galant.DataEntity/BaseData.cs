@@ -28,6 +28,7 @@ namespace Galant.DataEntity
     [KnownType(typeof(Galant.DataEntity.Result.FinishCheckin))]
     [KnownType(typeof(Galant.DataEntity.Store))]
     [KnownType(typeof(Galant.DataEntity.PaperCheckin))]
+    [KnownType(typeof(Galant.DataEntity.StationAssign.Result))]
     public abstract class BaseData : IIdentifiable, INotifyPropertyChanged, IDataErrorInfo, ICloneable, IComparable
     {
         public BaseData(string operation)

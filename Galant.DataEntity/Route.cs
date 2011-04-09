@@ -35,7 +35,7 @@ namespace Galant.DataEntity
         [IgnoreDataMember]
         public int? FromEntityId
         {
-            get { return FromEntity.EntityId; }
+            get { return FromEntity == null ? null : FromEntity.EntityId; }
         }
         private Entity toEntity;
         [DataMember]
@@ -47,7 +47,7 @@ namespace Galant.DataEntity
         [IgnoreDataMember]
         public int? ToEntityId
         {
-            get { return ToEntity.EntityId; }
+            get { return ToEntity == null ? null : ToEntity.EntityId; }
         }
 
         private bool isFinally;

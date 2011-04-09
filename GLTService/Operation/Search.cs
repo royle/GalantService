@@ -41,9 +41,11 @@ namespace GLTService.Operation
             return result;
         }
 
-        public Galant.DataEntity.StationAssign.Result SearchStationAssign(Operation.BaseEntity.DataOperator data, Galant.DataEntity.Assign.Result result)
+        public Galant.DataEntity.StationAssign.Result SearchStationAssign(Operation.BaseEntity.DataOperator data, Galant.DataEntity.StationAssign.Result result)
         {
-            return null;
+            StationAssign assign = new StationAssign(data);
+            result.ResultData = assign.ReadStationAssign(result.SearchCondition);
+            return result;
         }
     }
 }

@@ -272,6 +272,13 @@ ABLE_FLAG";
             return true;
         }
 
+        public void AddNewCollectionData(Galant.DataEntity.BaseData data)
+        {
+            Galant.DataEntity.Paper paper = data as Galant.DataEntity.Paper;
+            paper.PaperId = this.GenerateId();
+            base.AddNewData(paper);
+        }
+
         private string GenerateId()
         {
             long i = 1;

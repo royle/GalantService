@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Text;
 using System.Data;
 using GLTService.DBConnector;
 
@@ -69,19 +70,7 @@ namespace GLTService.Operation.BaseEntity
                 List<Galant.DataEntity.Route> routes = new List<Galant.DataEntity.Route>();
                 foreach (DataRow dr in dt.Rows)
                 {
-                    Galant.DataEntity.Route route = new Galant.DataEntity.Route();
-                    route.RouteId = Convert.ToInt32(dr["Route_ID"]);
-                    route.RountName = dr["Route_Name"].ToString();
-                    if (dr["to_entity"] != null)
-                    {
-                        route.ToEntity = routeEntitys.Where(e => e.EntityId == Convert.ToInt32(dr["to_entity"])).FirstOrDefault();
-                    }
-                    if (dr["from_entity"] != null)
-                    {
-                        route.FromEntity = routeEntitys.Where(e => e.EntityId == Convert.ToInt32(dr["from_entity"])).FirstOrDefault();
-                    }
-                    route.IsFinally = Convert.ToBoolean(dr["Is_finally"]);
-                    routes.Add(route);
+                    routes.Add(MappingRow(dr, data));
                 }
                 return routes;
             }
@@ -99,10 +88,21 @@ namespace GLTService.Operation.BaseEntity
             return null;
         }
 
-        String sqlFindRouteIdByEntities = @"SELECT {0} FROM {1} WHERE from_entity = {2} AND to_entity ={3}";
+        String sqlFindRouteIdByEntities = @"SELECT {0} FROM {1} WHERE {2}";//from_entity = {2} AND to_entity = {3} AND Is_finally = {4}
         public String GetRouteIdByEnities(string fromEntityId, string toEntityId)
         {
-            string sqlText = string.Format(sqlFindRouteIdByEntities, KeyId, TableName, fromEntityId, toEntityId);
+            return GetRouteIdByEnities(fromEntityId, toEntityId, false);
+        }
+
+        public string GetRouteIdByEnities(string fromEntityId, string toEntityId, bool isFinally)
+        {
+            List<String> condition = new List<string>();
+            if (!string.IsNullOrEmpty(fromEntityId)) condition.Add(" from_entity = " + fromEntityId);
+            if (!string.IsNullOrEmpty(toEntityId)) condition.Add(" to_entity = " + toEntityId);
+            condition.Add(" Is_finally = " + fromEntityId);
+
+            string cdtion = string.Join(" AND ", condition);
+            string sqlText = string.Format(sqlFindRouteIdByEntities, KeyId, TableName, cdtion);
             object obj = MySql.Data.MySqlClient.MySqlHelper.ExecuteScalar(this.Operator.myConnection, sqlText);
             return obj == null ? string.Empty : obj.ToString();
         }
@@ -114,11 +114,11 @@ namespace GLTService.Operation.BaseEntity
             Galant.DataEntity.Route route = new Galant.DataEntity.Route();
             route.RouteId = Convert.ToInt32(dr["Route_ID"]);
             route.RountName = dr["Route_Name"].ToString();
-            if (dr["to_entity"] != null)
+            if (!string.IsNullOrEmpty(dr["to_entity"].ToString()))
             {
                 route.ToEntity = routeEntitys.Where(e => e.EntityId == Convert.ToInt32(dr["to_entity"])).FirstOrDefault();
             }
-            if (dr["from_entity"] != null)
+            if (!string.IsNullOrEmpty(dr["from_entity"].ToString()))
             {
                 route.FromEntity = routeEntitys.Where(e => e.EntityId == Convert.ToInt32(dr["from_entity"])).FirstOrDefault();
             }

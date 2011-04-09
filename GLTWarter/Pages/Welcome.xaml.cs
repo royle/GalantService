@@ -178,6 +178,8 @@ namespace GLTWarter.Pages
             Galant.DataEntity.StationAssign.Result data = new Galant.DataEntity.StationAssign.Result();
             data.SearchCondition = new Galant.DataEntity.StationAssign.Search();
             data.SearchCondition.Station = AppCurrent.Active.AppCach.StationCurrent;
+            data.SearchCondition.Opeartor = AppCurrent.Active.AppCach.StaffCurrent;
+            data.Entities = AppCurrent.Active.AppCach.Staffs;
             this.NavigationService.Navigate(new GLTWarter.Pages.StationAssign.StationAssign(data));
         }
     }

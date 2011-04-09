@@ -22,8 +22,8 @@ namespace GLTWarter.Pages.StationAssign
         public StationAssign(Galant.DataEntity.BaseData data)
             : base(data)
         {
-            data.Operation = BaseOperatorName.StationRouteSearch;
             InitializeComponent();
+            data.Operation = BaseOperatorName.StationRouteSearch;
         }
 
         bool somethingSelected = false;
@@ -47,7 +47,7 @@ namespace GLTWarter.Pages.StationAssign
             {
                 be.IsMarked = !isAllMarked;
             }
-            SomethingSelected = (from s in ((Galant.DataEntity.Assign.Result)DataContext).ResultData where s.MarkMode == Galant.DataEntity.Assign.CenterAssignData.MarkModes.Standby select s).Any();
+            SomethingSelected = (from s in ((Galant.DataEntity.StationAssign.Result)DataContext).ResultData where s.MarkMode == Galant.DataEntity.StationAssign.StationAssignData.MarkModes.Confirm select s).Any();
 
             if (e is KeyEventArgs) listResult.MoveHightlightToNext();
             e.Handled = true;
@@ -56,7 +56,47 @@ namespace GLTWarter.Pages.StationAssign
         protected override void OnNext(Galant.DataEntity.BaseData incomingData)
         {
             incomingData.Operation = BaseOperatorName.StationRouteSearch;
+            ((Galant.DataEntity.StationAssign.Result)incomingData).Entities= AppCurrent.Active.AppCach.Staffs;
             base.OnNext(incomingData);
+        }
+
+        protected override void SetDoOkOperatorString()
+        {
+            Galant.DataEntity.Entity deliver = (Galant.DataEntity.Entity)this.cmbAssingDeliver.SelectionBoxItem;
+            Galant.DataEntity.StationAssign.Result data = (Galant.DataEntity.StationAssign.Result)this.dataCurrent;
+            foreach (Galant.DataEntity.StationAssign.StationAssignData assign in data.ResultData)
+            {
+                if (!assign.IsMarked)
+                    continue;
+
+                assign.NewPaperSubStatus = Galant.DataEntity.PaperSubState.InTransit;
+                assign.Holder = deliver;
+            }
+            data.Operation = BaseOperatorName.SaveStationAssign;
+        }
+    }
+
+    public class MarkModesTemplateSelector : DataTemplateSelector
+    {
+        public override DataTemplate SelectTemplate(object item, DependencyObject container)
+        {
+            if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(container))
+            {
+                if (item is Galant.DataEntity.StationAssign.StationAssignData.MarkModes)
+                {
+                    Galant.DataEntity.StationAssign.StationAssignData.MarkModes mode = (Galant.DataEntity.StationAssign.StationAssignData.MarkModes)item;
+                    switch (mode)
+                    {
+                        case Galant.DataEntity.StationAssign.StationAssignData.MarkModes.Confirm:
+                            return ((ContentControl)container).FindResource("MarkConfirmTemplate") as DataTemplate;
+                        //case Galant.DataEntity.StationAssign.StationAssignData.MarkModes.Standby:
+                        //    return ((ContentControl)container).FindResource("MarkStandbyTemplate") as DataTemplate;
+                        default:
+                            return ((ContentControl)container).FindResource("MarkNoneTemplate") as DataTemplate;
+                    }
+                }
+            }
+            return null;
         }
     }
 }

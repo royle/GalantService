@@ -11,5 +11,7 @@ namespace Galant.DataEntity.StationAssign
 
         public Entity Station
         { get; set; }
+
+        public Entity Opeartor { get; set; }
     }
 }

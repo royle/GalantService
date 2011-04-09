@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 namespace Galant.DataEntity.StationAssign
 {
@@ -15,18 +16,19 @@ namespace Galant.DataEntity.StationAssign
             set { searchCondition = value; OnPropertyChanged("SearchCondition"); }
         }
 
-        private List<Paper> resultData;
-        public List<Paper> ResultData
+        private List<StationAssignData> resultData;
+        public List<StationAssignData> ResultData
         { 
             get{return resultData;}
             set { resultData = value; OnPropertyChanged("ResultData"); }
         }
 
-        private List<Entity> entity;
-        public List<Entity> Entity
+        private List<Entity> entities;
+        [IgnoreDataMember]
+        public List<Entity> Entities
         {
-            get { return entity; }
-            set { entity = value; OnPropertyChanged("Entity"); }
+            get { return entities; }
+            set { entities = value; OnPropertyChanged("Entities"); }
         }
     }
 
@@ -47,16 +49,16 @@ namespace Galant.DataEntity.StationAssign
         }
 
         private PaperSubState? newPaperSubStatus;
-        public PaperSubState? NewSubStatus
+        public PaperSubState? NewPaperSubStatus
         {
             get { return newPaperSubStatus; }
             set { newPaperSubStatus = value; }
         }
 
-        public enum MarkModes { None, Standby, Confirm }
+        public enum MarkModes { None, Confirm }
         public MarkModes MarkMode
         {
-            get { return IsMarked ? MarkModes.Standby : MarkModes.None; }
+            get { return IsMarked ? MarkModes.Confirm: MarkModes.None; }
         }
     }
 }

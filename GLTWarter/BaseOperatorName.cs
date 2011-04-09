@@ -13,6 +13,7 @@ namespace GLTWarter
         public static string ProductSearch = "SearchProduction";
         public static string CenterRouteSearch = "SearchCenterRoute";
         public static string StationRouteSearch = "SearchStationAssign";
+        public static string SaveStationAssign = "SaveStationAssign";
 
         public static string NullPassword = "****";
     }
