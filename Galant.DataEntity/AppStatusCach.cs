@@ -124,7 +124,7 @@ namespace Galant.DataEntity
             {
                 if (Products == null)
                     Products = new List<Product>();
-                return Products.Where(p => p.NeedBack).ToList();
+                return Products.Where(p => p.NeedBack && p.ProductType == Galant.DataEntity.ProductEnum.Autonomy).ToList();
             }
         }
 
@@ -139,6 +139,21 @@ namespace Galant.DataEntity
                 if (Products == null)
                     Products = new List<Product>();
                 return Products.Where(p => p.ProductType==ProductEnum.Ticket).ToList();
+            }
+        }
+
+
+        /// <summary>
+        /// 快递产品
+        /// </summary>
+        [IgnoreDataMember]
+        public List<Product> ProductsDelivery
+        {
+            get
+            {
+                if (Products == null)
+                    Products = new List<Product>();
+                return Products.Where(p=>p.ProductType == Galant.DataEntity.ProductEnum.Delivery).ToList();
             }
         }
     }

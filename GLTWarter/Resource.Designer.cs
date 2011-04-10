@@ -178,7 +178,7 @@ namespace GLTWarter {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 订水成功。.
+        ///   Looks up a localized string similar to 订单添加成功。.
         /// </summary>
         internal static string msgOrderCreated {
             get {

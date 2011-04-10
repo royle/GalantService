@@ -26,7 +26,7 @@ namespace Galant.DataEntity
         [EnumMember]
         Staff = 0x02,
         /// <summary>
-        /// 收件人
+        /// 订水人
         /// </summary>
         [EnumMember]
         Client = 0x03,
@@ -35,6 +35,11 @@ namespace Galant.DataEntity
         /// </summary>
         [EnumMember]
         Individual = 0x04,
+        /// <summary>
+        /// 快递收件人
+        /// </summary>
+        [EnumMember]
+        Receiver = 0x05,
     }
 
     [DataContract]

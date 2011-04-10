@@ -228,6 +228,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Pages\Order\CustomerServiceBookingDeliveryOrder.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\Product\ProductionManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -364,6 +368,9 @@
     </Compile>
     <Compile Include="Pages\Entity\Station\StationManagement.xaml.cs">
       <DependentUpon>StationManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Order\CustomerServiceBookingDeliveryOrder.xaml.cs">
+      <DependentUpon>CustomerServiceBookingDeliveryOrder.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Product\ProductionManagement.xaml.cs">
       <DependentUpon>ProductionManagement.xaml</DependentUpon>

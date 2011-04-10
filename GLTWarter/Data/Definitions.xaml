@@ -152,6 +152,10 @@
                     <Value>Autonomy</Value>
                     <Text>产品</Text>
                 </Product>
+                <Product searchable="1" editable ="1">
+                    <Value>Delivery</Value>
+                    <Text>快递包裹</Text>
+                </Product>
             </ProductType>
         </x:XData>
     </XmlDataProvider>

@@ -249,7 +249,19 @@ ABLE_FLAG";
             if (paper.ContactB.IsNew)
             {
                 Entity entity = new Entity(this.Operator);
-                paper.ContactB.EntityType = Galant.DataEntity.EntityType.Client;
+                if (paper.Packages != null && paper.Packages.FirstOrDefault() != null && paper.Packages.FirstOrDefault().Product != null && paper.Packages.FirstOrDefault().Product.ProductType == Galant.DataEntity.ProductEnum.Delivery)
+                {
+                    paper.ContactB.EntityType = Galant.DataEntity.EntityType.Receiver;
+                    if (paper.ContactA != null)
+                    {
+                        paper.ContactA.EntityType = Galant.DataEntity.EntityType.Receiver;
+                        entity.SaveEntity(this.Operator, paper.ContactA);
+                    }
+                }
+                else
+                {
+                    paper.ContactB.EntityType = Galant.DataEntity.EntityType.Client;
+                }
                 entity.SaveEntity(this.Operator, paper.ContactB);
             }
             base.AddNewData(data);

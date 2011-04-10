@@ -9,10 +9,21 @@ namespace Galant.DataEntity
     [DataContract]
     public enum ProductEnum:int
     { 
+        /// <summary>
+        /// 水票
+        /// </summary>
         [EnumMember]
         Ticket = 0x01,
+        /// <summary>
+        /// 水产品
+        /// </summary>
         [EnumMember]
-        Autonomy = 0x02
+        Autonomy = 0x02,
+        /// <summary>
+        /// 快递
+        /// </summary>
+        [EnumMember]
+        Delivery = 0x03
     }
 
     [DataContract]
