@@ -67,27 +67,27 @@
                                 </ComboBox>
                             </my:PropertyRow>
                             <my:PropertyRow HeaderText="座机号码:" >
-                                <TextBox Name="textPhones" Width="150" IsEnabled="{Binding Path=ContactB.IsNew}"
+                                <TextBox Name="textPhones" GotFocus="textBox_GotFocus"  Width="150" IsEnabled="{Binding Path=ContactB.IsNew}"
                                      Text="{Binding Path=ContactB.HomePhone, UpdateSourceTrigger=PropertyChanged}"  />
                             </my:PropertyRow>
                             <my:PropertyRow HeaderText="手机号码:">
-                                <TextBox Name="textCellPhonesOne" Width="150" MinHeight="20" IsEnabled="{Binding Path=ContactB.IsNew}"
+                                <TextBox Name="textCellPhonesOne" GotFocus="textBox_GotFocus" Width="150" MinHeight="20" IsEnabled="{Binding Path=ContactB.IsNew}"
                                      Text="{Binding Path=ContactB.CellPhoneOne,  UpdateSourceTrigger=PropertyChanged}"  />
                             </my:PropertyRow>
                             <my:PropertyRow HeaderText="备用手机号码:">
-                                <TextBox Name="textCellPhonesTwo" Width="150" MinHeight="20" IsEnabled="{Binding Path=ContactB.IsNew}"
+                                <TextBox Name="textCellPhonesTwo" GotFocus="textBox_GotFocus" Width="150" MinHeight="20" IsEnabled="{Binding Path=ContactB.IsNew}"
                                      Text="{Binding Path=ContactB.CellPhoneTwo, UpdateSourceTrigger=PropertyChanged}"  />
                             </my:PropertyRow>
                             <my:PropertyRow HeaderText="客户代码:">
-                                <TextBox Name="textAlias" Width="150" MinHeight="20"
+                                <TextBox Name="textAlias" GotFocus="textBox_GotFocus" Width="150" MinHeight="20"
                                     Text="{Binding Path=ContactB.Alias}" IsEnabled="False" />
                             </my:PropertyRow>
                             <my:PropertyRow HeaderText="客户姓名:">
-                                <TextBox Name="textFullName" Width="150" MinHeight="20" IsEnabled="{Binding Path=ContactB.IsNew}"
+                                <TextBox Name="textFullName" GotFocus="textBox_GotFocus" Width="150" MinHeight="20" IsEnabled="{Binding Path=ContactB.IsNew}"
                                     Text="{Binding Path=ContactB.FullName}" />
                             </my:PropertyRow>
                             <my:PropertyRow HeaderText="客户登记地址:">
-                                <TextBox Name="textAddress" Width="150" MinHeight="20" IsEnabled="{Binding Path=ContactB.IsNew}"
+                                <TextBox Name="textAddress" GotFocus="textBox_GotFocus" Width="150" MinHeight="20" IsEnabled="{Binding Path=ContactB.IsNew}"
                                     Text="{Binding Path=ContactB.AddressChild}" />
                             </my:PropertyRow>
                         </StackPanel>
@@ -95,18 +95,18 @@
                     <GroupBox Grid.Column="1" Header="">
                         <StackPanel>
                     <my:PropertyRow HeaderText="备注:" Focusable="False" VerticalAlignment="Stretch"  HorizontalAlignment="Left" />
-                        <TextBox Text="{Binding Comment}" Margin="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MinHeight="200" />
+                            <TextBox Name="textComment" Text="{Binding Comment}" GotFocus="textBox_GotFocus" Margin="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MinHeight="200" />
                     </StackPanel>
                     </GroupBox>
                     <GroupBox Header="选择产品" Grid.Row="1" Grid.ColumnSpan="2"  Name="packetageSelecter">
                         <StackPanel>
                             <my:PropertyRow HeaderText="产品:">
-                                <my:ProductSelector x:Name="productSelector"  ProductList="{Binding Source={x:Static src:AppCurrent.Active}, Path=AppCach.Products}" Enter="ProductSelector_Enter">
+                                <my:ProductSelector x:Name="productSelector"  ProductList="{Binding Source={x:Static src:AppCurrent.Active}, Path=AppCach.ProductsWarter}" Enter="ProductSelector_Enter">
                                 </my:ProductSelector>
                             </my:PropertyRow>
                             <my:PropertyRow HeaderText="数量:">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBox Name="txtCount" Text="{Binding Count, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Width="50" Height="20"></TextBox>
+                                    <TextBox Name="txtCount" GotFocus="textBox_GotFocus" Text="{Binding Count, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Width="50" Height="20"></TextBox>
                                     <Button Name="btnAddProduct" Style="{StaticResource StandardButton}" Margin="10,0,0,0" Click="btnAddProduct_Click">添加</Button>
                                 </StackPanel>
                             </my:PropertyRow>

@@ -106,5 +106,17 @@ namespace GLTWarter.Pages.Order
             this.confimPaper.Visibility = System.Windows.Visibility.Collapsed;
             this.btnBookPaper.Visibility = System.Windows.Visibility.Visible;
         }
+
+        private void textBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is TextBox)
+                (sender as TextBox).SelectAll();
+        }
+
+        protected override void FocusFirstControl()
+        {
+            this.textACellPhonesOne.Focus();
+        }
+
     }
 }

@@ -156,5 +156,19 @@ namespace Galant.DataEntity
                 return Products.Where(p=>p.ProductType == Galant.DataEntity.ProductEnum.Delivery).ToList();
             }
         }
+
+        /// <summary>
+        /// 送水类产品
+        /// </summary>
+        [IgnoreDataMember]
+        public List<Product> ProductsWarter
+        {
+            get
+            {
+                if (Products == null)
+                    Products = new List<Product>();
+                return Products.Where(p => p.ProductType == Galant.DataEntity.ProductEnum.Autonomy || p.ProductType== ProductEnum.Ticket).ToList();
+            }
+        }
     }
 }

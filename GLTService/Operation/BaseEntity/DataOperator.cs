@@ -27,8 +27,8 @@ namespace GLTService.Operation.BaseEntity
         internal MySqlTransaction mytransaction;
         internal MySqlConnection myConnection;
 
-        //internal const string ConnectionString = @"Server=localhost;Database=glt; User=root;Password=123;Use Procedure Bodies=false;Charset=utf8;Allow Zero Datetime=True; Pooling=false; Max Pool Size=50;";
-        internal const string ConnectionString = @"Server=localhost;Database=galant; User=root;Password=123;Use Procedure Bodies=false;Charset=utf8;Allow Zero Datetime=True; Pooling=false; Max Pool Size=50;";
+        internal const string ConnectionString = @"Server=localhost;Database=glt; User=root;Password=123;Use Procedure Bodies=false;Charset=utf8;Allow Zero Datetime=True; Pooling=false; Max Pool Size=50;";
+        //internal const string ConnectionString = @"Server=localhost;Database=galant; User=root;Password=123;Use Procedure Bodies=false;Charset=utf8;Allow Zero Datetime=True; Pooling=false; Max Pool Size=50;";
 
         internal void CreateConnection()
         {
