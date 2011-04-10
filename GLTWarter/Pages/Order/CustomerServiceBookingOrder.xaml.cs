@@ -24,6 +24,8 @@ namespace GLTWarter.Pages.Order
             : base(paper)
         {
             InitializeComponent();
+            paper.IsCollection = false;
+            paper.StartTime = System.DateTime.Now;
             packet.PaperId = paper.PaperId;
             packet.PackageType = Galant.DataEntity.PackageState.New;
             packet.Count = 1;
