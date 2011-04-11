@@ -68,6 +68,7 @@ WHERE `TYPE`= 1 AND HOLDER = '{0}' AND SUBSTATE <= 36 AND IS_COLLECTION = 0";
             PaperLinks link = new PaperLinks(this.Operator);
             link.BuildPaperTree(collection);
             this.AddEvent(new Galant.DataEntity.EventLog() { RelationEntity = station.EntityId, AtStation = station.EntityId, EventType = "S-Create", InsertTime = DateTime.Now, PaperId = collection.PaperId });
+            this.AddEvent(new Galant.DataEntity.EventLog() { RelationEntity = station.EntityId, AtStation = station.EntityId, EventType = "CKO-B", InsertTime = DateTime.Now, PaperId = collection.PaperId });
         }
 
         public List<StationAssignData> ReadStationAssign(Galant.DataEntity.StationAssign.Search searchData)

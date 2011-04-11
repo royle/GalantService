@@ -11,8 +11,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TabControl Name="tabControlMain" FontSize="16" Background="{x:Null}">
-            <TabItem Header="客服" Name="tabCS" Background="{x:Null}">
+        <TabControl Name="tabControlMain" FontSize="16" >
+            <TabItem Header="客服" Name="tabCS" >
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -40,7 +40,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="调度" Name="tabRoute" Background="{x:Null}">
+            <TabItem Header="调度" Name="tabRoute">
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -70,7 +70,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="水站" Background="{x:Null}">
+            <TabItem Header="水站">
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -95,7 +95,7 @@
                     </StackPanel>
                 </Grid>
             </TabItem>
-            <TabItem Header="系统"  IsSelected="True" Background="{x:Null}">
+            <TabItem Header="系统">
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -120,8 +120,8 @@
         <GridSplitter Grid.Row="1" ShowsPreview="True" 
                       ResizeBehavior="PreviousAndNext" ResizeDirection="Rows"
                       VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="5" Background="{x:Null}" />
-        <TabControl TabStripPlacement="Bottom" Grid.Row="2" Visibility="{Binding HintVisibility}" Background="{x:Null}">
-            <TabItem Header="提示信息" Background="{x:Null}">
+        <TabControl TabStripPlacement="Bottom" Grid.Row="2" Visibility="{Binding HintVisibility}">
+            <TabItem Header="提示信息">
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
