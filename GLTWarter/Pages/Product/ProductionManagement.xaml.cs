@@ -46,11 +46,7 @@ namespace GLTWarter.Pages.Product
         protected override bool OnSavedNewItem()
         {
             MessageBox.Show(AppCurrent.Active.MainScreen, Resource.msgProductCreated, this.Title, MessageBoxButton.OK, MessageBoxImage.Information);
-
-            Galant.DataEntity.BaseData data = new Galant.DataEntity.Product() { ProductType = ((Galant.DataEntity.Product)dataCurrent).ProductType};
-            this.dataCurrent = data;
-            this.DataContext = this.dataCurrent;
-            return false;
+            return true;
         }
     }
 }
