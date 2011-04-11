@@ -59,7 +59,7 @@
                                       NavigationBehavior="RowOnly" ReadOnly="True">
                     <xcdg:DataGridControl.ItemContainerStyle>
                         <Style TargetType="{x:Type xcdg:DataRow}" BasedOn="{StaticResource DataRowStyle}">
-                            <EventSetter Event="MouseDoubleClick" Handler="HandleItemActivate"/>
+                            <EventSetter Event="MouseLeftButtonUp" Handler="HandleItemActivate"/>
                             <EventSetter Event="PreviewKeyDown" Handler="HandleItemActivate"/>
                         </Style>
                     </xcdg:DataGridControl.ItemContainerStyle>
