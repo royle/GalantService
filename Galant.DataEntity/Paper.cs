@@ -248,7 +248,7 @@ namespace Galant.DataEntity
         [IgnoreDataMember]
         public Entity NextEntity
         {
-            get { return (NextRoute == null && NextRoute.ToEntity == null) ? new Entity() : NextRoute.ToEntity; }
+            get { return (NextRoute == null || NextRoute.ToEntity == null) ? new Entity() : NextRoute.ToEntity; }
             set
             {
                 if (NextRoute == null)

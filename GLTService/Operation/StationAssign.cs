@@ -18,7 +18,7 @@ namespace GLTService.Operation
         public readonly string sqlSelect = @"SELECT PAPER_ID,SUBSTATE,HOLDER,BOUND,CONTACT_A,CONTACT_B,`TYPE`,`COMMENT`, NEXT_ROUTE FROM PAPERS
 WHERE `TYPE`= 1 AND HOLDER = '{0}' AND SUBSTATE <= 36 AND IS_COLLECTION = 0";
 
-        public readonly string sqlUpdatePaper = @"UPDATE papers SET holder = {0},Status = {1} SubState={2}, Deliver_b = {3}, Deliver_b_time = '{4}', Next_Route = {5} WHERE paper_id = '{6}'";
+        public readonly string sqlUpdatePaper = @"UPDATE papers SET holder = {0},Status = {1}, SubState={2}, Deliver_b = {3}, Deliver_b_time = '{4}', Next_Route = {5} WHERE paper_id = '{6}'";
 
         public void UpdatePaper(Galant.DataEntity.StationAssign.Result result)
         {
@@ -47,7 +47,7 @@ WHERE `TYPE`= 1 AND HOLDER = '{0}' AND SUBSTATE <= 36 AND IS_COLLECTION = 0";
                         routeid = ReadLastInsertId();
                     }
                 }
-                String sqlText = string.Format(sqlUpdatePaper, assign.Holder.EntityId, ((int)assign.NewPaperSubStatus >> 4), (int)assign.NewPaperSubStatus, assign.DeliverB, assign.DeliverBTime, routeid, assign.PaperId);
+                String sqlText = string.Format(sqlUpdatePaper, assign.Holder.EntityId, ((int)assign.NewPaperSubStatus >> 4), (int)assign.NewPaperSubStatus, assign.DeliverB.EntityId, assign.DeliverBTime, routeid, assign.PaperId);
                 SqlHelper.ExecuteNonQuery(this.Operator.mytransaction, CommandType.Text, sqlText);
 
                 this.AddEvent(new Galant.DataEntity.EventLog() { RelationEntity = assign.Holder.EntityId, AtStation = station.EntityId, EventType = "CKO-B", EventData = "CKO-B", InsertTime = DateTime.Now, PaperId = assign.PaperId });
