@@ -71,6 +71,8 @@ namespace GLTWarter.Pages.StationAssign
 
                 assign.NewPaperSubStatus = Galant.DataEntity.PaperSubState.InTransit;
                 assign.Holder = deliver;
+                assign.DeliverB = deliver;
+                assign.DeliverBTime = DateTime.Now;
             }
             data.Operation = BaseOperatorName.SaveStationAssign;
         }
