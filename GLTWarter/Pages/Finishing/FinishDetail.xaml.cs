@@ -142,6 +142,11 @@ namespace GLTWarter.Pages.Finishing
             return true;
  
         }
-        
+
+        private void textBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is TextBox)
+                (sender as TextBox).SelectAll();
+        }
     }
 }

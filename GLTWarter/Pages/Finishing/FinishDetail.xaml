@@ -65,11 +65,11 @@
                                 <my:FinishResultSelector x:Name="FinishResult"  Selected="FinishResult_Selected"  DataContext="{Binding}" FontSize="13"></my:FinishResultSelector>
                             </my:PropertyRow>
                             <my:PropertyRow HeaderText="异常原因(_A):" >
-                                <TextBox  Width="150" 
+                                    <TextBox  Width="150" GotFocus="textBox_GotFocus" 
                                  Text="{Binding Path=CheckinException, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" MaxLength="50" />
                             </my:PropertyRow>
                             <my:PropertyRow HeaderText="配送费用(_N):">
-                                <TextBox Name="textName" Width="150" 
+                                    <TextBox Name="textName" Width="150" GotFocus="textBox_GotFocus" 
                                  Text="{Binding Path=Salary, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" MaxLength="50" />
                             </my:PropertyRow>
                             </StackPanel>
@@ -84,11 +84,11 @@
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                <my:PropertyRow HeaderText="水费现金支付(_N):" Margin="5">
-                                    <TextBox Name="textAmont" Width="150" 
+                                <my:PropertyRow HeaderText="现金(_C):" >
+                                    <TextBox Name="textAmont" Width="150" GotFocus="textBox_GotFocus" 
                                  Text="{Binding Path=ReturnCash, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" MaxLength="50" />
                                 </my:PropertyRow>
-                                <GroupBox Grid.Row="1" Header="水费水票支付(_N)" Margin="0,5,0,0">
+                                <GroupBox Grid.Row="1" Header="水票(_P)" Margin="0,5,0,0">
                                     <my:PropertyRow  HeaderText="" VerticalAlignment="Top">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
@@ -110,7 +110,7 @@
                                                       IsEnabled="{Binding IsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
                                                       ItemsSource="{Binding Source={x:Static src:AppCurrent.Active}, Path=AppCach.ProductsTickets}" SelectedValue="{Binding Product, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" />
                                                             <TextBlock Grid.Column="2">
-                                                                数量：<TextBox Style="{StaticResource vInput}" MinWidth="30" VerticalAlignment="Center" Text="{Binding Count, Converter={StaticResource IntInputConverter}}"/>张
+                                                                数量：<TextBox GotFocus="textBox_GotFocus"  Style="{StaticResource vInput}" MinWidth="30" VerticalAlignment="Center" Text="{Binding Count, Converter={StaticResource IntInputConverter}}"/>张
                                                             </TextBlock>
                                                         </Grid>
                                                     </DataTemplate>
@@ -144,7 +144,7 @@
                                                       IsEnabled="{Binding IsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
                                                       ItemsSource="{Binding Source={x:Static src:AppCurrent.Active}, Path=AppCach.ProductsNeedReturn}" SelectedValue="{Binding Product, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" Style="{StaticResource vInput}" />
                                                             <TextBlock Grid.Column="2">
-                                                                数量：<TextBox MinWidth="30" Style="{StaticResource vInput}" VerticalAlignment="Center" Text="{Binding Count, Converter={StaticResource IntInputConverter}}"/>个。 空桶押金：<TextBox ToolTip="如返回为押金时,同时需要在左边的数量中填写押金对应空桶的数量." MinWidth="30" Style="{StaticResource vInput}" VerticalAlignment="Center" Text="{Binding Amount, Converter={StaticResource IntInputConverter}}"/>
+                                                                数量：<TextBox MinWidth="30" GotFocus="textBox_GotFocus"  Style="{StaticResource vInput}" VerticalAlignment="Center" Text="{Binding Count, Converter={StaticResource IntInputConverter}}"/>个。 空桶押金：<TextBox ToolTip="如返回为押金时,同时需要在左边的数量中填写押金对应空桶的数量." MinWidth="30" Style="{StaticResource vInput}" VerticalAlignment="Center" Text="{Binding Amount, Converter={StaticResource IntInputConverter}}"/>
                                                             </TextBlock>
                                                         </Grid>
                                                     </DataTemplate>
