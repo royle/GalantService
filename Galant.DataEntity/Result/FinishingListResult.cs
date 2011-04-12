@@ -22,7 +22,21 @@ namespace Galant.DataEntity.Result
         public List<Galant.DataEntity.Paper> ResultData
         {
             get { return resultData; }
-            set { resultData = value; OnPropertyChanged("ResultData"); OnPropertyChanged("HolderResultData"); }
+            set 
+            {
+                resultData = value;
+                ResetResultDataHolder(value);
+                OnPropertyChanged("ResultData"); 
+                OnPropertyChanged("HolderResultData"); 
+            }
+        }
+
+        private void ResetResultDataHolder(List<Galant.DataEntity.Paper> data)
+        {
+            foreach (Galant.DataEntity.Paper p in data)
+            {
+                p.Holder = (from d in data where d.Holder != null && d.Holder.EntityId.HasValue && d.Holder.EntityId == p.Holder.EntityId select d.Holder).FirstOrDefault();
+            }
         }
 
         private List<HolderPapers> holderResultData;

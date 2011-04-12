@@ -116,6 +116,19 @@ namespace GLTWarter.Pages.Finishing
             this.dataCurrent.Operation = "SearchFinishingList";
             base.buttonNext_Click(sender, null);
         }
+
+        private void HandleItemActivate(object source, RoutedEventArgs e)
+        {
+            if (e is KeyEventArgs)
+            {
+                KeyEventArgs ke = (KeyEventArgs)e;
+                if (!(ke.Key == Key.Enter && ke.KeyboardDevice.Modifiers == ModifierKeys.None))
+                {
+                    return;
+                }
+            }
+            this.buttonNew_Click(source, null);
+        }
        
     }
 

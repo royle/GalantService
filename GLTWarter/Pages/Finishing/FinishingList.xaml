@@ -57,7 +57,13 @@
 							<xcdg:DataGridControl.View>
 								<xcdg:TableView ColumnStretchMode="First" />
 							</xcdg:DataGridControl.View>
-							<xcdg:DataGridControl.Columns>
+                            <xcdg:DataGridControl.ItemContainerStyle>
+                                <Style TargetType="{x:Type xcdg:DataRow}" BasedOn="{StaticResource DataRowStyle}">
+                                    <EventSetter Event="MouseDoubleClick" Handler="HandleItemActivate"/>
+                                    <EventSetter Event="PreviewKeyDown" Handler="HandleItemActivate"/>
+                                </Style>
+                            </xcdg:DataGridControl.ItemContainerStyle>
+                            <xcdg:DataGridControl.Columns>
 								<xcdg:Column Title="配送员" Width="120"  FieldName="Holder" ReadOnly="True" />
 								<xcdg:Column Title="订单量" Width="70"  FieldName="PackagesCount" ReadOnly="True" />
 							</xcdg:DataGridControl.Columns>
@@ -68,7 +74,13 @@
 							<xcdg:DataGridControl.View>
 								<xcdg:TableView ColumnStretchMode="First" />
 							</xcdg:DataGridControl.View>
-							<xcdg:DataGridControl.Columns>
+                            <xcdg:DataGridControl.ItemContainerStyle>
+                                <Style TargetType="{x:Type xcdg:DataRow}" BasedOn="{StaticResource DataRowStyle}">
+                                    <EventSetter Event="MouseDoubleClick"  Handler="HandleItemActivate"/>
+                                    <EventSetter Event="PreviewKeyDown" Handler="HandleItemActivate"/>
+                                </Style>
+                            </xcdg:DataGridControl.ItemContainerStyle>
+                            <xcdg:DataGridControl.Columns>
                                 <xcdg:Column Title="配送单号" Width="120"  FieldName="PaperId" ReadOnly="True" />
 								<xcdg:Column Title="配送员" Width="120"  FieldName="Holder" ReadOnly="True" />
 								<xcdg:Column Title="状态" Width="50"  FieldName="SubStatus" ReadOnly="True" />
