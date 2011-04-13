@@ -258,6 +258,14 @@ namespace Galant.DataEntity
                 NextRoute.ToEntity = value; OnPropertyChanged("NextEntity"); OnPropertyChanged("NextRoute");
             }
         }
+        /// <summary>
+        /// 是否是快递订单
+        /// </summary>
+        [IgnoreDataMember]
+        public bool IsDeliveryPaper
+        {
+            get { return this.PaperType == Galant.DataEntity.PaperType.Deliver; }
+        }
 
         private PaperSubState? mobileStatus;
         [DataMember]

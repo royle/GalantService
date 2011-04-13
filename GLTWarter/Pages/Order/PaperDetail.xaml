@@ -1,0 +1,156 @@
+﻿<pages:DetailsBase x:Class="GLTWarter.Pages.Order.PaperDetail"
+     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:my="clr-namespace:GLTWarter.Controls"
+    xmlns:pages="clr-namespace:GLTWarter.Pages"
+    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+    xmlns:src="clr-namespace:GLTWarter"
+    xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+    xmlns:styles="clr-namespace:GLTWarter.Styles"                   
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+	Title="订单详情">
+    <Page.Resources>
+        <xcdg:DataGridCollectionViewSource x:Key="Packages" Source="{Binding Packages, UpdateSourceTrigger=PropertyChanged, FallbackValue={x:Null}}" AutoCreateItemProperties="False">
+            <xcdg:DataGridCollectionViewSource.ItemProperties>
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="IsMarked" DataType="{x:Type sys:Boolean}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="Product.ProductName" DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="Count" DataType="{x:Type sys:Int32}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="Product.Amount" DataType="{x:Type sys:Decimal}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="Amount" DataType="{x:Type sys:Decimal}" />
+            </xcdg:DataGridCollectionViewSource.ItemProperties>
+            <xcdg:DataGridCollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="Amount" Direction="Ascending" />
+            </xcdg:DataGridCollectionViewSource.SortDescriptions>
+        </xcdg:DataGridCollectionViewSource>
+        <DataTemplate x:Key="buttonCellTemplate">
+            <Button Name="btnModifyAmount" Click="btnModifyAmount_Click">修改</Button>
+        </DataTemplate>
+        <DataTemplate x:Key="EditTemplate">
+            <TextBox Text="{Binding Context}"></TextBox>
+        </DataTemplate>
+    </Page.Resources>
+    <my:DetailsPagePresenter TitleBrush="Blue" TitleForNew="订单详情">
+        <my:DetailsPagePresenter.LatestVersionButtonsPanel>
+            <Button IsCancel="true" >取消</Button>
+        </my:DetailsPagePresenter.LatestVersionButtonsPanel>
+        <TabControl>
+            <TabItem Header="订单基本信息">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ScrollViewer Name="SearchView" Grid.Row="0" VerticalScrollBarVisibility="Auto" Margin="5,10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <GroupBox Header="基本信息" Grid.Row="0">
+                                <StackPanel>
+                                    <my:PropertyRow HeaderText="订单号:">
+                                        <TextBlock Name="textAlias" Width="150" MinHeight="20"
+                                            Text="{Binding Path=PaperId}" IsEnabled="False" />
+                                    </my:PropertyRow>
+                                    <StackPanel Visibility="{Binding IsDeliveryPaper, Converter={StaticResource BooleanVisibilityConverter}, FallbackValue=Collapsed}">
+                                        <my:PropertyRow HeaderText="收货人联系电话:" >
+                                            <TextBlock Width="150" MinHeight="20"
+                                             Text="{Binding Path=ContactA.Phones, Converter={StaticResource ArrayStringConverter}}"  />
+                                        </my:PropertyRow>
+                                        <my:PropertyRow HeaderText="收货人姓名:">
+                                            <TextBlock Width="150" MinHeight="20" 
+                                            Text="{Binding Path=ContactA.FullName}" />
+                                        </my:PropertyRow>
+                                        <my:PropertyRow HeaderText="收货人地址:">
+                                            <TextBlock Width="150" MinHeight="20" 
+                                            Text="{Binding Path=ContactA.AddressChild}" />
+                                        </my:PropertyRow>
+                                    </StackPanel>
+                                    <my:PropertyRow HeaderText="付款方式:" Visibility="{Binding IsDeliveryPaper, Converter={StaticResource BooleanNotVisibilityConverter}, FallbackValue=Collapsed}">
+                                        <ComboBox Name="comboPayType" MinWidth="100" VerticalAlignment="Center" HorizontalAlignment="Left" SelectedIndex="0"
+                                              IsEnabled="{Binding Path=ContactB.IsNew}"
+                                          ItemsSource="{Binding Source={StaticResource PayType}, XPath=//Type[@searchable\=1]}" DisplayMemberPath="Text" SelectedValuePath="Value" 
+                                          SelectedValue="{Binding Path=ContactB.PayType, UpdateSourceTrigger=PropertyChanged}">
+                                        </ComboBox>
+                                    </my:PropertyRow>
+                                    <my:PropertyRow HeaderText="收货人联系电话:" >
+                                        <TextBlock Name="textPhones" Width="150" MinHeight="20"
+                                             Text="{Binding Path=ContactB.Phones, Converter={StaticResource ArrayStringConverter}}"  />
+                                    </my:PropertyRow>
+                                    <my:PropertyRow HeaderText="收货人姓名:">
+                                        <TextBlock Name="textFullName" Width="150" MinHeight="20" 
+                                            Text="{Binding Path=ContactB.FullName}" />
+                                    </my:PropertyRow>
+                                    <my:PropertyRow HeaderText="收货人地址:">
+                                        <TextBlock Name="textAddress" Width="150" MinHeight="20" 
+                                            Text="{Binding Path=ContactB.AddressChild}" />
+                                    </my:PropertyRow>
+                                </StackPanel>
+                            </GroupBox>
+                            <GroupBox Grid.Column="1" Header="">
+                                <StackPanel>
+                                    <my:PropertyRow HeaderText="备注:" Focusable="False" VerticalAlignment="Stretch"  HorizontalAlignment="Left" />
+                                    <TextBlock Text="{Binding Comment}" Margin="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MinHeight="200" />
+                                </StackPanel>
+                            </GroupBox>
+                        </Grid>
+                    </ScrollViewer>
+                    <Grid Grid.Row="1" Name="PackagesView" Margin="5,10">
+                        <xcdg:DataGridControl Margin="0,0,0,0" UpdateSourceTrigger="CellEndingEdit"  NavigationBehavior="CellOnly" ReadOnly="False"  HorizontalAlignment="Stretch" ItemsSource="{Binding Source={StaticResource Packages}}" Name="listResult">
+
+                            <xcdg:DataGridControl.ItemContainerStyle>
+                                <Style TargetType="{x:Type xcdg:DataRow}" BasedOn="{StaticResource DataRowStyle}">
+
+                                </Style>
+                            </xcdg:DataGridControl.ItemContainerStyle>
+                            <xcdg:DataGridControl.Columns>
+                                <xcdg:Column Title="" Width="30" FieldName="IsMarked" CellContentTemplate="{StaticResource IsMarkTemplate}" />
+                                <xcdg:Column Title="产品" Width="200" FieldName="Product.ProductName" />
+                                <xcdg:Column Title="数量" Width="120" FieldName="Count" ReadOnly="False"/>
+                                <xcdg:Column Title="单价" Width="50" FieldName="Product.Amount"/>
+                                <xcdg:Column Title="总价" Width="120" FieldName="Amount" />
+                                <xcdg:Column Title="修改金额" Width="70" FieldName="123" CellContentTemplate="{StaticResource buttonCellTemplate}"/>
+                            </xcdg:DataGridControl.Columns>
+                        </xcdg:DataGridControl>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="操作">
+                <StackPanel>
+                    <GroupBox Header="取消配送并退货" 
+                                  Visibility="{Binding IsVisible, Converter={StaticResource BooleanVisibilityConverter}}"
+                                  IsEnabled="{Binding IsEnabled}"
+                                  Name="opboxForcedReturn">
+                        <StackPanel Margin="10,5">
+                            <my:PropertyRow Visibility="{Binding IsEnabled, Converter={StaticResource BooleanNotVisibilityConverter}}">
+                                <TextBlock TextWrapping="Wrap">相关包裹单在配送途中，不能取消配送。请于归班后再试。</TextBlock>
+                            </my:PropertyRow>
+                            <my:PropertyRow>
+                                <Hyperlink  IsEnabled="{Binding IsEnabled}">进入取消配送版面</Hyperlink>
+                            </my:PropertyRow>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="回复归班前状态" 
+                                  Visibility="{Binding IsVisible, Converter={StaticResource BooleanVisibilityConverter}}"
+                                  IsEnabled="{Binding IsEnabled}"
+                                  Name="opboxRevertFinishing">
+                        <StackPanel Margin="10,5">
+                            <my:PropertyRow Visibility="{Binding IsEnabled, Converter={StaticResource BooleanNotVisibilityConverter}}">
+                                <TextBlock TextWrapping="Wrap">只有成功签收的订单才能够回复归班前状态。</TextBlock>
+                            </my:PropertyRow>
+                            <my:PropertyRow>
+                                <Hyperlink >确认回复归班</Hyperlink>
+                            </my:PropertyRow>
+                        </StackPanel>
+                    </GroupBox>
+
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </my:DetailsPagePresenter>
+</pages:DetailsBase>
