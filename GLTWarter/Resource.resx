@@ -214,4 +214,10 @@
   <data name="msgFinishCheckinComplete" xml:space="preserve">
     <value>归班完成！</value>
   </data>
+  <data name="errorLocalDataValidation" xml:space="preserve">
+    <value>数据未能通过验证。</value>
+  </data>
+  <data name="validationRequiredField" xml:space="preserve">
+    <value>这项数据是必填的。</value>
+  </data>
 </root>

@@ -144,7 +144,7 @@
                                 <TextBlock TextWrapping="Wrap">只有成功签收的订单才能够回复归班前状态。</TextBlock>
                             </my:PropertyRow>
                             <my:PropertyRow>
-                                <Hyperlink >确认回复归班</Hyperlink>
+                                <Hyperlink IsEnabled="{Binding IsEnabled}">确认回复归班</Hyperlink>
                             </my:PropertyRow>
                         </StackPanel>
                     </GroupBox>

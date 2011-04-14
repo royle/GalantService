@@ -73,6 +73,8 @@
     <Compile Include="Package.cs" />
     <Compile Include="Paper.cs" />
     <Compile Include="PaperCheckin.cs" />
+    <Compile Include="PaperOperation\PaperForcedReturnRequest.cs" />
+    <Compile Include="PaperOperation\PaperRevertFinishingRequest.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Production\Result.cs" />
     <Compile Include="Production\Search.cs" />

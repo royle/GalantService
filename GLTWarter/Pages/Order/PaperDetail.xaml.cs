@@ -28,5 +28,17 @@ namespace GLTWarter.Pages.Order
         {
 
         }
+
+        protected override void OnPostDataInitialization()
+        {
+            Galant.DataEntity.Paper data = dataCurrent as Galant.DataEntity.Paper;
+
+            Galant.DataEntity.PaperOperation.PaperForcedReturnRequest requestFR = new Galant.DataEntity.PaperOperation.PaperForcedReturnRequest(data);
+            opboxForcedReturn.DataContext = requestFR;
+
+            Galant.DataEntity.PaperOperation.PaperRevertFinishingRequest requestRF = new Galant.DataEntity.PaperOperation.PaperRevertFinishingRequest(data);
+            opboxRevertFinishing.DataContext = requestRF;
+           
+        }
     }
 }
