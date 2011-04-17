@@ -22,6 +22,7 @@ namespace GLTService
         public static Galant.DataEntity.BaseData ProcessRequest(Galant.DataEntity.BaseData DetailObj, Galant.DataEntity.Entity staff, string OperationType)
         {
             Operation.BaseEntity.DataOperator dataOper = new Operation.BaseEntity.DataOperator();
+            dataOper.EntityOperator = staff;
             dataOper.CreateConnectionAndTransaction();
             Galant.DataEntity.BaseData returnData = null;
             try
@@ -57,6 +58,10 @@ namespace GLTService
                         search = new Search();
                         returnData = search.SearchFinishingList(dataOper, DetailObj as Galant.DataEntity.Result.FinishingListResult);
                         break;
+                    case "SearchPapersByID":
+                        search = new Search();
+                        returnData = search.SearchPapersByID(dataOper, DetailObj as Galant.DataEntity.Result.ResultPapersByID);
+                        break;
                     case "CheckinFinish":
                         Paper paper = new Paper(dataOper);
                         returnData = paper.GetCheckinPaperListByCollection(dataOper, DetailObj as Galant.DataEntity.Result.FinishCheckin);
@@ -91,6 +96,11 @@ namespace GLTService
             {
                 Entity entity = new Entity(dataOper);
                 detailObj = entity.GetEntityByID(dataOper, detailObj.QueryId, true);
+            }
+            else if (detailObj is Galant.DataEntity.Paper)
+            {
+                Paper paper = new Paper(dataOper);
+                detailObj = paper.SearchPaperByPaperID(detailObj as Galant.DataEntity.Paper);
             }
             return detailObj;
         }

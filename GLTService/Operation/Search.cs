@@ -47,5 +47,12 @@ namespace GLTService.Operation
             result.ResultData = assign.ReadStationAssign(result.SearchCondition);
             return result;
         }
+
+        public Galant.DataEntity.Result.ResultPapersByID SearchPapersByID(Operation.BaseEntity.DataOperator data, Galant.DataEntity.Result.ResultPapersByID result)
+        {
+            Operation.BaseEntity.Paper p = new BaseEntity.Paper(data);
+            result = p.SearchPapersByID(result);
+            return result;
+        }
     }
 }

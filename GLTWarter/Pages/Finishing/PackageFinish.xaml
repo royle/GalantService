@@ -101,7 +101,10 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <xcdg:DataGridControl ItemsSource="{Binding Source={StaticResource PendingPapers}}" Name="listPending" NavigationBehavior="RowOnly" ReadOnly="True">                            
+                        <xcdg:DataGridControl ItemsSource="{Binding Source={StaticResource PendingPapers}}" Name="listPending" NavigationBehavior="RowOnly" ReadOnly="True">
+                            <xcdg:DataGridControl.ContextMenu>
+                                <my:DetailsContextMenu/>
+                            </xcdg:DataGridControl.ContextMenu>
                             <xcdg:DataGridControl.View>
                                 <xcdg:TableView ColumnStretchMode="First">
                                     <xcdg:TableView.FixedFooters>
@@ -127,7 +130,7 @@
                             </xcdg:DataGridControl.ItemContainerStyle>
                             <xcdg:DataGridControl.Columns>
                                 <xcdg:Column Title="客户名称" Width="120" FieldName="ContactB" />
-                                <xcdg:Column Title="送水地址" Width="120" FieldName="OriginName" ReadOnly="True" />
+                                <xcdg:Column Title="送水地址" Width="120" FieldName="ContactB.AddressChild" ReadOnly="True" />
                                 <xcdg:Column Title="产品名" Width="120" FieldName="Packages" ReadOnly="True" />
                                 <xcdg:Column Title="方向" Width="75" FieldName="Bound" ReadOnly="True" />
                                 <xcdg:Column Title="性质" Width="75" FieldName="PaperType" ReadOnly="True" />
@@ -155,6 +158,9 @@
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <xcdg:DataGridControl ItemsSource="{Binding Source={StaticResource DownPapers}}" Name="listDown" NavigationBehavior="RowOnly" ReadOnly="True">
+                            <xcdg:DataGridControl.ContextMenu>
+                                <my:DetailsContextMenu/>
+                            </xcdg:DataGridControl.ContextMenu>
                             <xcdg:DataGridControl.View>
                                 <xcdg:TableView ColumnStretchMode="First">
                                     <xcdg:TableView.FixedFooters>
@@ -186,7 +192,7 @@
                             </xcdg:DataGridControl.ItemContainerStyle>
                             <xcdg:DataGridControl.Columns>
                                 <xcdg:Column Title="客户名称" Width="120" FieldName="ContactB" />
-                                <xcdg:Column Title="送水地址" Width="120" FieldName="OriginName" ReadOnly="True" />
+                                <xcdg:Column Title="送水地址" Width="120" FieldName="ContactB.AddressChild" ReadOnly="True" />
                                 <xcdg:Column Title="产品名" Width="120" FieldName="Packages" ReadOnly="True" />
                                 <xcdg:Column Title="归班结果" Width="75" FieldName="PaperSubStatus" ReadOnly="True" />
                                 <xcdg:Column Title="返回空桶数量" Width="120" FieldName="ReturnBulkCount" ReadOnly="True" />

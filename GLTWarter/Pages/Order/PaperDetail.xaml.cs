@@ -19,9 +19,10 @@ namespace GLTWarter.Pages.Order
     /// </summary>
     public partial class PaperDetail : DetailsBase
     {
-        public PaperDetail()
+        public PaperDetail(Galant.DataEntity.Paper data):base(data)
         {
             InitializeComponent();
+            this.DoRefresh();
         }
 
         private void btnModifyAmount_Click(object sender, RoutedEventArgs e)
@@ -39,6 +40,11 @@ namespace GLTWarter.Pages.Order
             Galant.DataEntity.PaperOperation.PaperRevertFinishingRequest requestRF = new Galant.DataEntity.PaperOperation.PaperRevertFinishingRequest(data);
             opboxRevertFinishing.DataContext = requestRF;
            
+        }
+
+        private void DetailsBase_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.DoRefresh();
         }
     }
 }

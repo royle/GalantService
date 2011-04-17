@@ -50,7 +50,6 @@ namespace GLTService.Operation.Checkin
             if (p.PaperSubStatus == PaperSubState.InTransit)
                 return;
             GLTService.Operation.BaseEntity.Store storeOpe = new BaseEntity.Store(this.Operator);
-            GLTService.Operation.BaseEntity.EventLog eventOpe = new BaseEntity.EventLog(this.Operator);
             foreach (Galant.DataEntity.Package pack in p.Packages)
             {
                 Galant.DataEntity.Store store = new Galant.DataEntity.Store() { EntityID=p.DeliverB.EntityId,ProductID=pack.Product.ProductId,ProductCount = (pack.Count *-1),Bound =1};
@@ -59,15 +58,15 @@ namespace GLTService.Operation.Checkin
             }
             Galant.DataEntity.EventLog peventLog = new Galant.DataEntity.EventLog()
             {
-                EntityID = GLTService.Service1.StaffCurrent == null ? null : Service1.StaffCurrent.EntityId,
-                AtStation = GLTService.Service1.StaffCurrent == null ? null : Service1.StaffCurrent.CurerentStationID,
+                EntityID = this.Operator.EntityOperator == null ? null : this.Operator.EntityOperator.EntityId,
+                AtStation = this.Operator.EntityOperator == null ? null : this.Operator.EntityOperator.CurerentStationID,
                 PaperId = p.PaperId,
                 InsertTime = DateTime.Now,
                 RelationEntity = p.DeliverB.EntityId,
                 EventType = "CKI-B",
                 EventData = "订单归班"
             };
-            eventOpe.AddNewData(peventLog);
+            this.AddEvent(peventLog);
 
             if (p.ReturnBulk != null)
             {
@@ -75,12 +74,14 @@ namespace GLTService.Operation.Checkin
                 {
                     Galant.DataEntity.Store store = new Galant.DataEntity.Store() { EntityID = p.DeliverB.EntityId, ProductID = pack.Product.ProductId, ProductCount = (pack.Count * -1), Bound = 0 };
                     storeOpe.AddNewData(store);
-                    Galant.DataEntity.EventLog eventLog = new Galant.DataEntity.EventLog() 
-                    { EntityID = GLTService.Service1.StaffCurrent == null ? null : Service1.StaffCurrent.EntityId, 
-                        AtStation = GLTService.Service1.StaffCurrent == null ? null : Service1.StaffCurrent.CurerentStationID, 
+                    Galant.DataEntity.EventLog eventLog = new Galant.DataEntity.EventLog()
+                    {
+                        EntityID = this.Operator.EntityOperator == null ? null : this.Operator.EntityOperator.EntityId,
+                        AtStation = this.Operator.EntityOperator == null ? null : this.Operator.EntityOperator.CurerentStationID, 
                         PaperId = p.PaperId, InsertTime = DateTime.Now, RelationEntity = p.DeliverB.EntityId, 
-                        EventType = "CKI-B-BULK", EventData = "归班" + pack.Product.ReturnName + pack.Count + " 个，现金：" + pack.Amount };
-                    eventOpe.AddNewData(eventLog);
+                        EventType = "CKI-B-BULK", EventData = "归班" + pack.Product.ReturnName + pack.Count + " 个，现金：" + pack.Amount 
+                    };
+                    this.AddEvent(eventLog);
                     if (p.ContactB.PayType == Galant.DataEntity.PayType.After)//抵消后付费客户的空桶库存
                     {
                         Galant.DataEntity.Store storeCustomer = new Galant.DataEntity.Store() { EntityID = p.ContactB.EntityId, ProductID = pack.Product.ProductId, ProductCount = (pack.Count * -1), Bound = 0 };

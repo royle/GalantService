@@ -50,7 +50,7 @@ WHERE `TYPE`= 1 AND HOLDER = '{0}' AND SUBSTATE <= 36 AND IS_COLLECTION = 0";
                 String sqlText = string.Format(sqlUpdatePaper, assign.Holder.EntityId, ((int)assign.NewPaperSubStatus >> 4), (int)assign.NewPaperSubStatus, assign.DeliverB.EntityId, assign.DeliverBTime, routeid, assign.PaperId);
                 SqlHelper.ExecuteNonQuery(this.Operator.mytransaction, CommandType.Text, sqlText);
 
-                this.AddEvent(new Galant.DataEntity.EventLog() { RelationEntity = assign.Holder.EntityId, AtStation = station.EntityId, EventType = "CKO-B", EventData = "CKO-B", InsertTime = DateTime.Now, PaperId = assign.PaperId });
+                this.AddEvent(new Galant.DataEntity.EventLog() { EntityID = this.Operator.EntityOperator == null ? null : this.Operator.EntityOperator.EntityId, RelationEntity = assign.Holder.EntityId, AtStation = station.EntityId, EventType = "CKO-B", EventData = "CKO-B", InsertTime = DateTime.Now, PaperId = assign.PaperId });
             }
             Galant.DataEntity.Paper collection = new Galant.DataEntity.Paper();
             collection.Holder = station;
@@ -70,8 +70,8 @@ WHERE `TYPE`= 1 AND HOLDER = '{0}' AND SUBSTATE <= 36 AND IS_COLLECTION = 0";
 
             PaperLinks link = new PaperLinks(this.Operator);
             link.BuildPaperTree(collection);
-            this.AddEvent(new Galant.DataEntity.EventLog() { RelationEntity = station.EntityId, AtStation = station.EntityId, EventType = "S-Create", InsertTime = DateTime.Now, PaperId = collection.PaperId });
-            this.AddEvent(new Galant.DataEntity.EventLog() { RelationEntity = station.EntityId, AtStation = station.EntityId, EventType = "CKO-B", InsertTime = DateTime.Now, PaperId = collection.PaperId });
+            this.AddEvent(new Galant.DataEntity.EventLog() {EntityID = this.Operator.EntityOperator == null ? null : this.Operator.EntityOperator.EntityId, RelationEntity = station.EntityId, AtStation = station.EntityId, EventType = "S-Create", InsertTime = DateTime.Now, PaperId = collection.PaperId });
+            this.AddEvent(new Galant.DataEntity.EventLog() { EntityID = this.Operator.EntityOperator == null ? null : this.Operator.EntityOperator.EntityId, RelationEntity = station.EntityId, AtStation = station.EntityId, EventType = "CKO-B", InsertTime = DateTime.Now, PaperId = collection.PaperId });
         }
 
         public List<StationAssignData> ReadStationAssign(Galant.DataEntity.StationAssign.Search searchData)

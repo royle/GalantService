@@ -17,13 +17,11 @@ namespace GLTService
             return string.Format("You entered: {0}", value);
         }
 
-        public static Galant.DataEntity.Entity StaffCurrent;
 
         public BaseData DoRequest(Galant.DataEntity.BaseData composite, Galant.DataEntity.Entity staff, string OperationType)
         {
             try
             {
-                StaffCurrent = staff;
                 return ProcessSwitch.ProcessRequest(composite, staff, OperationType);
             }
             catch (Galant.DataEntity.WCFFaultException exWCF)

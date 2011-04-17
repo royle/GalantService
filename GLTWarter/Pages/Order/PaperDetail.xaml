@@ -9,7 +9,7 @@
     xmlns:styles="clr-namespace:GLTWarter.Styles"                   
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
-	Title="订单详情">
+	Title="订单详情" Loaded="DetailsBase_Loaded">
     <Page.Resources>
         <xcdg:DataGridCollectionViewSource x:Key="Packages" Source="{Binding Packages, UpdateSourceTrigger=PropertyChanged, FallbackValue={x:Null}}" AutoCreateItemProperties="False">
             <xcdg:DataGridCollectionViewSource.ItemProperties>
@@ -103,11 +103,7 @@
                     <Grid Grid.Row="1" Name="PackagesView" Margin="5,10">
                         <xcdg:DataGridControl Margin="0,0,0,0" UpdateSourceTrigger="CellEndingEdit"  NavigationBehavior="CellOnly" ReadOnly="False"  HorizontalAlignment="Stretch" ItemsSource="{Binding Source={StaticResource Packages}}" Name="listResult">
 
-                            <xcdg:DataGridControl.ItemContainerStyle>
-                                <Style TargetType="{x:Type xcdg:DataRow}" BasedOn="{StaticResource DataRowStyle}">
-
-                                </Style>
-                            </xcdg:DataGridControl.ItemContainerStyle>
+                           
                             <xcdg:DataGridControl.Columns>
                                 <xcdg:Column Title="" Width="30" FieldName="IsMarked" CellContentTemplate="{StaticResource IsMarkTemplate}" />
                                 <xcdg:Column Title="产品" Width="200" FieldName="Product.ProductName" />
@@ -119,6 +115,32 @@
                         </xcdg:DataGridControl>
                     </Grid>
                 </Grid>
+            </TabItem>
+            <TabItem Header="历程">
+                <ItemsControl ItemsSource="{Binding EventLogs, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="5"/>
+                                    <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition Width="5"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0">
+                                                <TextBlock MinWidth="30"  VerticalAlignment="Center" Text="{Binding  InsertTime, Converter={StaticResource EventDateConverter}}"/>
+                                                </TextBlock>
+                                <TextBlock Grid.Column="2">
+                                                处理人：<TextBlock MinWidth="30"  VerticalAlignment="Center" Text="{Binding AddEntity, Converter={StaticResource EntityNameConverter}}"/>
+                                                </TextBlock>
+                                <TextBlock Grid.Column="4">
+                                                描述：<TextBlock MinWidth="30"  VerticalAlignment="Center" Text="{Binding EventData}"/>
+                                                </TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </TabItem>
             <TabItem Header="操作">
                 <StackPanel>

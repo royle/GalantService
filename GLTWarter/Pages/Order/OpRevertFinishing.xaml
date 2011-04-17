@@ -1,0 +1,30 @@
+﻿<pages:DetailsBase
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:my="clr-namespace:GLTWarter.Controls"
+    xmlns:pages="clr-namespace:GLTWarter.Pages"
+    xmlns:data="clr-namespace:GLTWarter.Data"
+    xmlns:styles="clr-namespace:GLTWarter.Styles"
+    x:Class="GLTWarter.Pages.Order.OpRevertFinishing"
+    Title="回复归班前状态">
+    <my:DetailsPagePresenter TitleBrush="Orange" TitleForNew="回复归班前状态" TitleForEdit="回复归班前状态">
+        <my:DetailsPagePresenter.LatestVersionButtonsPanel>
+            <Button IsDefault="true" Click="buttonOk_Click">回复归班前状态</Button>
+            <Button IsCancel="true" Click="buttonCancel_Click">取消</Button>
+        </my:DetailsPagePresenter.LatestVersionButtonsPanel>
+        <ScrollViewer VerticalScrollBarVisibility="Auto"  Grid.Column="1" Grid.Row="1">
+            <StackPanel Margin="10,10" DockPanel.Dock="Left">
+                <my:PropertyRow HeaderText="客户订单号:">
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Paper.PaperId}"/>
+                </my:PropertyRow>
+                <my:PropertyRow HeaderText="客户名称:">
+                    <TextBlock Text="{Binding Paper.ContactB, Converter={StaticResource EntityNameConverter}}"/>
+                </my:PropertyRow>
+                <my:PropertyRow HeaderText="原因(_N):">
+                    <TextBox Width="200" Style="{StaticResource vInput}" MaxLength="1000" Name="textNote" 
+                             Text="{Binding Note, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}"/>
+                </my:PropertyRow>
+            </StackPanel>
+        </ScrollViewer>
+    </my:DetailsPagePresenter>
+</pages:DetailsBase>

@@ -56,6 +56,9 @@
             <Grid Grid.Row="1">
                 <xcdg:DataGridControl Margin="0" ItemsSource="{Binding Source={StaticResource ResultData}}" Name="listResult" styles:ExportHint.IsExportable="true"
                                       NavigationBehavior="RowOnly" ReadOnly="True">
+                    <xcdg:DataGridControl.ContextMenu>
+                        <my:DetailsContextMenu/>
+                    </xcdg:DataGridControl.ContextMenu>
                     <xcdg:DataGridControl.ItemContainerStyle>
                         <Style TargetType="{x:Type xcdg:DataRow}" BasedOn="{StaticResource DataRowStyle}">
                             <EventSetter Event="MouseLeftButtonUp" Handler="HandleItemActivate"/>

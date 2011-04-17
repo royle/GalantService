@@ -31,6 +31,7 @@ namespace Galant.DataEntity
     [KnownType(typeof(Galant.DataEntity.StationAssign.Result))]
     [KnownType(typeof(Galant.DataEntity.PaperOperation.PaperForcedReturnRequest))]
     [KnownType(typeof(Galant.DataEntity.PaperOperation.PaperRevertFinishingRequest))]
+    [KnownType(typeof(Galant.DataEntity.Result.ResultPapersByID))]
     public abstract class BaseData : IIdentifiable, INotifyPropertyChanged, IDataErrorInfo, ICloneable, IComparable
     {
         public BaseData(string operation)

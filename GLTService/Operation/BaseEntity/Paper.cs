@@ -116,6 +116,44 @@ namespace GLTService.Operation.BaseEntity
             return papers;
         }
 
+       
+        public Galant.DataEntity.Result.ResultPapersByID SearchPapersByID(Galant.DataEntity.Result.ResultPapersByID search)
+        {
+            string SqlSearch = @"select p.* from papers as p left join origin_paper_links as op on p.paper_id = op.paper_id where p.paper_id like @paper_id or op.origin_name like @paper_id ";
+            List<MySqlParameter> paras = new List<MySqlParameter>();
+            paras.Add(new MySqlParameter("@paper_id", search.PaperId));
+            DataTable dt = SqlHelper.ExecuteDataset(this.Operator.myConnection, CommandType.Text, SqlSearch, paras.ToArray()).Tables[0];
+            List<Galant.DataEntity.Paper> papers = new List<Galant.DataEntity.Paper>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                Galant.DataEntity.Paper p = MappingRow(dr, this.Operator, false);
+                papers.Add(p);
+            }
+            search.Papers = papers;
+            return search;
+        }
+        /// <summary>
+        /// 获取订单详细信息 包含历程
+        /// </summary>
+        /// <param name="paper"></param>
+        /// <returns></returns>
+        public Galant.DataEntity.Paper SearchPaperByPaperID(Galant.DataEntity.Paper paper)
+        {
+            string SqlSearch = @"select p.* from papers as p where p.paper_id = @paper_id";
+            List<MySqlParameter> paras = new List<MySqlParameter>();
+            paras.Add(new MySqlParameter("@paper_id", paper.PaperId));
+            DataTable dt = SqlHelper.ExecuteDataset(this.Operator.myConnection, CommandType.Text, SqlSearch, paras.ToArray()).Tables[0];
+            EventLog eventOp = new EventLog(this.Operator);
+            foreach (DataRow dr in dt.Rows)
+            {
+                paper = MappingRow(dr, this.Operator, false);
+                paper.EventLogs = eventOp.GetEventByPaperID(paper.PaperId);
+                break;
+            }
+            return paper;
+        }
+
+
         private List<Galant.DataEntity.Paper> GetPaperChilders(DataOperator dataOper, Galant.DataEntity.Paper paper)
         {
             if (!paper.IsCollection)
@@ -140,6 +178,11 @@ namespace GLTService.Operation.BaseEntity
 
         public Galant.DataEntity.Paper MappingRow(DataRow dr, DataOperator dataOper)
         {
+            return this.MappingRow(dr, dataOper, true);
+        }
+
+        private Galant.DataEntity.Paper MappingRow(DataRow dr, DataOperator dataOper, bool IsSmiple)
+        {
             if (dr == null)
                 return null;
             Entity entityOper = new Entity(dataOper);
@@ -160,14 +203,15 @@ namespace GLTService.Operation.BaseEntity
                 paper.ContactB = entityOper.GetEntityByID(dataOper, dr["contact_b"].ToString(), false);
             if (!string.IsNullOrEmpty(dr["contact_c"].ToString()))
                 paper.ContactC = entityOper.GetEntityByID(dataOper, dr["contact_c"].ToString(), false);
-
-            if (!string.IsNullOrEmpty(dr["deliver_a"].ToString()))
-                paper.DeliverA = entityOper.GetEntityByID(dataOper, dr["deliver_a"].ToString(), false);
-            if (!string.IsNullOrEmpty(dr["deliver_b"].ToString()))
-                paper.DeliverB = entityOper.GetEntityByID(dataOper, dr["deliver_b"].ToString(), false);
-            if (!string.IsNullOrEmpty(dr["deliver_c"].ToString()))
-                paper.DeliverC = entityOper.GetEntityByID(dataOper, dr["deliver_c"].ToString(), false);
-
+            if (IsSmiple)
+            {
+                if (!string.IsNullOrEmpty(dr["deliver_a"].ToString()))
+                    paper.DeliverA = entityOper.GetEntityByID(dataOper, dr["deliver_a"].ToString(), false);
+                if (!string.IsNullOrEmpty(dr["deliver_b"].ToString()))
+                    paper.DeliverB = entityOper.GetEntityByID(dataOper, dr["deliver_b"].ToString(), false);
+                if (!string.IsNullOrEmpty(dr["deliver_c"].ToString()))
+                    paper.DeliverC = entityOper.GetEntityByID(dataOper, dr["deliver_c"].ToString(), false);
+            }
             if (!string.IsNullOrEmpty(dr["deliver_a_time"].ToString()))
                 paper.DeliverATime = Convert.ToDateTime(dr["deliver_a_time"]);
             if (!string.IsNullOrEmpty(dr["deliver_b_time"].ToString()))
@@ -186,11 +230,13 @@ namespace GLTService.Operation.BaseEntity
 
             if (!string.IsNullOrEmpty(dr["type"].ToString()))
                 paper.PaperType = (Galant.DataEntity.PaperType)(Convert.ToInt32(dr["type"]));
-
-            if (!string.IsNullOrEmpty(dr["next_route"].ToString()))
+            if (IsSmiple)
             {
-                Route r = new Route(dataOper);
-                paper.NextRoute = r.GetRouteByID(dr["next_route"].ToString(), dataOper);
+                if (!string.IsNullOrEmpty(dr["next_route"].ToString()))
+                {
+                    Route r = new Route(dataOper);
+                    paper.NextRoute = r.GetRouteByID(dr["next_route"].ToString(), dataOper);
+                }
             }
 
             if (!string.IsNullOrEmpty(dr["mobile_status"].ToString()))
@@ -273,14 +319,13 @@ ABLE_FLAG";
                 pg.PaperId = paper.PaperId;
                 opPackage.AddNewData(pg);
             }
-
-            GLTService.Operation.BaseEntity.EventLog eventOp = new EventLog(this.Operator);
-            Galant.DataEntity.EventLog eventLog = new Galant.DataEntity.EventLog() 
-            { EntityID=GLTService.Service1.StaffCurrent==null ? null:Service1.StaffCurrent.EntityId,
-              RelationEntity = GLTService.Service1.StaffCurrent == null ? null : Service1.StaffCurrent.EntityId,
-                AtStation= GLTService.Service1.StaffCurrent==null ? null:Service1.StaffCurrent.CurerentStationID, 
+            
+            Galant.DataEntity.EventLog eventLog = new Galant.DataEntity.EventLog()
+            { EntityID = this.Operator.EntityOperator == null ? null : this.Operator.EntityOperator.EntityId,
+              RelationEntity = this.Operator.EntityOperator == null ? null : this.Operator.EntityOperator.EntityId,
+              AtStation = this.Operator.EntityOperator == null ? null : this.Operator.EntityOperator.CurerentStationID, 
                 EventData="订单建立", EventType="S-Create", InsertTime=DateTime.Now, PaperId= paper.PaperId  };
-            eventOp.AddNewData(eventLog);
+            this.AddEvent(eventLog);
             return true;
         }
 

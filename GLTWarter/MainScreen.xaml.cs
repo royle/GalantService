@@ -301,7 +301,10 @@ namespace GLTWarter
 
         private void QuickSearch_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            //Pages.Shipment.Entity.SearchDataById data = new Pages.Shipment.Entity.SearchDataById();
+            Galant.DataEntity.Result.ResultPapersByID data = new Galant.DataEntity.Result.ResultPapersByID();
+            data.PaperId = e.Parameter as string;
+            data.Operation = "SearchPapersByID";
+            this.NavigateActive(new Pages.Order.PaperListByID(data));
             //data.ShipmentId = e.Parameter as string;
 
             //this.NavigateActive(

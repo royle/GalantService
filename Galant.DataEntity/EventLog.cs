@@ -61,6 +61,14 @@ namespace Galant.DataEntity
             get { return _entity_id; }
             set { _entity_id = value; }
         }
+
+        private Entity addEntity;
+        [DataMember]
+        public Entity AddEntity
+        {
+            get { return addEntity; }
+            set { addEntity = value; }
+        }
         [DataMember]
         /// <summary>
         /// 

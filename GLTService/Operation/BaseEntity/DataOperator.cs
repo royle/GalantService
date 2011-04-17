@@ -16,6 +16,12 @@ namespace GLTService.Operation.BaseEntity
             this.Operator = data;
         }
 
+        public Galant.DataEntity.Entity EntityOperator
+        {
+            get;
+            set;
+        }
+
         private DataOperator _operator;
         public DataOperator Operator
         {

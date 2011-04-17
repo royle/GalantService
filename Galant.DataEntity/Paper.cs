@@ -287,6 +287,7 @@ namespace Galant.DataEntity
         public String OriginReference
         {
             get { return string.Join(Environment.NewLine, originName); }
+            set { this.OriginName= string.IsNullOrEmpty(value) ? "".Split(';').ToList() : value.Split(new char[]{'\n',';','；'}).ToList();}
         }
 
         private List<Paper> childPapers;
@@ -300,6 +301,14 @@ namespace Galant.DataEntity
         public int? ChildsCount
         {
             get { return ChildPapers == null ? 0 : ChildPapers.Count; }
+        }
+
+        private List<EventLog> eventLogs;
+        [DataMember]
+        public List<EventLog> EventLogs
+        {
+            get { return eventLogs; }
+            set { eventLogs = value; OnPropertyChanged("EventLogs"); }
         }
 
         private Route routes;
@@ -458,6 +467,19 @@ namespace Galant.DataEntity
         {
             get { return paperCheckins; }
             set { paperCheckins = value; }
+        }
+
+        [IgnoreDataMember]
+        public override string QueryId
+        {
+            get
+            {
+                return this.PaperId;
+            }
+            set
+            {
+                this.PaperId = value;
+            }
         }
     }
 }

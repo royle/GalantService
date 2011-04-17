@@ -1,0 +1,6 @@
+﻿<ContextMenu x:Class="GLTWarter.Controls.DetailsContextMenu"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              Loaded="ContextMenu_Loaded">
+    <MenuItem Name="menuShipment" Click="menuPackage_Click" Header="订单单明细..."/>
+</ContextMenu>

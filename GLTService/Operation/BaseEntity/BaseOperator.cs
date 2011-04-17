@@ -217,7 +217,15 @@ namespace GLTService.Operation.BaseEntity
                 {
                     if (!String.IsNullOrEmpty(row[key].ToString()))
                     {
-                        info.SetValue(data, row[key], null);
+                        if (row[key] is MySql.Data.Types.MySqlDateTime)
+                        {
+                            DateTime? dateTime = (row[key] as MySql.Data.Types.MySqlDateTime?).HasValue ? (row[key] as MySql.Data.Types.MySqlDateTime?).Value.GetDateTime() : DateTime.MinValue;
+                            info.SetValue(data, dateTime , null);
+                        }
+                        else
+                        {
+                            info.SetValue(data, row[key], null);
+                        }
                     }
                 }
             }
@@ -285,6 +293,7 @@ namespace GLTService.Operation.BaseEntity
         protected void AddEvent(Galant.DataEntity.EventLog data)
         {
             EventLog eventlog = new EventLog(this.Operator);
+            data.EntityID = this.Operator.EntityOperator == null ? null : this.Operator.EntityOperator.EntityId;
             eventlog.AddNewData(data);
         }
     }

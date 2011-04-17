@@ -152,6 +152,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\DetailsContextMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\EntitySelector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -232,7 +236,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Pages\Order\OpForcedReturn.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Order\OpRevertFinishing.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\Order\PaperDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Order\PaperListByID.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -292,6 +308,9 @@
       <DependentUpon>ControlStyle.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\DateTimeBox.cs" />
+    <Compile Include="Controls\DetailsContextMenu.xaml.cs">
+      <DependentUpon>DetailsContextMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\DetailsPagePresenter.cs" />
     <Compile Include="Controls\EntitySelector.xaml.cs">
       <DependentUpon>EntitySelector.xaml</DependentUpon>
@@ -376,8 +395,17 @@
     <Compile Include="Pages\Order\CustomerServiceBookingDeliveryOrder.xaml.cs">
       <DependentUpon>CustomerServiceBookingDeliveryOrder.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Order\OpForcedReturn.xaml.cs">
+      <DependentUpon>OpForcedReturn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Order\OpRevertFinishing.xaml.cs">
+      <DependentUpon>OpRevertFinishing.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Order\PaperDetail.xaml.cs">
       <DependentUpon>PaperDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Order\PaperListByID.xaml.cs">
+      <DependentUpon>PaperListByID.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Product\ProductionManagement.xaml.cs">
       <DependentUpon>ProductionManagement.xaml</DependentUpon>

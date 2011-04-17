@@ -1,0 +1,69 @@
+﻿<pages:DetailsBase x:Class="GLTWarter.Pages.Order.PaperListByID"
+     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:my="clr-namespace:GLTWarter.Controls"
+    xmlns:pages="clr-namespace:GLTWarter.Pages"
+    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+    xmlns:src="clr-namespace:GLTWarter"
+    xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+    xmlns:styles="clr-namespace:GLTWarter.Styles"                   
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+	Title="订单详情">
+    <Page.Resources>
+        <xcdg:DataGridCollectionViewSource x:Key="Papers" Source="{Binding Papers, UpdateSourceTrigger=PropertyChanged, FallbackValue={x:Null}}" AutoCreateItemProperties="False">
+            <xcdg:DataGridCollectionViewSource.ItemProperties>
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="PaperId" DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="ContactB.FullName" DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="PaperSubStatus" Converter="{StaticResource ValueTypeBindingConverter}" ConverterParameter="{StaticResource PaperSubState}" DataType="{x:Type sys:String}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="StartTime" DataType="{x:Type sys:DateTime}" />
+                <xcdg:DataGridItemProperty IsReadOnly="True" Name="FinishTime" DataType="{x:Type sys:DateTime}" />
+            </xcdg:DataGridCollectionViewSource.ItemProperties>
+            <xcdg:DataGridCollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="StartTime" Direction="Ascending" />
+            </xcdg:DataGridCollectionViewSource.SortDescriptions>
+        </xcdg:DataGridCollectionViewSource>
+    </Page.Resources>
+    <my:DetailsPagePresenter TitleBrush="Blue" TitleForNew="订单详情">
+        <my:DetailsPagePresenter.LatestVersionButtonsPanel>
+            <Button IsCancel="true" >取消</Button>
+        </my:DetailsPagePresenter.LatestVersionButtonsPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+		    <StackPanel>
+			    <StackPanel Orientation="Horizontal" Margin="0,2">
+				    <Label VerticalAlignment="Center" Target="{Binding ElementName=textShipmentId}" MinWidth="180">条形码或参考号起始字母(_B):</Label>
+				    <TextBox Margin="10,0,0,0" Name="textShipmentId" VerticalAlignment="Center" HorizontalAlignment="Left" Width="150" 
+						     Style="{StaticResource vInput}" 
+						     Text="{Binding Path=ShipmentId, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true}" />
+
+                    <Button Style="{StaticResource SearchButtonStyle}" Name="buttonSearch" Click="buttonNext_Click" Margin="2" />
+                </StackPanel>
+            </StackPanel>
+		    <Grid Name="PackagesView" Grid.Row="1" Margin="5,10">
+                <xcdg:DataGridControl Margin="0,0,0,0" UpdateSourceTrigger="CellEndingEdit"  NavigationBehavior="CellOnly" ReadOnly="False"  HorizontalAlignment="Stretch" ItemsSource="{Binding Source={StaticResource Papers}}" Name="listResult">
+                    <xcdg:DataGridControl.ContextMenu>
+                        <my:DetailsContextMenu/>
+                    </xcdg:DataGridControl.ContextMenu>
+                    <xcdg:DataGridControl.ItemContainerStyle>
+                        <Style TargetType="{x:Type xcdg:DataRow}" BasedOn="{StaticResource DataRowStyle}">
+                            <EventSetter Event="MouseDoubleClick" Handler="HandleItemActivate"/>
+                            <EventSetter Event="PreviewKeyDown" Handler="HandleItemActivate"/>
+                        </Style>
+                    </xcdg:DataGridControl.ItemContainerStyle>
+                    <xcdg:DataGridControl.Columns>
+					    <xcdg:Column Title="" Width="30" FieldName="IsMarked" CellContentTemplate="{StaticResource IsMarkTemplate}" />
+					    <xcdg:Column Title="订单ID" Width="200" FieldName="Product.ProductName" />
+                        <xcdg:Column Title="客户姓名" Width="120" FieldName="ContactB.FullName" ReadOnly="False"/>
+                        <xcdg:Column Title="订单状态" Width="80" FieldName="PaperSubStatus"/>
+                        <xcdg:Column Title="订单开始时间" Width="120" FieldName="StartTime" />
+                        <xcdg:Column Title="订单完成时间" Width="120" FieldName="FinishTime" />
+				    </xcdg:DataGridControl.Columns>
+			    </xcdg:DataGridControl>
+		    </Grid>
+        </Grid>
+    </my:DetailsPagePresenter>
+</pages:DetailsBase>

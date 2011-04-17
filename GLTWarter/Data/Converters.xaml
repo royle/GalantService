@@ -36,6 +36,7 @@
     <data:IntGreaterVisibilityConverter x:Key="IntGreaterVisibilityConverter"/>
     <data:IntLesserVisibilityConverter x:Key="IntLesserVisibilityConverter"/>
     <data:EventDateLongConverter x:Key="EventDateLongConverter"/>
+    <data:EventDateConverter x:Key="EventDateConverter"/>
     <data:EntityNameConverter x:Key="EntityNameConverter"/>
     <data:IsSameBaseDataBooleanConverter x:Key="IsSameBaseDataBooleanConverter"/>
     <data:IsSameBaseDataNotBooleanConverter x:Key="IsSameBaseDataNotBooleanConverter"/>

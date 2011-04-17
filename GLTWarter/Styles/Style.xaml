@@ -734,11 +734,11 @@
                             </Button>
                             <Button Style="{DynamicResource NavigationWindowRefreshButtonStyle}" Grid.Column="2"  HorizontalAlignment="Left" VerticalAlignment="Center" 
                                     Width="24" Height="24" Margin="4,0,0,0" />
-                            <my:HintedTextBox Grid.Column="4" VerticalAlignment="Center" Hint="快速订单查询 (F3)" x:Name="textQuickShipmentQuery" Width="200" 
+                            <my:HintedTextBox Grid.Column="4" VerticalAlignment="Center" Hint="快速订单查询 (F3)" x:Name="textQuickShipmentQuery" Width="200" KeyDown="textQuickShipmentQuery_KeyDown" 
                                               IsTabStop="False"/>
                             <Button Grid.Column="5" VerticalAlignment="Center" Style="{StaticResource StandardButton}" Content="快速订单查询" IsTabStop="False"
                                     Margin="8,0"
-                                    />
+                                   Click="textQuickShipmentQuery_Click"/>
                             <ContentPresenter Grid.Row="1" Grid.ColumnSpan="6"
                                               x:Name="PART_FrameCP" Focusable="False" />
                         </Grid>
