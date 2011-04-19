@@ -24,10 +24,11 @@ namespace GLTWarter.Pages.Order
     /// </summary>
     public partial class OpForcedReturn : DetailsBase
     {
-        public OpForcedReturn(Galant.DataEntity.Paper data)
+        public OpForcedReturn(Galant.DataEntity.PaperOperation.PaperForcedReturnRequest data)
             : base(data)
         {
             InitializeComponent();
+            data.Operation = "Save";
         }
 
         protected override bool DataRefreshSuppressed

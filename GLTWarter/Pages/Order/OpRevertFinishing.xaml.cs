@@ -24,10 +24,11 @@ namespace GLTWarter.Pages.Order
     /// </summary>
     public partial class OpRevertFinishing : DetailsBase
     {
-        public OpRevertFinishing(Galant.DataEntity.Paper data)
+        public OpRevertFinishing(Galant.DataEntity.PaperOperation.PaperRevertFinishingRequest data)
             : base(data)
         {
             InitializeComponent();
+            data.Operation = "Save";
         }
         
         protected override bool DataRefreshSuppressed

@@ -110,8 +110,8 @@ namespace Galant.DataEntity
         [DataMember]
         public PaperStatus? PaperStatus
         {
-            get { return paperStatus; }
-            set { paperStatus = value; OnPropertyChanged("PaperStatus"); }
+            get { return paperSubStatus == null ? (PaperStatus?)null : (PaperStatus?)(((int)paperSubStatus) >> 4); }
+            set { /* Ignored */ }
         }
 
         private PaperSubState? paperSubStatus;

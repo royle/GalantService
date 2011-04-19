@@ -46,5 +46,20 @@ namespace GLTWarter.Pages.Order
         {
             this.DoRefresh();
         }
+
+        private void LinkForcedReturn_Click(object sender, RoutedEventArgs e)
+        {
+            DetailsBase page = new OpForcedReturn(opboxForcedReturn.DataContext as Galant.DataEntity.PaperOperation.PaperForcedReturnRequest);
+            page.Return += new ReturnEventHandler<Galant.DataEntity.BaseData>(pageOp_Return);
+            this.NavigationService.Navigate(page);
+        }
+
+        private void LinkRevertFinishing_Click(object sender, RoutedEventArgs e)
+        {
+            DetailsBase page = new OpRevertFinishing(opboxRevertFinishing.DataContext as Galant.DataEntity.PaperOperation.PaperRevertFinishingRequest);
+            page.Return += new ReturnEventHandler<Galant.DataEntity.BaseData>(pageOp_Return);
+            this.NavigationService.Navigate(page);
+        }
+
     }
 }

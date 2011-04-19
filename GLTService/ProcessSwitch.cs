@@ -147,6 +147,11 @@ namespace GLTService
                 GLTService.Operation.StationAssign op = new StationAssign(dataOper);
                 op.UpdatePaper((Galant.DataEntity.StationAssign.Result)detailObj);
             }
+            else if (detailObj is Galant.DataEntity.PaperOperation.PaperForcedReturnRequest)
+            {
+                GLTService.Operation.BaseEntity.Paper op = new Paper(dataOper);
+                op.ProcessForceretrun(detailObj as Galant.DataEntity.PaperOperation.PaperForcedReturnRequest);
+            }
             return detailObj;
         }
     }

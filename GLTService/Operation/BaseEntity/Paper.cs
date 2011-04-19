@@ -153,6 +153,55 @@ namespace GLTService.Operation.BaseEntity
             return paper;
         }
 
+        public Galant.DataEntity.Paper SearchPaperByPaperID(string paperId)
+        {
+            string SqlSearch = @"select p.* from papers as p where p.paper_id = @paper_id";
+            List<MySqlParameter> paras = new List<MySqlParameter>();
+            paras.Add(new MySqlParameter("@paper_id", paperId));
+            DataTable dt = SqlHelper.ExecuteDataset(this.Operator.myConnection, CommandType.Text, SqlSearch, paras.ToArray()).Tables[0];
+            EventLog eventOp = new EventLog(this.Operator);
+            Galant.DataEntity.Paper paper = null;
+            foreach (DataRow dr in dt.Rows)
+            {
+                paper = MappingRow(dr, this.Operator);
+                break;
+            }
+            return paper;
+        }
+
+        public Galant.DataEntity.PaperOperation.PaperForcedReturnRequest ProcessForceretrun(Galant.DataEntity.PaperOperation.PaperForcedReturnRequest request)
+        {
+            Galant.DataEntity.Paper p = this.SearchPaperByPaperID(request.PaperId);
+            if (p.PaperStatus == Galant.DataEntity.PaperStatus.Finish)
+            {
+                throw new Galant.DataEntity.WCFFaultException(1110, "Data Out of date", "数据刚被他人修改过,请刷新后再试");
+            }
+            this.FinishPaper(p, Galant.DataEntity.PaperSubState.FinishWithCancel);
+            Package package = new Package(this.Operator);
+            
+            Galant.DataEntity.EventLog e = new Galant.DataEntity.EventLog()
+            {
+                AtStation = this.Operator.EntityOperator.CurerentStationID,
+                EventType = "RVF",
+                InsertTime = System.DateTime.Now,
+                RelationEntity = this.Operator.EntityOperator.CurerentStationID,
+                PaperId = request.PaperId,
+                EntityID = this.Operator.EntityOperator.EntityId,
+                EventData="取消配送原因："+request.Note 
+            };
+            this.AddEvent(e);
+            GLTService.Operation.BaseEntity.Store storeOpe = new BaseEntity.Store(this.Operator);
+            if (p.DeliverB != null)
+            {
+                foreach (Galant.DataEntity.Package pack in package.GetPackagesByPaper(this.Operator, p.PaperId))
+                {
+                    Galant.DataEntity.Store store = new Galant.DataEntity.Store() { EntityID = p.DeliverB.EntityId, ProductID = pack.Product.ProductId, ProductCount = (pack.Count * -1), Bound = 1 };
+                    storeOpe.AddNewData(store);//抵消配送员之前的实体库存
+                }
+            }
+            return request;
+        }
+
 
         private List<Galant.DataEntity.Paper> GetPaperChilders(DataOperator dataOper, Galant.DataEntity.Paper paper)
         {
@@ -168,7 +217,6 @@ namespace GLTService.Operation.BaseEntity
                 papers.Add(MappingRow(dr, dataOper));
             }
             return papers;
-
         }
 
         public override Galant.DataEntity.BaseData MappingRow(DataRow row)
@@ -271,13 +319,15 @@ ABLE_FLAG";
         /// 完成订单
         /// </summary>
         /// <param name="p"></param>
-        /// <param name="status"></param>
-        public void FinishPaper(Galant.DataEntity.Paper p, Galant.DataEntity.PaperSubState? status)
+        /// <param name="subStatus"></param>
+        public void FinishPaper(Galant.DataEntity.Paper p, Galant.DataEntity.PaperSubState? subStatus)
         {
-            status = status == null ? Galant.DataEntity.PaperSubState.FinishGood : status;
-            string sqlUpdate = "UPDATE papers SET substate = @substate,finish_time = @finish_time WHERE paper_id = @paper_id";
+            subStatus = subStatus == null ? Galant.DataEntity.PaperSubState.FinishGood : subStatus;
+            Galant.DataEntity.PackageState status=(Galant.DataEntity.PackageState)(((int)subStatus) >> 4);
+            string sqlUpdate = "UPDATE papers SET status = @status, substate = @substate, finish_time = @finish_time WHERE paper_id = @paper_id";
             List<MySqlParameter> mps = new List<MySqlParameter>();
-            mps.Add(new MySqlParameter("@substate", (int)status));
+            mps.Add(new MySqlParameter("@status", (int)status));
+            mps.Add(new MySqlParameter("@substate", (int)subStatus));
             mps.Add(new MySqlParameter("@paper_id", p.PaperId));
             mps.Add(new MySqlParameter("@finish_time", DateTime.Now));
             MySqlHelper.ExecuteNonQuery(this.Operator.myConnection, sqlUpdate, mps.ToArray());

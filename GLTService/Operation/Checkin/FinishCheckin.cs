@@ -54,7 +54,6 @@ namespace GLTService.Operation.Checkin
             {
                 Galant.DataEntity.Store store = new Galant.DataEntity.Store() { EntityID=p.DeliverB.EntityId,ProductID=pack.Product.ProductId,ProductCount = (pack.Count *-1),Bound =1};
                 storeOpe.AddNewData(store);//抵消配送员之前的实体库存
-                
             }
             Galant.DataEntity.EventLog peventLog = new Galant.DataEntity.EventLog()
             {

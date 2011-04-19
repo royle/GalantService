@@ -14,7 +14,7 @@ namespace Galant.DataEntity.PaperOperation
     {
         public PaperForcedReturnRequest(Paper p)
         {
-            this.paper = p;
+            this.Paper = p;
         }
 
         Paper paper;
@@ -25,18 +25,19 @@ namespace Galant.DataEntity.PaperOperation
             set
             {
                 paper = value;
+                paperId = paper.PaperId;
                 OnPropertyChanged("Paper");
                 OnPropertyChanged("IsVisible");
                 OnPropertyChanged("IsEnabled");
                 OnPropertyChanged("Note");
             }
         }
-
+        string paperId;
         [DataMember]
         public string PaperId
         {
-            get { return Paper == null ? null : Paper.PaperId; }
-            set { if (string.IsNullOrEmpty(value)) Paper = null; }
+            get { return paperId; }
+            set { paperId = value; }
         }
 
         string note;
@@ -59,7 +60,7 @@ namespace Galant.DataEntity.PaperOperation
         {
             get
             {
-                return this.Paper.PaperSubStatus == Galant.DataEntity.PaperSubState.FinishGood;
+                return this.Paper.PaperSubStatus != Galant.DataEntity.PaperSubState.FinishGood;
             }
         }
 
