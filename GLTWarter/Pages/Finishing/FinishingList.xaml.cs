@@ -103,7 +103,7 @@ namespace GLTWarter.Pages.Finishing
                 return;
             }
             Galant.DataEntity.Result.FinishCheckin checkin = new Galant.DataEntity.Result.FinishCheckin();
-            checkin.CheckinCollections = this.SelectedResults as List<Galant.DataEntity.Paper>;
+            checkin.CheckinCollections = this.SelectedResults.OfType<Galant.DataEntity.Paper>().ToList();
             checkin.Operation = "CheckinFinish";
             DetailsBase pageNext = new GLTWarter.Pages.Finishing.PackageFinish(checkin);
             pageNext.Return+=new ReturnEventHandler<Galant.DataEntity.BaseData>(pageNext_Return);
