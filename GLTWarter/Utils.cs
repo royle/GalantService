@@ -11,6 +11,7 @@ using System.Linq;
 //using Xceed.Wpf.DataGrid;
 using System.Windows.Input;
 using Xceed.Wpf.DataGrid;
+using System.Text;
 
 namespace GLTWarter
 {
@@ -125,6 +126,19 @@ namespace GLTWarter
                     IEnumerable<childItem> childOfChild = FindVisualChildren<childItem>(child);
                 }
             }
+        }
+
+        public static string FromUnicodeByteArray(byte[] characters)
+        {
+            UnicodeEncoding u = new UnicodeEncoding();
+            string ustring = u.GetString(characters);
+            return ustring;
+        }
+        public static string FromASCIIByteArray(byte[] characters)
+        {
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            string constructedString = encoding.GetString(characters);
+            return (constructedString);
         }
 #if false
         // Not Being Used

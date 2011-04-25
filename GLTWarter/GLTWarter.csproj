@@ -300,6 +300,8 @@
     </Compile>
     <Compile Include="AppCurrent.cs" />
     <Compile Include="BaseOperatorName.cs" />
+    <Compile Include="brichiperr.cs" />
+    <Compile Include="BriSDKLib.cs" />
     <Compile Include="ComplexData\RouteCache.cs" />
     <Compile Include="Controls\CheckinExceptionReasonSelector.xaml.cs">
       <DependentUpon>CheckinExceptionReasonSelector.xaml</DependentUpon>
@@ -539,6 +541,21 @@
     <Resource Include="App.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\GLTService\ServiceAPI4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\GLTService\ServiceAPI41.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\GLTService\ServiceAPI42.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\GLTService\ServiceAPI43.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\GLTService\ServiceAPI44.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="splash.jpg" />
   </ItemGroup>
   <ItemGroup>

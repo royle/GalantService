@@ -20,11 +20,14 @@ using GLTWarter.Controls;
 using GLTWarter.ExternalData;
 using System.Threading;
 using GLTWarter.Printings;
+using System.Windows.Interop;
+using System.Runtime.InteropServices;
 
 namespace GLTWarter
 {
     public partial class MainScreen : Window
     {
+        
         const string WelcomePageUri = "pack://application:,,,/GLTWarter;component/Pages/Welcome.xaml";
 
         private TabPages tabPages = new TabPages();
@@ -48,6 +51,7 @@ namespace GLTWarter
         public static RoutedUICommand PreviousTab = new RoutedUICommand("Previous Tab", "Previous", typeof(MainScreen));
         public static RoutedUICommand NextTab = new RoutedUICommand("Next Tab", "Next", typeof(MainScreen));
 
+       
         public MainScreen()
         {
             InitializeComponent();
@@ -57,6 +61,78 @@ namespace GLTWarter
 
             this.AddHandler(BrowserTabItem.CloseTabEvent, new RoutedEventHandler(this.CloseTab_Event));
         }
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr DefWindowProc(IntPtr hwnd, int message, IntPtr wParam, IntPtr lParam);
+
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            switch (msg)
+            {
+                case BriSDKLib.BRI_EVENT_MESSAGE:
+                    {
+                        BriSDKLib.TBriEvent_Data EventData = (BriSDKLib.TBriEvent_Data)Marshal.PtrToStructure(lParam, typeof(BriSDKLib.TBriEvent_Data));
+                        string strValue = "";
+                        switch (EventData.lEventType)
+                        {
+                            case BriSDKLib.BriEvent_PhoneHook:
+                                {
+                                    strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：电话机摘机";
+                                } break;
+                            case BriSDKLib.BriEvent_PhoneHang:
+                                {
+                                    strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：电话机挂机";
+                                } break;
+                            case BriSDKLib.BriEvent_CallIn:
+                                {////两声响铃结束后开始呼叫转移到CC
+                                    strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：来电响铃";
+                                } break;
+                            case BriSDKLib.BriEvent_GetCallID:
+                                {
+                                    strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：接收到来电号码 " + Utils.FromASCIIByteArray(EventData.szData);
+
+                                } break;
+                            case BriSDKLib.BriEvent_StopCallIn:
+                                {
+                                    strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：停止呼入，产生一个未接电话 ";
+                                } break;
+                            case BriSDKLib.BriEvent_GetDTMFChar: strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：接收到按键 " + Utils.FromASCIIByteArray(EventData.szData); break;
+                            case BriSDKLib.BriEvent_RemoteHang:
+                                {
+                                    strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：远程挂机 ";
+                                } break;
+                            case BriSDKLib.BriEvent_Busy:
+                                {
+
+                                    strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：接收到忙音,线路已经断开 ";
+                                } break;
+                            case BriSDKLib.BriEvent_DialTone: strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：检测到拨号音 "; break;
+                            case BriSDKLib.BriEvent_PhoneDial: strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：电话机拨号 " + Utils.FromASCIIByteArray(EventData.szData); break;
+                            case BriSDKLib.BriEvent_RingBack: strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：拨号后接收到回铃音 "; break;
+                            case BriSDKLib.BriEvent_DevErr:
+                                {
+                                    if (EventData.lResult == 3)
+                                    {
+                                        strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：设备可能被移除 ";
+                                    }
+                                } break;
+                            default: break;
+                        }
+                        if (strValue.Length > 0)
+                        {
+                            MessageBox.Show(strValue);
+                        }
+                    } break;
+                default:
+
+                    break;
+
+            }
+            return DefWindowProc(hwnd, msg, wParam, lParam);
+
+        }
+
+
 
         #region Excel
         public static readonly DependencyProperty ExportJobsCountProperty = DependencyProperty.Register(
@@ -322,6 +398,19 @@ namespace GLTWarter
             }
         }
         #endregion
+
+        HwndSource hwndSource;
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            hwndSource = (HwndSource)HwndSource.FromVisual(this);
+            hwndSource.AddHook(new HwndSourceHook(WndProc)); 
+
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            hwndSource.RemoveHook(new HwndSourceHook(WndProc));
+        }
     }
 
     public class MainWindowTabDataTemplateSelector : DataTemplateSelector
