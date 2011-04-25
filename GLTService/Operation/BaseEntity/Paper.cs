@@ -169,6 +169,26 @@ namespace GLTService.Operation.BaseEntity
             return paper;
         }
 
+        public Galant.DataEntity.PaperOperation.PaperRevertFinishingRequest ProcessRevertFinishing(Galant.DataEntity.PaperOperation.PaperRevertFinishingRequest request)
+        {
+            Galant.DataEntity.Paper p = this.SearchPaperByPaperID(request.PaperId);
+            if (p.PaperStatus != Galant.DataEntity.PaperStatus.Finish)
+            {
+                throw new Galant.DataEntity.WCFFaultException(1110, "Data Out of date", "数据刚被他人修改过,请刷新后再试");
+            }
+            Galant.DataEntity.EventLog e = new Galant.DataEntity.EventLog()
+            {
+                AtStation = this.Operator.EntityOperator.CurerentStationID,
+                EventType = "RVF",
+                InsertTime = System.DateTime.Now,
+                RelationEntity = this.Operator.EntityOperator.CurerentStationID,
+                PaperId = request.PaperId,
+                EntityID = this.Operator.EntityOperator.EntityId,
+                EventData = "回复归班前状态原因：" + request.Note
+            };
+            return null;
+        }
+
         public Galant.DataEntity.PaperOperation.PaperForcedReturnRequest ProcessForceretrun(Galant.DataEntity.PaperOperation.PaperForcedReturnRequest request)
         {
             Galant.DataEntity.Paper p = this.SearchPaperByPaperID(request.PaperId);
@@ -182,7 +202,7 @@ namespace GLTService.Operation.BaseEntity
             Galant.DataEntity.EventLog e = new Galant.DataEntity.EventLog()
             {
                 AtStation = this.Operator.EntityOperator.CurerentStationID,
-                EventType = "RVF",
+                EventType = "FR",
                 InsertTime = System.DateTime.Now,
                 RelationEntity = this.Operator.EntityOperator.CurerentStationID,
                 PaperId = request.PaperId,

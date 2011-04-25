@@ -95,6 +95,8 @@ namespace Galant.DataEntity
     }
 
     [DataContract]
+
+    [KnownType(typeof(Galant.DataEntity.StationAssign.StationAssignData))]
     public class Paper:BaseData
     {
         public Paper():base()

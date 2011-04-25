@@ -57,6 +57,10 @@
                                         <TextBlock Name="textAlias" Width="150" MinHeight="20"
                                             Text="{Binding Path=PaperId}" IsEnabled="False" />
                                     </my:PropertyRow>
+                                    <my:PropertyRow HeaderText="订单状态:">
+                                        <TextBlock  Width="150" MinHeight="20"
+                                            Text="{Binding PaperSubStatus, Converter={StaticResource ValueTypeBindingConverter}, ConverterParameter={StaticResource PaperSubStatus}}" />
+                                    </my:PropertyRow>
                                     <StackPanel Visibility="{Binding IsDeliveryPaper, Converter={StaticResource BooleanVisibilityConverter}, FallbackValue=Collapsed}">
                                         <my:PropertyRow HeaderText="收货人联系电话:" >
                                             <TextBlock Width="150" MinHeight="20"
