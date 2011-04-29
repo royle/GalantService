@@ -62,15 +62,18 @@ namespace GLTWarter
             this.AddHandler(BrowserTabItem.CloseTabEvent, new RoutedEventHandler(this.CloseTab_Event));
         }
 
+        #region Callin
         [DllImport("user32.dll")]
         public static extern IntPtr DefWindowProc(IntPtr hwnd, int message, IntPtr wParam, IntPtr lParam);
 
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
+            IntPtr intptrResult = IntPtr.Zero; 
             switch (msg)
             {
                 case BriSDKLib.BRI_EVENT_MESSAGE:
                     {
+                        intptrResult = new IntPtr(1); 
                         BriSDKLib.TBriEvent_Data EventData = (BriSDKLib.TBriEvent_Data)Marshal.PtrToStructure(lParam, typeof(BriSDKLib.TBriEvent_Data));
                         string strValue = "";
                         switch (EventData.lEventType)
@@ -89,8 +92,8 @@ namespace GLTWarter
                                 } break;
                             case BriSDKLib.BriEvent_GetCallID:
                                 {
-                                    strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：接收到来电号码 " + Utils.FromASCIIByteArray(EventData.szData);
-
+                                    //strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：接收到来电号码 " + Utils.FromASCIIByteArray(EventData.szData);
+                                    this.LinkBookinUI(Utils.FromASCIIByteArray(EventData.szData));
                                 } break;
                             case BriSDKLib.BriEvent_StopCallIn:
                                 {
@@ -128,11 +131,27 @@ namespace GLTWarter
                     break;
 
             }
-            return DefWindowProc(hwnd, msg, wParam, lParam);
-
+            return intptrResult; 
         }
 
-
+        private void LinkBookinUI(string phoneNo)
+        {
+            this.NewTab_Executed(null, null);
+            
+            Galant.DataEntity.Paper paper = new Galant.DataEntity.Paper() { PaperType = Galant.DataEntity.PaperType.Product, IsCollection = false, Bound = Galant.DataEntity.PaperBound.ToB };
+            paper.ContactB = new Galant.DataEntity.Entity();
+            paper.ContactB.CellPhoneOne = phoneNo;
+            if (AppCurrent.Active.AppCach.Customers != null)
+            {
+                Galant.DataEntity.Entity contactB = AppCurrent.Active.AppCach.Customers.Where(c => c.Phones.Contains(phoneNo)).FirstOrDefault();
+                paper.ContactB = contactB == null ? paper.ContactB : contactB;
+            }
+            
+            paper.Packages = new System.Collections.ObjectModel.ObservableCollection<Galant.DataEntity.Package>();
+            paper.Operation = BaseOperatorName.DataSave;
+            AppCurrent.Active.MainScreen.NavigateActive(new GLTWarter.Pages.Order.CustomerServiceBookingOrder(paper));
+        }
+        #endregion
 
         #region Excel
         public static readonly DependencyProperty ExportJobsCountProperty = DependencyProperty.Register(
