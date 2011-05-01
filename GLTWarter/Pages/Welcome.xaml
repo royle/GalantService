@@ -85,6 +85,9 @@
                             <Hyperlink Name="WarterFinishing" Click="WarterFinishing_Click">归班结算</Hyperlink>
                         </TextBlock>
                         <TextBlock Visibility="{Binding StationShipmentQueryVisibility}"> 
+                            <Hyperlink Name="CheckinBottle" Click="CheckinBottle_Click">配送员空桶归班</Hyperlink>
+                        </TextBlock>
+                        <TextBlock Visibility="{Binding StationShipmentQueryVisibility}"> 
                             <Hyperlink >货源补给</Hyperlink>
                         </TextBlock>
                     </StackPanel>

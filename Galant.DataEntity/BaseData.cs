@@ -19,6 +19,7 @@ namespace Galant.DataEntity
     [KnownType(typeof(Galant.DataEntity.Role))]
     [KnownType(typeof(Galant.DataEntity.Route))]
     [KnownType(typeof(Galant.DataEntity.Store))]
+    [KnownType(typeof(Galant.DataEntity.CheckinBottle))]
     [KnownType(typeof(Galant.DataEntity.Search.FinishListCondition))]
     [KnownType(typeof(Galant.DataEntity.Search.SearchEntityCondition))]
     [KnownType(typeof(Galant.DataEntity.Result.SearchEntityResult))]

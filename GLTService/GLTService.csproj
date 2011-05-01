@@ -96,6 +96,7 @@
     <Compile Include="Operation\BaseEntity\Role.cs" />
     <Compile Include="Operation\BaseEntity\Route.cs" />
     <Compile Include="Operation\BaseEntity\Store.cs" />
+    <Compile Include="Operation\Checkin\CheckinBottle.cs" />
     <Compile Include="Operation\Checkin\FinishCheckin.cs" />
     <Compile Include="Operation\Login.cs" />
     <Compile Include="Operation\Search.cs" />

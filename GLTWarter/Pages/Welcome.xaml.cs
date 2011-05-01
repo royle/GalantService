@@ -187,5 +187,13 @@ namespace GLTWarter.Pages
             data.Entities = AppCurrent.Active.AppCach.Staffs;
             this.NavigationService.Navigate(new GLTWarter.Pages.StationAssign.StationAssign(data));
         }
+
+        private void CheckinBottle_Click(object sender, RoutedEventArgs e)
+        {
+            Galant.DataEntity.CheckinBottle data = new Galant.DataEntity.CheckinBottle();
+            data.Holder = null;
+            data.Operation = "save";
+            this.NavigationService.Navigate(new GLTWarter.Pages.Finishing.CheckinBottle(data));
+        }
     }
 }

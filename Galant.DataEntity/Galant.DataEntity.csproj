@@ -64,6 +64,7 @@
     <Compile Include="Assign\Result.cs" />
     <Compile Include="Assign\Search.cs" />
     <Compile Include="BaseData.cs" />
+    <Compile Include="CheckinBottle.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EventLog.cs" />
     <Compile Include="IIdentifiable.cs" />

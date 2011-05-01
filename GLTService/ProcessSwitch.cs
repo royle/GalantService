@@ -152,6 +152,11 @@ namespace GLTService
                 GLTService.Operation.BaseEntity.Paper op = new Paper(dataOper);
                 op.ProcessForceretrun(detailObj as Galant.DataEntity.PaperOperation.PaperForcedReturnRequest);
             }
+            else if (detailObj is Galant.DataEntity.CheckinBottle)
+            {
+                GLTService.Operation.Checkin.CheckinBottle op = new Operation.Checkin.CheckinBottle(dataOper);
+                op.Checkin(detailObj as Galant.DataEntity.CheckinBottle);
+            }
             return detailObj;
         }
     }
