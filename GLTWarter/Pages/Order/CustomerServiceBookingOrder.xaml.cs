@@ -84,7 +84,7 @@ namespace GLTWarter.Pages.Order
 
         }
 
-        private void btnAddProduct_Click(object sender, RoutedEventArgs e)
+        private void AddProduct()
         {
             if (this.productSelector.SelectedProduct == null || string.IsNullOrEmpty(this.txtCount.Text))
             {
@@ -96,6 +96,11 @@ namespace GLTWarter.Pages.Order
                 this.packet.Amount = this.packet.Product.Amount * this.packet.Count;
                 (this.DataContext as Galant.DataEntity.Paper).Packages.Add(this.packet.Clone() as Galant.DataEntity.Package);
             }
+        }
+
+        private void btnAddProduct_Click(object sender, RoutedEventArgs e)
+        {
+            AddProduct();
         }
 
         private void delete_Click(object sender, RoutedEventArgs e)

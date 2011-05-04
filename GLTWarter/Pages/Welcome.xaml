@@ -116,7 +116,6 @@
                             <Hyperlink Name="ManageProduct" Click="ManageProduct_Click">产品管理</Hyperlink>
                         </TextBlock>
                     </StackPanel>
-                    
                 </Grid>
             </TabItem>
         </TabControl>

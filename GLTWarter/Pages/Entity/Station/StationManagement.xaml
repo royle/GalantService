@@ -8,8 +8,8 @@
     xmlns:src="clr-namespace:GLTWarter"
     xmlns:styles="clr-namespace:GLTWarter.Styles"
     xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
-	Title="StationManagement">
-    <my:DetailsPagePresenter TitleBrush="AliceBlue" TitleForEdit="修改站点" TitleForNew="建立站点">
+	Title="站点管理">
+    <my:DetailsPagePresenter TitleBrush="DarkOrange"  TitleForEdit="修改站点" TitleForNew="建立站点">
         <my:DetailsPagePresenter.LatestVersionButtonsPanel>
             <Button IsDefault="True" Name="btnNext" Click="buttonNext_Click">确定</Button>
             <Button IsCancel="True">取消</Button>
@@ -32,7 +32,7 @@
                         </my:PropertyRow>
                         <my:PropertyRow HeaderText="联系地址(_A):">
                             <TextBox Name="txtAdd" Text="{Binding Path=AddressChild, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}" Style="{StaticResource vInput}" 
-                                     Width="150" Margin="0,5,0,0" MaxWidth="50" />
+                                     Width="150" Margin="0,5,0,0" MaxWidth="150" />
                         </my:PropertyRow>
                         <my:PropertyRow HeaderText="备注(_C):">
                             <TextBox Name="txtComment" Text="{Binding Path=Comment,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"  Style="{StaticResource vInput}" 

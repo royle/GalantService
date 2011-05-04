@@ -41,25 +41,23 @@ namespace GLTWarter.Pages.Entity.Station
             }
         }
 
+        protected override bool ExceptionCallback(Exception ex, string message)
+        {
+            return base.ExceptionCallback(ex, message);
+        }
+
+        protected override void OnNext(Galant.DataEntity.BaseData incomingData)
+        {
+            MessageBox.Show(App.Current.MainWindow, Resource.msgStationCreated, this.Title, MessageBoxButton.OK, MessageBoxImage.Information);
+            this.NavigationService.Navigate(new Welcome());
+            base.OnNext(incomingData);
+        }
+
         protected override Galant.DataEntity.BaseData CreateNewEntity()
         {
             Galant.DataEntity.BaseData data = new Galant.DataEntity.Entity() { EntityType = Galant.DataEntity.EntityType.Station , Password=BaseOperatorName.NullPassword};
             data.Operation = BaseOperatorName.DataSave;
             return data;
-        }
-
-        protected override bool OnSavedNewItem()
-        {
-            MessageBox.Show(App.Current.MainWindow, Resource.msgStationCreated, this.Title, MessageBoxButton.OK, MessageBoxImage.Information);
-
-            this.dataCurrent = new Galant.DataEntity.Entity();
-            this.DataContext = this.dataCurrent;
-            Galant.DataEntity.Entity data = (Galant.DataEntity.Entity)this.dataCurrent;
-
-            data.EntityType = ((Galant.DataEntity.Entity)this.dataBackup).EntityType;
-            this.dataBackup = (Galant.DataEntity.BaseData)data.Clone();
-
-            return false;
         }
     }
 }
