@@ -379,4 +379,15 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+ALTER TABLE entities
+ADD CONSTRAINT alias_key UNIQUE(alias);
+  
+ALTER TABLE entities
+ADD CONSTRAINT alias_check CHECK (char_length(alias) > 0);
+
+INSERT INTO `entities` (`alias`, `full_name`, `type`, `comment`, `deposit`, `able_flag`) VALUES ('hq', '总部', 0, '总部', '0', 1);
+
+INSERT INTO `entities` (`alias`, `password`, `full_name`, `type`, `comment`, `deposit`, `pay_type`, `able_flag`) VALUES ('admin', 'admin!@#$', '管理员', 2, '管理员', '0', 0, 1);
+
+commit;
 -- Dump completed on 2011-01-18  1:18:02
