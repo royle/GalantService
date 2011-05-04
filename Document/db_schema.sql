@@ -385,6 +385,13 @@ ADD CONSTRAINT alias_key UNIQUE(alias);
 ALTER TABLE entities
 ADD CONSTRAINT alias_check CHECK (char_length(alias) > 0);
 
+ALTER TABLE `papers` 
+ADD INDEX `Index_substate` USING BTREE (`substate` ASC) ;
+
+ALTER TABLE `stores` 
+ADD INDEX `store_entity_id_relate` (`entity_id` ASC) ;
+
+
 INSERT INTO `entities` (`alias`, `full_name`, `type`, `comment`, `deposit`, `able_flag`) VALUES ('hq', '总部', 0, '总部', '0', 1);
 
 INSERT INTO `entities` (`alias`, `password`, `full_name`, `type`, `comment`, `deposit`, `pay_type`, `able_flag`) VALUES ('admin', 'admin!@#$', '管理员', 2, '管理员', '0', 0, 1);
