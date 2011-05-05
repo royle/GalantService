@@ -124,6 +124,16 @@ VALUES (
                     r.EntityId = entity.EntityId;
                     SqlHelper.ExecuteNonQuery(data.mytransaction, CommandType.Text, this.SqlAddNewSql, this.BuildInsertParameteres(r));
                 }
+                Galant.DataEntity.EventLog e = new Galant.DataEntity.EventLog()
+                {
+                    AtStation = this.Operator.EntityOperator.CurerentStationID,
+                    EventType = "E-roles",
+                    InsertTime = System.DateTime.Now,
+                    RelationEntity = this.Operator.EntityOperator.CurerentStationID,
+                    EntityID = this.Operator.EntityOperator.EntityId,
+                    EventData = "修改权限"
+                };
+                this.AddEvent(e);
             }
         }
 

@@ -186,6 +186,7 @@ namespace GLTService.Operation.BaseEntity
                 EntityID = this.Operator.EntityOperator.EntityId,
                 EventData = "回复归班前状态原因：" + request.Note
             };
+            this.AddEvent(e);
             return null;
         }
 

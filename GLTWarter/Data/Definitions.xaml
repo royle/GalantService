@@ -708,6 +708,10 @@
                     <Text>收款方式/币种更改</Text>
                 </Event>
                 <Event>
+                    <Value>E-Update</Value>
+                    <Text>用户更改</Text>
+                </Event>
+                <Event>
                     <Value>E-alias</Value>
                     <Text>账号名更改</Text>
                 </Event>

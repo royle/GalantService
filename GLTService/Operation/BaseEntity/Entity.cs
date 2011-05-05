@@ -335,7 +335,7 @@ namespace GLTService.Operation.BaseEntity
                     else
                     {
                         Galant.DataEntity.Entity station = this.GetEntityByAlias(data, r.Station.Alias, false);
-                        if (station == null || station.EntityType != Galant.DataEntity.EntityType.Station)
+                        if (station == null || (station.EntityType != Galant.DataEntity.EntityType.Station && station.EntityType!= Galant.DataEntity.EntityType.Headquarter))
                             throw new Galant.DataEntity.WCFFaultException(1235, "Station Alias Not Exist", "站点(" + station.Alias + ")不存在，请输入正确的站名");
                         else
                             r.Station = station;
@@ -349,6 +349,16 @@ namespace GLTService.Operation.BaseEntity
                 if (entity.IsAliasAllowed && this.CheckAliasExist(data, entity.Alias))
                     throw new Galant.DataEntity.WCFFaultException(1234, "User Name Exist", "用户名(" + entity.Alias + ")已存在，请输入其它用户名");
                 this.AddNewData(entity);
+                Galant.DataEntity.EventLog e = new Galant.DataEntity.EventLog()
+                {
+                    AtStation = this.Operator.EntityOperator.CurerentStationID,
+                    EventType = "E-Create",
+                    InsertTime = System.DateTime.Now,
+                    RelationEntity = this.Operator.EntityOperator.CurerentStationID,
+                    EntityID = this.Operator.EntityOperator.EntityId,
+                    EventData = "用户建立"
+                };
+                this.AddEvent(e);
                 DataTable dt = SqlHelper.ExecuteDataset(data.mytransaction, CommandType.Text, "SELECT * FROM entities WHERE entity_id = (SELECT LAST_INSERT_ID() AS entity_id)", this.BuildParameteres(entity)).Tables[0];
                 if (dt.Rows.Count > 0)
                 {
@@ -362,10 +372,19 @@ namespace GLTService.Operation.BaseEntity
             else
             {
                 this.UpdateData(entity);
-                //SqlHelper.ExecuteNonQuery(data.mytransaction, CommandType.Text, this.SqlUpdateSql, this.BuildUpdateParameteres(entity));
+                Galant.DataEntity.EventLog e = new Galant.DataEntity.EventLog()
+                {
+                    AtStation = this.Operator.EntityOperator.CurerentStationID,
+                    EventType = "E-Update",
+                    InsertTime = System.DateTime.Now,
+                    RelationEntity = this.Operator.EntityOperator.CurerentStationID,
+                    EntityID = this.Operator.EntityOperator.EntityId,
+                    EventData = "用户更改"
+                };
+                this.AddEvent(e);
             }
 
-            Role role = new Role();
+            Role role = new Role(this.Operator);
             role.AddRolesForEntity(data, entity);
             return entity;
         }
