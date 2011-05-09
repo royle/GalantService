@@ -39,8 +39,8 @@ namespace GLTWarter.Pages
 
         protected override void FocusFirstControl()
         {
-            this.textAlias.Text = "roy";
-            this.passwordPassword.Password = "roy";
+            this.textAlias.Text = "admin";
+            this.passwordPassword.Password = "admin!@#$";
             this.textAlias.Focus();
 
         }

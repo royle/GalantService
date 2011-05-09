@@ -123,7 +123,7 @@ namespace GLTWarter
                         }
                         if (strValue.Length > 0)
                         {
-                            MessageBox.Show(strValue);
+                            //MessageBox.Show(strValue);
                         }
                     } break;
                 default:
@@ -422,7 +422,18 @@ namespace GLTWarter
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             hwndSource = (HwndSource)HwndSource.FromVisual(this);
-            hwndSource.AddHook(new HwndSourceHook(WndProc)); 
+            hwndSource.AddHook(new HwndSourceHook(WndProc));
+
+            if (BriSDKLib.QNV_OpenDevice(BriSDKLib.ODT_LBRIDGE, 0, "") <= 0 || BriSDKLib.QNV_DevInfo(0, BriSDKLib.QNV_DEVINFO_GETCHANNELS) <= 0)
+            {
+               // MessageBox.Show("打开设备失败");
+                return;
+            }
+
+            for (Int16 i = 0; i < BriSDKLib.QNV_DevInfo(-1, BriSDKLib.QNV_DEVINFO_GETCHANNELS); i++)
+            {//在windowproc处理接收到的消息
+                BriSDKLib.QNV_Event(i, BriSDKLib.QNV_EVENT_REGWND, (Int32)hwndSource.Handle, "", new StringBuilder(0), 0);
+            }
 
         }
 

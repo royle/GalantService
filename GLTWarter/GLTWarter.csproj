@@ -597,6 +597,12 @@
     <Resource Include="Resources\bell-yellow.png" />
     <Resource Include="Resources\bullet_yellow.png" />
     <SplashScreen Include="grant.png" />
+    <Content Include="bridge.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="qnviccub.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Ding.wav" />
     <Resource Include="Resources\door_in.png" />
     <Resource Include="Resources\error.png" />
