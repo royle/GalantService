@@ -12,7 +12,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <TabControl Name="tabControlMain" FontSize="16" >
-            <TabItem Header="客服" Name="tabCS" >
+            <TabItem Header="客服" Name="tabCS"  Visibility="{Binding AppCach.IsShowCustomerService, Source={x:Static src:AppCurrent.Active}, Converter={StaticResource BooleanVisibilityConverter}}"  >
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -40,7 +40,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="调度" Name="tabRoute">
+            <TabItem Header="调度" Name="tabRoute" Visibility="{Binding AppCach.IsShowRoute, Source={x:Static src:AppCurrent.Active}, Converter={StaticResource BooleanVisibilityConverter}}">
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -70,7 +70,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="水站">
+            <TabItem Header="水站" Visibility="{Binding AppCach.IsShowStation, Source={x:Static src:AppCurrent.Active}, Converter={StaticResource BooleanVisibilityConverter}}">
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -98,7 +98,7 @@
                     </StackPanel>
                 </Grid>
             </TabItem>
-            <TabItem Header="系统">
+            <TabItem Header="系统" Visibility="{Binding AppCach.IsShowSystemAdmin, Source={x:Static src:AppCurrent.Active}, Converter={StaticResource BooleanVisibilityConverter}}">
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />

@@ -93,7 +93,7 @@
                 <MenuItem Header="总部(_H)" ItemsSource="{Binding Source={x:Static src:AppCurrent.Active}, Path=AppCach.Headquarters}"
                           ItemContainerStyle="{StaticResource EffectiveRoleStyle}" Name="menuEffectiveRoleHq">
                 </MenuItem>
-                <MenuItem Header="站点(_S)" ItemsSource="{Binding Source={x:Static src:AppCurrent.Active}, Path=AppCach.Stations}"
+                <MenuItem Header="站点(_S)" ItemsSource="{Binding Source={x:Static src:AppCurrent.Active}, Path=AppCach.AllowStations}"
                           ItemContainerStyle="{StaticResource EffectiveRoleStyle}" Name="menuEffectiveRoleStation">
                 </MenuItem>
             </MenuItem>
